@@ -94,7 +94,7 @@ namespace Splunk
             this.Host = args.Host == null ? defaultHost : args.Host;
             this.Owner = args.Owner;
             this.Port = args.Port == 0 ? defaultPort : args.Port;
-            this.Scheme = args.Scheme == string.Empty ? defaultScheme : args.Scheme;
+            this.Scheme = args.Scheme == null ? defaultScheme : args.Scheme;
             this.Token = args.Token;
         }
 
@@ -186,12 +186,12 @@ namespace Splunk
         private void InitProperties() {
             this.SimpleReceiverEndPoint = "receivers/simple";
             this.PasswordEndPoint = "admin/passwords";
-            this.App = string.Empty;
-            this.Owner = string.Empty;
-            this.Password = string.Empty;
-            this.Token = string.Empty;
-            this.Username = string.Empty;
-            this.Version = string.Empty;
+            this.App = null;
+            this.Owner = null;
+            this.Password = null;
+            this.Token = null;
+            this.Username = null;
+            this.Version = null;
         }
 
         /// <summary>
@@ -1150,7 +1150,7 @@ namespace Splunk
         /// <param name="request">The request message</param>
         /// <returns>The ResponseMessage</returns>
         public override ResponseMessage Send(string path, RequestMessage request) {
-            if (this.Token != string.Empty) {
+            if (this.Token != null) {
                 request.GetHeader().Add("Authorization", this.Token);
             }
             return base.Send(this.Fullpath(path), request);

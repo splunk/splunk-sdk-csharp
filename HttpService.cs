@@ -112,7 +112,7 @@ namespace Splunk
         private void InitProperties() {
             this.Host = "localhost";
             this.Port = 8089;
-            this.Prefix = string.Empty;
+            this.Prefix = null;
             this.Scheme = "https";
         }
 
