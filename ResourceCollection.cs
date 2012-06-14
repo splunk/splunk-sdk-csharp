@@ -256,7 +256,7 @@ namespace Splunk
         public T CreateItem(Type itemClass, string path, Args splunkNamespace) 
         {
             ConstructorInfo ctor = itemClass.GetConstructor(itemSig);
-            T item = (T)ctor.Invoke(new object[] { Service, Service.Fullpath(path, splunkNamespace) } );
+            T item = (T)ctor.Invoke(new object[] { Service, Service.Fullpath(path, splunkNamespace) });
             return item;
         }
 
