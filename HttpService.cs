@@ -143,7 +143,7 @@ namespace Splunk
         /// Issues an HTTP GET request against the service using a given path.
         /// </summary>
         /// <param name="path">The path</param>
-        /// <returns>the responseMessage</returns>
+        /// <returns>The responseMessage</returns>
         public ResponseMessage Get(string path) 
         {
             return this.Send(path, new RequestMessage("GET"));
@@ -155,7 +155,7 @@ namespace Splunk
         /// </summary>
         /// <param name="path">The path</param>
         /// <param name="args">The arguments</param>
-        /// <returns>the ResponseMessage</returns>
+        /// <returns>The ResponseMessage</returns>
         public ResponseMessage Get(string path, Dictionary<string, object> args) 
         {
             if (Count(args) > 0) 

@@ -494,7 +494,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// sets the local cache update value. Writing to the server is deferred until
+        /// Sets the local cache update value. Writing to the server is deferred until
         /// the Update() method is called.
         /// </summary>
         /// <param name="key">The key</param>

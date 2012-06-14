@@ -73,7 +73,7 @@ namespace Splunk
         /// <summary>
         /// Returns the header dictionary.
         /// </summary>
-        /// <returns>the header</returns>
+        /// <returns>The header</returns>
         public Dictionary<string, string> GetHeader() 
         {
             if (this.header == null) 
@@ -86,7 +86,7 @@ namespace Splunk
         /// <summary>
         /// Returns the HTTP/S method.
         /// </summary>
-        /// <returns>the method</returns>
+        /// <returns>The method</returns>
         public string GetMethod() 
         {
             return this.method;
@@ -109,7 +109,7 @@ namespace Splunk
         /// <summary>
         /// Rerturns the content.
         /// </summary>
-        /// <returns>the content</returns>
+        /// <returns>The content</returns>
         public object GetContent() 
         {
             return this.content;
@@ -118,7 +118,7 @@ namespace Splunk
         /// <summary>
         /// Sets the content.
         /// </summary>
-        /// <param name="value">the content</param>
+        /// <param name="value">The content</param>
         public void SetContent(string value) 
         {
             this.content = value;

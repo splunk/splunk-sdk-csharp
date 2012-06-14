@@ -153,7 +153,7 @@ namespace Splunk
         /// </summary>
         /// <param name="key">The key</param>
         /// <param name="defaultValue">The default value</param>
-        /// <returns>the value</returns>
+        /// <returns>The value</returns>
         public long GetLong(string key, int defaultValue) 
         {
             if (!this.ContainsKey(key)) 

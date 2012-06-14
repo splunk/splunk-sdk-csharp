@@ -58,7 +58,7 @@ namespace Splunk
         /// or a number followed by KB, MB, GB.
         /// </summary>
         /// <param name="value">The string value</param>
-        /// <returns>the long value</returns>
+        /// <returns>The long value</returns>
         public static long ToByteCount(string value) 
         {
             long multiplier = 1;

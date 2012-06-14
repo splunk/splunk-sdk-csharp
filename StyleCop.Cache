@@ -1,27 +1,27 @@
 <stylecopresultscache>
   <version>11</version>
-  <sourcecode name="AssemblyInfo.cs" parser="StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>06/14/2012 10:54:38</timestamp>
-      <milliseconds>371</milliseconds>
-    </settings>
-    <timestamp>06/13/2012 15:24:26</timestamp>
-    <milliseconds>610</milliseconds>
-    <violations />
-  </sourcecode>
   <sourcecode name="Args.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
-      <timestamp>06/14/2012 10:54:38</timestamp>
-      <milliseconds>371</milliseconds>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
     </settings>
     <timestamp>06/14/2012 10:56:03</timestamp>
     <milliseconds>547</milliseconds>
     <violations />
   </sourcecode>
+  <sourcecode name="AtomEntry.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>06/14/2012 12:13:16</timestamp>
+    <milliseconds>209</milliseconds>
+    <violations />
+  </sourcecode>
   <sourcecode name="AtomFeed.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
-      <timestamp>06/14/2012 10:54:38</timestamp>
-      <milliseconds>371</milliseconds>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
     </settings>
     <timestamp>06/14/2012 10:58:44</timestamp>
     <milliseconds>600</milliseconds>
@@ -29,165 +29,20 @@
   </sourcecode>
   <sourcecode name="AtomObject.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
-      <timestamp>06/14/2012 10:54:38</timestamp>
-      <milliseconds>371</milliseconds>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
     </settings>
     <timestamp>06/14/2012 10:59:27</timestamp>
     <milliseconds>11</milliseconds>
     <violations />
   </sourcecode>
-  <sourcecode name="Entity.cs" parser="StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>06/14/2012 10:54:38</timestamp>
-      <milliseconds>371</milliseconds>
-    </settings>
-    <timestamp>06/14/2012 11:57:06</timestamp>
-    <milliseconds>957</milliseconds>
-    <violations />
-  </sourcecode>
-  <sourcecode name="HttpService.cs" parser="StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>06/14/2012 10:54:38</timestamp>
-      <milliseconds>371</milliseconds>
-    </settings>
-    <timestamp>06/14/2012 11:06:37</timestamp>
-    <milliseconds>702</milliseconds>
-    <violations />
-  </sourcecode>
-  <sourcecode name="JobCollection.cs" parser="StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>06/14/2012 10:54:38</timestamp>
-      <milliseconds>371</milliseconds>
-    </settings>
-    <timestamp>06/14/2012 11:57:06</timestamp>
-    <milliseconds>952</milliseconds>
-    <violations />
-  </sourcecode>
-  <sourcecode name="Record.cs" parser="StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>06/14/2012 10:54:38</timestamp>
-      <milliseconds>371</milliseconds>
-    </settings>
-    <timestamp>06/14/2012 11:32:12</timestamp>
-    <milliseconds>335</milliseconds>
-    <violations />
-  </sourcecode>
-  <sourcecode name="RequestMessage.cs" parser="StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>06/14/2012 10:54:38</timestamp>
-      <milliseconds>371</milliseconds>
-    </settings>
-    <timestamp>06/14/2012 11:32:47</timestamp>
-    <milliseconds>271</milliseconds>
-    <violations />
-  </sourcecode>
-  <sourcecode name="ServiceArgs.cs" parser="StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>06/14/2012 10:54:38</timestamp>
-      <milliseconds>371</milliseconds>
-    </settings>
-    <timestamp>06/14/2012 11:54:57</timestamp>
-    <milliseconds>907</milliseconds>
-    <violations />
-  </sourcecode>
-  <sourcecode name="SplunkException.cs" parser="StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>06/14/2012 10:54:38</timestamp>
-      <milliseconds>371</milliseconds>
-    </settings>
-    <timestamp>06/14/2012 11:56:05</timestamp>
-    <milliseconds>621</milliseconds>
-    <violations>
-      <violation namespace="StyleCop.CSharp.MaintainabilityRules" rule="FieldsMustBePrivate" ruleCheckId="SA1401">
-        <context>Fields must be declared with private access. Use properties to expose fields.</context>
-        <line>30</line>
-        <warning>False</warning>
-      </violation>
-      <violation namespace="StyleCop.CSharp.MaintainabilityRules" rule="FieldsMustBePrivate" ruleCheckId="SA1401">
-        <context>Fields must be declared with private access. Use properties to expose fields.</context>
-        <line>35</line>
-        <warning>False</warning>
-      </violation>
-      <violation namespace="StyleCop.CSharp.MaintainabilityRules" rule="FieldsMustBePrivate" ruleCheckId="SA1401">
-        <context>Fields must be declared with private access. Use properties to expose fields.</context>
-        <line>41</line>
-        <warning>False</warning>
-      </violation>
-    </violations>
-  </sourcecode>
-  <sourcecode name="Value.cs" parser="StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>06/14/2012 10:54:38</timestamp>
-      <milliseconds>371</milliseconds>
-    </settings>
-    <timestamp>06/14/2012 11:56:56</timestamp>
-    <milliseconds>733</milliseconds>
-    <violations />
-  </sourcecode>
-  <sourcecode name="Xml.cs" parser="StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>06/14/2012 10:54:38</timestamp>
-      <milliseconds>371</milliseconds>
-    </settings>
-    <timestamp>06/14/2012 11:57:04</timestamp>
-    <milliseconds>562</milliseconds>
-    <violations />
-  </sourcecode>
-  <sourcecode name="AtomEntry.cs" parser="StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>06/14/2012 10:54:38</timestamp>
-      <milliseconds>371</milliseconds>
-    </settings>
-    <timestamp>06/14/2012 12:13:16</timestamp>
-    <milliseconds>209</milliseconds>
-    <violations />
-  </sourcecode>
-  <sourcecode name="ResponseMessge.cs" parser="StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>06/14/2012 10:54:38</timestamp>
-      <milliseconds>371</milliseconds>
-    </settings>
-    <timestamp>06/14/2012 12:13:16</timestamp>
-    <milliseconds>190</milliseconds>
-    <violations />
-  </sourcecode>
-  <sourcecode name="Service.cs" parser="StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>06/14/2012 10:54:38</timestamp>
-      <milliseconds>371</milliseconds>
-    </settings>
-    <timestamp>06/14/2012 12:13:16</timestamp>
-    <milliseconds>190</milliseconds>
-    <violations />
-  </sourcecode>
-  <sourcecode name="Job.cs" parser="StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>06/14/2012 10:54:38</timestamp>
-      <milliseconds>371</milliseconds>
-    </settings>
-    <timestamp>06/14/2012 12:15:49</timestamp>
-    <milliseconds>715</milliseconds>
-    <violations />
-  </sourcecode>
-  <sourcecode name="Resource.cs" parser="StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>06/14/2012 10:54:38</timestamp>
-      <milliseconds>371</milliseconds>
-    </settings>
-    <timestamp>06/14/2012 12:16:44</timestamp>
-    <milliseconds>399</milliseconds>
-    <violations />
-  </sourcecode>
-  <project key="-1956151431">
-    <configuration>DEBUG;TRACE</configuration>
-  </project>
   <sourcecode name="EntityCollection.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
-      <timestamp>06/14/2012 10:54:38</timestamp>
-      <milliseconds>371</milliseconds>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
     </settings>
-    <timestamp>06/14/2012 14:35:35</timestamp>
-    <milliseconds>655</milliseconds>
+    <timestamp>06/14/2012 15:13:13</timestamp>
+    <milliseconds>297</milliseconds>
     <violations>
       <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ConstructorSummaryDocumentationMustBeginWithStandardText" ruleCheckId="SA1642">
         <context>The documentation text within the constructor's summary tag must begin with the text: Initializes a new instance of the &lt;see cref="EntityCollection" /&gt; class.</context>
@@ -211,13 +66,146 @@
       </violation>
     </violations>
   </sourcecode>
+  <sourcecode name="Job.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>06/14/2012 12:15:49</timestamp>
+    <milliseconds>715</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="JobCollection.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>06/14/2012 11:57:06</timestamp>
+    <milliseconds>952</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="AssemblyInfo.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>06/13/2012 15:24:26</timestamp>
+    <milliseconds>610</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="Resource.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>06/14/2012 12:16:44</timestamp>
+    <milliseconds>399</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="ResponseMessge.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>06/14/2012 12:13:16</timestamp>
+    <milliseconds>190</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="Service.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>06/14/2012 12:13:16</timestamp>
+    <milliseconds>190</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="ServiceArgs.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>06/14/2012 11:54:57</timestamp>
+    <milliseconds>907</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="SplunkException.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>06/14/2012 11:56:05</timestamp>
+    <milliseconds>621</milliseconds>
+    <violations>
+      <violation namespace="StyleCop.CSharp.MaintainabilityRules" rule="FieldsMustBePrivate" ruleCheckId="SA1401">
+        <context>Fields must be declared with private access. Use properties to expose fields.</context>
+        <line>30</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.MaintainabilityRules" rule="FieldsMustBePrivate" ruleCheckId="SA1401">
+        <context>Fields must be declared with private access. Use properties to expose fields.</context>
+        <line>35</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.MaintainabilityRules" rule="FieldsMustBePrivate" ruleCheckId="SA1401">
+        <context>Fields must be declared with private access. Use properties to expose fields.</context>
+        <line>41</line>
+        <warning>False</warning>
+      </violation>
+    </violations>
+  </sourcecode>
+  <sourcecode name="Xml.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>06/14/2012 11:57:04</timestamp>
+    <milliseconds>562</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="Entity.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>06/14/2012 15:15:11</timestamp>
+    <milliseconds>196</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="Record.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>06/14/2012 15:15:42</timestamp>
+    <milliseconds>679</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="HttpService.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>06/14/2012 15:16:08</timestamp>
+    <milliseconds>427</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="RequestMessage.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>06/14/2012 15:16:29</timestamp>
+    <milliseconds>770</milliseconds>
+    <violations />
+  </sourcecode>
   <sourcecode name="ResourceCollection.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
-      <timestamp>06/14/2012 10:54:38</timestamp>
-      <milliseconds>371</milliseconds>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
     </settings>
-    <timestamp>06/14/2012 14:37:32</timestamp>
-    <milliseconds>899</milliseconds>
+    <timestamp>06/14/2012 15:16:40</timestamp>
+    <milliseconds>691</milliseconds>
     <violations>
       <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ConstructorSummaryDocumentationMustBeginWithStandardText" ruleCheckId="SA1642">
         <context>The documentation text within the constructor's summary tag must begin with the text: Initializes a new instance of the &lt;see cref="ResourceCollection" /&gt; class.</context>
@@ -230,5 +218,17 @@
         <warning>False</warning>
       </violation>
     </violations>
+  </sourcecode>
+  <project key="-1956151431">
+    <configuration>DEBUG;TRACE</configuration>
+  </project>
+  <sourcecode name="Value.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>06/14/2012 15:29:22</timestamp>
+    <milliseconds>996</milliseconds>
+    <violations />
   </sourcecode>
 </stylecopresultscache>

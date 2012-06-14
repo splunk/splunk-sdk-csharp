@@ -387,7 +387,7 @@ namespace Splunk
         /// Returns the namesapce of an AtomEntry based on the eai::acl field.
         /// </summary>
         /// <param name="entry">The AtomEntry</param>
-        /// <returns>the namespace</returns>
+        /// <returns>The namespace</returns>
         private Args SplunkNamespace(AtomEntry entry) 
         {
             Args splunkNamespace = new Args();
