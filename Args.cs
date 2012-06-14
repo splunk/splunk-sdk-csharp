@@ -29,7 +29,8 @@ namespace Splunk
         /// <summary>
         /// Initializes a new instance of the <see cref="Args"/> class.
         /// </summary>
-        public Args() { 
+        public Args() 
+        { 
         }
 
         /// <summary>
@@ -38,7 +39,8 @@ namespace Splunk
         /// </summary>
         /// <param name="key">The key</param>
         /// <param name="value">The value</param>
-        public Args(string key, object value) {
+        public Args(string key, object value) 
+        {
             base.Add(key, value);
         }
 
@@ -47,8 +49,10 @@ namespace Splunk
         /// with an existing dictionary. 
         /// </summary>
         /// <param name="values">The existing dictionary</param>
-        public Args(Dictionary<string, object> values) {
-            foreach (KeyValuePair<string, object> entry in values) {
+        public Args(Dictionary<string, object> values) 
+        {
+            foreach (KeyValuePair<string, object> entry in values) 
+            {
                 base.Add(entry.Key, entry.Value);
             }
         }
@@ -59,7 +63,8 @@ namespace Splunk
         /// <param name="key">The key</param>
         /// <param name="value">The value</param>
         /// <returns>The Args</returns>
-        public Args AlternateAdd(string key, object value) {
+        public Args AlternateAdd(string key, object value) 
+        {
             base.Add(key, value);
             return this;
         }
@@ -68,7 +73,8 @@ namespace Splunk
         /// Creates a new, empty Args
         /// </summary>
         /// <returns>The new, empty Args</returns>
-        public static Args Create() {
+        public static Args Create() 
+        {
             return new Args();
         }
 
@@ -78,7 +84,8 @@ namespace Splunk
         /// <param name="key">The key</param>
         /// <param name="value">The value</param>
         /// <returns>The new intialized Args</returns>
-        public static Args Create(string key, object value) {
+        public static Args Create(string key, object value) 
+        {
             return new Args(key, value);
         }
         
@@ -87,7 +94,8 @@ namespace Splunk
         /// </summary>
         /// <param name="values">The existing dictionary</param>
         /// <returns>The new initialized Args</returns>
-        public static Args Create(Dictionary<string, object> values) {
+        public static Args Create(Dictionary<string, object> values) 
+        {
             return values == null ? new Args() : new Args(values);
         }
 
@@ -96,8 +104,10 @@ namespace Splunk
         /// </summary>
         /// <param name="value">The string</param>
         /// <returns>The UTF-8 encoded string</returns>
-        public static string Encode(string value) {
-            if (value == null) {
+        public static string Encode(string value) 
+        {
+            if (value == null) 
+            {
                 return string.Empty;
             }
             return HttpUtility.UrlEncode(value);
@@ -108,7 +118,8 @@ namespace Splunk
         /// </summary>
         /// <param name="args">The string or string array</param>
         /// <returns>The UTF-8 encoded string</returns>
-        public static string Encode(Dictionary<string, object> args) {
+        public static string Encode(Dictionary<string, object> args) 
+        {
             return Args.Create(args).Encode();
         }
 
@@ -118,10 +129,13 @@ namespace Splunk
         /// <param name="builder">The string builder</param>
         /// <param name="key">The key</param>
         /// <param name="values">The string array</param>
-        private void EncodeValues(StringBuilder builder, string key, string[] values) {
+        private void EncodeValues(StringBuilder builder, string key, string[] values) 
+        {
             key = Encode(key);
-            foreach (string value in values) {
-                if (builder.Length > 0) {
+            foreach (string value in values) 
+            {
+                if (builder.Length > 0) 
+                {
                     builder.Append('&');
                 }
                 builder.Append(key);
@@ -134,19 +148,24 @@ namespace Splunk
         /// Encode an Args instance into a UTF-8 encoded string
         /// </summary>
         /// <returns>The UTF-8 encoded string</returns>
-        public string Encode() {
+        public string Encode() 
+        {
             StringBuilder builder = new StringBuilder();
-            foreach (KeyValuePair<string, object> entry in this) {
-                if (builder.Length > 0) {
+            foreach (KeyValuePair<string, object> entry in this) 
+            {
+                if (builder.Length > 0) 
+                {
                     builder.Append('&');
                 }
                 string key = entry.Key;
                 object value = entry.Value;
 
-                if (value is string[]) {
+                if (value is string[]) 
+                {
                     this.EncodeValues(builder, key, (string[])value);
                 }
-                else {
+                else 
+                {
                     builder.Append(Encode(key));
                     builder.Append('=');
                     builder.Append(Encode(value.ToString()));
@@ -163,8 +182,10 @@ namespace Splunk
         /// <param name="key">The key</param>
         /// <param name="defaultValue">The default value</param>
         /// <returns>The key's value in the dictionary, or the default value if not found</returns>
-        public static string Get(Dictionary<string, object> args, string key, string defaultValue) {
-            if (!args.ContainsKey(key)) {
+        public static string Get(Dictionary<string, object> args, string key, string defaultValue) 
+        {
+            if (!args.ContainsKey(key)) 
+            {
                 return defaultValue;
             }
             return (string)args[key];

@@ -29,7 +29,8 @@ namespace Splunk
         /// </summary>
         /// <param name="key">The key</param>
         /// <returns>The value</returns>
-        public bool GetBoolean(string key) {
+        public bool GetBoolean(string key) 
+        {
             return Value.ToBoolean(this.GetString(key));
         }
 
@@ -40,8 +41,10 @@ namespace Splunk
         /// <param name="key">The key</param>
         /// <param name="defaultValue">The default value</param>
         /// <returns>The value</returns>
-        public bool GetBoolean(string key, bool defaultValue) {
-            if (this.ContainsKey(key)) {
+        public bool GetBoolean(string key, bool defaultValue) 
+        {
+            if (this.ContainsKey(key)) 
+            {
                 return defaultValue;
             }
             return Value.ToBoolean(this.GetString(key));
@@ -52,7 +55,8 @@ namespace Splunk
         /// </summary>
         /// <param name="key">The key</param>
         /// <returns>The value</returns>
-        public long GetByteCount(string key) {
+        public long GetByteCount(string key) 
+        {
             return Value.ToByteCount(this.GetString(key));
         }
 
@@ -63,8 +67,10 @@ namespace Splunk
         /// <param name="key">The key</param>
         /// <param name="defaultValue">The default value</param>
         /// <returns>The value</returns>
-        public long GetByteCount(string key, long defaultValue) {
-            if (!this.ContainsKey(key)) {
+        public long GetByteCount(string key, long defaultValue) 
+        {
+            if (!this.ContainsKey(key)) 
+            {
                 return defaultValue;
             }
             return Value.ToByteCount(this.GetString(key));
@@ -100,7 +106,8 @@ namespace Splunk
         /// </summary>
         /// <param name="key">The key</param>
         /// <returns>The value</returns>
-        public double GetFloat(string key) {
+        public double GetFloat(string key) 
+        {
             return Value.ToFloat(this.GetString(key));
         }
 
@@ -109,7 +116,8 @@ namespace Splunk
         /// </summary>
         /// <param name="key">The key</param>
         /// <returns>The value</returns>
-        public int GetInteger(string key) {
+        public int GetInteger(string key) 
+        {
             return Value.ToInteger(this.GetString(key));
         }
 
@@ -120,8 +128,10 @@ namespace Splunk
         /// <param name="key">The key</param>
         /// <param name="defaultValue">The default value</param>
         /// <returns>The value</returns>
-        public int GetInteger(string key, int defaultValue) {
-            if (!this.ContainsKey(key)) {
+        public int GetInteger(string key, int defaultValue) 
+        {
+            if (!this.ContainsKey(key)) 
+            {
                 return defaultValue;
             }
             return Value.ToInteger(this.GetString(key));
@@ -132,7 +142,8 @@ namespace Splunk
         /// </summary>
         /// <param name="key">The key</param>
         /// <returns>The value</returns>
-        public long GetLong(string key) {
+        public long GetLong(string key) 
+        {
             return Value.ToLong(this.GetString(key));
         }
 
@@ -143,8 +154,10 @@ namespace Splunk
         /// <param name="key">The key</param>
         /// <param name="defaultValue">The default value</param>
         /// <returns>the value</returns>
-        public long GetLong(string key, int defaultValue) {
-            if (!this.ContainsKey(key)) {
+        public long GetLong(string key, int defaultValue) 
+        {
+            if (!this.ContainsKey(key)) 
+            {
                 return defaultValue;
             }
             return Value.ToLong(this.GetString(key));
@@ -155,7 +168,8 @@ namespace Splunk
         /// </summary>
         /// <param name="key">The key</param>
         /// <returns>The value</returns>
-        public string GetString(string key) {
+        public string GetString(string key) 
+        {
             object returnValue = null;
             this.TryGetValue(key, out returnValue);
             return (string)returnValue;
@@ -168,8 +182,10 @@ namespace Splunk
         /// <param name="key">The key</param>
         /// <param name="defaultValue">The default</param>
         /// <returns>The value</returns>
-        public string GetString(string key, string defaultValue) {
-            if (!this.ContainsKey(key)) {
+        public string GetString(string key, string defaultValue) 
+        {
+            if (!this.ContainsKey(key)) 
+            {
                 return defaultValue;
             }
             object returnValue = null;
@@ -182,7 +198,8 @@ namespace Splunk
         /// </summary>
         /// <param name="key">The key</param>
         /// <returns>The value</returns>
-        public string[] GetStringArray(string key) {
+        public string[] GetStringArray(string key) 
+        {
             object tmpValue;
             this.TryGetValue(key, out tmpValue);
             List<string> value = (List<string>)tmpValue;
@@ -196,8 +213,10 @@ namespace Splunk
         /// <param name="key">The key</param>
         /// <param name="defaultValue">The default value</param>
         /// <returns>The value</returns>
-        public string[] GetStringArray(string key, string[] defaultValue) {
-            if (!this.ContainsKey(key)) {
+        public string[] GetStringArray(string key, string[] defaultValue) 
+        {
+            if (!this.ContainsKey(key)) 
+            {
                 return defaultValue;
             }
             return this.GetStringArray(key);

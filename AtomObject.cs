@@ -27,7 +27,8 @@ namespace Splunk
         /// <summary>
         /// Gets or sets value of the Atom id element.
         /// </summary>
-        public string Id {
+        public string Id 
+        {
             get;
             set;
         }
@@ -35,7 +36,8 @@ namespace Splunk
         /// <summary>
         /// Gets or sets the value of the Atom link elements 
         /// </summary>
-        public Dictionary<string, string> Links {
+        public Dictionary<string, string> Links 
+        {
             get;
             set;
         }
@@ -43,7 +45,8 @@ namespace Splunk
         /// <summary>
         /// Gets or sets the value of the Atom title element
         /// </summary>
-        public string Title {
+        public string Title 
+        {
             get;
             set;
         }
@@ -51,7 +54,8 @@ namespace Splunk
         /// <summary>
         /// Gets or sets the value of the Atom updated element.
         /// </summary>
-        public string Updated {
+        public string Updated 
+        {
             get;
             set;
         }
@@ -61,26 +65,33 @@ namespace Splunk
         /// on the given XML
         /// </summary>
         /// <param name="element">The XML element</param>
-        public virtual void Init(XmlElement element) {
+        public virtual void Init(XmlElement element) 
+        {
             string name = element.Name;
-            if (name.Equals("id")) {
+            if (name.Equals("id")) 
+            {
                 this.Id = element.InnerText;
             }
-            else if (name.Equals("link")) {
+            else if (name.Equals("link")) 
+            {
                 string rel = element.GetAttribute("rel");
                 string href = element.GetAttribute("href");
                 this.Links.Add(rel, href);
             }
-            else if (name.Equals("title")) {
+            else if (name.Equals("title")) 
+            {
                 this.Title = element.InnerText;
             }
-            else if (name.Equals("updated")) {
+            else if (name.Equals("updated")) 
+            {
                 this.Updated = element.InnerText;
             }
-            else if (name.Equals("author") || name.Equals("generator")) {
+            else if (name.Equals("author") || name.Equals("generator")) 
+            {
                 // Ignore
             }
-            else {
+            else 
+            {
                 // Ignore
             }
         }
@@ -90,9 +101,12 @@ namespace Splunk
         /// invoking init() on each child of the XML element.
         /// </summary>
         /// <param name="element">The XML element</param>
-        public void Load(XmlElement element) {
-            foreach (XmlNode child in element.ChildNodes) {
-                if (child.NodeType != XmlNodeType.Element) {
+        public void Load(XmlElement element) 
+        {
+            foreach (XmlNode child in element.ChildNodes) 
+            {
+                if (child.NodeType != XmlNodeType.Element) 
+                {
                     continue;
                 }
                 this.Init((XmlElement)child);

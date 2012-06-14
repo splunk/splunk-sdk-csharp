@@ -29,7 +29,8 @@ namespace Splunk
         /// <summary>
         /// Gets or sets the list of Atom entries contained in this AtomFeed object.
         /// </summary>
-        public List<AtomEntry> Entries {
+        public List<AtomEntry> Entries 
+        {
             get;
             set;
         }
@@ -37,7 +38,8 @@ namespace Splunk
         /// <summary>
         /// Gets or sets the AtomFeed's itemsPerPage element value.
         /// </summary>
-        public string ItemsPerPage {
+        public string ItemsPerPage 
+        {
             get;
             set;
         }
@@ -45,7 +47,8 @@ namespace Splunk
         /// <summary>
         /// Gets or sets the AtomFeed's startIndex element value.
         /// </summary>
-        public string StartIndex {
+        public string StartIndex 
+        {
             get;
             set;
         }
@@ -53,7 +56,8 @@ namespace Splunk
         /// <summary>
         /// Gets or sets the AtomFeed's totalResults element value.
         /// </summary>
-        public string TotalResults {
+        public string TotalResults 
+        {
             get;
             set;
         }
@@ -62,7 +66,8 @@ namespace Splunk
         /// Creayes a new AtomFeed instance.
         /// </summary>
         /// <returns>An empty AtomFeed object</returns>
-        public static AtomFeed Create() {
+        public static AtomFeed Create() 
+        {
             AtomFeed atomFeed = new AtomFeed();
             atomFeed.Links = new Dictionary<string, string>();
             atomFeed.Entries = new List<AtomEntry>();
@@ -74,11 +79,12 @@ namespace Splunk
         /// </summary>
         /// <param name="input">The input stream</param>
         /// <returns>The AtomFeed</returns>
-        public static AtomFeed Parse(Stream input) {
+        public static AtomFeed Parse(Stream input) 
+        {
             XmlElement root = Xml.Parse(input).DocumentElement;
             string rname = root.Name;
-            if (!rname.Equals("feed") &&
-                !root.NamespaceURI.Equals("http://www.w3.org/2005/Atom")) {
+            if (!rname.Equals("feed") && !root.NamespaceURI.Equals("http://www.w3.org/2005/Atom")) 
+            {
                 throw new Exception("Unrecognized XML format");
             }
             return AtomFeed.Parse(root);
@@ -89,7 +95,8 @@ namespace Splunk
         /// </summary>
         /// <param name="element">The XML element</param>
         /// <returns>The AtomFeed</returns>
-        private static AtomFeed Parse(XmlElement element) {
+        private static AtomFeed Parse(XmlElement element) 
+        {
             AtomFeed feed = AtomFeed.Create();
             feed.Load(element);
             return feed;
@@ -99,25 +106,32 @@ namespace Splunk
         /// Initializes the current AtomFeed instance from a given XML element.
         /// </summary>
         /// <param name="element">The XML element</param>
-        public override void Init(XmlElement element) {
+        public override void Init(XmlElement element) 
+        {
             string name = element.Name;
-            if (name.Equals("entry")) {
+            if (name.Equals("entry")) 
+            {
                 AtomEntry entry = AtomEntry.Parse(element);
                 this.Entries.Add(entry);
             }
-            else if (name.Equals("s:messages")) {
+            else if (name.Equals("s:messages")) 
+            {
                 // Ignore
             }
-            else if (name.Equals("opensearch:totalResults")) {
+            else if (name.Equals("opensearch:totalResults")) 
+            {
                 this.TotalResults = element.InnerText;
             }
-            else if (name.Equals("opensearch:itemsPerPage")) {
+            else if (name.Equals("opensearch:itemsPerPage")) 
+            {
                 this.ItemsPerPage = element.InnerText;
             }
-            else if (name.Equals("opensearch:startIndex")) {
+            else if (name.Equals("opensearch:startIndex")) 
+            {
                 this.StartIndex = element.InnerText;
             }
-            else {
+            else 
+            {
                 base.Init(element);
             }
         }

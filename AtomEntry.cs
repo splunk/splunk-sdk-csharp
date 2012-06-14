@@ -29,7 +29,8 @@ namespace Splunk
         /// <summary>
         /// Gets or sets the value of the Atom entry's published element.
         /// </summary>
-        public string Published {
+        public string Published 
+        {
             get;
             set;
         }
@@ -37,7 +38,8 @@ namespace Splunk
         /// <summary>
         /// Gets or sets the value of the Atom entry's contentelement.
         /// </summary>
-        public Record Content {
+        public Record Content 
+        {
             get;
             set;
         }
@@ -46,7 +48,8 @@ namespace Splunk
         /// Creates a new instance of the <see cref="AtomEntry"/> class.
         /// </summary>
         /// <returns>An AtomEntry</returns>
-        private static AtomEntry Create() {
+        private static AtomEntry Create() 
+        {
             AtomEntry atomEntry = new AtomEntry();
             atomEntry.Links = new Dictionary<string, string>();
             return atomEntry;
@@ -59,12 +62,13 @@ namespace Splunk
         /// </summary>
         /// <param name="input">The IO stream</param>
         /// <returns>An AtomEntry</returns>
-        public static AtomEntry Parse(Stream input) {
+        public static AtomEntry Parse(Stream input) 
+        {
             XmlElement root = Xml.Parse(input).DocumentElement;
             string rname = root.Name;
             string xmlns = root.GetAttribute("xmlns");
-            if (!rname.Equals("entry") &&
-                !xmlns.Equals("http://www.w3.org/2005/Atom")) {
+            if (!rname.Equals("entry") && !xmlns.Equals("http://www.w3.org/2005/Atom")) 
+            {
                 throw new Exception("Unrecognized XML format");
             }
             return AtomEntry.Parse(root);
@@ -75,7 +79,8 @@ namespace Splunk
         /// </summary>
         /// <param name="element">The XML element</param>
         /// <returns>An AtomEntry</returns>
-        public static AtomEntry Parse(XmlElement element) {
+        public static AtomEntry Parse(XmlElement element) 
+        {
             AtomEntry entry = AtomEntry.Create();
             entry.Load(element);
             return entry;
@@ -85,15 +90,19 @@ namespace Splunk
         /// Initializes the current AtomEntry instance with a given XML element.
         /// </summary>
         /// <param name="element">The XML element</param>
-        public override void Init(XmlElement element) {
+        public override void Init(XmlElement element) 
+        {
             string name = element.Name;
-            if (name.Equals("published")) {
+            if (name.Equals("published")) 
+            {
                 this.Published = element.InnerText;
             }
-            else if (name.Equals("content")) {
+            else if (name.Equals("content")) 
+            {
                 this.Content = this.ParseContent(element);
             }
-            else {
+            else 
+            {
                 base.Init(element);
             }
         }
@@ -105,10 +114,13 @@ namespace Splunk
         /// </summary>
         /// <param name="element">The XML element</param>
         /// <returns>XML element list</returns>
-        public static List<XmlElement> GetChildElements(XmlElement element) {
+        public static List<XmlElement> GetChildElements(XmlElement element) 
+        {
             List<XmlElement> result = new List<XmlElement>();
-            foreach (XmlNode child in element.ChildNodes) {
-                if (child.NodeType == XmlNodeType.Element) {
+            foreach (XmlNode child in element.ChildNodes) 
+            {
+                if (child.NodeType == XmlNodeType.Element) 
+                {
                     result.Add((XmlElement)child);
                 }
             }
@@ -120,7 +132,8 @@ namespace Splunk
         /// </summary>
         /// <param name="element">The XML element</param>
         /// <returns>The content Record</returns>
-        public Record ParseContent(XmlElement element) {
+        public Record ParseContent(XmlElement element) 
+        {
             // Assert(element.getTagName().equals("content"));
             Record content = null;
 
@@ -130,7 +143,8 @@ namespace Splunk
 
             // Expect content to be empty or a single <dict> element
             // assert(count == 0 || count == 1);
-            if (count == 1) {
+            if (count == 1) 
+            {
                 XmlElement child = children[0];
                 content = this.ParseDict(child);
             }
@@ -144,25 +158,30 @@ namespace Splunk
         /// </summary>
         /// <param name="element">An XML element</param>
         /// <returns>The Record</returns>
-        public Record ParseDict(XmlElement element) {
+        public Record ParseDict(XmlElement element) 
+        {
             // assert(element.getTagName().equals("s:dict"));
-            if (element.FirstChild == null) {
+            if (element.FirstChild == null) 
+            {
                 return null;
             }
 
             List<XmlElement> children = GetChildElements(element);
 
             int count = children.Count;
-            if (count == 0) {
+            if (count == 0) 
+            {
                 return null;
             }
 
             Record result = new Record();
-            foreach (XmlElement child in children) {
+            foreach (XmlElement child in children) 
+            {
                 // assert(child.getTagName().equals("s:key"));
                 string key = child.GetAttribute("name");
                 object value = this.ParseValue(child);
-                if (value != null) {
+                if (value != null) 
+                {
                     result.Add(key, value);
                 }
             }
@@ -175,24 +194,29 @@ namespace Splunk
         /// </summary>
         /// <param name="element">An XML element</param>
         /// <returns>The list of parsed values</returns>
-        public List<object> ParseList(XmlElement element) {
+        public List<object> ParseList(XmlElement element) 
+        {
             // assert(element.getTagName().equals("s:list"));
-            if (element.FirstChild == null) {
+            if (element.FirstChild == null) 
+            {
                 return null;
             }
 
             List<XmlElement> children = GetChildElements(element);
 
             int count = children.Count;
-            if (count == 0) {
+            if (count == 0) 
+            {
                 return null;
             }
 
             List<object> result = new List<object>(count);
-            foreach (XmlElement child in children) {
+            foreach (XmlElement child in children) 
+            {
                 // assert(child.getTagName().equals("s:item"));
                 object value = this.ParseValue(child);
-                if (value != null) {
+                if (value != null) 
+                {
                     result.Add(value);
                 }
             }
@@ -205,11 +229,13 @@ namespace Splunk
         /// </summary>
         /// <param name="element">The XML element</param>
         /// <returns>Either the dictionary or list of values</returns>
-        public object ParseValue(XmlElement element) {
+        public object ParseValue(XmlElement element) 
+        {
             string name = element.Name;
 
             // assert(name.equals("s:key") || name.equals("s:item"));
-            if (element.FirstChild == null) {
+            if (element.FirstChild == null) 
+            {
                 return null;
             }
 
@@ -218,7 +244,8 @@ namespace Splunk
             int count = children.Count;
 
             // If no element children, then it must be a text value
-            if (count == 0) {
+            if (count == 0) 
+            {
                 return element.InnerText;
             }
 
@@ -228,11 +255,13 @@ namespace Splunk
 
             name = child.Name;
 
-            if (name.Equals("s:dict")) {
+            if (name.Equals("s:dict")) 
+            {
                 return this.ParseDict(child);
             }
 
-            if (name.Equals("s:list")) {
+            if (name.Equals("s:list")) 
+            {
                 return this.ParseList(child);
             }
 

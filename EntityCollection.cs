@@ -33,7 +33,8 @@ namespace Splunk
         /// <param name="service">The service</param>
         /// <param name="path">The endpoint for this collection</param>
         public EntityCollection(Service service, string path) 
-            : base(service, path, typeof(Entity)) {
+            : base(service, path, typeof(Entity)) 
+        {
         }
 
         /// <summary>
@@ -43,7 +44,8 @@ namespace Splunk
         /// <param name="path">The endpoint for this collection</param>
         /// <param name="args">The variable argument list</param>
         public EntityCollection(Service service, string path, Args args) 
-            : base(service, path, args, typeof(Entity)) {
+            : base(service, path, args, typeof(Entity)) 
+        {
         }
 
         /// <summary>
@@ -53,7 +55,8 @@ namespace Splunk
         /// <param name="path">The endpoint for this collection</param>
         /// <param name="itemClass">The type of this Entity</param>
         public EntityCollection(Service service, string path, Type itemClass) 
-            : base(service, path, itemClass) {
+            : base(service, path, itemClass) 
+        {
         }
 
         /// <summary>
@@ -64,7 +67,8 @@ namespace Splunk
         /// <param name="args">The variable argument list</param>
         /// <param name="itemClass">The type of this Entity</param>
         public EntityCollection(Service service, string path, Args args, Type itemClass) 
-            : base(service, path, args, itemClass) {
+            : base(service, path, args, itemClass) 
+        {
         }
 
         /// <summary>
@@ -72,7 +76,8 @@ namespace Splunk
         /// </summary>
         /// <param name="name">The name of this Entity</param>
         /// <returns>The Entity</returns>
-        public T Create(string name) {
+        public T Create(string name) 
+        {
             return this.Create(name, (Args)null);
         }
 
@@ -82,7 +87,8 @@ namespace Splunk
         /// <param name="name">The name of this Entity</param>
         /// <param name="args">The variable argument list</param>
         /// <returns>The Entity</returns>
-        public T Create(string name, Args args) {
+        public T Create(string name, Args args) 
+        {
             args = Args.Create(args.AlternateAdd("name", name));
             this.Service.Post(this.Path, args);
             this.Invalidate();
@@ -98,16 +104,20 @@ namespace Splunk
         /// </summary>
         /// <param name="key">The name of this Entity</param>
         /// <returns>The removed Entity</returns>
-        public T Remove(string key) {
+        public T Remove(string key) 
+        {
             this.Validate();
-            if (!this.ContainsKey(key)) {
+            if (!this.ContainsKey(key)) 
+            {
                 return default(T);
             }
             List<T> entities = this.Items[key];
-            if (entities != null && entities.Count > 1) {
+            if (entities != null && entities.Count > 1) 
+            {
                 throw new SplunkException(SplunkException.AMBIGUOUS, "Key has multiple values, specify a namespace");
             }
-            if (entities == null) {
+            if (entities == null) 
+            {
                 return default(T);
             }
             T entity = entities[0];
@@ -122,18 +132,23 @@ namespace Splunk
         /// <param name="key">The name of this Entity</param>
         /// <param name="splunkNamespace">The namespace</param>
         /// <returns>The removed Entity</returns>
-        public T Remove(string key, Args splunkNamespace) {
+        public T Remove(string key, Args splunkNamespace) 
+        {
             this.Validate();
-            if (!this.ContainsKey(key)) {
+            if (!this.ContainsKey(key)) 
+            {
                 return default(T);
             }
             List<T> entities = Items[key];
             string pathMatcher = Service.Fullpath(string.Empty, splunkNamespace);
-            if (entities.Count == 0) {
+            if (entities.Count == 0) 
+            {
                 return default(T);
             }
-            foreach (T entity in entities) {
-                if (entity.Path.StartsWith(pathMatcher)) {
+            foreach (T entity in entities) 
+            {
+                if (entity.Path.StartsWith(pathMatcher)) 
+                {
                     entity.Remove();
                     this.Invalidate();
                     return entity;

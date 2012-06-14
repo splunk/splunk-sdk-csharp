@@ -30,7 +30,8 @@ namespace Splunk
         /// <summary>
         /// Initializes a new instance of the <see cref="HttpService"/> class.
         /// </summary>
-        public HttpService() {
+        public HttpService() 
+        {
             this.InitProperties();
             this.SetTrustPolicy();
         }
@@ -40,7 +41,8 @@ namespace Splunk
         /// adding the host.
         /// </summary>
         /// <param name="host">The host name</param>
-        public HttpService(string host) {
+        public HttpService(string host) 
+        {
             this.InitProperties();
             this.Host = host;
             this.SetTrustPolicy();
@@ -52,7 +54,8 @@ namespace Splunk
         /// </summary>
         /// <param name="host">The hostname</param>
         /// <param name="port">The port</param>
-        public HttpService(string host, int port) {
+        public HttpService(string host, int port) 
+        {
             this.InitProperties();
             this.Host = host;
             this.Port = port;
@@ -66,7 +69,8 @@ namespace Splunk
         /// <param name="host">The hostname</param>
         /// <param name="port">The port</param>
         /// <param name="scheme">The scheme, either http, or https</param>
-        public HttpService(string host, int port, string scheme) {
+        public HttpService(string host, int port, string scheme) 
+        {
             this.InitProperties();
             this.Host = host;
             this.Port = port;
@@ -77,7 +81,8 @@ namespace Splunk
         /// <summary>
         /// Gets or sets the host name of the service
         /// </summary>
-        protected string Host {
+        protected string Host 
+        {
             get;
             set;
         }
@@ -85,7 +90,8 @@ namespace Splunk
         /// <summary>
         /// Gets or sets the port number of the service
         /// </summary>
-        protected int Port {
+        protected int Port 
+        {
             get;
             set;
         }
@@ -93,7 +99,8 @@ namespace Splunk
         /// <summary>
         /// Gets or sets the prefix.
         /// </summary>
-        protected string Prefix {
+        protected string Prefix 
+        {
             get;
             set;
         }
@@ -101,7 +108,8 @@ namespace Splunk
         /// <summary>
         /// Gets or sets the scheme used to access the service
         /// </summary>
-        protected string Scheme {
+        protected string Scheme 
+        {
             get;
             set;
         }
@@ -109,7 +117,8 @@ namespace Splunk
         /// <summary>
         /// Initialize the properties.
         /// </summary>
-        private void InitProperties() {
+        private void InitProperties() 
+        {
             this.Host = "localhost";
             this.Port = 8089;
             this.Prefix = null;
@@ -121,8 +130,10 @@ namespace Splunk
         /// </summary>
         /// <param name="args">The dictionary</param>
         /// <returns>The number of elements in the dictionary</returns>
-        private static int Count(Dictionary<string, object> args) {
-            if (args == null) {
+        private static int Count(Dictionary<string, object> args) 
+        {
+            if (args == null) 
+            {
                 return 0;
             }
             return args.Count;
@@ -133,7 +144,8 @@ namespace Splunk
         /// </summary>
         /// <param name="path">The path</param>
         /// <returns>the responseMessage</returns>
-        public ResponseMessage Get(string path) {
+        public ResponseMessage Get(string path) 
+        {
             return this.Send(path, new RequestMessage("GET"));
         }
 
@@ -144,8 +156,10 @@ namespace Splunk
         /// <param name="path">The path</param>
         /// <param name="args">The arguments</param>
         /// <returns>the ResponseMessage</returns>
-        public ResponseMessage Get(string path, Dictionary<string, object> args) {
-            if (Count(args) > 0) {
+        public ResponseMessage Get(string path, Dictionary<string, object> args) 
+        {
+            if (Count(args) > 0) 
+            {
                 path = path + "?" + Args.Encode(args);
             }
             RequestMessage request = new RequestMessage("GET");
@@ -156,7 +170,8 @@ namespace Splunk
         /// Returns the hostname of this service
         /// </summary>
         /// <returns>The hostname</returns>
-        public string GetHost() {
+        public string GetHost() 
+        {
             return this.Host;
         }
 
@@ -164,7 +179,8 @@ namespace Splunk
         /// Returns the port of this service
         /// </summary>
         /// <returns>The port</returns>
-        public int GetPort() {
+        public int GetPort() 
+        {
             return this.Port;
         }
         
@@ -173,8 +189,10 @@ namespace Splunk
         /// scheme://host:port
         /// </summary>
         /// <returns>The URL prefix</returns>
-        public string GetPrefix() {
-            if (this.Prefix == null) {
+        public string GetPrefix() 
+        {
+            if (this.Prefix == null) 
+            {
                 this.Prefix = string.Format("{0}://{1}:{2}", this.Scheme, this.Host, this.Port);
             }
             return this.Prefix;
@@ -184,7 +202,8 @@ namespace Splunk
         /// Returns the scheme used by this service.
         /// </summary>
         /// <returns>The scheme</returns>
-        public string GetScheme() {
+        public string GetScheme() 
+        {
             return this.Scheme;
         }
 
@@ -193,7 +212,8 @@ namespace Splunk
         /// </summary>
         /// <param name="path">The path</param>
         /// <returns>The fully qualified URL</returns>
-        public string GetUrl(string path) {
+        public string GetUrl(string path) 
+        {
             return this.GetPrefix() + path;
         }
 
@@ -202,7 +222,8 @@ namespace Splunk
         /// </summary>
         /// <param name="path">The path</param>
         /// <returns>The <see cref="repsonseMessage"/></returns>
-        public ResponseMessage Post(string path) {
+        public ResponseMessage Post(string path) 
+        {
             return this.Post(path, null);
         }
 
@@ -212,9 +233,11 @@ namespace Splunk
         /// <param name="path">The path</param>
         /// <param name="args">The arguments</param>
         /// <returns>The <see cref="repsonseMessage"/></returns>
-        public ResponseMessage Post(string path, Dictionary<string, object> args) {
+        public ResponseMessage Post(string path, Dictionary<string, object> args) 
+        {
             RequestMessage request = new RequestMessage("POST");
-            if (Count(args) > 0) {
+            if (Count(args) > 0) 
+            {
                 request.SetContent(Args.Encode(args));
             }
             return this.Send(path, request);
@@ -225,7 +248,8 @@ namespace Splunk
         /// </summary>
         /// <param name="path">The path</param>
         /// <returns>The <see cref="repsonseMessage"/></returns>
-        public ResponseMessage Delete(string path) {
+        public ResponseMessage Delete(string path) 
+        {
             RequestMessage request = new RequestMessage("DELETE");
             return this.Send(path, request);
         }
@@ -236,8 +260,10 @@ namespace Splunk
         /// <param name="path">The path</param>
         /// <param name="args">The arguments</param>
         /// <returns>The <see cref="repsonseMessage"/></returns>
-        public ResponseMessage Delete(string path, Dictionary<string, object> args) {
-            if (Count(args) > 0) {
+        public ResponseMessage Delete(string path, Dictionary<string, object> args) 
+        {
+            if (Count(args) > 0) 
+            {
                 path = path + "?" + Args.Encode(args);
             }
             RequestMessage request = new RequestMessage("DELETE");
@@ -248,7 +274,8 @@ namespace Splunk
         /// Open a TcpClient connected to the service
         /// </summary>
         /// <returns>The TcpClient object</returns>
-        public TcpClient Open() {
+        public TcpClient Open() 
+        {
             this.SetTrustPolicy();
             TcpClient sock = new TcpClient();
             sock.Connect(this.Host, this.Port);
@@ -262,7 +289,8 @@ namespace Splunk
         /// <param name="path">The path</param>
         /// <param name="request">The requestMessage</param>
         /// <returns>The responseMessage</returns>
-        public virtual ResponseMessage Send(string path, RequestMessage request) {
+        public virtual ResponseMessage Send(string path, RequestMessage request) 
+        {
             // Construct a full URL to the resource
             string url = this.GetUrl(path);
             HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
@@ -273,19 +301,22 @@ namespace Splunk
 
             // Add headers from request message
             Dictionary<string, string> header = request.GetHeader();
-            foreach (KeyValuePair<string, string> entry in header) {
+            foreach (KeyValuePair<string, string> entry in header) 
+            {
                 webRequest.Headers.Add(entry.Key, entry.Value);
             }
 
             webRequest.UserAgent = "splunk-sdk-csharp/0.1";
             webRequest.Accept = "*/*";
-            if (request.GetMethod().Equals("POST")) {
+            if (request.GetMethod().Equals("POST")) 
+            {
                 webRequest.ContentType = "application/x-www-form-urlencoded";
             }
 
             // Write out request content, if any
             object content = request.GetContent();
-            if (content != null) {
+            if (content != null) 
+            {
                 webRequest.ContentLength = ((string)content).Length;
                 Stream stream = webRequest.GetRequestStream();
                 StreamWriter streamWriter = new StreamWriter(stream);
@@ -304,7 +335,8 @@ namespace Splunk
 
             ResponseMessage returnResponse = new ResponseMessage(status, input);
 
-            if (status >= 400) {
+            if (status >= 400) 
+            {
                 throw HttpException.CreateFromLastError("HTTP error");
             }
 
@@ -314,7 +346,8 @@ namespace Splunk
         /// <summary>
         /// Sets the trust policy for communication to the service. The default is trust all servers.
         /// </summary>
-        private void SetTrustPolicy() {
+        private void SetTrustPolicy() 
+        {
             ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
         }
     }

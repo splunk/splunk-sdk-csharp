@@ -31,60 +31,107 @@ namespace Splunk
         /// <param name="service">The service</param>
         /// <param name="path">The endpoint path</param>
         public Job(Service service, string path) 
-            : base(service, path) {
+            : base(service, path) 
+        {
         }
 
         /// <summary>
-        /// Gets the delegate for this job.
+        /// Gets this job's name (its SID). Note that this getting this property
+        /// may cause a refresh from the server if the local copy is dirty.
         /// </summary>
-        public string Delegate {
-            get {
-                return this.GetString("delegate", null);
+        public override string Name
+        {
+            get
+            {
+                return this.Sid();
             }
         }
 
         /// <summary>
-        /// Gets the disk usage for this job.
+        /// Gets or sets this job's priority. Note that this property has the side
+        /// effect of setting the priority immediately, and may if the data is dirty
+        /// cause a refreshing of the data when getting the priority.
         /// </summary>
-        public int DiskUsage {
-            get {
-                return this.GetInteger("diskUsage");
+        public int Priority
+        {
+            get
+            {
+                return this.GetInteger("priority");
+            }
+
+            set
+            {
+                this.Control("setpriority", new Args("priority", value));
             }
         }
 
         /// <summary>
-        /// Gets the dispatch state for this job.
+        /// Gets this job's search title, which is the same as the 
+        /// search string.
+        /// </summary>
+        public string Search
+        {
+            get
+            {
+                return this.Title;
+            }
+        }
+
+        /// <summary>
+        /// Returns the delegate for this job.
+        /// </summary>
+        /// <returns>The delegate</returns>
+        public string Delegate() 
+        {
+            return this.GetString("delegate", null);
+        }
+
+        /// <summary>
+        /// Returns the disk usage for this job. 
+        /// </summary>
+        /// <returns>The disk usage</returns>
+        public int DiskUsage() 
+        {
+            return this.GetInteger("diskUsage");
+        }
+
+        /// <summary>
+        /// Returns the dispatch state for this job.
+        /// <para>
         /// Valid values are: QUEUED, PARSING, RUNNING, PAUSED, FINALIZING, FAILED,
-        /// or DONE.
+        /// or DONE. 
+        /// </para>
         /// </summary>
-        public string DispatchState {
-            get {
-                return this.GetString("dispatchState");
-            }
+        /// <returns>The dispatch state.</returns>
+        public string DispatchState()
+        {
+            return this.GetString("dispatchState");
         }
 
         /// <summary>
-        /// Gets the approximate progress of the job, in the range of 0.0 to 1.0.
+        /// Returns the approximate progress of the job, in the range of 0.0 to 1.0. 
+        /// <para>
         /// doneProgress = (latestTime-cursorTime) / (latestTime-earliestTime)
+        /// </para>
         /// <seealso cref="LatestTime" />
         /// <seealso cref="CursorTime" />
         /// <seealso cref="EarliestTime" />
         /// </summary>
-        public double DoneProgress {
-            get {
-                return this.GetFloat("doneProgress");
-            }
+        /// <returns>The job progress</returns>
+        public double DoneProgress()
+        {
+            return this.GetFloat("doneProgress");
         }
 
         /// <summary>
-        /// Gets the number of possible events that were dropped due to the
+        /// Returns the number of possible events that were dropped due to the
         /// rt_queue_size (the number of events that the indexer should use
         /// for this search). Applicable for real-time searches only.
         /// </summary>
-        public int DropCount {
-            get {
-                return this.GetInteger("dropCount");
-            }
+        /// <returns>The drop count</returns>
+        public int DropCount()
+        {
+            return this.GetInteger("dropCount");
         }
 
         /**
@@ -100,92 +147,97 @@ namespace Splunk
          */
 
         /// <summary>
-        /// Gets the count of events stored by search that are available to be
-        /// retrieved from the events endpoint.
+        /// Returns the count of events stored by search that are available to be
+        /// retrieved from the events endpoint. 
         /// </summary>
-        public int EventAvailableCount {
-            get {
-                return this.GetInteger("eventAvailableCount");
-            }
+        /// <returns>The available event count</returns>
+        public int EventAvailableCount()
+        {
+            return this.GetInteger("eventAvailableCount");
         }
 
         /// <summary>
-        /// Gets the count of pre-transformed events generated by this search job.
+        /// Returns the count of pre-transformed events generated by this search job. 
+        /// data from the server.
         /// </summary>
-        public int EventCount {
-            get {
-                return this.GetInteger("eventCount");
-            }
+        /// <returns>The event count</returns>
+        public int EventCount()
+        {
+            return this.GetInteger("eventCount");
         }
 
         /// <summary>
-        /// Gets the count of event fields.
+        /// Returns the count of event fields.
         /// </summary>
-        public int EventFieldCount {
-            get {
-                return this.GetInteger("eventFieldCount");
-            }
+        /// <returns>The event field count</returns>
+        public int EventFieldCount()
+        {
+            return this.GetInteger("eventFieldCount");
         }
 
         /// <summary>
-        /// Gets a value indicating whether the events from this job are available by streaming or not.
+        /// Returns a value indicating whether the events from this job are available 
+        /// by streaming or not. 
         /// </summary>
-        public bool EventIsStreaming {
-            get {
-                return this.GetBoolean("eventIsStreaming");
-            }
+        /// <returns>Whether or not the events are streamable.</returns>
+        public bool EventIsStreaming() 
+        {
+            return this.GetBoolean("eventIsStreaming");
         }
 
         /// <summary>
-        /// Gets a value indicating whether any events from this job have not been stored. 
+        /// Returns a value indicating whether any events from this job have not been 
+        /// stored. 
         /// </summary>
-        public bool EventIsTruncated {
-            get {
-                return this.GetBoolean("eventIsTruncated");
-            }
+        /// <returns>Whether or not the events are truncated</returns>
+        public bool EventIsTruncated() 
+        {
+            return this.GetBoolean("eventIsTruncated");
         }
 
         /// <summary>
-        /// Gets the subset of the entire search that is before any transforming 
+        /// Returns the subset of the entire search that is before any transforming 
         /// commands. The original search should be the eventSearch + reportSearch.
         /// </summary>
-        public string EventSearch {
-            get {
-                return this.GetString("eventSearch", null);
-            }
+        /// <returns>The event search.</returns>
+        public string EventSearch() 
+        {
+            return this.GetString("eventSearch", null);
         }
 
         /// <summary>
-        /// Gets value that indicates how events are sorted. Valid values are
-        /// asc -> oldest first, desc -> latest first, none -> not sorted.
+        /// Returns value that indicates how events are sorted. Valid values are
+        /// asc -> oldest first, desc -> latest first, none -> not sorted. 
         /// </summary>
-        public string EventSorting {
-            get {
-                return this.GetString("eventSorting");
-            }
+        /// <returns>The type of sorting performed on the events.</returns>
+        public string EventSorting() 
+        {
+            return this.GetString("eventSorting");
         }
 
         /// <summary>
-        /// Gets all positive keywords used by this job. A positive keyword is 
-        /// a keyword that is not in a NOT clause.
+        /// Returns all positive keywords used by this job. A positive keyword is 
+        /// a keyword that is not in a NOT clause. 
         /// </summary>
-        public string Keywords {
-            get {
-                return this.GetString("keywords", null);
-            }
+        /// <returns>The positive keywords of the search.</returns>
+        public string Keywords() 
+        {
+            return this.GetString("keywords", null);
         }
 
         /// <summary>
-        /// Gets this job's label.
+        /// Returns this job's label.
         /// </summary>
-        public string Label {
-            get {
-                return this.GetString("label", null);
-            }
+        /// <returns>The job's label.</returns>
+        public string Label() 
+        {
+            return this.GetString("label", null);
         }
 
         /**
-         * Returns the latest time a search job is configured to start.
+         * Returns the latest time a search job is configured to start. Note
+        /// that if dirty, this has the side effect of retrieving refreshed
+        /// data from the server.
          * @see #getCursorTime
          * @see #getEarliestTime
          * @see #getDoneProgress
@@ -197,268 +249,237 @@ namespace Splunk
          */
 
         /// <summary>
-        /// Gets this job's name (its SID).
+        /// Returns the number of previews that have been generated so far for this job.
         /// </summary>
-        public override string Name {
-            get {
-                return this.Sid;
-            }
+        /// <returns>The number of oreviews.</returns>
+        public int NumPreviews() 
+        {
+            return this.GetInteger("numPreviews");
         }
 
         /// <summary>
-        /// Gets the number of previews that have been generated so far for this job.
+        /// Returns the search string that is sent to every search peer for this job.  
         /// </summary>
-        public int NumPreviews {
-            get {
-                return this.GetInteger("numPreviews");
-            }
+        /// <returns>The remote search string.</returns>
+        public string RemoteSearch() 
+        {
+            return this.GetString("remoteSearch", null);
         }
 
         /// <summary>
-        /// Gets or sets this job's priority.
-        /// Setting the priority takes affect immediately.
-        /// </summary>
-        public int Priority {
-            get {
-                return this.GetInteger("priority");
-            }
-
-            set {
-                this.Control("setpriority", new Args("priority", value));
-            }
-        }
-
-        /// <summary>
-        /// Gets the search string that is sent to every search peer for this job.
-        /// </summary>
-        public string RemoteSearch {
-            get {
-                return this.GetString("remoteSearch", null);
-            }
-        }
-
-        /// <summary>
-        /// Gets the reporting subset of this search. This is the streaming part
+        /// Returns the reporting subset of this search. This is the streaming part
         /// of the search that is sent to remote providers if reporting commands are
-        /// used. The original search should be the eventSearch + reportSearch.
+        /// used. The original search should be the eventSearch + reportSearch. 
         /// <seealso cref="eventSearch" />
         /// </summary>
-        public string ReportSearch {
-            get {
-                return this.GetString("reportSearch", null);
-            }
+        /// <returns>The report search.</returns>
+        public string ReportSearch()
+        {
+            return this.GetString("reportSearch", null);
         }
 
         /// <summary>
-        /// Gets the total count of results returned for this search job.
+        /// Returns the total count of results returned for this search job. 
         /// This is the subset of scanned events that actually matches the search
-        /// terms.
+        /// terms. 
         /// </summary>
-        public int ResultCount {
-            get {
-                return this.GetInteger("resultCount");
-            }
+        /// <returns>The event count.</returns>
+        public int ResultCount()
+        {
+            return this.GetInteger("resultCount");
         }
 
         /// <summary>
-        /// Gets a value indicating whether the job's result is available by streaming.
+        /// Returns a value indicating whether the job's result is available by streaming.  
         /// </summary>
-        public bool ResultIsStreaming {
-            get {
-                return this.GetBoolean("resultIsStreaming");
-            }
+        /// <returns>If the results are available for streaming.</returns>
+        public bool ResultIsStreaming() 
+        {
+            return this.GetBoolean("resultIsStreaming");
         }
 
         /// <summary>
-        /// Gets the number of result rows in the latest preview results for this job.
+        /// Returns the number of result rows in the latest preview results for this job. 
         /// </summary>
-        public int ResultPreviewCount {
-            get {
-                return this.GetInteger("resultPreviewCount");
-            }
+        /// <returns>The results preview count.</returns>
+        public int ResultPreviewCount()
+        {
+            return this.GetInteger("resultPreviewCount");
         }
 
         /// <summary>
-        /// Gets the time that the search job took to complete.
+        /// Returns the time that the search job took to complete.  
         /// </summary>
-        public double RunDuration {
-            get {
-                return this.GetFloat("runDuration");
-            }
+        /// <returns>The duration of the run</returns>
+        public double RunDuration() 
+        {
+            return this.GetFloat("runDuration");
         }
 
         /// <summary>
-        /// Gets the number of events that are scanned or read off disk.
+        /// Returns the number of events that are scanned or read off disk. 
         /// </summary>
-        public int ScanCount {
-            get {
-                return this.GetInteger("scanCount");
-            }
+        /// <returns>The event scan count</returns>
+        public int ScanCount()
+        {
+             return this.GetInteger("scanCount");
         }
 
         /// <summary>
-        /// Gets this job's search title, which is the same as the
-        /// search string.
-        /// </summary>
-        public string Search {
-            get {
-                return this.Title;
-            }
-        }
-
-        /// <summary>
-        /// Gets the earliest time a search job is configured to start.
+        /// Returns the earliest time a search job is configured to start. 
         /// <seealso cref="SearchLatestTime"/>
         /// <seealso cref="CursorTime"/>
         /// <seealso cref="DoneProgress"/>
         /// </summary>
-        public string SearchEarliestTime {
-            get {
-                return this.GetString("searchEarliestTime", null);
-            }
+        /// <returns>The earliest search time.</returns>
+        public string SearchEarliestTime() 
+        {
+            return this.GetString("searchEarliestTime", null);
         }
 
         /// <summary>
-        /// Gets the latest time a search job is configured to start.
+        /// Returns the latest time a search job is configured to start. 
         /// <seealso cref="SearchEarliestTime"/>
         /// <seealso cref="CursorTime"/>
         /// <seealso cref="DoneProgress"/>
         /// </summary>
-        public string SearchLatestTime {
-            get {
-                return this.GetString("searchLatestTime", null);
-            }
+        /// <returns>The latest search time.</returns>
+        public string SearchLatestTime()
+        {
+            return this.GetString("searchLatestTime", null);
         }
 
         /// <summary>
-        /// Gets the list of all the search peers that were contacted. 
+        /// Gets the list of all the search peers that were contacted.  
         /// </summary>
-        public string[] SearchProviders {
-            get {
-                return this.GetStringArray("searchProviders", null);
-            }
+        /// <returns>The list of search peers involved in the search.</returns>
+        public string[] SearchProviders()
+        {
+            return this.GetStringArray("searchProviders", null);
         }
 
         /// <summary>
-        /// Gets the unique search identifier (SID) for this job.
+        /// Returns the unique search identifier (SID) for this job.
         /// </summary>
-        public string Sid {
-            get {
-                return this.GetString("sid");
-            }
+        /// <returns>The SID</returns>
+        public string Sid()
+        {
+            return this.GetString("sid");
         }
 
         /// <summary>
-        /// Gets the maximum number of timeline buckets for this job.
+        /// Returns the maximum number of timeline buckets for this job.  Note
+        /// that if dirty, this has the side effect of retrieving refreshed
+        /// data from the server. 
         /// </summary>
-        public int StatusBuckets {
-            get {
-                return this.GetInteger("statusBuckets");
-            }
+        /// <returns>The number of status buckets</returns>
+        public int StatusBuckets() 
+        {
+            return this.GetInteger("statusBuckets");
         }
 
         /// <summary>
-        /// Gets this job's time to live in seconds --that is, the time
+        /// Returns this job's time to live in seconds --that is, the time
         /// before the search job expires and is still available.
-        /// If this value is 0, it means the job has expired.
+        /// If this value is 0, it means the job has expired.  
         /// </summary>
-        public int Ttl {
-            get {
-                return this.GetInteger("ttl");
-            }
+        /// <returns>The time-to-live</returns>
+        public int Ttl() 
+        {
+            return this.GetInteger("ttl");
         }
 
         /// <summary>
-        /// Gets a value indicating whether the job is done.
+        /// Returns a value indicating whether the job is done.
         /// </summary>
-        /// <returns></returns>
-        public bool IsDone {
-            get {
-                return this.GetBoolean("isDone");
-            }
+        /// <returns>If the job is complete or not</returns>
+        public bool IsDone()
+        {
+            return this.GetBoolean("isDone");
         }
 
         /// <summary>
-        /// Gets a value indicating whether the job failed.
+        /// Returns a value indicating whether the job failed. 
         /// </summary>
-        /// <returns></returns>
-        public bool IsFailed {
-            get {
-                return this.GetBoolean("isFailed");
-            }
+        /// <returns>Whether or not the job has failed.</returns>
+        public bool IsFailed()
+        {
+            return this.GetBoolean("isFailed");
         }
 
         /// <summary>
-        /// Gets a value indicating whether the job is finalized (forced to finish).
+        /// Returns a value indicating whether the job is finalized (forced to finish). 
         /// </summary>
-        public bool IsFinalized {
-            get {
-                return this.GetBoolean("isFinalized");
-            }
+        /// <returns>Whether or not the job is finalized.</returns>
+        public bool IsFinalized() 
+        {
+            return this.GetBoolean("isFinalized");
         }
 
         /// <summary>
-        /// Gets a value indicating whether the jobs is paused.
+        /// Returns a value indicating whether the jobs is paused.  Note
+        /// that if dirty, this has the side effect of retrieving refreshed
+        /// data from the server. 
         /// </summary>
-        public bool IsPaused {
-            get {
-                return this.GetBoolean("isPaused");
-            }
+        /// <returns>Whether or not the job is paused.</returns>
+        public bool IsPaused() 
+        {
+            return this.GetBoolean("isPaused");
         }
 
         /// <summary>
-        /// Gets a value indicating whether preview for the job is enabled.
+        /// Returns a value indicating whether preview for the job is enabled. 
         /// </summary>
-        public bool IsPreviewEnabled {
-            get {
-                return this.GetBoolean("isPreviewEnabled");
-            }
+        /// <returns>Whether or not preview is enabled.</returns>
+        public bool IsPreviewEnabled()
+        {
+            return this.GetBoolean("isPreviewEnabled");
         }
 
         /// <summary>
-        /// Gets a value indicating whether the job is a real-time search.
+        /// Returns a value indicating whether the job is a real-time search. 
         /// </summary>
-        public bool IsRealTimeSearch {
-            get {
-                return this.GetBoolean("isRealTimeSearch");
-            }
+        /// <returns>If the job is a real-time search.</returns>
+        public bool IsRealTimeSearch()
+        {
+            return this.GetBoolean("isRealTimeSearch");
         }
 
         /// <summary>
-        /// Gets a value indicating whether the job has a remote timeline component.
+        /// Returns a value indicating whether the job has a remote timeline component. 
         /// </summary>
-        public bool IsRemoteTimeline {
-            get {
-                return this.GetBoolean("isRemoteTimeline");
-            }
+        /// <returns>If the job has a remote timeline</returns>
+        public bool IsRemoteTimeline()
+        {
+            return this.GetBoolean("isRemoteTimeline");
         }
 
         /// <summary>
         /// Gets a value indicating whether the job is to be saved indefinitely.
         /// </summary>
-        public bool IsSaved {
-            get {
-                return this.GetBoolean("isSaved");
-            }
+        /// <returns>If the job is saved indefinitely.</returns>
+        public bool IsSaved()
+        {
+            return this.GetBoolean("isSaved");
         }
 
         /// <summary>
-        /// Gets a value indicating whether this job was run as a saved search (via scheduler).
+        /// Gets a value indicating whether this job was run as a saved search (via scheduler).  
         /// </summary>
-        public bool IsSavedSearch {
-            get {
-                return this.GetBoolean("isSavedSearch");
-            }
+        /// <returns>If this is a saved search.</returns>
+        public bool IsSavedSearch()
+        {
+            return this.GetBoolean("isSavedSearch");
         }
 
         /// <summary>
         /// Gets a value indicating whether the process running the search is dead but with the
-        /// search not finished.
+        /// search not finished. 
         /// </summary>
-        public bool IsZombie {
-            get {
-                return this.GetBoolean("isZombie");
-            }
+        /// <returns>If the job is a zombie.</returns>
+        public bool IsZombie()
+        {
+            return this.GetBoolean("isZombie");
         }
 
         /// <summary>
@@ -467,8 +488,10 @@ namespace Splunk
         /// </summary>
         /// <param name="action">The requested action</param>
         /// <returns>The action path endpoint</returns>
-        protected override string ActionPath(string action) {
-            if (action.Equals("control")) {
+        protected override string ActionPath(string action) 
+        {
+            if (action.Equals("control")) 
+            {
                 return this.Path + "/control";
             }
             return base.ActionPath(action);
@@ -479,7 +502,8 @@ namespace Splunk
         /// </summary>
         /// <param name="action">The action requested</param>
         /// <returns>The Job</returns>
-        public Job Control(string action) {
+        public Job Control(string action)
+        {
             return this.Control(action, null);
         }
 
@@ -489,7 +513,8 @@ namespace Splunk
         /// <param name="action">The requested action</param>
         /// <param name="args">The variable arguments</param>
         /// <returns>The job</returns>
-        public Job Control(string action, Args args) {
+        public Job Control(string action, Args args) 
+        {
             args = Args.Create(args).AlternateAdd("action", action);
             this.Service.Post(this.ActionPath("control"), args);
             this.Invalidate();
@@ -501,7 +526,8 @@ namespace Splunk
         /// on the server.
         /// </summary>
         /// <returns>The job</returns>
-        public Job Cancel() {
+        public Job Cancel() 
+        {
             return this.Control("cancel");
         }
 
@@ -509,16 +535,17 @@ namespace Splunk
         /// Disables preview for this job.
         /// </summary>
         /// <returns>The job</returns>
-        public Job DisablePreview() {
+        public Job DisablePreview() 
+        {
             return this.Control("disablepreview");
         }
 
         /// <summary>
-        /// Enables preview for this job (although it might slow search
-        /// considerably).
+        /// Enables preview for this job (although it might slow search considerably).
         /// </summary>
         /// <returns>The job</returns>
-        public Job EnablePreview() {
+        public Job EnablePreview() 
+        {
             return this.Control("enablepreview");
         }
 
@@ -526,7 +553,8 @@ namespace Splunk
         /// Returns the Stream IO handle for this job's events.
         /// </summary>
         /// <returns>The event Stream IO handle.</returns>
-        public Stream Events() {
+        public Stream Events() 
+        {
             return this.Events(null);
         }
 
@@ -535,16 +563,18 @@ namespace Splunk
         /// </summary>
         /// <param name="args">The variable arguments sent to the .../events endpoint</param>
         /// <returns>The Stream IO handle</returns>
-        public Stream Events(Args args) {
+        public Stream Events(Args args) 
+        {
             ResponseMessage response = Service.Get(Path + "/events", args);
-            return response.GetContent();
+            return response.Content;
         }
 
         /// <summary>
         /// Stops the job and provides intermediate results available for retrieval.
         /// </summary>
         /// <returns>The Job</returns>
-        public Job Finish() {
+        public Job Finish() 
+        {
             return this.Control("finalize");
         }
 
@@ -552,7 +582,8 @@ namespace Splunk
         /// Suspends the execution of the current search.
         /// </summary>
         /// <returns>The job</returns>
-        public Job Pause() {
+        public Job Pause() 
+        {
             return this.Control("pause");
         }
 
@@ -573,7 +604,8 @@ namespace Splunk
         /// The Stream IO handle for the results from this job.
         /// </summary>
         /// <returns>The Stream IO handle</returns>
-        public Stream Results() {
+        public Stream Results() 
+        {
             return this.Results(null);
         }
 
@@ -583,16 +615,18 @@ namespace Splunk
         /// </summary>
         /// <param name="args">The variable arguments</param>
         /// <returns>The results InputStream IO handle.</returns>
-        public Stream Results(Args args) {
+        public Stream Results(Args args) 
+        {
             ResponseMessage response = Service.Get(Path + "/results", args);
-            return response.GetContent();
+            return response.Content;
         }
 
         /// <summary>
         /// Returns the Stream IO handle for the preview results from this job.
         /// </summary>
         /// <returns>The Stream IO handle</returns>
-        public Stream ResultsPreview() {
+        public Stream ResultsPreview() 
+        {
             return this.ResultsPreview(null);
         }
 
@@ -602,16 +636,18 @@ namespace Splunk
         /// </summary>
         /// <param name="args">The optional parameters</param>
         /// <returns>The preview results InputStream IO handle.</returns>
-        public Stream ResultsPreview(Args args) {
+        public Stream ResultsPreview(Args args) 
+        {
             ResponseMessage response = Service.Get(Path + "/results_preview", args);
-            return response.GetContent();
+            return response.Content;
         }
 
         /// <summary>
         /// Returns the Stream IO handle to the search log for this job.
         /// </summary>
         /// <returns>The Stream IO handle</returns>
-        public Stream SearchLog() {
+        public Stream SearchLog() 
+        {
             return this.SearchLog(null);
         }
 
@@ -621,9 +657,10 @@ namespace Splunk
         /// </summary>
         /// <param name="args">The optional arguments</param>
         /// <returns>The Stream handle</returns>
-        public Stream SearchLog(Args args) {
+        public Stream SearchLog(Args args) 
+        {
             ResponseMessage response = Service.Get(Path + "/search.log", args);
-            return response.GetContent();
+            return response.Content;
         }
 
         /// <summary>
@@ -632,8 +669,9 @@ namespace Splunk
         /// </summary>
         /// <param name="response">Response message</param>
         /// <returns>The SID</returns>
-        public static string SidExtraction(ResponseMessage response) {
-            StreamReader streamReader = new StreamReader(response.GetContent());
+        public static string SidExtraction(ResponseMessage response) 
+        {
+            StreamReader streamReader = new StreamReader(response.Content);
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(streamReader.ReadToEnd());
             return doc.SelectSingleNode("/sid").InnerText;
@@ -643,7 +681,8 @@ namespace Splunk
         /// Returns the Stream IO handle for the summary for this job.
         /// </summary>
         /// <returns>The Stream IO handle</returns>
-        public Stream Summary() {
+        public Stream Summary() 
+        {
             return this.Summary(null);
         }
 
@@ -653,16 +692,18 @@ namespace Splunk
         /// </summary>
         /// <param name="args">The optional arguments</param>
         /// <returns>The Stream handle.</returns>
-        public Stream Summary(Args args) {
+        public Stream Summary(Args args) 
+        {
             ResponseMessage response = Service.Get(Path + "/summary", args);
-            return response.GetContent();
+            return response.Content;
         }
 
         /// <summary>
         /// Returns the Stream IO handle for the timeline for this job.
         /// </summary>
         /// <returns>The Stream IO handle</returns>
-        public Stream Timeline() {
+        public Stream Timeline() 
+        {
             return this.Timeline(null);
         }
 
@@ -672,9 +713,10 @@ namespace Splunk
         /// </summary>
         /// <param name="args">The optional arguments</param>
         /// <returns>The Stream handle</returns>
-        public Stream Timeline(Args args) {
+        public Stream Timeline(Args args) 
+        {
             ResponseMessage response = Service.Get(Path + "/timeline", args);
-            return response.GetContent();
+            return response.Content;
         }
 
         // Job "entities" don't return an AtomFeed, only an AtomEntry.
@@ -683,16 +725,18 @@ namespace Splunk
         /// Refreshes this job.
         /// </summary>
         /// <returns>The extended resource, the Job</returns>
-        public override Resource Refresh() {
+        public override Resource Refresh() 
+        {
             this.Update();
             ResponseMessage response = Service.Get(Path);
-            if (response.GetStatus() == 204) {
+            if (response.Status == 204) 
+            {
                 // Empty response from server means the job has not yet been
                 // scheduled; so throw an exception up to the caller.
                 throw new SplunkException(SplunkException.JOBNOTREADY, "Job not yet scheduled by server");
             }
 
-            AtomEntry entry = AtomEntry.Parse(response.GetContent());
+            AtomEntry entry = AtomEntry.Parse(response.Content);
             this.Load(entry);
             return this;
         }
@@ -701,7 +745,8 @@ namespace Splunk
         /// Unsupported. Removes this job. This method is unsupported and will throw
         /// an exception.
         /// </summary>
-        public new void Remove() {
+        public new void Remove() 
+        {
             throw new Exception("Job removal not supported with this operation");
         }
     }

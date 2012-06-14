@@ -25,31 +25,49 @@ namespace Splunk
         /// <summary>
         ///  Gets or sets the application context of the service.
         /// </summary>
-        public string App { get; set; }
+        public string App 
+        { 
+            get; set; 
+        }
 
         /// <summary>
         ///  Gets or sets the host name of the service
         /// </summary>
-        public string Host { get; set; }
+        public string Host 
+        { 
+            get; set; 
+        }
 
         /// <summary>
         ///  Gets or sets the owner context of the service
         /// </summary>
-        public string Owner { get; set; }
+        public string Owner 
+        { 
+            get; set; 
+        }
 
         /// <summary>
         ///  Gets or sets the port number of the service
         /// </summary>
-        public int Port { get; set; }
+        public int Port 
+        { 
+            get; set; 
+        }
 
         /// <summary>
         ///  Gets or sets the scheme to use for accessing the service
         /// </summary>
-        public string Scheme { get; set; }
+        public string Scheme 
+        { 
+            get; set; 
+        }
 
         /// <summary>
         ///  Gets or sets the Splunk authentication token to use for the session
         /// </summary>
-        public string Token { get; set; }
+        public string Token 
+        { 
+            get; set; 
+        }
     }
 }

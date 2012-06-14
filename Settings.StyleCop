@@ -2,11 +2,6 @@
   <Analyzers>
     <Analyzer AnalyzerId="StyleCop.CSharp.LayoutRules">
       <Rules>
-        <Rule Name="CurlyBracketsForMultiLineStatementsMustNotShareLine">
-          <RuleSettings>
-            <BooleanProperty Name="Enabled">False</BooleanProperty>
-          </RuleSettings>
-        </Rule>
         <Rule Name="ClosingCurlyBracketMustBeFollowedByBlankLine">
           <RuleSettings>
             <BooleanProperty Name="Enabled">False</BooleanProperty>

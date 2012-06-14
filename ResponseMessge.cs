@@ -42,7 +42,8 @@ namespace Splunk
         /// <summary>
         /// Initializes a new instance of the <see cref="ResponseMessage"/> class
         /// </summary>
-        public ResponseMessage() { 
+        public ResponseMessage() 
+        { 
         }
 
         /// <summary>
@@ -50,7 +51,8 @@ namespace Splunk
         /// with an initial status.
         /// </summary>
         /// <param name="status">The status</param>
-        public ResponseMessage(int status) {
+        public ResponseMessage(int status) 
+        {
             this.status = status;
         }
 
@@ -60,36 +62,50 @@ namespace Splunk
         /// </summary>
         /// <param name="status">The status</param>
         /// <param name="content">The content stream</param>
-        public ResponseMessage(int status, Stream content) {
+        public ResponseMessage(int status, Stream content) 
+        {
             this.status = status;
             this.content = content;
         }
 
         /// <summary>
-        /// Returns the body content stream
+        /// Gets the body content stream
         /// </summary>
         /// <returns>The stream</returns>
-        public Stream GetContent() {
-            return this.content;
+        public Stream Content 
+        {
+            get 
+            {
+                return this.content;
+            }
         }
 
         /// <summary>
-        /// Returns the dictionay of the response headers
+        /// Gets the dictionay of the response headers
         /// </summary>
         /// <returns>The response headers</returns>
-        public Dictionary<string, string> GetHeader() {
-            if (this.header == null) {
-                this.header = new Dictionary<string, string>();
+        public Dictionary<string, string> Header
+        {
+            get 
+            {
+                if (this.header == null) 
+                {
+                    this.header = new Dictionary<string, string>();
+                }
+                return this.header;
             }
-            return this.header;
         }
 
         /// <summary>
-        /// Returns the response HTTP status code
+        /// Gets the response HTTP status code
         /// </summary>
         /// <returns>The status</returns>
-        public int GetStatus() {
-            return this.status;
+        public int Status 
+        {
+            get 
+            {
+                return this.status;
+            }
         }
     }
 }

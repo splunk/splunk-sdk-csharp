@@ -42,7 +42,8 @@ namespace Splunk
         /// <summary>
         /// Initializes a new instance of the <see cref="RequestMessage"/> class.
         /// </summary>
-        public RequestMessage() { 
+        public RequestMessage() 
+        { 
         }
 
         /// <summary>
@@ -50,7 +51,8 @@ namespace Splunk
         /// with specific method.
         /// </summary>
         /// <param name="method">The method</param>
-        public RequestMessage(string method) {
+        public RequestMessage(string method) 
+        {
             this.method = method;
         }
 
@@ -59,7 +61,8 @@ namespace Splunk
         /// </summary>
         /// <param name="value">The method name</param>
         /// <returns>Whether or not the method is supported</returns>
-        private bool CheckMethod(string value) {
+        private bool CheckMethod(string value) 
+        {
             return
                 value.Equals("GET") ||
                 value.Equals("PUT") ||
@@ -71,8 +74,10 @@ namespace Splunk
         /// Returns the header dictionary.
         /// </summary>
         /// <returns>the header</returns>
-        public Dictionary<string, string> GetHeader() {
-            if (this.header == null) {
+        public Dictionary<string, string> GetHeader() 
+        {
+            if (this.header == null) 
+            {
                 this.header = new Dictionary<string, string>();
             }
             return this.header;
@@ -82,7 +87,8 @@ namespace Splunk
         /// Returns the HTTP/S method.
         /// </summary>
         /// <returns>the method</returns>
-        public string GetMethod() {
+        public string GetMethod() 
+        {
             return this.method;
         }
 
@@ -90,9 +96,11 @@ namespace Splunk
         /// Sets the HTTP/S method
         /// </summary>
         /// <param name="value">The method</param>
-        public void SetMethod(string value) {
+        public void SetMethod(string value) 
+        {
             value = value.ToUpper();
-            if (!this.CheckMethod(value)) {
+            if (!this.CheckMethod(value)) 
+            {
                 throw new Exception("Bad HTTP method");
             }
             this.method = value;
@@ -102,7 +110,8 @@ namespace Splunk
         /// Rerturns the content.
         /// </summary>
         /// <returns>the content</returns>
-        public object GetContent() {
+        public object GetContent() 
+        {
             return this.content;
         }
 
@@ -110,7 +119,8 @@ namespace Splunk
         /// Sets the content.
         /// </summary>
         /// <param name="value">the content</param>
-        public void SetContent(string value) {
+        public void SetContent(string value) 
+        {
             this.content = value;
         }
     }

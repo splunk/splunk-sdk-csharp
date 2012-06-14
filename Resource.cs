@@ -38,7 +38,8 @@ namespace Splunk
         /// </summary>
         /// <param name="service">The service</param>
         /// <param name="path">The path of the resource.</param>
-        public Resource(Service service, string path) {
+        public Resource(Service service, string path) 
+        {
             this.Path = service.Fullpath(path);
             this.PartialPath = path;
             this.Service = service;
@@ -53,39 +54,44 @@ namespace Splunk
         /// <param name="service">The service</param>
         /// <param name="path">The path of this resource</param>
         /// <param name="args">The variable arguments</param>
-        public Resource(Service service, string path, Args args) {
+        public Resource(Service service, string path, Args args) 
+        {
             this.Service = service;
             /* Pull out namespace items (app, owner, sharing) from the args, and
              * then use to create the full path. 
              */
             Args clonedArgs = new Args(args);
             Args splunkNamespace = new Args();
-            if (args.ContainsKey("app")) {
+            if (args.ContainsKey("app")) 
+            {
                 splunkNamespace.AlternateAdd("app", args["app"].ToString());
                 clonedArgs.Remove("app");
             }
-            if (args.ContainsKey("owner")) {
+            if (args.ContainsKey("owner")) 
+            {
                 splunkNamespace.AlternateAdd("owner", args["owner"].ToString());
                 clonedArgs.Remove("owner");
             }
-            if (args.ContainsKey("sharing")) {
+            if (args.ContainsKey("sharing")) 
+            {
                 splunkNamespace.AlternateAdd("sharing", args["sharing"].ToString());
                 clonedArgs.Remove("sharing");
             }
-            if (!clonedArgs.ContainsKey("count")) {
+            if (!clonedArgs.ContainsKey("count")) 
+            {
                 clonedArgs.AlternateAdd("count", "-1");
             }
 
             this.RefreshArgs = clonedArgs;
-            this.Path = service.Fullpath(
-                path, splunkNamespace.Count == 0 ? null : splunkNamespace);
+            this.Path = service.Fullpath(path, splunkNamespace.Count == 0 ? null : splunkNamespace);
             this.MaybeValid = false;
         }
 
         /// <summary>
         /// Gets or sets full path of this resource.
         /// </summary>
-        public string Path {
+        public string Path 
+        {
             get;
             set;
         }
@@ -93,7 +99,8 @@ namespace Splunk
         /// <summary>
         /// Gets or sets the partial path of this resource.
         /// </summary>
-        private string PartialPath {
+        private string PartialPath 
+        {
             get;
             set;
         }
@@ -101,7 +108,8 @@ namespace Splunk
         /// <summary>
         /// Gets or sets the service this resource is found on.
         /// </summary>
-        public Service Service {
+        public Service Service 
+        {
             get;
             set;
         }
@@ -109,7 +117,8 @@ namespace Splunk
         /// <summary>
         /// Gets or sets the refresh args for this resources.
         /// </summary>
-        public Args RefreshArgs {
+        public Args RefreshArgs 
+        {
             get;
             set;
         }
@@ -119,7 +128,8 @@ namespace Splunk
         /// When dirty, we refresh the resource before returning 
         /// any data contained therein.
         /// </summary>
-        public bool MaybeValid {
+        public bool MaybeValid 
+        {
             get;
             set;
         }
@@ -127,30 +137,37 @@ namespace Splunk
         /// <summary>
         /// Gets an up-to-date list of actions available for this resource.
         /// </summary>
-        public Dictionary<string, string> Actions {
-            get {
-                return this.Validate().actions;
-            }
+        /// <returns>Available actions on this endpoint</returns>
+        public Dictionary<string, string> Actions() 
+        {
+            return this.Validate().actions;
         }
 
         /// <summary>
         /// Gets the name of this resource 
         /// </summary>
-        public virtual string Name {
-            get {
+        public virtual string Name 
+        {
+            get 
+            {
                 return this.Title;
             }
         }
 
         /// <summary>
-        /// Gets or sets the  value of the title of this resource.
+        /// Gets or sets the  value of the title of this resource. Note that
+        /// getting the property may refresh the local resource if dirty from
+        /// the server.
         /// </summary>
-        public string Title {
-            get {
+        public string Title 
+        {
+            get 
+            {
                 return this.Validate().title;
             }
 
-            set {
+            set 
+            {
                 this.title = value;
             }
         }
@@ -159,7 +176,8 @@ namespace Splunk
         /// Marks the local state of this resource as no longer current.
         /// </summary>
         /// <returns>The resource</returns>
-        public Resource Invalidate() {
+        public Resource Invalidate() 
+        {
             this.MaybeValid = false;
             return this;
         }
@@ -169,11 +187,14 @@ namespace Splunk
         /// </summary>
         /// <param name="value">The AtomObject to load</param>
         /// <returns>The Resource</returns>
-        public Resource Load(AtomObject value) {
-            if (value == null) {
+        public Resource Load(AtomObject value) 
+        {
+            if (value == null) 
+            {
                 this.title = "title";
             }
-            else {
+            else 
+            {
                 this.actions = value.Links;
                 this.title = value.Title;
             }
@@ -192,8 +213,10 @@ namespace Splunk
         /// calling object specific Refresh method if necessary.
         /// </summary>
         /// <returns>The Resource</returns>
-        public virtual Resource Validate() {
-            if (!this.MaybeValid) {
+        public virtual Resource Validate() 
+        {
+            if (!this.MaybeValid) 
+            {
                 this.Refresh();
             }
             return this;

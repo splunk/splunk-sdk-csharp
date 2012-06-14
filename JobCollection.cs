@@ -35,7 +35,8 @@ namespace Splunk
         /// </summary>
         /// <param name="service">The service</param>
         public JobCollection(Service service)
-            : base(service, "search/jobs", typeof(Job)) {
+            : base(service, "search/jobs", typeof(Job)) 
+        {
         }
 
         /// <summary>
@@ -44,7 +45,8 @@ namespace Splunk
         /// <param name="service">The service</param>
         /// <param name="args">The variable arguments</param>
         public JobCollection(Service service, Args args) 
-            : base(service, "search/jobs", args, typeof(Job)) {
+            : base(service, "search/jobs", args, typeof(Job)) 
+        {
         }
 
         /// <summary>
@@ -54,7 +56,8 @@ namespace Splunk
         /// </summary>
         /// <param name="query">The search query</param>
         /// <returns>The Job</returns>
-        public new Job Create(string query) {
+        public new Job Create(string query) 
+        {
             return this.Create(query, (Args)null);
         }
 
@@ -66,16 +69,19 @@ namespace Splunk
         /// <param name="query">The search query</param>
         /// <param name="args">The variable arguments</param>
         /// <returns>The Job</returns>
-        public new Job Create(string query, Args args) {
-            if (args != null && args.ContainsKey("exec_mode")) {
-                if (args["exec_mode"].Equals("oneshot")) {
+        public new Job Create(string query, Args args) 
+        {
+            if (args != null && args.ContainsKey("exec_mode")) 
+            {
+                if (args["exec_mode"].Equals("oneshot")) 
+                {
                     throw new Exception("Oneshot not allowed, use service oneshot search method");
                 }
             }
             args = Args.Create(args).AlternateAdd("search", query);
             ResponseMessage response = Service.Post(Path, args);
             /* assert(response.getStatus() == 201); */
-            StreamReader streamReader = new StreamReader(response.GetContent());
+            StreamReader streamReader = new StreamReader(response.Content);
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(streamReader.ReadToEnd());
             string sid = doc.SelectSingleNode("/response/sid").InnerText;
@@ -83,7 +89,8 @@ namespace Splunk
             Job job = (Job)Get(sid);
 
             // if job not yet scheduled, create an empty job object
-            if (job == null) {
+            if (job == null) 
+            {
                 job = new Job(Service, "search/jobs/" + sid);
             }
 
@@ -94,7 +101,8 @@ namespace Splunk
         /// Returns the List of Jobs, as a responseMessage object.
         /// </summary>
         /// <returns>The responseMessage list of jobs.</returns>
-        public override ResponseMessage List() {
+        public override ResponseMessage List() 
+        {
             return Service.Get(this.Path + "?count=0");
         }
 
@@ -104,7 +112,8 @@ namespace Splunk
         /// </summary>
         /// <param name="entry">The Atom Entry</param>
         /// <returns>The SID</returns>
-        protected override string ItemKey(AtomEntry entry) {
+        protected override string ItemKey(AtomEntry entry) 
+        {
             return (string)entry.Content["sid"];
         }
     }

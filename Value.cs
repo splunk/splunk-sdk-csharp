@@ -28,20 +28,26 @@ namespace Splunk
         /// </summary>
         /// <param name="value">The string value</param>
         /// <returns>The bool value</returns>
-        public static bool ToBoolean(string value) {
-            if (value == null) {
+        public static bool ToBoolean(string value) 
+        {
+            if (value == null) 
+            {
                 return false;
             }
-            if (value.Equals("0")) {
+            if (value.Equals("0")) 
+            {
                 return false;
             }
-            if (value.Equals("1")) {
+            if (value.Equals("1")) 
+            {
                 return true;
             }
-            if (value.ToLower().Equals("false")) {
+            if (value.ToLower().Equals("false")) 
+            {
                 return false;
             }
-            if (value.ToLower().Equals("true")) {
+            if (value.ToLower().Equals("true")) 
+            {
                 return true;
             }
             throw new Exception(string.Format("Value error: '{0}'", value));
@@ -53,19 +59,25 @@ namespace Splunk
         /// </summary>
         /// <param name="value">The string value</param>
         /// <returns>the long value</returns>
-        public static long ToByteCount(string value) {
+        public static long ToByteCount(string value) 
+        {
             long multiplier = 1;
-            if (value.EndsWith("B")) {
-                if (value.EndsWith("KB")) {
+            if (value.EndsWith("B")) 
+            {
+                if (value.EndsWith("KB")) 
+                {
                     multiplier = 1024;
                 }
-                else if (value.EndsWith("MB")) {
+                else if (value.EndsWith("MB")) 
+                {
                     multiplier = 1024 * 1024;
                 }
-                else if (value.EndsWith("GB")) {
+                else if (value.EndsWith("GB")) 
+                {
                     multiplier = 1024 * 1024 * 1024;
                 }
-                else {
+                else 
+                {
                     throw new Exception(string.Format("Value error: '{0}'", value));
                 }
                 value = value.Substring(0, value.Length - 2);
@@ -124,7 +136,8 @@ namespace Splunk
         /// </summary>
         /// <param name="value">The string value</param>
         /// <returns>The double value</returns>
-        public static double ToFloat(string value) {
+        public static double ToFloat(string value) 
+        {
             return Convert.ToDouble(value);
         }
 
@@ -133,7 +146,8 @@ namespace Splunk
         /// </summary>
         /// <param name="value">The string value</param>
         /// <returns>The int value</returns>
-        public static int ToInteger(string value) {
+        public static int ToInteger(string value) 
+        {
             return Convert.ToInt32(value);
         }
 
@@ -142,7 +156,8 @@ namespace Splunk
         /// </summary>
         /// <param name="value">The string value</param>
         /// <returns>The long value</returns>
-        public static long ToLong(string value) {
+        public static long ToLong(string value) 
+        {
             return Convert.ToInt64(value);
         }
     }

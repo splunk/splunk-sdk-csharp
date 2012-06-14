@@ -33,7 +33,8 @@ namespace Splunk
     /// by presenting credentials using the the login method, or by contructing
     /// the Service instance using the connect method.
     /// </summary>
-    public class Service : HttpService {
+    public class Service : HttpService 
+    {
         /// <summary>
         /// The default host name, which is used when a host name is not provided.
         /// </summary>
@@ -55,7 +56,8 @@ namespace Splunk
         /// </summary>
         /// <param name="host">The hostname</param>
         public Service(string host) 
-            : base(host) {
+            : base(host) 
+        {
             this.InitProperties();
         }
 
@@ -66,7 +68,8 @@ namespace Splunk
         /// <param name="host">The hostname</param>
         /// <param name="port">The port</param>
         public Service(string host, int port) 
-            : base(host, port) {
+            : base(host, port) 
+        {
             this.InitProperties();
         }
 
@@ -78,7 +81,8 @@ namespace Splunk
         /// <param name="port">The port</param>
         /// <param name="scheme">The scheme, http or https</param>
         public Service(string host, int port, string scheme)
-            : base(host, port, scheme) {
+            : base(host, port, scheme) 
+        {
             this.InitProperties();
         }
 
@@ -88,7 +92,8 @@ namespace Splunk
         /// </summary>
         /// <param name="args">The service arguments</param>
         public Service(ServiceArgs args)
-            : base() {
+            : base() 
+        {
             this.InitProperties();
             this.App = args.App;
             this.Host = args.Host == null ? defaultHost : args.Host;
@@ -104,7 +109,8 @@ namespace Splunk
         /// </summary>
         /// <param name="args">The service args</param>
         public Service(Dictionary<string, object> args) 
-            : base() {
+            : base() 
+        {
             this.InitProperties();
             this.App = Args.Get(args, "app", null);
             this.Host = Args.Get(args, "host", defaultHost);
@@ -117,73 +123,74 @@ namespace Splunk
         /// <summary>
         /// Gets or sets the current app context
         /// </summary>
-        private string App {
-            get;
-            set;
+        private string App 
+        {
+            get; set;
         }
 
         /// <summary>
         /// Gets or sets the current owner context. A value of "nobody" means that all users
         /// have access to the resource.
         /// </summary>
-        private string Owner {
-            get;
-            set;
+        private string Owner 
+        {
+            get; set;
         }
 
         /// <summary>
         /// Gets or sets the password, which is used to authenticate the Splunk instance.
         /// </summary>
-        private string Password {
-            get;
-            set;
+        private string Password 
+        {
+            get; set;
         }
 
         /// <summary>
         /// Gets or sets the default password endpoint, can change over Splunk versions.
         /// </summary>
-        private string PasswordEndPoint {
-            get;
-            set;
+        private string PasswordEndPoint 
+        {
+            get; set;
         }
 
         /// <summary>
         /// Gets or sets the default simple receiver endpoint.
         /// </summary>
-        private string SimpleReceiverEndPoint {
-            get;
-            set;
+        private string SimpleReceiverEndPoint 
+        {
+            get; set;
         }
 
         /// <summary>
         /// Gets or sets the current session (authorization) token
         /// </summary>
-        private string Token {
-            get;
-            set;
+        private string Token 
+        {
+            get; set;
         }
 
         /// <summary>
         /// Gets or sets the Splunk account username, which is used to authenticate the Splunk
         /// instance.
         /// </summary>
-        private string Username {
-            get;
-            set;
+        private string Username 
+        {
+            get; set;
         }
 
         /// <summary>
         /// Gets or sets the version of this Splunk instance, once logged in.
         /// </summary>
-        public string Version {
-            get;
-            set;
+        public string Version 
+        {
+            get; set;
         }
 
         /// <summary>
         /// Initialize all properties to their default values
         /// </summary>
-        private void InitProperties() {
+        private void InitProperties() 
+        {
             this.SimpleReceiverEndPoint = "receivers/simple";
             this.PasswordEndPoint = "admin/passwords";
             this.App = null;
@@ -201,9 +208,11 @@ namespace Splunk
         /// </summary>
         /// <param name="args">The connection arguments</param>
         /// <returns>The serfvice instance</returns>
-        public static Service Connect(Dictionary<string, object> args) {
+        public static Service Connect(Dictionary<string, object> args) 
+        {
             Service service = new Service(args);
-            if (args.ContainsKey("username")) {
+            if (args.ContainsKey("username")) 
+            {
                 string username = Args.Get(args, "username", null);
                 string password = Args.Get(args, "password", null);
                 service.Login(username, password);
@@ -217,7 +226,8 @@ namespace Splunk
         /// </summary>
         /// <param name="search">The search query string</param>
         /// <returns>The results stream</returns>
-        public Stream Export(string search) {
+        public Stream Export(string search) 
+        {
             return this.Export(search, null);
         }
 
@@ -228,10 +238,11 @@ namespace Splunk
         /// <param name="search">The search query string</param>
         /// <param name="args">The search arguments</param>
         /// <returns>The results stream</returns>
-        public Stream Export(string search, Args args) {
+        public Stream Export(string search, Args args) 
+        {
             args = Args.Create(args).AlternateAdd("search", search);
             ResponseMessage response = Get("search/jobs/export", args);
-            return response.GetContent();
+            return response.Content;
         }
 
         /// <summary>
@@ -241,7 +252,8 @@ namespace Splunk
         /// </summary>
         /// <param name="path">The path</param>
         /// <returns>The fully qualified URL</returns>
-        public string Fullpath(string path) {
+        public string Fullpath(string path) 
+        {
             return this.Fullpath(path, null);
         }
 
@@ -253,16 +265,19 @@ namespace Splunk
         /// <param name="path">The path</param>
         /// <param name="splunkNamespace">The Splunk namespace</param>
         /// <returns>The fully qualified URL</returns>
-        public string Fullpath(string path, Args splunkNamespace) {
+        public string Fullpath(string path, Args splunkNamespace) 
+        {
             // if already fully qualified (i.e. root begins with /) then return
             // the already qualified path.
-            if (path.StartsWith("/")) {
+            if (path.StartsWith("/")) 
+            {
                 return path;
             }
 
             // if no namespace at all, and no service instance of app, and no
             // sharing, return base service endpoint + path.
-            if (splunkNamespace == null && this.App == null) {
+            if (splunkNamespace == null && this.App == null) 
+            {
                 return "/services/" + path;
             }
 
@@ -272,14 +287,18 @@ namespace Splunk
             string localSharing = string.Empty;
 
             // override with invocation namespace if set.
-            if (splunkNamespace != null) {
-                if (splunkNamespace.ContainsKey("app")) {
+            if (splunkNamespace != null) 
+            {
+                if (splunkNamespace.ContainsKey("app")) 
+                {
                     localApp = (string)splunkNamespace["app"];
                 }
-                if (splunkNamespace.ContainsKey("owner")) {
+                if (splunkNamespace.ContainsKey("owner")) 
+                {
                     localOwner = (string)splunkNamespace["owner"];
                 }
-                if (splunkNamespace.ContainsKey("sharing")) {
+                if (splunkNamespace.ContainsKey("sharing")) 
+                {
                     localSharing = (string)splunkNamespace["sharing"];
                 }
             }
@@ -289,10 +308,12 @@ namespace Splunk
             // "app"     --> nobody/{app}
             // "global"  --> nobody/{app}
             // "system"  --> nobody/system
-            if (localSharing.Equals("app") || localSharing.Equals("global")) {
+            if (localSharing.Equals("app") || localSharing.Equals("global")) 
+            {
                 localOwner = "nobody";
             }
-            else if (localSharing.Equals("system")) {
+            else if (localSharing.Equals("system")) 
+            {
                 localApp = "system";
                 localOwner = "nobody";
             }
@@ -551,7 +572,8 @@ namespace Splunk
         /// Returns a collection of current search jobs.
         /// </summary>
         /// <returns>The JobCollection</returns>
-        public JobCollection GetJobs() {
+        public JobCollection GetJobs() 
+        {
             return new JobCollection(this);
         }
 
@@ -560,7 +582,8 @@ namespace Splunk
         /// </summary>
         /// <param name="args">The variable arguments</param>
         /// <returns>The JobCollection</returns>
-        public JobCollection GetJobs(Args args) {
+        public JobCollection GetJobs(Args args) 
+        {
             return new JobCollection(this, args);
         }
 
@@ -984,7 +1007,8 @@ namespace Splunk
         /// <param name="username">The username</param>
         /// <param name="password">The password</param>
         /// <returns>The service</returns>
-        public Service Login(string username, string password) {
+        public Service Login(string username, string password) 
+        {
             this.Username = username;
             this.Password = password;
 
@@ -993,7 +1017,7 @@ namespace Splunk
             args.AlternateAdd("password", password);
 
             ResponseMessage response = Post("/services/auth/login", args);
-            StreamReader streamReader = new StreamReader(response.GetContent());
+            StreamReader streamReader = new StreamReader(response.Content);
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(streamReader.ReadToEnd());
             string sessionKey = doc.SelectSingleNode("/response/sessionKey").InnerText;
@@ -1011,7 +1035,8 @@ namespace Splunk
         /// Logout of the service. 
         /// </summary>
         /// <returns>The service</returns>
-        public Service Logout() {
+        public Service Logout() 
+        {
             this.Token = null;
             return this;
         }
@@ -1106,7 +1131,8 @@ namespace Splunk
         /// </summary>
         /// <param name="query">The search string</param>
         /// <returns>The Stream handle of the search</returns>
-        public Stream Search(string query) {
+        public Stream Search(string query) 
+        {
            return this.Search(query, null, null);
         }
 
@@ -1118,7 +1144,8 @@ namespace Splunk
         /// <param name="query">The search string</param>
         /// <param name="inputArgs">The variable arguments</param>
         /// <returns>The Stream handle of the search</returns>
-        public Stream Search(string query, Args inputArgs) {
+        public Stream Search(string query, Args inputArgs) 
+        {
             return this.Search(query, inputArgs, null);
         }
 
@@ -1130,7 +1157,8 @@ namespace Splunk
         /// <param name="inputArgs">The variable arguments</param>
         /// <param name="outputArgs">The output arguments</param>
         /// <returns>The Stream handle of the search</returns>
-        public Stream Search(string query, Args inputArgs, Args outputArgs) {
+        public Stream Search(string query, Args inputArgs, Args outputArgs) 
+        {
             inputArgs = Args.Create(inputArgs);
             inputArgs.AlternateAdd("search", query);
             // always block until results are ready.
@@ -1149,8 +1177,10 @@ namespace Splunk
         /// <param name="path">The path</param>
         /// <param name="request">The request message</param>
         /// <returns>The ResponseMessage</returns>
-        public override ResponseMessage Send(string path, RequestMessage request) {
-            if (this.Token != null) {
+        public override ResponseMessage Send(string path, RequestMessage request) 
+        {
+            if (this.Token != null) 
+            {
                 request.GetHeader().Add("Authorization", this.Token);
             }
             return base.Send(this.Fullpath(path), request);
@@ -1163,9 +1193,11 @@ namespace Splunk
         /// </summary>
         /// <param name="right">The desired version</param>
         /// <returns>A avlue of -1, 0, or 1.</returns>
-        public int VersionCompare(string right) {
+        public int VersionCompare(string right) 
+        {
             // short cut for equality.
-            if (this.Version.Equals(right)) {
+            if (this.Version.Equals(right)) 
+            {
                 return 0;
             }
 
@@ -1173,17 +1205,21 @@ namespace Splunk
             string[] leftDigits = this.Version.Split('.');
             string[] rightDigits = right.Split('.');
 
-            for (int i = 0; i < leftDigits.Length; i++) {
+            for (int i = 0; i < leftDigits.Length; i++) 
+            {
                 // No more right side, left side is bigger
-                if (i == rightDigits.Length) {
+                if (i == rightDigits.Length) 
+                {
                     return 1;
                 }
                 // left side smaller>?
-                if (Convert.ToInt32(leftDigits[i]) < Convert.ToInt32(leftDigits[1])) {
+                if (Convert.ToInt32(leftDigits[i]) < Convert.ToInt32(leftDigits[1])) 
+                {
                     return -1;
                 }
                 // left side bigger?
-                if (Convert.ToInt32(leftDigits[i]) > Convert.ToInt32(leftDigits[1])) {
+                if (Convert.ToInt32(leftDigits[i]) > Convert.ToInt32(leftDigits[1])) 
+                {
                     return 1;
                 }
             }

@@ -45,7 +45,8 @@ namespace Splunk
         /// </summary>
         /// <param name="code">The code</param>
         /// <param name="text">The text</param>
-        public SplunkException(int code, string text) {
+        public SplunkException(int code, string text) 
+        {
             this.Code = code;
             this.Text = text;
         }
@@ -53,17 +54,17 @@ namespace Splunk
         /// <summary>
         /// Gets or sets the exception code.
         /// </summary>
-        public int Code {
-            get;
-            set;
+        public int Code 
+        {
+            get; set;
         }
 
         /// <summary>
         /// Gets or sets the exception text.
         /// </summary>
-        private string Text {
-            get;
-            set;
+        private string Text 
+        {
+            get; set;
         }
     }
 }

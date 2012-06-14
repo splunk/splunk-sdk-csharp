@@ -35,7 +35,10 @@ namespace Splunk
         /// <summary>
         /// The item signature of the constructors.
         /// </summary>
-        private static Type[] itemSig = new Type[] { typeof(Service), typeof(string) };
+        private static Type[] itemSig = new Type[] 
+        { 
+            typeof(Service), typeof(string) 
+        };
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ResourceCollection"/> class.
@@ -44,7 +47,8 @@ namespace Splunk
         /// <param name="path">The path of the resource</param>
         /// <param name="itemClass">The object type</param>
         public ResourceCollection(Service service, string path, Type itemClass) 
-            : base(service, path) {
+            : base(service, path) 
+        {
             this.itemClass = itemClass;
             this.Items = new Dictionary<string, List<T>>();
         }
@@ -57,7 +61,8 @@ namespace Splunk
         /// <param name="args">The variable arguments</param>
         /// <param name="itemClass">The object type</param>
         public ResourceCollection(Service service, string path, Args args, Type itemClass) 
-            : base(service, path, args) {
+            : base(service, path, args) 
+        {
             this.itemClass = itemClass;
             this.Items = new Dictionary<string, List<T>>();
         }
@@ -65,8 +70,10 @@ namespace Splunk
         /// <summary>
         /// Gets a value indicating whether the IDictionary has a fixed size.
         /// </summary>
-        public bool IsFixedSize { 
-            get { 
+        public bool IsFixedSize 
+        { 
+            get 
+            { 
                 return false; 
             } 
         }
@@ -74,8 +81,10 @@ namespace Splunk
         /// <summary>
         /// Gets a value indicating whether the IDictionary is read-only. 
         /// </summary>
-        public bool IsReadOnly { 
-            get { 
+        public bool IsReadOnly 
+        { 
+            get 
+            { 
                 return false; 
             } 
         }
@@ -84,22 +93,29 @@ namespace Splunk
         /// Gets or sets the items in the collection. Because of namespace rules, a key-name may result
         /// in multiple Entities, thus the key resolves to a list of one or more Entities.
         /// </summary>
-        protected Dictionary<string, List<T>> Items {
+        protected Dictionary<string, List<T>> Items 
+        {
             get;
             set;
         }
 
         /// <summary>
-        /// Gets an ICollection of keys in the collection of resources.
+        /// Gets an ICollection of keys in the collection of resources. Note that if the 
+        /// local resource collection is dirty, will refresh an up-to-date copy from the
+        /// server.
         /// </summary>
-        public ICollection<T> Keys {
-            get {
+        public ICollection<T> Keys 
+        {
+            get 
+            {
                 List<T> collection = new List<T>();
                 this.Validate();
                 Dictionary<string, List<T>>.KeyCollection keySet = this.Items.Keys;
-                foreach (string key in keySet) {
+                foreach (string key in keySet) 
+                {
                     List<T> list = this.Items[key];
-                    foreach (T item in list) {
+                    foreach (T item in list) 
+                    {
                         collection.Add(item);
                     }
                 }
@@ -108,26 +124,31 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the Number of elements in the collection.
+        /// Returns the Number of elements in the collection.
         /// </summary>
-        /// <returns></returns>
-        public int Size {
-            get {
-                return this.Validate().Items.Count;
-            }
+        /// <returns>The number of elements in the collection.</returns>
+        public int Size() 
+        {
+            return this.Validate().Items.Count;
         }
 
         /// <summary>
-        /// Gets an ICollection of values in the collection of resources.
+        /// Gets an ICollection of values in the collection of resources. Note that if the 
+        /// local resource collection is dirty, will refresh an up-to-date copy from the
+        /// server.
         /// </summary>
-        public ICollection<T> Values {
-            get {
+        public ICollection<T> Values 
+        {
+            get 
+            {
                 List<T> collection = new List<T>();
                 this.Validate();
                 Dictionary<string, List<T>>.KeyCollection keySet = this.Items.Keys;
-                foreach (string key in keySet) {
+                foreach (string key in keySet) 
+                {
                     List<T> list = this.Items[key];
-                    foreach (T item in list) {
+                    foreach (T item in list) 
+                    {
                         collection.Add(item);
                     }
                 }
@@ -140,7 +161,8 @@ namespace Splunk
         /// </summary>
         /// <param name="key">The key</param>
         /// <param name="value">The value</param>
-        public void Add(object key, T value) {
+        public void Add(object key, T value) 
+        {
             throw new Exception("Add unsupported");
         }
 
@@ -148,7 +170,8 @@ namespace Splunk
         /// Returns the typed enumerator for this collection.
         /// </summary>
         /// <returns>The enumerator</returns>
-        public IEnumerator<T> GetEnumerator() {
+        public IEnumerator<T> GetEnumerator() 
+        {
             return this.Values.GetEnumerator();
         }
 
@@ -156,14 +179,16 @@ namespace Splunk
         /// Returns the generic enumerator for this collection.
         /// </summary>
         /// <returns>The enumerator</returns>
-        IEnumerator IEnumerable.GetEnumerator() {
+        IEnumerator IEnumerable.GetEnumerator() 
+        {
             return this.GetEnumerator();
         } 
 
         /// <summary>
         /// Unsupported. Clear the collection.
         /// </summary>
-        public void Clear() {
+        public void Clear() 
+        {
             throw new Exception("Clear not supported");
         }
 
@@ -173,7 +198,8 @@ namespace Splunk
         /// </summary>
         /// <param name="key">The key</param>
         /// <returns>True or false</returns>
-        public bool ContainsKey(object key) {
+        public bool ContainsKey(object key) 
+        {
             return this.Validate().Items.ContainsKey((string)key);
         }
 
@@ -184,15 +210,19 @@ namespace Splunk
         /// <param name="key">The key</param>
         /// <param name="splunkNamespace">The namespace</param>
         /// <returns>True or false</returns>
-        public bool ContainsKey(object key, Args splunkNamespace) {
+        public bool ContainsKey(object key, Args splunkNamespace) 
+        {
             this.Validate();
             List<T> entities = this.Items[(string)key];
-            if (entities.Count == 0) {
+            if (entities.Count == 0) 
+            {
                 return false;
             }
             string pathMatcher = this.Service.Fullpath(string.Empty, splunkNamespace);
-            foreach (T entity in entities) {
-                if (entity.Path.StartsWith(pathMatcher)) {
+            foreach (T entity in entities) 
+            {
+                if (entity.Path.StartsWith(pathMatcher))
+                {
                     return true;
                 }
             }
@@ -204,9 +234,12 @@ namespace Splunk
         /// </summary>
         /// <param name="value">The value</param>
         /// <returns>True or false</returns>
-        public bool ContainsValue(T value) {
-            foreach (object key in this.Keys) {
-                if (this.Items[(string)key].Contains(value)) {
+        public bool ContainsValue(T value) 
+        {
+            foreach (object key in this.Keys) 
+            {
+                if (this.Items[(string)key].Contains(value)) 
+                {
                     return true;
                 }
             }
@@ -220,7 +253,8 @@ namespace Splunk
         /// <param name="path">The path to the resource</param>
         /// <param name="splunkNamespace">The namespace</param>
         /// <returns>The new object, of type T</returns>
-        public T CreateItem(Type itemClass, string path, Args splunkNamespace) {
+        public T CreateItem(Type itemClass, string path, Args splunkNamespace) 
+        {
             ConstructorInfo ctor = itemClass.GetConstructor(itemSig);
             T item = (T)ctor.Invoke(new object[] { Service, Service.Fullpath(path, splunkNamespace) } );
             return item;
@@ -235,7 +269,8 @@ namespace Splunk
         /// </summary>
         /// <param name="entry">The AtomEntry</param>
         /// <returns>The new object, of type T</returns>
-        protected virtual T CreateItem(AtomEntry entry) {
+        protected virtual T CreateItem(AtomEntry entry) 
+        {
             return this.CreateItem(this.itemClass, this.ItemPath(entry), this.SplunkNamespace(entry));
         }
 
@@ -244,7 +279,8 @@ namespace Splunk
         /// </summary>
         /// <param name="o">The obect to compare against</param>
         /// <returns>True or false</returns>
-        public override bool Equals(object o) {
+        public override bool Equals(object o) 
+        {
             return this.Validate().Items.Equals(o);
         }
 
@@ -256,16 +292,20 @@ namespace Splunk
         /// </summary>
         /// <param name="key">The key</param>
         /// <returns>The object, or default(object) if not found.</returns>
-        public T Get(object key) {
+        public T Get(object key) 
+        {
             this.Validate();
-            if (!this.Items.ContainsKey((string)key)) {
+            if (!this.Items.ContainsKey((string)key)) 
+            {
                 return default(T);
             }
             List<T> entities = this.Items[(string)key];
-            if (entities.Count > 1) {
+            if (entities.Count > 1) 
+            {
                 throw new SplunkException(SplunkException.AMBIGUOUS, "Key has multiple values, specify a namespace");
             }
-            if (entities.Count == 0) {
+            if (entities.Count == 0) 
+            {
                 return default(T);
             }
             return entities[0];
@@ -278,18 +318,23 @@ namespace Splunk
         /// <param name="key">The key</param>
         /// <param name="splunkNamespace">The namespace</param>
         /// <returns>The object, or default(object) if not found.</returns>
-        public T Get(object key, Args splunkNamespace) {
+        public T Get(object key, Args splunkNamespace) 
+        {
             this.Validate();
-            if (!this.Items.ContainsKey((string)key)) {
+            if (!this.Items.ContainsKey((string)key)) 
+            {
                 return default(T);
             }
             List<T> entities = this.Items[(string)key];
-            if (entities.Count == 0) {
+            if (entities.Count == 0) 
+            {
                 return default(T);
             }
             string pathMatcher = Service.Fullpath(string.Empty, splunkNamespace);
-            foreach (T entity in entities) {
-                if (entity.Path.StartsWith(pathMatcher)) {
+            foreach (T entity in entities) 
+            {
+                if (entity.Path.StartsWith(pathMatcher)) 
+                {
                     return entity;
                 }
             }
@@ -300,7 +345,8 @@ namespace Splunk
         /// Returns an up-to-date Hashcode.
         /// </summary>
         /// <returns>The hash code</returns>
-        public override int GetHashCode() {
+        public override int GetHashCode() 
+        {
             return this.Validate().Items.GetHashCode();
         }
 
@@ -308,7 +354,8 @@ namespace Splunk
         /// Returns a value indicating if the up-to-date Resource count is 0.
         /// </summary>
         /// <returns>True or false</returns>
-        public bool IsEmpty() {
+        public bool IsEmpty() 
+        {
             return this.Validate().Items.Count == 0;
         }
     
@@ -319,7 +366,8 @@ namespace Splunk
         /// </summary>
         /// <param name="entry">The AtomEntry</param>
         /// <returns>The title</returns>
-        protected virtual string ItemKey(AtomEntry entry) {
+        protected virtual string ItemKey(AtomEntry entry) 
+        {
             return entry.Title;
         }
 
@@ -330,7 +378,8 @@ namespace Splunk
         /// </summary>
         /// <param name="entry">The AtomEntry</param>
         /// <returns>The alternate path</returns>
-        protected virtual string ItemPath(AtomEntry entry) {
+        protected virtual string ItemPath(AtomEntry entry) 
+        {
             return entry.Links["alternate"];
         }
 
@@ -339,23 +388,28 @@ namespace Splunk
         /// </summary>
         /// <param name="entry">The AtomEntry</param>
         /// <returns>the namespace</returns>
-        private Args SplunkNamespace(AtomEntry entry) {
+        private Args SplunkNamespace(AtomEntry entry) 
+        {
             Args splunkNamespace = new Args();
 
             // no content? return an empty namespace.
-            if (entry.Content == null) {
+            if (entry.Content == null) 
+            {
                 return splunkNamespace;
             }
 
             Dictionary<string, object> entityMetadata =
                 (Dictionary<string, object>)entry.Content["eai:acl"];
-            if (entityMetadata.ContainsKey("owner")) {
+            if (entityMetadata.ContainsKey("owner")) 
+            {
                 splunkNamespace.AlternateAdd("owner", entityMetadata["owner"]);
             }
-            if (entityMetadata.ContainsKey("app")) {
+            if (entityMetadata.ContainsKey("app")) 
+            {
                 splunkNamespace.AlternateAdd("app", entityMetadata["app"]);
             }
-            if (entityMetadata.ContainsKey("sharing")) {
+            if (entityMetadata.ContainsKey("sharing")) 
+            {
                 splunkNamespace.AlternateAdd("sharing", entityMetadata["sharing"]);
             }
             return splunkNamespace;
@@ -365,7 +419,8 @@ namespace Splunk
         /// Issues an HTTP request to list the contents of the collection resource.
         /// </summary>
         /// <returns>The contents of the collection ResponseMessage format</returns>
-        public virtual ResponseMessage List() {
+        public virtual ResponseMessage List() 
+        {
             return this.Service.Get(this.Path, this.RefreshArgs);
         }
 
@@ -374,16 +429,20 @@ namespace Splunk
         /// </summary>
         /// <param name="value">The AtomFeed</param>
         /// <returns>The resource collection</returns>
-        private ResourceCollection<T> Load(AtomFeed value) {
+        private ResourceCollection<T> Load(AtomFeed value) 
+        {
             base.Load(value);
-            foreach (AtomEntry entry in value.Entries) {
+            foreach (AtomEntry entry in value.Entries) 
+            {
                 string key = this.ItemKey(entry);
                 T item = this.CreateItem(entry);
-                if (this.Items.ContainsKey(key)) {
+                if (this.Items.ContainsKey(key)) 
+                {
                     List<T> list = this.Items[key];
                     list.Add(item);
                 } 
-                else {
+                else 
+                {
                     List<T> list = new List<T>();
                     list.Add(item);
                     this.Items.Add(key, list);
@@ -396,11 +455,12 @@ namespace Splunk
         /// Refresh the resource collection
         /// </summary>
         /// <returns>The resource</returns>
-        public override Resource Refresh() {
+        public override Resource Refresh() 
+        {
             this.Items.Clear();
             ResponseMessage response = this.List();
             /* assert(response.getStatus() == 200); */
-            AtomFeed feed = AtomFeed.Parse(response.GetContent());
+            AtomFeed feed = AtomFeed.Parse(response.Content);
             this.Load(feed);
             return this;
         }
@@ -410,7 +470,8 @@ namespace Splunk
         /// </summary>
         /// <param name="key">The key</param>
         /// <returns>Throws an exception</returns>
-        public T Remove(object key) {
+        public T Remove(object key) 
+        {
             throw new Exception("Remove unsupported");
         }
 
@@ -418,7 +479,8 @@ namespace Splunk
         /// Validates the collection. If dirty, will refresh.
         /// </summary>
         /// <returns>The collection</returns>
-        public new ResourceCollection<T> Validate() {
+        public new ResourceCollection<T> Validate() 
+        {
             base.Validate();
             return this;
         }
@@ -429,9 +491,11 @@ namespace Splunk
         /// </summary>
         /// <param name="key">The key</param>
         /// <returns>The number of elements</returns>
-        public int ValueSize(object key) {
+        public int ValueSize(object key) 
+        {
             this.Validate();
-            if (!this.Items.ContainsKey("key")) {
+            if (!this.Items.ContainsKey("key"))
+            {
                 return 0;
             }
             List<T> entities = this.Items[(string)key];

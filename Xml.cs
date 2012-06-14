@@ -31,7 +31,8 @@ namespace Splunk
         /// </summary>
         /// <param name="input">The Stream</param>
         /// <returns>The XML document</returns>
-        public static XmlDocument Parse(Stream input) {
+        public static XmlDocument Parse(Stream input) 
+        {
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.Load(input);
             return xmlDoc;
