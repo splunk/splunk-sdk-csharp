@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplunkSDK", "SplunkSDK.csproj", "{CA4151A1-3EF9-461D-9E03-34627273150D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplunkSDKHelper", "sdk-helper\SplunkSDKHelper.csproj", "{4135F018-6041-4269-A76F-B6AAF87E260D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{CA4151A1-3EF9-461D-9E03-34627273150D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA4151A1-3EF9-461D-9E03-34627273150D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA4151A1-3EF9-461D-9E03-34627273150D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4135F018-6041-4269-A76F-B6AAF87E260D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4135F018-6041-4269-A76F-B6AAF87E260D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4135F018-6041-4269-A76F-B6AAF87E260D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4135F018-6041-4269-A76F-B6AAF87E260D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
