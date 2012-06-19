@@ -219,9 +219,6 @@
       </violation>
     </violations>
   </sourcecode>
-  <project key="-1956151431">
-    <configuration>DEBUG;TRACE</configuration>
-  </project>
   <sourcecode name="Value.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>06/14/2012 15:14:57</timestamp>
@@ -229,6 +226,27 @@
     </settings>
     <timestamp>06/14/2012 15:29:22</timestamp>
     <milliseconds>996</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="ResultsReader.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>06/19/2012 11:57:40</timestamp>
+    <milliseconds>205</milliseconds>
+    <violations />
+  </sourcecode>
+  <project key="-1956151431">
+    <configuration>DEBUG;TRACE</configuration>
+  </project>
+  <sourcecode name="ResultsReaderJSON.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>06/19/2012 15:45:31</timestamp>
+    <milliseconds>925</milliseconds>
     <violations />
   </sourcecode>
 </stylecopresultscache>
