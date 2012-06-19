@@ -269,7 +269,7 @@ namespace SplunkSDKHelper
                 else 
                 {
                     Type type = (Type)option.Type;
-                    if (type == null) 
+                    if (type == null || type == typeof(string)) 
                     {
                         // Null implies string, check for multivalue (unsupported)
                     } 
@@ -295,7 +295,10 @@ namespace SplunkSDKHelper
                 // corresponding option value in order to provide simplified
                 // access to command options.
                 FieldInfo field = this.GetType().GetField(name);
-                field.SetValue(this, value);
+                if (field != null)
+                {
+                    field.SetValue(this, value);
+                }
             }
 
             string[] orig = this.args;
