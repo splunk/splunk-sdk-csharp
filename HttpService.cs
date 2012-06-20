@@ -20,6 +20,7 @@ namespace Splunk
     using System.IO;
     using System.Net;
     using System.Net.Sockets;
+    using System.Text;
     using System.Web;
 
     /// <summary>
@@ -315,14 +316,18 @@ namespace Splunk
 
             // Write out request content, if any
             object content = request.GetContent();
-            if (content != null) 
+            if (content != null)
             {
-                webRequest.ContentLength = ((string)content).Length;
+                // Get the bytes for proper encoded length when going over the wire.
+                byte[] bytes = Encoding.UTF8.GetBytes((string)content);
+                webRequest.ContentLength = bytes.GetLength(0);
                 Stream stream = webRequest.GetRequestStream();
                 StreamWriter streamWriter = new StreamWriter(stream);
-                streamWriter.Write((string)content);
+                streamWriter.Write(content);
+                streamWriter.Flush();
                 streamWriter.Close();
                 stream.Close();
+
             }
 
             HttpWebResponse response = (HttpWebResponse)webRequest.GetResponse();

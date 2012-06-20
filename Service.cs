@@ -19,6 +19,7 @@ namespace Splunk
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Net.Sockets;
     using System.Xml;
     
     /// <summary>
@@ -129,7 +130,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the current owner context. A value of "nobody" means that all users
+        /// Gets or sets the current owner context. A of "nobody" means that all users
         /// have access to the resource.
         /// </summary>
         private string Owner 
@@ -148,7 +149,7 @@ namespace Splunk
         /// <summary>
         /// Gets or sets the default password endpoint, can change over Splunk versions.
         /// </summary>
-        private string PasswordEndPoint 
+        public string PasswordEndPoint 
         {
             get; set;
         }
@@ -156,7 +157,7 @@ namespace Splunk
         /// <summary>
         /// Gets or sets the default simple receiver endpoint.
         /// </summary>
-        private string SimpleReceiverEndPoint 
+        public string SimpleReceiverEndPoint 
         {
             get; set;
         }
@@ -184,6 +185,15 @@ namespace Splunk
         public string Version 
         {
             get; set;
+        }
+
+        /// <summary>
+        /// Returns the authorization token.
+        /// </summary>
+        /// <returns>The token string</returns>
+        public string GetToken()
+        {
+            return this.Token;
         }
 
         /// <summary>
@@ -1078,17 +1088,17 @@ namespace Splunk
         //    return response.getContent();
         //}
 
-        ///**
-        // * Opens a raw socket to this service.
-        // *
-        // * @param port The port to open. This port must already have been
-        // * created as an allowable TCP input to the service.
-        // * @return The socket.
-        // * @throws java.io.IOException
-        // */
-        //public Socket open(int port) throws IOException {
-        //    return new Socket(this.host, port);
-        //}
+        /// <summary>
+        /// Opens a socket to the host and specified port.
+        /// </summary>
+        /// <param name="port">The port on the server to connect to</param>
+        /// <returns>The connected socket</returns>
+        public Socket Open(int port) 
+        {
+            Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            socket.Connect(this.Host, port);
+            return socket;
+        }
 
         ///**
         // * Parses a search query and returns a semantic map for the search in JSON 
