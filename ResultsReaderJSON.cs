@@ -131,7 +131,7 @@ namespace Splunk
                 }
                 else if (this.JsonReader.TokenType.Equals(JsonToken.EndArray))
                 {
-                    // skip 
+                    return null; // this is the end of the event set.
                 }
             }
             return returnData;
