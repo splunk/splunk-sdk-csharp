@@ -16,6 +16,7 @@
 
 namespace Splunk
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Net;
@@ -28,6 +29,26 @@ namespace Splunk
     /// </summary>
     public class HttpService
     {
+        /// <summary>
+        /// Gets or sets the host name of the service
+        /// </summary>
+        private string host;
+
+        /// <summary>
+        /// Gets or sets the port number of the service
+        /// </summary>
+        private int port;
+
+        /// <summary>
+        /// Gets or sets the prefix.
+        /// </summary>
+        private string prefix;
+
+        /// <summary>
+        /// Gets or sets the scheme used to access the service
+        /// </summary>
+        private string scheme;
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="HttpService"/> class.
         /// </summary>
@@ -80,39 +101,76 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the host name of the service
+        /// Gets or sets the hostname of this service
         /// </summary>
-        protected string Host 
+        /// <returns>The hostname</returns>
+        public string Host
         {
-            get;
-            set;
+            get
+            {
+                return this.host;
+            }
+
+            set
+            {
+                this.host = value;
+            }
         }
 
         /// <summary>
-        /// Gets or sets the port number of the service
+        /// Gets or sets the port of this service
         /// </summary>
-        protected int Port 
+        /// <returns>The port</returns>
+        public int Port
         {
-            get;
-            set;
+            get
+            {
+                return this.port;
+            }
+
+            set
+            {
+                this.port = value;
+            }
         }
 
         /// <summary>
-        /// Gets or sets the prefix.
+        /// Gets or sets the URL prefix of this service, consisting of
+        /// scheme://host:port
         /// </summary>
-        protected string Prefix 
+        /// <returns>The URL prefix</returns>
+        public string Prefix
         {
-            get;
-            set;
+            get
+            {
+                if (this.prefix == null)
+                {
+                    this.prefix = string.Format("{0}://{1}:{2}", this.Scheme, this.Host, this.Port);
+                }
+                return this.prefix;
+            }
+
+            set
+            {
+                this.prefix = value;
+            }
         }
 
         /// <summary>
-        /// Gets or sets the scheme used to access the service
+        /// Gets or sets the scheme used by this service.
         /// </summary>
-        protected string Scheme 
+        /// <returns>The scheme</returns>
+        public string Scheme
         {
-            get;
-            set;
+            get
+            {
+                return this.scheme;
+            }
+
+            set
+            {
+                this.scheme = value;
+            }
         }
 
         /// <summary>
@@ -168,54 +226,13 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Returns the hostname of this service
-        /// </summary>
-        /// <returns>The hostname</returns>
-        public string GetHost() 
-        {
-            return this.Host;
-        }
-
-        /// <summary>
-        /// Returns the port of this service
-        /// </summary>
-        /// <returns>The port</returns>
-        public int GetPort() 
-        {
-            return this.Port;
-        }
-        
-        /// <summary>
-        /// Returns the URL prefix of this service, consisting of
-        /// scheme://host:port
-        /// </summary>
-        /// <returns>The URL prefix</returns>
-        public string GetPrefix() 
-        {
-            if (this.Prefix == null) 
-            {
-                this.Prefix = string.Format("{0}://{1}:{2}", this.Scheme, this.Host, this.Port);
-            }
-            return this.Prefix;
-        }
-
-        /// <summary>
-        /// Returns the scheme used by this service.
-        /// </summary>
-        /// <returns>The scheme</returns>
-        public string GetScheme() 
-        {
-            return this.Scheme;
-        }
-
-        /// <summary>
         /// Constructs a fully qualified URL for this service using a given path.
         /// </summary>
         /// <param name="path">The path</param>
         /// <returns>The fully qualified URL</returns>
         public string GetUrl(string path) 
         {
-            return this.GetPrefix() + path;
+            return this.Prefix + path;
         }
 
         /// <summary>
@@ -239,7 +256,7 @@ namespace Splunk
             RequestMessage request = new RequestMessage("POST");
             if (Count(args) > 0) 
             {
-                request.SetContent(Args.Encode(args));
+                request.Content = Args.Encode(args);
             }
             return this.Send(path, request);
         }
@@ -297,11 +314,11 @@ namespace Splunk
             HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
 
             // build web request.
-            webRequest.Method = request.GetMethod();
+            webRequest.Method = request.Method;
             webRequest.AllowAutoRedirect = true;
 
             // Add headers from request message
-            Dictionary<string, string> header = request.GetHeader();
+            Dictionary<string, string> header = request.Header;
             foreach (KeyValuePair<string, string> entry in header) 
             {
                 webRequest.Headers.Add(entry.Key, entry.Value);
@@ -309,25 +326,31 @@ namespace Splunk
 
             webRequest.UserAgent = "splunk-sdk-csharp/0.1";
             webRequest.Accept = "*/*";
-            if (request.GetMethod().Equals("POST")) 
+            if (request.Method.Equals("POST")) 
             {
                 webRequest.ContentType = "application/x-www-form-urlencoded";
             }
 
             // Write out request content, if any
-            object content = request.GetContent();
+            object content = request.Content;
             if (content != null)
             {
                 // Get the bytes for proper encoded length when going over the wire.
                 byte[] bytes = Encoding.UTF8.GetBytes((string)content);
-                webRequest.ContentLength = bytes.GetLength(0);
-                Stream stream = webRequest.GetRequestStream();
-                StreamWriter streamWriter = new StreamWriter(stream);
-                streamWriter.Write(content);
-                streamWriter.Flush();
-                streamWriter.Close();
-                stream.Close();
-
+                try
+                {
+                    webRequest.ContentLength = bytes.GetLength(0);
+                    Stream stream = webRequest.GetRequestStream();
+                    StreamWriter streamWriter = new StreamWriter(stream);
+                    streamWriter.Write(content);
+                    streamWriter.Flush();
+                    streamWriter.Close();
+                    stream.Close();
+                }
+                catch (Exception e)
+                {
+                    System.Console.WriteLine("Excetion: " + e.Message);
+                }
             }
 
             HttpWebResponse response = (HttpWebResponse)webRequest.GetResponse();
@@ -344,7 +367,6 @@ namespace Splunk
             {
                 throw HttpException.CreateFromLastError("HTTP error");
             }
-
             return returnResponse;
         }
 
@@ -354,6 +376,7 @@ namespace Splunk
         private void SetTrustPolicy() 
         {
             ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
+            ServicePointManager.DefaultConnectionLimit = 100;
         }
     }
 }

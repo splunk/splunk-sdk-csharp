@@ -165,7 +165,7 @@ namespace Splunk
         /// <summary>
         /// Gets or sets the current session (authorization) token
         /// </summary>
-        private string Token 
+        public string Token 
         {
             get; set;
         }
@@ -185,15 +185,6 @@ namespace Splunk
         public string Version 
         {
             get; set;
-        }
-
-        /// <summary>
-        /// Returns the authorization token.
-        /// </summary>
-        /// <returns>The token string</returns>
-        public string GetToken()
-        {
-            return this.Token;
         }
 
         /// <summary>
@@ -549,14 +540,13 @@ namespace Splunk
         //        this, "data/indexes", Index.class, args);
         //}
 
-        ///**
-        // * Returns information about the Splunk service.
-        // *
-        // * @return Splunk service information.
-        // */
-        //public ServiceInfo GetInfo() {
-        //    return new ServiceInfo(this);
-        //}
+        /// <summary>
+        /// * Returns information about the Splunk service.
+        /// </summary>
+        /// <returns>The information about the splunk service.</returns>
+        public ServiceInfo GetInfo() {
+            return new ServiceInfo(this);
+        }
 
         ///**
         // * Returns a collection of configured inputs.
@@ -1033,10 +1023,11 @@ namespace Splunk
             string sessionKey = doc.SelectSingleNode("/response/sessionKey").InnerText;
             this.Token = "Splunk " + sessionKey;
 
-            /*this.version = this.GetInfo().getVersion();
-              if (versionCompare("4.3") >= 0)
-                 this.passwordEndPoint = "storage/passwords";
-            */
+            this.Version = this.GetInfo().Version;
+            if (VersionCompare("4.3") >= 0)
+            {
+                this.PasswordEndPoint = "storage/passwords";
+            }
 
             return this;
         }
@@ -1124,15 +1115,14 @@ namespace Splunk
         //    return Get("search/parser", args);
         //}
 
-        ///**
-        // * Restarts the service. The service will be unavailable until it has
-        // * sucessfully restarted.
-        // *
-        // * @return The restart response message.
-        // */
-        //public ResponseMessage restart() {
-        //    return Get("server/control/restart");
-        //}
+        /// <summary>
+        /// Issues a restart request to the service. 
+        /// </summary>
+        /// <returns>The repsonse message</returns>
+        public ResponseMessage Restart() 
+        {
+            return this.Get("server/control/restart");
+        }
 
         /// <summary>
         /// Creates a simplified synchronous search using search arguments. Use this
@@ -1191,7 +1181,7 @@ namespace Splunk
         {
             if (this.Token != null) 
             {
-                request.GetHeader().Add("Authorization", this.Token);
+                request.Header.Add("Authorization", this.Token);
             }
             return base.Send(this.Fullpath(path), request);
         }

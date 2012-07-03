@@ -233,6 +233,7 @@ namespace SplunkSDKHelper
             }
 
             this.Parse(argList.ToArray());
+            streamReader.Close();
             return this;
         }
 

@@ -8,8 +8,17 @@
       <timestamp>06/14/2012 15:14:57</timestamp>
       <milliseconds>46</milliseconds>
     </settings>
-    <timestamp>06/19/2012 15:39:57</timestamp>
-    <milliseconds>326</milliseconds>
+    <timestamp>06/27/2012 10:58:05</timestamp>
+    <milliseconds>543</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="AssemblyInfo.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>06/19/2012 15:38:13</timestamp>
+    <milliseconds>806</milliseconds>
     <violations />
   </sourcecode>
 </stylecopresultscache>

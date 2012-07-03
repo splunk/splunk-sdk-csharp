@@ -18,6 +18,7 @@ namespace Splunk
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.IO;
     using System.Xml;
 
@@ -134,7 +135,7 @@ namespace Splunk
         /// <returns>The content Record</returns>
         public Record ParseContent(XmlElement element) 
         {
-            // Assert(element.getTagName().equals("content"));
+            Trace.Assert(element.LocalName.Equals("content"));
             Record content = null;
 
             List<XmlElement> children = GetChildElements(element);
@@ -142,7 +143,7 @@ namespace Splunk
             int count = children.Count;
 
             // Expect content to be empty or a single <dict> element
-            // assert(count == 0 || count == 1);
+            Trace.Assert(count == 0 || count == 1);
             if (count == 1) 
             {
                 XmlElement child = children[0];
@@ -160,7 +161,7 @@ namespace Splunk
         /// <returns>The Record</returns>
         public Record ParseDict(XmlElement element) 
         {
-            // assert(element.getTagName().equals("s:dict"));
+            Trace.Assert(element.LocalName.Equals("s:dict"));
             if (element.FirstChild == null) 
             {
                 return null;
@@ -177,7 +178,7 @@ namespace Splunk
             Record result = new Record();
             foreach (XmlElement child in children) 
             {
-                // assert(child.getTagName().equals("s:key"));
+                Trace.Assert(child.LocalName.Equals("s:key"));
                 string key = child.GetAttribute("name");
                 object value = this.ParseValue(child);
                 if (value != null) 
@@ -196,7 +197,7 @@ namespace Splunk
         /// <returns>The list of parsed values</returns>
         public List<object> ParseList(XmlElement element) 
         {
-            // assert(element.getTagName().equals("s:list"));
+            Trace.Assert(element.LocalName.Equals("s:list"));
             if (element.FirstChild == null) 
             {
                 return null;
@@ -213,7 +214,7 @@ namespace Splunk
             List<object> result = new List<object>(count);
             foreach (XmlElement child in children) 
             {
-                // assert(child.getTagName().equals("s:item"));
+                Trace.Assert(child.LocalName.Equals("s:item"));
                 object value = this.ParseValue(child);
                 if (value != null) 
                 {
@@ -233,7 +234,7 @@ namespace Splunk
         {
             string name = element.Name;
 
-            // assert(name.equals("s:key") || name.equals("s:item"));
+            Trace.Assert(name.Equals("s:key") || name.Equals("s:item"));
             if (element.FirstChild == null) 
             {
                 return null;
@@ -250,7 +251,7 @@ namespace Splunk
             }
 
             // If its not a text value, then expect a single child element.
-            // assert(children.size() == 1);
+            Trace.Assert(children.Count == 1);
             XmlElement child = children[0];
 
             name = child.Name;
@@ -265,7 +266,7 @@ namespace Splunk
                 return this.ParseList(child);
             }
 
-            // assert(false); // Unreached
+            Trace.Assert(false); // Unreached
             return null;
         }
     }

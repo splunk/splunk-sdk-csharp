@@ -57,6 +57,61 @@ namespace Splunk
         }
 
         /// <summary>
+        /// Gets the header dictionary.
+        /// </summary>
+        /// <returns>The header</returns>
+        public Dictionary<string, string> Header
+        {
+            get
+            {
+                if (this.header == null)
+                {
+                    this.header = new Dictionary<string, string>();
+                }
+                return this.header;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the HTTP/S method.
+        /// </summary>
+        /// <returns>The method</returns>
+        public string Method
+        {
+            get
+            {
+                return this.method;
+            }
+
+            set
+            {
+                value = value.ToUpper();
+                if (!this.CheckMethod(value))
+                {
+                    throw new Exception("Bad HTTP method");
+                }
+                this.method = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the content.
+        /// </summary>
+        /// <returns>The content</returns>
+        public object Content
+        {
+            get
+            {
+                return this.content;
+            }
+
+            set
+            {
+                this.content = value;
+            }
+        }
+
+        /// <summary>
         /// Checks if the method is supported.
         /// </summary>
         /// <param name="value">The method name</param>
@@ -68,60 +123,6 @@ namespace Splunk
                 value.Equals("PUT") ||
                 value.Equals("POST") ||
                 value.Equals("DELETE");
-        }
-
-        /// <summary>
-        /// Returns the header dictionary.
-        /// </summary>
-        /// <returns>The header</returns>
-        public Dictionary<string, string> GetHeader() 
-        {
-            if (this.header == null) 
-            {
-                this.header = new Dictionary<string, string>();
-            }
-            return this.header;
-        }
-
-        /// <summary>
-        /// Returns the HTTP/S method.
-        /// </summary>
-        /// <returns>The method</returns>
-        public string GetMethod() 
-        {
-            return this.method;
-        }
-
-        /// <summary>
-        /// Sets the HTTP/S method
-        /// </summary>
-        /// <param name="value">The method</param>
-        public void SetMethod(string value) 
-        {
-            value = value.ToUpper();
-            if (!this.CheckMethod(value)) 
-            {
-                throw new Exception("Bad HTTP method");
-            }
-            this.method = value;
-        }
-
-        /// <summary>
-        /// Rerturns the content.
-        /// </summary>
-        /// <returns>The content</returns>
-        public object GetContent() 
-        {
-            return this.content;
-        }
-
-        /// <summary>
-        /// Sets the content.
-        /// </summary>
-        /// <param name="value">The content</param>
-        public void SetContent(string value) 
-        {
-            this.content = value;
         }
     }
 }

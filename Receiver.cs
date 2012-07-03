@@ -80,7 +80,7 @@ namespace Splunk
         public Socket Attach(string indexName, Args args) 
         {
             this.service = null;
-            Socket socket = this.service.Open(this.service.GetPort());
+            Socket socket = this.service.Open(this.service.Port);
             string postUrl = "POST /services/receivers/stream";
             if (indexName != null) 
             {
@@ -100,9 +100,9 @@ namespace Splunk
                 "Authorization: {3}\r\n" +
                 "X-Splunk-Input-Mode: Streaming\r\n\r\n",
                 postUrl,
-                this.service.GetHost(), 
-                this.service.GetPort(),
-                this.service.GetToken());
+                this.service.Host, 
+                this.service.Port,
+                this.service.Token);
             socket.Send(Encoding.UTF8.GetBytes(header));
             return socket;
         }
@@ -146,7 +146,7 @@ namespace Splunk
         {
             string sendString = string.Empty;
             RequestMessage request = new RequestMessage("POST");
-            request.SetContent(data);
+            request.Content = data;
             if (indexName != null) 
             {
                 sendString = string.Format("?index={0}", indexName);

@@ -124,12 +124,15 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Returns the Number of elements in the collection.
+        /// Gets the Number of elements in the collection.
         /// </summary>
         /// <returns>The number of elements in the collection.</returns>
-        public int Size() 
+        public int Size 
         {
-            return this.Validate().Items.Count;
+            get
+            {
+                return this.Validate().Items.Count;
+            }
         }
 
         /// <summary>
@@ -351,12 +354,15 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Returns a value indicating if the up-to-date Resource count is 0.
+        /// Gets a value indicating whether the up-to-date Resource count is 0.
         /// </summary>
         /// <returns>True or false</returns>
-        public bool IsEmpty() 
+        public bool IsEmpty 
         {
-            return this.Validate().Items.Count == 0;
+            get
+            {
+                return this.Validate().Items.Count == 0;
+            }
         }
     
         /// <summary>
@@ -419,7 +425,7 @@ namespace Splunk
         /// Issues an HTTP request to list the contents of the collection resource.
         /// </summary>
         /// <returns>The contents of the collection ResponseMessage format</returns>
-        public virtual ResponseMessage List() 
+        public virtual ResponseMessage List()
         {
             return this.Service.Get(this.Path, this.RefreshArgs);
         }

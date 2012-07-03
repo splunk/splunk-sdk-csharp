@@ -14,11 +14,8 @@
  * under the License.
  */
 
-
-
 namespace SplunkSubmit
 {
-
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -26,9 +23,16 @@ namespace SplunkSubmit
     using Splunk;
     using SplunkSDKHelper;
 
-    class Program
+    /// <summary>
+    /// An example program to submit events into splunk
+    /// </summary>
+    public class Program
     {
-        static void Main(string[] argv)
+        /// <summary>
+        /// The main program
+        /// </summary>
+        /// <param name="argv">The command line arguments</param>
+        public static void Main(string[] argv)
         {
             Service service;
             Args args = new Args();

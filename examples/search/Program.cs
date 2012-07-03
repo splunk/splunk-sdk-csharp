@@ -48,25 +48,9 @@ namespace SplunkSearch
             service = Service.Connect(cli.opts);
             JobCollection jobs = service.GetJobs();
             Job job = jobs.Create((string)cli.opts["search"]);
-            while (true) 
+            while (!job.IsDone) 
             {
-                try 
-                {
-                    if (job.IsDone())
-                    {
-                        break;
-                    }
-                }
-                catch (SplunkException splunkException) 
-                {
-                    if (splunkException.Code == SplunkException.JOBNOTREADY) 
-                    {
-                        Thread.Sleep(500);
-                        continue;
-                    }
-                }
-                Thread.Sleep(2000);
-                job.Refresh();
+                Thread.Sleep(1000);
             }
 
             // hard-code output args to json (use reader) and count is 0.
