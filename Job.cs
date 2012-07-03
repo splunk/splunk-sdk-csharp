@@ -517,7 +517,7 @@ namespace Splunk
             get
             {
                 this.Refresh();
-                if (!this.isReady)
+                if (!this.IsReady)
                 {
                     return false;
                 }
@@ -920,11 +920,11 @@ namespace Splunk
             ResponseMessage response = Service.Get(Path);
             if (response.Status == 204) 
             {
-                // Empty response from server means the job has not yet been
-                // scheduled; so throw an exception up to the caller.
-                throw new SplunkException(SplunkException.JOBNOTREADY, "Job not yet scheduled by server");
+                this.isReady = false;
+                return null;
             }
 
+            this.isReady = true;
             AtomEntry entry = AtomEntry.Parse(response.Content);
             this.Load(entry);
             return this;

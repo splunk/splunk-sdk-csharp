@@ -161,7 +161,7 @@ namespace Splunk
         /// <returns>The Record</returns>
         public Record ParseDict(XmlElement element) 
         {
-            Trace.Assert(element.LocalName.Equals("s:dict"));
+            Trace.Assert(element.Name.Equals("s:dict"));
             if (element.FirstChild == null) 
             {
                 return null;
@@ -178,7 +178,7 @@ namespace Splunk
             Record result = new Record();
             foreach (XmlElement child in children) 
             {
-                Trace.Assert(child.LocalName.Equals("s:key"));
+                Trace.Assert(child.Name.Equals("s:key"));
                 string key = child.GetAttribute("name");
                 object value = this.ParseValue(child);
                 if (value != null) 
@@ -197,7 +197,7 @@ namespace Splunk
         /// <returns>The list of parsed values</returns>
         public List<object> ParseList(XmlElement element) 
         {
-            Trace.Assert(element.LocalName.Equals("s:list"));
+            Trace.Assert(element.Name.Equals("s:list"));
             if (element.FirstChild == null) 
             {
                 return null;
@@ -214,7 +214,7 @@ namespace Splunk
             List<object> result = new List<object>(count);
             foreach (XmlElement child in children) 
             {
-                Trace.Assert(child.LocalName.Equals("s:item"));
+                Trace.Assert(child.Name.Equals("s:item"));
                 object value = this.ParseValue(child);
                 if (value != null) 
                 {
