@@ -79,7 +79,7 @@ namespace UnitTests
         /// and cancel (clean up) the job on the server. Try with optional args too.
         /// </summary>
         [TestMethod]
-        public void TestMethod1()
+        public void SearchTest1()
         {
             Service service = Connect();
             string query = "search index=_internal * earliest=-1m | stats count";

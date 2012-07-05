@@ -33,7 +33,7 @@ namespace Splunk
         /// <summary>
         /// The local cache of value to update when either update methods are called.
         /// </summary>
-        private Dictionary<string, object> toUpdate = new Dictionary<string, object>();
+        protected Dictionary<string, object> toUpdate = new Dictionary<string, object>();
 
         /// <summary>
         ///  Initializes a new instance of the <see cref="Entity"/> class.
@@ -505,12 +505,20 @@ namespace Splunk
         }
 
         /// <summary>
+        /// Removes this entity from its corresponding collection.
+        /// </summary>
+        public virtual void Remove()
+        {
+            this.Service.Delete(this.ActionPath("remove"));
+        }
+
+        /// <summary>
         /// Updates the entity with the values you previously set using the setter
         /// methods, and any additional specified arguments. The specified arguments
         /// take precedent over the values that were set using the setter methods.
         /// </summary>
         /// <param name="args">The key/value pairs to update</param>
-        public void Update(Dictionary<string, object> args) 
+        public virtual void Update(Dictionary<string, object> args) 
         {
             // Merge cached setters and live args together before updating.
             Dictionary<string, object> mergedArgs = new Dictionary<string, object>();
@@ -525,7 +533,7 @@ namespace Splunk
         /// Updates the entity with the accumulated arguments, established by the
         /// individual setter methods for each specific entity class.
         /// </summary>
-        public void Update() 
+        public virtual void Update() 
         {
             if (this.toUpdate.Count > 0) 
             {
@@ -533,14 +541,6 @@ namespace Splunk
                 this.toUpdate.Clear();
                 this.Invalidate();
             }
-        }
-
-        /// <summary>
-        /// Removes this entity from its corresponding collection.
-        /// </summary>
-        public virtual void Remove() 
-        {
-            this.Service.Delete(this.ActionPath("remove"));
         }
 
         /// <summary>

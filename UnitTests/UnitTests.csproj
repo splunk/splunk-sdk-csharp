@@ -49,6 +49,7 @@
     <Compile Include="SearchTest.cs" />
     <Compile Include="StormTest.cs" />
     <Compile Include="TestHelper.cs" />
+    <Compile Include="SettingsTest.cs" />
     <Compile Include="UserTest.cs" />
   </ItemGroup>
   <ItemGroup>

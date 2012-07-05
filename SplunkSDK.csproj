@@ -54,6 +54,7 @@
     <Compile Include="AtomFeed.cs" />
     <Compile Include="AtomObject.cs" />
     <Compile Include="AtomEntry.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="StormService.cs" />
     <Compile Include="User.cs" />
     <Compile Include="ServiceInfo.cs" />

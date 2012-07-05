@@ -20,14 +20,21 @@ namespace UnitTests
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Splunk;
 
+    /// <summary>
+    /// This test unit tests the basic Splunk Storm interaction.
+    /// </summary>
     [TestClass]
     public class StormTest : TestHelper
     {
+        /// <summary>
+        /// Test login to storm and wubmit two events.
+        /// </summary>
         [TestMethod]
-        public void TestMethod1()
+        public void StormTest1()
         {
             // the storm token provided by Splunk
-            Args loginArgs = new Args("StormToken",
+            Args loginArgs = new Args(
+                "StormToken",
                 "p-n8SwuWEqPlyOXdDU4PjxavFdAn1CnJea9LirgTvzmIhMEBys6w7UJUCtxp_7g7Q9XopR5dW0w=");
             StormService stormService = StormService.Connect(loginArgs);
 

@@ -930,14 +930,14 @@ namespace Splunk
         //    return new SavedSearchCollection(this, args);
         //}
 
-        ///**
-        // * Returns service configuration information for an instance of Splunk.
-        // *
-        // * @return Service configuration information.
-        // */
-        //public Settings GetSettings() {
-        //    return new Settings(this);
-        //}
+        /// <summary>
+        ///  Returns service configuration information for an instance of Splunk.
+        /// </summary>
+        /// <returns>This Splunk instances settings</returns>
+        public Settings GetSettings()
+        {
+            return new Settings(this);
+        }
 
         ///**
         // * Returns the current session token. Session tokens can be shared across

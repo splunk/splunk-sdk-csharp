@@ -40,15 +40,6 @@
     <milliseconds>11</milliseconds>
     <violations />
   </sourcecode>
-  <sourcecode name="Entity.cs" parser="StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>06/14/2012 15:14:57</timestamp>
-      <milliseconds>46</milliseconds>
-    </settings>
-    <timestamp>06/14/2012 15:15:11</timestamp>
-    <milliseconds>196</milliseconds>
-    <violations />
-  </sourcecode>
   <sourcecode name="EntityCollection.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>06/14/2012 15:14:57</timestamp>
@@ -286,16 +277,40 @@
     <milliseconds>19</milliseconds>
     <violations />
   </sourcecode>
-  <project key="-1956151431">
-    <configuration>DEBUG;TRACE</configuration>
-  </project>
+  <sourcecode name="Entity.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/05/2012 13:47:55</timestamp>
+    <milliseconds>192</milliseconds>
+    <violations>
+      <violation namespace="StyleCop.CSharp.MaintainabilityRules" rule="FieldsMustBePrivate" ruleCheckId="SA1401">
+        <context>Fields must be declared with private access. Use properties to expose fields.</context>
+        <line>36</line>
+        <warning>False</warning>
+      </violation>
+    </violations>
+  </sourcecode>
   <sourcecode name="StormService.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>06/14/2012 15:14:57</timestamp>
       <milliseconds>46</milliseconds>
     </settings>
-    <timestamp>07/05/2012 12:43:03</timestamp>
-    <milliseconds>551</milliseconds>
+    <timestamp>07/05/2012 13:49:24</timestamp>
+    <milliseconds>705</milliseconds>
+    <violations />
+  </sourcecode>
+  <project key="-1956151431">
+    <configuration>DEBUG;TRACE</configuration>
+  </project>
+  <sourcecode name="Settings.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/05/2012 13:55:57</timestamp>
+    <milliseconds>195</milliseconds>
     <violations />
   </sourcecode>
 </stylecopresultscache>

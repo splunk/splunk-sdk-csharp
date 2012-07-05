@@ -57,7 +57,7 @@ namespace Splunk
         /// </summary>
         /// <param name="args">The credentials </param>
         /// <returns>The Storm Service object</returns>
-        public static StormService Connect(Dictionary<string, object> args)
+        public static new StormService Connect(Dictionary<string, object> args)
         {
             StormService service = new StormService();
             if (args.ContainsKey("StormToken"))

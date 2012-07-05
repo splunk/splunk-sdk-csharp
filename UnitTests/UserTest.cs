@@ -16,7 +16,6 @@
 
 namespace UnitTests
 {
-    using System;
     using System.Diagnostics;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Splunk;
@@ -36,7 +35,7 @@ namespace UnitTests
         /// Test the creation of users, update of values and removal
         /// </summary>
         [TestMethod]
-        public void TestMethod1()
+        public void UserTest1()
         {
             Service service = Connect();
 
