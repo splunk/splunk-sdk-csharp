@@ -541,10 +541,11 @@ namespace Splunk
         //}
 
         /// <summary>
-        /// * Returns information about the Splunk service.
+        /// Returns information about the Splunk service.
         /// </summary>
         /// <returns>The information about the splunk service.</returns>
-        public ServiceInfo GetInfo() {
+        public ServiceInfo GetInfo() 
+        {
             return new ServiceInfo(this);
         }
 
@@ -878,14 +879,14 @@ namespace Splunk
         //    return new PasswordCollection(this, args);
         //}
 
-        ///**
-        // * Returns the receiver object for the Splunk service.
-        // *
-        // * @return A Splunk receiver object.
-        // */
-        //public Receiver GetReceiver() {
-        //    return new Receiver(this);
-        //}
+        /// <summary>
+        /// Returns the receiver object for this Splunk service
+        /// </summary>
+        /// <returns>The receiver object</returns>
+        public Receiver GetReceiver() 
+        {
+            return new Receiver(this);
+        }
 
         ///**
         // * Returns a collection of Splunk user roles.
@@ -986,9 +987,15 @@ namespace Splunk
         // *
         // * @return A collection of users.
         // */
-        //public UserCollection GetUsers() {
-        //    return new UserCollection(this);
-        //}
+
+        /// <summary>
+        ///Returns a collection of Splunk users.
+        /// </summary>
+        /// <returns>The collection of Splunk users</returns>
+        public UserCollection GetUsers() 
+        {
+           return new UserCollection(this);
+        }
 
         ///**
         // * Returns a collection of Splunk users.
@@ -1024,7 +1031,7 @@ namespace Splunk
             this.Token = "Splunk " + sessionKey;
 
             this.Version = this.GetInfo().Version;
-            if (VersionCompare("4.3") >= 0)
+            if (this.VersionCompare("4.3") >= 0)
             {
                 this.PasswordEndPoint = "storage/passwords";
             }

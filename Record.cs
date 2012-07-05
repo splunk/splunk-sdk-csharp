@@ -17,6 +17,7 @@
 namespace Splunk
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Represents the basic data representation, extending the basic 
@@ -200,10 +201,14 @@ namespace Splunk
         /// <returns>The value</returns>
         public string[] GetStringArray(string key) 
         {
-            object tmpValue;
-            this.TryGetValue(key, out tmpValue);
-            List<string> value = (List<string>)tmpValue;
-            return value.ToArray();
+            if (this.ContainsKey(key))
+            {
+                return ((List<object>)this[key]).Select(i => i.ToString()).ToList().ToArray();
+            }
+            else
+            {
+                return null;
+            }
         }
 
         /// <summary>
