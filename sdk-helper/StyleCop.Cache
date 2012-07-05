@@ -3,9 +3,6 @@
   <project key="532848158">
     <configuration>DEBUG;TRACE</configuration>
   </project>
-  <project key="757886573">
-    <configuration>DEBUG;TRACE</configuration>
-  </project>
   <sourcecode name="Command.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>06/15/2012 13:45:39</timestamp>
@@ -115,4 +112,7 @@
     <milliseconds>900</milliseconds>
     <violations />
   </sourcecode>
+  <project key="757886573">
+    <configuration>DEBUG;TRACE</configuration>
+  </project>
 </stylecopresultscache>

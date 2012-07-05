@@ -1,9 +1,5 @@
 <stylecopresultscache>
   <version>11</version>
-  <project key="2120930673">
-    <configuration>
-    </configuration>
-  </project>
   <sourcecode name="Args.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>06/14/2012 15:14:57</timestamp>
@@ -268,15 +264,6 @@
     <milliseconds>562</milliseconds>
     <violations />
   </sourcecode>
-  <sourcecode name="Service.cs" parser="StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>06/14/2012 15:14:57</timestamp>
-      <milliseconds>46</milliseconds>
-    </settings>
-    <timestamp>07/05/2012 12:39:29</timestamp>
-    <milliseconds>19</milliseconds>
-    <violations />
-  </sourcecode>
   <sourcecode name="Entity.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>06/14/2012 15:14:57</timestamp>
@@ -301,9 +288,6 @@
     <milliseconds>705</milliseconds>
     <violations />
   </sourcecode>
-  <project key="-1956151431">
-    <configuration>DEBUG;TRACE</configuration>
-  </project>
   <sourcecode name="Settings.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>06/14/2012 15:14:57</timestamp>
@@ -312,5 +296,36 @@
     <timestamp>07/05/2012 13:55:57</timestamp>
     <milliseconds>195</milliseconds>
     <violations />
+  </sourcecode>
+  <sourcecode name="Role.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/05/2012 16:32:42</timestamp>
+    <milliseconds>13</milliseconds>
+    <violations />
+  </sourcecode>
+  <project key="-1956151431">
+    <configuration>DEBUG;TRACE</configuration>
+  </project>
+  <project key="2120930673">
+    <configuration>
+    </configuration>
+  </project>
+  <sourcecode name="Service.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/05/2012 16:39:32</timestamp>
+    <milliseconds>93</milliseconds>
+    <violations>
+      <violation namespace="StyleCop.CSharp.LayoutRules" rule="CurlyBracketsForMultiLineStatementsMustNotShareLine" ruleCheckId="SA1500">
+        <context>If a statement spans multiple lines, the opening curly bracket must be placed on its own line.</context>
+        <line>906</line>
+        <warning>False</warning>
+      </violation>
+    </violations>
   </sourcecode>
 </stylecopresultscache>

@@ -888,27 +888,26 @@ namespace Splunk
             return new Receiver(this);
         }
 
-        ///**
-        // * Returns a collection of Splunk user roles.
-        // *
-        // * @return A collection of user roles.
-        // */
-        //public EntityCollection<Role> GetRoles() {
-        //    return new EntityCollection<Role>(
-        //        this, "authentication/roles", Role.class);
-        //}
+        /// <summary>
+        /// Returns a collection of Splunk user roles.
+        /// </summary>
+        /// <returns>A collecgtion of Splunk Roles</returns>
+        public EntityCollection<Role> GetRoles() 
+        {
+            return new EntityCollection<Role>(
+                this, "authentication/roles", typeof(Role));
+        }
 
-        ///**
-        // * Returns a collection of Splunk user roles.
-        // *
-        // * @param args Optional arguments, such as "count" and "offset" for 
-        // * pagination.
-        // * @return A collection of user roles.
-        // */
-        //public EntityCollection<Role> GetRoles(Args args) {
-        //    return new EntityCollection<Role>(
-        //        this, "authentication/roles", Role.class, args);
-        //}
+        /// <summary>
+        /// Returns a collection of Splunk user roles.
+        /// </summary>
+        /// <param name="args">Optional parameters</param>
+        /// <returns>A collecgtion of Splunk Roles</returns>
+        public EntityCollection<Role> GetRoles(Args args) 
+        {
+            return new EntityCollection<Role>(
+                this, "authentication/roles", args, typeof(Role));
+        }
 
         ///**
         // * Returns a collection of saved searches.
