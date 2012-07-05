@@ -56,9 +56,6 @@
     <milliseconds>677</milliseconds>
     <violations />
   </sourcecode>
-  <project key="1730235888">
-    <configuration>DEBUG;TRACE</configuration>
-  </project>
   <sourcecode name="SettingsTest.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>06/14/2012 15:14:57</timestamp>
@@ -68,4 +65,16 @@
     <milliseconds>987</milliseconds>
     <violations />
   </sourcecode>
+  <sourcecode name="ServiceTest.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/05/2012 15:39:31</timestamp>
+    <milliseconds>496</milliseconds>
+    <violations />
+  </sourcecode>
+  <project key="1730235888">
+    <configuration>DEBUG;TRACE</configuration>
+  </project>
 </stylecopresultscache>
