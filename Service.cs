@@ -751,14 +751,14 @@ namespace Splunk
         //        this, "server/logger", Logger.class, args);
         //}
 
-        ///**
-        // * Returns a collection of system messages.
-        // *
-        // * @return A collection of system messages.
-        // */
-        //public MessageCollection GetMessages() {
-        //    return new MessageCollection(this);
-        //}
+        /// <summary>
+        /// Returns the collection of messages.
+        /// </summary>
+        /// <returns>The collection of messages</returns>
+        public MessageCollection GetMessages() 
+        {
+            return new MessageCollection(this);
+        }
 
         ///**
         // * Returns a collection of system messages.
