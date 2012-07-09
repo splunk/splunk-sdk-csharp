@@ -52,7 +52,7 @@ namespace UnitTests
             // check for standard fields
             foreach (string name in expected) 
             {
-                    Debug.Assert(info.ContainsKey(name), this.assertRoot + "#1");
+                    Assert.IsTrue(info.ContainsKey(name), this.assertRoot + "#1");
             }
 
             bool dummyBool;

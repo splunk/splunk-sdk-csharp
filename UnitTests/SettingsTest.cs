@@ -83,12 +83,12 @@ namespace UnitTests
             service = this.Connect();
             settings = service.GetSettings();
 
-            Debug.Assert(!originalSSL == settings.EnableSplunkWebSSL, this.assertRoot + "#1");
-            Debug.Assert("sdk-host".Equals(settings.Host), this.assertRoot + "#2");
-            Debug.Assert(8001 == settings.HttpPort, this.assertRoot + "#3");
-            Debug.Assert(originalMinSpace - 100 == settings.MinFreeSpace, this.assertRoot + "#4");
-            Debug.Assert("sdk-test-name".Equals(settings.ServerName), this.assertRoot + "#5");
-            Debug.Assert("2h".Equals(settings.SessionTimeout), this.assertRoot + "#6");
+            Assert.AreNotEqual(originalSSL, settings.EnableSplunkWebSSL, this.assertRoot + "#1");
+            Assert.AreEqual("sdk-host", settings.Host, this.assertRoot + "#2");
+            Assert.AreEqual(8001, settings.HttpPort, this.assertRoot + "#3");
+            Assert.AreEqual(originalMinSpace - 100, settings.MinFreeSpace, this.assertRoot + "#4");
+            Assert.AreEqual("sdk-test-name", settings.ServerName, this.assertRoot + "#5");
+            Assert.AreEqual("2h", settings.SessionTimeout, this.assertRoot + "#6");
             //assertEquals(settings.StartWebServer(), !originalStartWeb);
 
             // restore original
@@ -106,13 +106,13 @@ namespace UnitTests
             service = this.Connect();
             settings = service.GetSettings();
 
-            Debug.Assert(originalSSL == settings.EnableSplunkWebSSL, this.assertRoot + "#7");
-            Debug.Assert(originalHost.Equals(settings.Host), this.assertRoot + "#8");
-            Debug.Assert(originalHttpPort == settings.HttpPort, this.assertRoot + "#9");
-            Debug.Assert(originalMinSpace.Equals(settings.MinFreeSpace), this.assertRoot + "#10");
-            Debug.Assert(originalServerName.Equals(settings.ServerName), this.assertRoot + "#11");
-            Debug.Assert(originalTimeout.Equals(settings.SessionTimeout), this.assertRoot + "#12");
-            Debug.Assert(originalStartWeb == settings.StartWebServer, this.assertRoot + "#13");
+            Assert.AreEqual(originalSSL, settings.EnableSplunkWebSSL, this.assertRoot + "#7");
+            Assert.AreEqual(originalHost, settings.Host, this.assertRoot + "#8");
+            Assert.AreEqual(originalHttpPort, settings.HttpPort, this.assertRoot + "#9");
+            Assert.AreEqual(originalMinSpace, settings.MinFreeSpace, this.assertRoot + "#10");
+            Assert.AreEqual(originalServerName, settings.ServerName, this.assertRoot + "#11");
+            Assert.AreEqual(originalTimeout, settings.SessionTimeout, this.assertRoot + "#12");
+            Assert.AreEqual(originalStartWeb, settings.StartWebServer, this.assertRoot + "#13");
         }
     }
 }

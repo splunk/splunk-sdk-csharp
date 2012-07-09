@@ -9,47 +9,6 @@
     <milliseconds>680</milliseconds>
     <violations />
   </sourcecode>
-  <sourcecode name="TestHelper.cs" parser="StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>06/14/2012 15:14:57</timestamp>
-      <milliseconds>46</milliseconds>
-    </settings>
-    <timestamp>07/05/2012 14:19:33</timestamp>
-    <milliseconds>677</milliseconds>
-    <violations />
-  </sourcecode>
-  <sourcecode name="ServiceTest.cs" parser="StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>06/14/2012 15:14:57</timestamp>
-      <milliseconds>46</milliseconds>
-    </settings>
-    <timestamp>07/05/2012 15:39:31</timestamp>
-    <milliseconds>496</milliseconds>
-    <violations />
-  </sourcecode>
-  <project key="1730235888">
-    <configuration>DEBUG;TRACE</configuration>
-  </project>
-  <sourcecode name="RoleTest.cs" parser="StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>06/14/2012 15:14:57</timestamp>
-      <milliseconds>46</milliseconds>
-    </settings>
-    <timestamp>07/05/2012 16:39:36</timestamp>
-    <milliseconds>484</milliseconds>
-    <violations>
-      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
-        <context>The class must have a documentation header.</context>
-        <line>24</line>
-        <warning>False</warning>
-      </violation>
-      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
-        <context>The method must have a documentation header.</context>
-        <line>27</line>
-        <warning>False</warning>
-      </violation>
-    </violations>
-  </sourcecode>
   <sourcecode name="SearchTest.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>06/14/2012 15:14:57</timestamp>
@@ -57,15 +16,6 @@
     </settings>
     <timestamp>07/05/2012 14:23:05</timestamp>
     <milliseconds>598</milliseconds>
-    <violations />
-  </sourcecode>
-  <sourcecode name="SettingsTest.cs" parser="StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>06/14/2012 15:14:57</timestamp>
-      <milliseconds>46</milliseconds>
-    </settings>
-    <timestamp>07/05/2012 14:23:16</timestamp>
-    <milliseconds>566</milliseconds>
     <violations />
   </sourcecode>
   <sourcecode name="StormTest.cs" parser="StyleCop.CSharp.CsParser">
@@ -96,5 +46,53 @@
         <warning>False</warning>
       </violation>
     </violations>
+  </sourcecode>
+  <sourcecode name="RoleTest.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/08/2012 15:33:13</timestamp>
+    <milliseconds>828</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="ServiceTest.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/08/2012 15:25:03</timestamp>
+    <milliseconds>132</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="SettingsTest.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/08/2012 15:30:51</timestamp>
+    <milliseconds>352</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="TestHelper.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/08/2012 15:33:00</timestamp>
+    <milliseconds>630</milliseconds>
+    <violations />
+  </sourcecode>
+  <project key="1730235888">
+    <configuration>DEBUG;TRACE</configuration>
+  </project>
+  <sourcecode name="MessageTest.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/08/2012 15:35:46</timestamp>
+    <milliseconds>45</milliseconds>
+    <violations />
   </sourcecode>
 </stylecopresultscache>

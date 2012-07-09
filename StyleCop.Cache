@@ -267,10 +267,6 @@
     <milliseconds>195</milliseconds>
     <violations />
   </sourcecode>
-  <project key="2120930673">
-    <configuration>
-    </configuration>
-  </project>
   <sourcecode name="Message.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>06/14/2012 15:14:57</timestamp>
@@ -280,9 +276,6 @@
     <milliseconds>595</milliseconds>
     <violations />
   </sourcecode>
-  <project key="-1956151431">
-    <configuration>DEBUG;TRACE</configuration>
-  </project>
   <sourcecode name="EntityCollection.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>06/14/2012 15:14:57</timestamp>
@@ -336,8 +329,15 @@
       <timestamp>06/14/2012 15:14:57</timestamp>
       <milliseconds>46</milliseconds>
     </settings>
-    <timestamp>07/05/2012 16:47:18</timestamp>
-    <milliseconds>747</milliseconds>
+    <timestamp>07/06/2012 11:32:58</timestamp>
+    <milliseconds>881</milliseconds>
     <violations />
   </sourcecode>
+  <project key="-1956151431">
+    <configuration>DEBUG;TRACE</configuration>
+  </project>
+  <project key="2120930673">
+    <configuration>
+    </configuration>
+  </project>
 </stylecopresultscache>

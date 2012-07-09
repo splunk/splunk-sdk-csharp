@@ -17,9 +17,9 @@
 namespace UnitTests
 {
     using System;
-    using System.Diagnostics;
     using System.Net.Sockets;
     using System.Threading;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Splunk;
     using SplunkSDKHelper;
 
@@ -149,7 +149,7 @@ namespace UnitTests
                 }
             }
             
-            Debug.Assert(restarted, this.assertRoot + "#5");
+            Assert.IsTrue(restarted, this.assertRoot + "#5");
         }
 
         /// <summary>

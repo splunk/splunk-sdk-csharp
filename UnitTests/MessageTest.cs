@@ -16,8 +16,6 @@
 
 namespace UnitTests
 {
-    using System;
-    using System.Diagnostics;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Splunk;
 
@@ -43,34 +41,40 @@ namespace UnitTests
             MessageCollection messageCollection = service.GetMessages();
 
             if (messageCollection.ContainsKey("sdk-test-message1"))
+            {
                 messageCollection.Remove("sdk-test-message1");
-            Debug.Assert(!messageCollection.ContainsKey("sdk-test-message1"), assertRoot + "#1");
+            }
+
+            Assert.IsFalse(messageCollection.ContainsKey("sdk-test-message1"), this.assertRoot + "#1");
 
             if (messageCollection.ContainsKey("sdk-test-message2"))
+            {
                 messageCollection.Remove("sdk-test-message2");
-            Debug.Assert(!messageCollection.ContainsKey("sdk-test-message2"), assertRoot + "#2");
+            }
+
+            Assert.IsFalse(messageCollection.ContainsKey("sdk-test-message2"), this.assertRoot + "#2");
 
             messageCollection.Create("sdk-test-message1", "hello.");
-            Debug.Assert(messageCollection.ContainsKey("sdk-test-message1"), assertRoot + "#3");
+            Assert.IsTrue(messageCollection.ContainsKey("sdk-test-message1"), this.assertRoot + "#3");
 
             Message message = messageCollection.Get("sdk-test-message1");
-            Debug.Assert("sdk-test-message1".Equals(message.Key), assertRoot + "#4");
-            Debug.Assert("hello.".Equals(message.Value), assertRoot + "#5");
+            Assert.AreEqual("sdk-test-message1", message.Key, this.assertRoot + "#4");
+            Assert.AreEqual("hello.", message.Value, this.assertRoot + "#5");
 
             Args args2 = new Args();
             args2.Add("value", "world.");
             messageCollection.Create("sdk-test-message2", args2);
-            Debug.Assert(messageCollection.ContainsKey("sdk-test-message2"), assertRoot + "#6");
+            Assert.IsTrue(messageCollection.ContainsKey("sdk-test-message2"), this.assertRoot + "#6");
 
             message = messageCollection.Get("sdk-test-message2");
-            Debug.Assert(message.Key.Equals("sdk-test-message2"), assertRoot + "#7");
-            Debug.Assert(message.Value.Equals("world."), assertRoot + "#8");
+            Assert.AreEqual("sdk-test-message2", message.Key, this.assertRoot + "#7");
+            Assert.AreEqual("world.", message.Value, this.assertRoot + "#8");
 
             messageCollection.Remove("sdk-test-message1");
-            Debug.Assert(!messageCollection.ContainsKey("sdk-test-message1"), assertRoot + "#9");
+            Assert.IsFalse(messageCollection.ContainsKey("sdk-test-message1"), this.assertRoot + "#9");
 
             messageCollection.Remove("sdk-test-message2");
-            Debug.Assert(!messageCollection.ContainsKey("sdk-test-message2"), assertRoot + "#10");
+            Assert.IsFalse(messageCollection.ContainsKey("sdk-test-message2"), this.assertRoot + "#10");
         }
     }
 }

@@ -16,7 +16,6 @@
 
 namespace UnitTests
 {
-    using System;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Splunk;
 
