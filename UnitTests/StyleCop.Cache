@@ -1,5 +1,17 @@
 <stylecopresultscache>
   <version>11</version>
+  <project key="1730235888">
+    <configuration>DEBUG;TRACE</configuration>
+  </project>
+  <sourcecode name="MessageTest.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/08/2012 15:35:46</timestamp>
+    <milliseconds>45</milliseconds>
+    <violations />
+  </sourcecode>
   <sourcecode name="AssemblyInfo.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>06/14/2012 15:14:57</timestamp>
@@ -7,6 +19,15 @@
     </settings>
     <timestamp>06/22/2012 11:13:35</timestamp>
     <milliseconds>680</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="RoleTest.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/08/2012 15:33:13</timestamp>
+    <milliseconds>828</milliseconds>
     <violations />
   </sourcecode>
   <sourcecode name="SearchTest.cs" parser="StyleCop.CSharp.CsParser">
@@ -18,6 +39,24 @@
     <milliseconds>598</milliseconds>
     <violations />
   </sourcecode>
+  <sourcecode name="ServiceTest.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/08/2012 15:25:03</timestamp>
+    <milliseconds>132</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="SettingsTest.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/08/2012 15:30:51</timestamp>
+    <milliseconds>352</milliseconds>
+    <violations />
+  </sourcecode>
   <sourcecode name="StormTest.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>06/14/2012 15:14:57</timestamp>
@@ -25,6 +64,15 @@
     </settings>
     <timestamp>07/05/2012 14:23:22</timestamp>
     <milliseconds>535</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="TestHelper.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/08/2012 15:33:00</timestamp>
+    <milliseconds>630</milliseconds>
     <violations />
   </sourcecode>
   <sourcecode name="UserTest.cs" parser="StyleCop.CSharp.CsParser">
@@ -46,53 +94,5 @@
         <warning>False</warning>
       </violation>
     </violations>
-  </sourcecode>
-  <sourcecode name="RoleTest.cs" parser="StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>06/14/2012 15:14:57</timestamp>
-      <milliseconds>46</milliseconds>
-    </settings>
-    <timestamp>07/08/2012 15:33:13</timestamp>
-    <milliseconds>828</milliseconds>
-    <violations />
-  </sourcecode>
-  <sourcecode name="ServiceTest.cs" parser="StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>06/14/2012 15:14:57</timestamp>
-      <milliseconds>46</milliseconds>
-    </settings>
-    <timestamp>07/08/2012 15:25:03</timestamp>
-    <milliseconds>132</milliseconds>
-    <violations />
-  </sourcecode>
-  <sourcecode name="SettingsTest.cs" parser="StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>06/14/2012 15:14:57</timestamp>
-      <milliseconds>46</milliseconds>
-    </settings>
-    <timestamp>07/08/2012 15:30:51</timestamp>
-    <milliseconds>352</milliseconds>
-    <violations />
-  </sourcecode>
-  <sourcecode name="TestHelper.cs" parser="StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>06/14/2012 15:14:57</timestamp>
-      <milliseconds>46</milliseconds>
-    </settings>
-    <timestamp>07/08/2012 15:33:00</timestamp>
-    <milliseconds>630</milliseconds>
-    <violations />
-  </sourcecode>
-  <project key="1730235888">
-    <configuration>DEBUG;TRACE</configuration>
-  </project>
-  <sourcecode name="MessageTest.cs" parser="StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>06/14/2012 15:14:57</timestamp>
-      <milliseconds>46</milliseconds>
-    </settings>
-    <timestamp>07/08/2012 15:35:46</timestamp>
-    <milliseconds>45</milliseconds>
-    <violations />
   </sourcecode>
 </stylecopresultscache>

@@ -519,26 +519,24 @@ namespace Splunk
         //    return new FiredAlertGroupCollection(this, args);
         //}
 
-        ///**
-        // * Returns a collection of Splunk indexes.
-        // *
-        // * @return A collection of indexes.
-        // */
-        //public EntityCollection<Index> GetIndexes() {
-        //    return new EntityCollection<Index>(this, "data/indexes", Index.class);
-        //}
+        /// <summary>
+        /// Returns a collection of Splunk indexes.
+        /// </summary>
+        /// <returns>The Index collection</returns>
+        public EntityCollection<Index> GetIndexes() 
+        {
+            return new EntityCollection<Index>(this, "data/indexes", typeof(Index));
+        }
 
-        ///**
-        // * Returns a collection of Splunk indexes.
-        // *
-        // * @param args Optional arguments, such as "count" and "offset" for 
-        // * pagination.
-        // * @return A collection of indexes.
-        // */
-        //public EntityCollection<Index> GetIndexes(Args args) {
-        //    return new EntityCollection<Index>(
-        //        this, "data/indexes", Index.class, args);
-        //}
+        /// <summary>
+        /// Returns a collection of Splunk indexes.
+        /// </summary>
+        /// <param name="args">The optional arguments</param>
+        /// <returns>The Index collection</returns>
+        public EntityCollection<Index> GetIndexes(Args args) {
+            return new EntityCollection<Index>(
+                this, "data/indexes", args, typeof(Index));
+        }
 
         /// <summary>
         /// Returns information about the Splunk service.
@@ -948,28 +946,26 @@ namespace Splunk
         //    return this.token;
         //}
 
-        ///**
-        // * Returns a collection of in-progress oneshot uploads.
-        // *
-        // * @return A collection of in-progress oneshot uploads
-        // */
-        //public EntityCollection<Upload> GetUploads() {
-        //    return new EntityCollection<Upload>(
-        //        this, "data/inputs/oneshot", Upload.class);
-        //}
+        /// <summary>
+        /// Returns a collection of in-progress oneshot uploads.
+        /// </summary>
+        /// <returns>The uploads</returns>
+        public EntityCollection<Upload> GetUploads()
+        {
+            return new EntityCollection<Upload>(
+                this, "data/inputs/oneshot", typeof(Upload));
+        }
 
-        ///**
-        // * Returns a collection of in-progress oneshot uploads.
-        // *
-        // * @param namespace This collection's namespace; there are no other
-        // * optional arguments for this endpoint.
-        // * @return A collection of in-progress oneshot uploads
-        // */
-        //public EntityCollection<Upload>
-        //getUploads(Args splunkNamespace) {
-        //    return new EntityCollection<Upload>(
-        //        this, "data/inputs/oneshot", Upload.class, splunkNamespace);
-        //}
+        /// <summary>
+        /// Returns a collection of in-progress oneshot uploads.
+        /// </summary>
+        /// <param name="splunkNamespace">The specific namespace</param>
+        /// <returns>The uploads</returns>
+        public EntityCollection<Upload> GetUploads(Args splunkNamespace) 
+        {
+            return new EntityCollection<Upload>(
+                this, "data/inputs/oneshot", splunkNamespace, typeof(Upload));
+        }
 
         ///**
         // * Returns the Splunk account username that was used to authenticate the

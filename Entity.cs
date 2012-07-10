@@ -257,34 +257,37 @@ namespace Splunk
             return this.Validate().content;
         }
 
-        /**
-         * Returns a date value associated with the specified key. Date values can
-         * be converted from standard UTC time formats.
-         *
-         * @param key The key to look up.
-         * @return The date value associated with the specified key.
-         
-        Date GetDate(string key) {
-            if (toUpdate.containsKey(key))
-                return Value.toDate(toUpdate.get(key).toString());
-            return GetContent().getDate(key);
+        /// <summary>
+        /// Returns a date value associated with the specified key. Date values can
+        /// be converted from standard UTC time formats.
+        /// </summary>
+        /// <param name="key">The date string</param>
+        /// <returns>The date</returns>
+        public DateTime GetDate(string key)
+        {
+            if (this.toUpdate.ContainsKey(key))
+            {
+                return Value.ToDate(this.toUpdate[key].ToString());
+            }
+            return this.GetContent().GetDate(key);
         }
-        */
 
-        /**
-         * Returns a date value associated with the specified key, or the default
-         * value if the key does not exist. Date values can be converted from
-         * standard UTC time formats.
-         *
-         * @param key The key to look up.
-         * @param defaultValue The default value.
-         * @return The date value associated with the specified key.
-        Date GetDate(string key, Date defaultValue) {
-            if (toUpdate.containsKey(key))
-                return Value.toDate(toUpdate.get(key).toString());
-            return GetContent().getDate(key, defaultValue);
+        /// <summary>
+        /// Returns a date value associated with the specified key, or the default
+        /// value if the key does not exist.
+        /// </summary>
+        /// <param name="key">The key</param>
+        /// <param name="defaultValue">The default time value</param>
+        /// <returns>The DateTime structure</returns>
+        public DateTime GetDate(string key, DateTime defaultValue)
+        {
+            if (this.toUpdate.ContainsKey(key))
+            {
+                return Value.ToDate(this.toUpdate[key].ToString());
+            }
+
+            return this.GetContent().GetDate(key, defaultValue);
         }
-         */
 
         /// <summary>
         /// Returns the double-floating point value associated with the specified key.

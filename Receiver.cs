@@ -18,6 +18,7 @@ namespace Splunk
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Net.Sockets;
     using System.Text;
@@ -79,8 +80,9 @@ namespace Splunk
         /// <returns>The Socket</returns>
         public Socket Attach(string indexName, Args args) 
         {
-            this.service = null;
             Socket socket = this.service.Open(this.service.Port);
+            NetworkStream stream = new NetworkStream(socket);
+            StreamWriter writer = new StreamWriter(stream);
             string postUrl = "POST /services/receivers/stream";
             if (indexName != null) 
             {
@@ -103,7 +105,8 @@ namespace Splunk
                 this.service.Host, 
                 this.service.Port,
                 this.service.Token);
-            socket.Send(Encoding.UTF8.GetBytes(header));
+            writer.Write(Encoding.UTF8.GetBytes(header));
+            writer.Flush();
             return socket;
         }
 

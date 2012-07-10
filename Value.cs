@@ -24,6 +24,17 @@ namespace Splunk
     public class Value
     {
         /// <summary>
+        /// The parsable date formats 
+        /// </summary>
+        private static string[] dateFormats = 
+        {
+            "yyyy-MM-dd'T'HH:mm:sszzz",
+            "yyyy-MM-dd'T'HH:mm:ss.FFFzzz",
+            "ddd MMM d HH:mm:ss yyyy",
+            "yyyy-MM-dd HH:mm:ss zzz"
+        };
+
+        /// <summary>
         /// Converts a string of either 0/1 or true/false to a bool.
         /// </summary>
         /// <param name="value">The string value</param>
@@ -85,51 +96,35 @@ namespace Splunk
             return Convert.ToInt64(value) * multiplier;
         }
 
-        /*
-        private static SimpleDateFormat[] dateFormat = null;
-        private static Pattern datePattern = null;
-
-         * Converts a {@code string} to a {@code Date} value.
-         *
-         * @param value Value to convert.
-         * @return Date value.
-
-        "Mon May 07 12:09:17 2012""
-        static Date toDate(string value) {
-        if (dateFormat == null) {
-            dateFormat = new SimpleDateFormat[4];
-            dateFormat[0] = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-            dateFormat[0].setLenient(true);
-            dateFormat[1] = new SimpleDateFormat("E MMM d HH:mm:ss z y");
-            dateFormat[1].setLenient(true);
-            dateFormat[2] = new SimpleDateFormat("EEE MMM dd HH:mm:ss y");
-            dateFormat[2].setLenient(true);
-            dateFormat[3] = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
-            dateFormat[3].setLenient(true);
-        }
-        if (datePattern == null) {
-            string pattern = "(.*)\\.\\d+([\\-+]\\d+):(\\d+)";
-            datePattern = Pattern.compile(pattern);
-        }
-
-        for (SimpleDateFormat simpleDateFormat: dateFormat)  {
-             Must first remove the colon (':') from the timezone
-             field, or SimpleDataFormat will not parse correctly.
-             Eg: 2010-01-01T12:00:00+01:00 => 2010-01-01T12:00:00+0100
-            try {
-
-                Matcher matcher = datePattern.matcher(value);
-                value = matcher.replaceAll("$1$2$3");
-                return simpleDateFormat.parse(value);
+        /// <summary>
+        /// Converts a date string to a DateTime structure.
+        /// </summary>
+        /// <param name="value">The date string</param>
+        /// <returns>The DateTime strucgture</returns>
+        public static DateTime ToDate(string value)
+        {
+            // Try all teh formats.
+            foreach (var date in dateFormats)
+            {
+                try
+                {
+                    return DateTime.Parse(value);
+                }
+                catch (Exception)
+                {
+                }
             }
-            catch (ParseException e) {}
+
+            // If all else failes, try epoch time
+            try
+            {
+                return new DateTime(Convert.ToInt64(value) * 1000);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
-        try {
-            return new Date(Long.parseLong(value)*1000);
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
-        }
-        */
 
         /// <summary>
         /// Converts a string to a double value.

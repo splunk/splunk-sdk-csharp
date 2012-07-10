@@ -87,7 +87,8 @@ namespace Splunk
         /// <returns>The Entity</returns>
         public T Create(string name, Args args) 
         {
-            args = Args.Create(args.AlternateAdd("name", name));
+            args = Args.Create(args);
+            args.Add("name", name);
             this.Service.Post(this.Path, args);
             this.Invalidate();
             return this.Get(name);

@@ -16,6 +16,7 @@
 
 namespace Splunk
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -77,30 +78,32 @@ namespace Splunk
             return Value.ToByteCount(this.GetString(key));
         }
 
-        /**
-         * Returns the {@code Date} value associated with the given key.
-         *
-         * @param key The key of the value being retrieved.
-         * @return The value associated with the given key, or {@code null} if the
-         *         key does not exist.
-        Date GetDate(string key) {
-            return Value.toDate(getString(key));
+        /// <summary>
+        /// Returns the DateTime value associated with the given key.
+        /// </summary>
+        /// <param name="key">The key</param>
+        /// <returns>The DateTime structure</returns>
+        public DateTime GetDate(string key) 
+        {
+            return Value.ToDate(this.GetString(key));
         }
-         */
 
-        /**
-         * Returns the {@code Date} value associated with the given key, or
-         * {@code defaultValue} if the key does not exist.
-         *
-         * @param key The key of the value being retrieved.
-         * @param defaultValue The value to return if the key does not exist.
-         * @return The value associated with the given key, or {@code defaultValue}
-         *         if the key does not exist.
-        Date GetDate(string key, Date defaultValue) {
-            if (!containsKey(key)) return defaultValue;
-            return Value.toDate(getString(key));
+        /// <summary>
+        /// Returns the DateTime value associated with the given key. adding
+        /// a default value if the key is not present in the dictionary.
+        /// </summary>
+        /// <param name="key">The key</param>
+        /// <param name="defaultValue">The default value</param>
+        /// <returns>The value</returns>
+        public DateTime GetDate(string key, DateTime defaultValue)
+        {
+            if (!this.ContainsKey(key))
+            {
+                return defaultValue;
+            }
+
+            return Value.ToDate(this.GetString(key));
         }
-         */
 
         /// <summary>
         /// Returns the double value associated with the given key.

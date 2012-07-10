@@ -54,11 +54,13 @@
     <Compile Include="AtomFeed.cs" />
     <Compile Include="AtomObject.cs" />
     <Compile Include="AtomEntry.cs" />
+    <Compile Include="Index.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="MessageCollection.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="StormService.cs" />
+    <Compile Include="Upload.cs" />
     <Compile Include="User.cs" />
     <Compile Include="ServiceInfo.cs" />
     <Compile Include="Receiver.cs" />
