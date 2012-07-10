@@ -54,6 +54,8 @@
     <Compile Include="AtomFeed.cs" />
     <Compile Include="AtomObject.cs" />
     <Compile Include="AtomEntry.cs" />
+    <Compile Include="EventType.cs" />
+    <Compile Include="EventTypeCollection.cs" />
     <Compile Include="Index.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="MessageCollection.cs" />

@@ -1,8 +1,5 @@
 <stylecopresultscache>
   <version>11</version>
-  <project key="1730235888">
-    <configuration>DEBUG;TRACE</configuration>
-  </project>
   <sourcecode name="MessageTest.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>06/14/2012 15:14:57</timestamp>
@@ -66,15 +63,6 @@
     <milliseconds>535</milliseconds>
     <violations />
   </sourcecode>
-  <sourcecode name="TestHelper.cs" parser="StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>06/14/2012 15:14:57</timestamp>
-      <milliseconds>46</milliseconds>
-    </settings>
-    <timestamp>07/08/2012 15:33:00</timestamp>
-    <milliseconds>630</milliseconds>
-    <violations />
-  </sourcecode>
   <sourcecode name="UserTest.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>06/14/2012 15:14:57</timestamp>
@@ -94,5 +82,35 @@
         <warning>False</warning>
       </violation>
     </violations>
+  </sourcecode>
+  <sourcecode name="TestHelper.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/09/2012 14:27:53</timestamp>
+    <milliseconds>723</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="IndexTest.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/10/2012 12:34:46</timestamp>
+    <milliseconds>166</milliseconds>
+    <violations />
+  </sourcecode>
+  <project key="1730235888">
+    <configuration>DEBUG;TRACE</configuration>
+  </project>
+  <sourcecode name="EventTypeTest.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/10/2012 12:36:50</timestamp>
+    <milliseconds>672</milliseconds>
+    <violations />
   </sourcecode>
 </stylecopresultscache>

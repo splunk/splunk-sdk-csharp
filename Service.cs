@@ -479,25 +479,24 @@ namespace Splunk
         //        this, "search/distributed/peers", DistributedPeer.class, args);
         //}
 
-        ///**
-        // * Returns a collection of saved event types.
-        // *
-        // * @return A collection of saved event types.
-        // */
-        //public EventTypeCollection GetEventTypes() {
-        //    return new EventTypeCollection(this);
-        //}
+        /// <summary>
+        /// Returns a collection of saved event types.
+        /// </summary>
+        /// <returns>The collection of event types</returns>
+        public EventTypeCollection GetEventTypes()
+        {
+            return new EventTypeCollection(this);
+        }
 
-        ///**
-        // * Returns a collection of saved event types.
-        // *
-        // * @param args Optional arguments, such as "count" and "offset" for 
-        // * pagination.
-        // * @return A collection of saved event types.
-        // */
-        //public EventTypeCollection GetEventTypes(Args args) {
-        //    return new EventTypeCollection(this, args);
-        //}
+        /// <summary>
+        /// Returns a collection of saved event types.
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public EventTypeCollection GetEventTypes(Args args)
+        {
+            return new EventTypeCollection(this, args);
+        }
 
         ///**
         // * Returns a collection of alerts that have been fired by the service.

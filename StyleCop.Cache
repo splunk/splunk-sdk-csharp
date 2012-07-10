@@ -352,9 +352,6 @@
     <milliseconds>562</milliseconds>
     <violations />
   </sourcecode>
-  <project key="-1956151431">
-    <configuration>DEBUG;TRACE</configuration>
-  </project>
   <sourcecode name="Value.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>06/14/2012 15:14:57</timestamp>
@@ -363,5 +360,42 @@
     <timestamp>07/10/2012 11:07:31</timestamp>
     <milliseconds>348</milliseconds>
     <violations />
+  </sourcecode>
+  <sourcecode name="EventType.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/10/2012 12:04:19</timestamp>
+    <milliseconds>130</milliseconds>
+    <violations />
+  </sourcecode>
+  <project key="-1956151431">
+    <configuration>DEBUG;TRACE</configuration>
+  </project>
+  <sourcecode name="EventTypeCollection.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/10/2012 12:10:11</timestamp>
+    <milliseconds>369</milliseconds>
+    <violations>
+      <violation namespace="StyleCop.CSharp.LayoutRules" rule="OpeningCurlyBracketsMustNotBeFollowedByBlankLine" ruleCheckId="SA1505">
+        <context>An opening curly bracket must not be followed by a blank line.</context>
+        <line>23</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="DocumentationTextMustBeginWithACapitalLetter" ruleCheckId="SA1628">
+        <context>The documentation text within the param tag must begin with a capital letter.</context>
+        <line>29</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to Create must begin with the 'this.', 'base.', 'object.' or 'EventTypeCollection.' prefix to indicate the intended method call. </context>
+        <line>52</line>
+        <warning>False</warning>
+      </violation>
+    </violations>
   </sourcecode>
 </stylecopresultscache>

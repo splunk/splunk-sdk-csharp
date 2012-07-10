@@ -1,21 +1,45 @@
-﻿
+﻿/*
+ * Copyright 2012 Splunk, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"): you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
 namespace UnitTests
 {
     using System;
-    using System.IO;
-    using System.Net.Sockets;
-    using System.Globalization;
-    using System.Text;
     using System.Threading;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Splunk;
 
+    /// <summary>
+    /// Tests the Index class
+    /// </summary>
     [TestClass]
     public class IndexTest : TestHelper
     {
-        static string assertRoot = "Index assert: ";
+        /// <summary>
+        /// The assert root
+        /// </summary>
+        private static string assertRoot = "Index assert: ";
 
-        private void wait_event_count(Index index, int value, int seconds)
+        /// <summary>
+        /// Polls the index until wither time runs down, or the event count
+        /// matches th desired value.
+        /// </summary>
+        /// <param name="index">The index</param>
+        /// <param name="value">The desired event count value</param>
+        /// <param name="seconds">The number seconds to poll</param>
+        private void Wait_event_count(Index index, int value, int seconds)
         {
             while (seconds > 0)
             {
@@ -37,13 +61,16 @@ namespace UnitTests
             }
         }
 
+        /// <summary>
+        /// Tests the basic index functionality
+        /// </summary>
         [TestMethod]
         public void IndexTest1()
         {
             Service service = Connect();
             DateTimeOffset offset = new DateTimeOffset(DateTime.Now);
             string now = DateTime.UtcNow.ToString("yyyy-MM-dd'T'HH:mm:ss") +
-                String.Format("{0}{1}", offset.Offset.Hours.ToString("D2"), offset.Offset.Minutes.ToString("D2"));
+                string.Format("{0}{1}", offset.Offset.Hours.ToString("D2"), offset.Offset.Minutes.ToString("D2"));
 
             ServiceInfo info = service.GetInfo();
 
@@ -187,7 +214,7 @@ namespace UnitTests
             // submit events to index
             index.Submit(now + " Hello World. \u0150");
             index.Submit(now + " Goodbye world. \u0150");
-            wait_event_count(index, 2, 30);
+            this.Wait_event_count(index, 2, 30);
             Assert.AreEqual(2, index.TotalEventCount, assertRoot + "#3");
 
             // clean
@@ -216,9 +243,13 @@ namespace UnitTests
 
             string filename;
             if (info.OsName.Equals("Windows"))
+            {
                 filename = "C:\\Windows\\WindowsUpdate.log"; // normally here
+            }
             else if (info.OsName.Equals("Linux"))
+            {
                 filename = "/var/log/syslog";
+            }
             else if (info.OsName.Equals("Darwin"))
             {
                 filename = "/var/log/system.log";
