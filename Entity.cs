@@ -196,7 +196,7 @@ namespace Splunk
             {
                 return Value.ToBoolean((string)this.toUpdate[key]);
             }
-            return Value.ToBoolean((string)this.GetContent()[key]);
+            return this.GetContent().GetBoolean(key);
         }
 
         /// <summary>
@@ -213,7 +213,7 @@ namespace Splunk
             {
                 return Value.ToBoolean((string)this.toUpdate[key]);
             }
-            return Value.ToBoolean((string)this.GetContent()[key]);
+            return this.GetContent().GetBoolean(key, defaultValue);
         }
 
         /// <summary>
@@ -228,7 +228,7 @@ namespace Splunk
             {
                 return Value.ToByteCount((string)this.toUpdate[key]);
             }
-            return Value.ToByteCount((string)this.GetContent()[key]);
+            return this.GetContent().GetByteCount(key);
         }
 
         /// <summary>

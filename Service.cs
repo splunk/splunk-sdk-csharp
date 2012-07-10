@@ -326,15 +326,14 @@ namespace Splunk
                 path);
         }
 
-        /**
-         * Returns the collection of applications.
-         *
-         * @return The application collection.
+        /// <summary>
+        /// Returns the collection of applications.
+        /// </summary>
+        /// <returns></returns>
         public EntityCollection<Application> GetApplications() {
             return new EntityCollection<Application>(
-                this, "/services/apps/local", Application.class);
+                this, "/services/apps/local", typeof(Application));
         }
-         */
 
         ///**
         // * Returns the collection of configurations.

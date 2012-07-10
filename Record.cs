@@ -45,7 +45,7 @@ namespace Splunk
         /// <returns>The value</returns>
         public bool GetBoolean(string key, bool defaultValue) 
         {
-            if (this.ContainsKey(key)) 
+            if (!this.ContainsKey(key)) 
             {
                 return defaultValue;
             }
@@ -202,16 +202,13 @@ namespace Splunk
         /// </summary>
         /// <param name="key">The key</param>
         /// <returns>The value</returns>
-        public string[] GetStringArray(string key) 
+        public string[] GetStringArray(string key)
         {
-            if (this.ContainsKey(key))
-            {
-                return ((List<object>)this[key]).Select(i => i.ToString()).ToList().ToArray();
-            }
-            else
+            if (!this.ContainsKey(key))
             {
                 return null;
             }
+            return ((List<object>)this[key]).Select(i => i.ToString()).ToList().ToArray();
         }
 
         /// <summary>

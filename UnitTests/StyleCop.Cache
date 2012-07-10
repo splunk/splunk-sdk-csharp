@@ -101,9 +101,6 @@
     <milliseconds>166</milliseconds>
     <violations />
   </sourcecode>
-  <project key="1730235888">
-    <configuration>DEBUG;TRACE</configuration>
-  </project>
   <sourcecode name="EventTypeTest.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>06/14/2012 15:14:57</timestamp>
@@ -111,6 +108,18 @@
     </settings>
     <timestamp>07/10/2012 12:36:50</timestamp>
     <milliseconds>672</milliseconds>
+    <violations />
+  </sourcecode>
+  <project key="1730235888">
+    <configuration>DEBUG;TRACE</configuration>
+  </project>
+  <sourcecode name="ApplicationTest.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/10/2012 15:55:19</timestamp>
+    <milliseconds>551</milliseconds>
     <violations />
   </sourcecode>
 </stylecopresultscache>

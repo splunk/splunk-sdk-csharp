@@ -51,6 +51,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application.cs" />
+    <Compile Include="ApplicationArchive.cs" />
+    <Compile Include="ApplicationSetup.cs" />
+    <Compile Include="ApplicationUpdate.cs" />
     <Compile Include="AtomFeed.cs" />
     <Compile Include="AtomObject.cs" />
     <Compile Include="AtomEntry.cs" />
