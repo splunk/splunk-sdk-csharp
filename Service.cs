@@ -329,8 +329,9 @@ namespace Splunk
         /// <summary>
         /// Returns the collection of applications.
         /// </summary>
-        /// <returns></returns>
-        public EntityCollection<Application> GetApplications() {
+        /// <returns>The collection</returns>
+        public EntityCollection<Application> GetApplications() 
+        {
             return new EntityCollection<Application>(
                 this, "/services/apps/local", typeof(Application));
         }
@@ -490,8 +491,8 @@ namespace Splunk
         /// <summary>
         /// Returns a collection of saved event types.
         /// </summary>
-        /// <param name="args"></param>
-        /// <returns></returns>
+        /// <param name="args">The Arguments</param>
+        /// <returns>The collection</returns>
         public EventTypeCollection GetEventTypes(Args args)
         {
             return new EventTypeCollection(this, args);
@@ -531,7 +532,8 @@ namespace Splunk
         /// </summary>
         /// <param name="args">The optional arguments</param>
         /// <returns>The Index collection</returns>
-        public EntityCollection<Index> GetIndexes(Args args) {
+        public EntityCollection<Index> GetIndexes(Args args) 
+        {
             return new EntityCollection<Index>(
                 this, "data/indexes", args, typeof(Index));
         }
@@ -545,25 +547,24 @@ namespace Splunk
             return new ServiceInfo(this);
         }
 
-        ///**
-        // * Returns a collection of configured inputs.
-        // *
-        // * @return A collection of inputs.
-        // */
-        //public InputCollection GetInputs() {
-        //    return new InputCollection(this);
-        //}
+        /// <summary>
+        /// Returns a collection of configured inputs.
+        /// </summary>
+        /// <returns>The input collection</returns>
+        public InputCollection<Input> GetInputs() 
+        {
+            return new InputCollection<Input>(this);
+        }
 
-        ///**
-        // * Returns a collection of configured inputs.
-        // *
-        // * @param args Optional arguments, such as "count" and "offset" for 
-        // * pagination.
-        // * @return A collection of inputs.
-        // */
-        //public InputCollection GetInputs(Args args) {
-        //    return new InputCollection(this, args);
-        //}
+        /// <summary>
+        /// Returns a collection of configured inputs.
+        /// </summary>
+        /// <param name="args">Optional arguments</param>
+        /// <returns>The input collection</returns>
+        public InputCollection<Input> GetInputs(Args args) 
+        {
+            return new InputCollection<Input>(this, args);
+        }
 
         /// <summary>
         /// Returns a collection of current search jobs.

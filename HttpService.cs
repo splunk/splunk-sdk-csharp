@@ -21,6 +21,7 @@ namespace Splunk
     using System.IO;
     using System.Net;
     using System.Net.Sockets;
+    using System.Reflection;
     using System.Text;
     using System.Web;
 
@@ -230,9 +231,20 @@ namespace Splunk
         /// </summary>
         /// <param name="path">The path</param>
         /// <returns>The fully qualified URL</returns>
-        public string GetUrl(string path) 
+        public Uri GetUrl(string path) 
         {
-            return this.Prefix + path;
+            // Taken from http://stackoverflow.com/questions/781205/getting-a-url-with-an-url-encoded-slash
+            // WebRequest can munge an encoded URL, and we don't want it to. This technique forces WebRequest
+            // to leave the URL alone. There is no simple mechanism to ask .Net to do this, once there is,
+            // this code can be changed. This code also may break in the future, as it reaches into the class's
+            // non-public fields and whacks them with a hammer. 
+            Uri uri = new Uri(this.Prefix + path);
+            string paq = uri.PathAndQuery; // need to access PathAndQuery
+            FieldInfo flagsFieldInfo = typeof(Uri).GetField("m_Flags", BindingFlags.Instance | BindingFlags.NonPublic);
+            ulong flags = (ulong)flagsFieldInfo.GetValue(uri);
+            flags &= ~((ulong)0x30); // Flags.PathNotCanonical|Flags.QueryNotCanonical
+            flagsFieldInfo.SetValue(uri, flags);
+            return uri;
         }
 
         /// <summary>
@@ -310,7 +322,7 @@ namespace Splunk
         public virtual ResponseMessage Send(string path, RequestMessage request) 
         {
             // Construct a full URL to the resource
-            string url = this.GetUrl(path);
+            Uri url = this.GetUrl(path);
             HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
 
             // build web request.

@@ -1,9 +1,48 @@
 <stylecopresultscache>
   <version>11</version>
+  <project key="-1956151431">
+    <configuration>DEBUG;TRACE</configuration>
+  </project>
   <project key="2120930673">
     <configuration>
     </configuration>
   </project>
+  <sourcecode name="Application.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/10/2012 15:27:02</timestamp>
+    <milliseconds>634</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="ApplicationArchive.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/10/2012 15:27:04</timestamp>
+    <milliseconds>39</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="ApplicationSetup.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/10/2012 15:26:04</timestamp>
+    <milliseconds>714</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="ApplicationUpdate.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/10/2012 14:56:31</timestamp>
+    <milliseconds>797</milliseconds>
+    <violations />
+  </sourcecode>
   <sourcecode name="Args.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>06/14/2012 15:14:57</timestamp>
@@ -45,8 +84,8 @@
       <timestamp>06/14/2012 15:14:57</timestamp>
       <milliseconds>46</milliseconds>
     </settings>
-    <timestamp>07/09/2012 12:52:54</timestamp>
-    <milliseconds>444</milliseconds>
+    <timestamp>07/10/2012 16:14:28</timestamp>
+    <milliseconds>319</milliseconds>
     <violations>
       <violation namespace="StyleCop.CSharp.MaintainabilityRules" rule="FieldsMustBePrivate" ruleCheckId="SA1401">
         <context>Fields must be declared with private access. Use properties to expose fields.</context>
@@ -60,8 +99,8 @@
       <timestamp>06/14/2012 15:14:57</timestamp>
       <milliseconds>46</milliseconds>
     </settings>
-    <timestamp>07/06/2012 11:28:29</timestamp>
-    <milliseconds>49</milliseconds>
+    <timestamp>07/11/2012 16:42:53</timestamp>
+    <milliseconds>568</milliseconds>
     <violations>
       <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ConstructorSummaryDocumentationMustBeginWithStandardText" ruleCheckId="SA1642">
         <context>The documentation text within the constructor's summary tag must begin with the text: Initializes a new instance of the &lt;see cref="EntityCollection" /&gt; class.</context>
@@ -85,22 +124,89 @@
       </violation>
     </violations>
   </sourcecode>
+  <sourcecode name="EventType.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/10/2012 12:08:03</timestamp>
+    <milliseconds>287</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="EventTypeCollection.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/10/2012 12:10:28</timestamp>
+    <milliseconds>486</milliseconds>
+    <violations />
+  </sourcecode>
   <sourcecode name="HttpService.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>06/14/2012 15:14:57</timestamp>
       <milliseconds>46</milliseconds>
     </settings>
-    <timestamp>06/29/2012 08:52:16</timestamp>
-    <milliseconds>792</milliseconds>
-    <violations />
+    <timestamp>07/12/2012 13:35:48</timestamp>
+    <milliseconds>292</milliseconds>
+    <violations>
+      <violation namespace="StyleCop.CSharp.OrderingRules" rule="UsingDirectivesMustBeOrderedAlphabeticallyByNamespace" ruleCheckId="SA1210">
+        <context>Using directives must be sorted alphabetically by the namespaces.</context>
+        <line>20</line>
+        <warning>False</warning>
+      </violation>
+    </violations>
   </sourcecode>
   <sourcecode name="Index.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>06/14/2012 15:14:57</timestamp>
       <milliseconds>46</milliseconds>
     </settings>
-    <timestamp>07/09/2012 12:43:57</timestamp>
-    <milliseconds>212</milliseconds>
+    <timestamp>07/09/2012 15:11:12</timestamp>
+    <milliseconds>816</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="Input.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/11/2012 17:33:06</timestamp>
+    <milliseconds>788</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="InputCollection.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/12/2012 10:28:33</timestamp>
+    <milliseconds>44</milliseconds>
+    <violations>
+      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ConstructorSummaryDocumentationMustBeginWithStandardText" ruleCheckId="SA1642">
+        <context>The documentation text within the constructor's summary tag must begin with the text: Initializes a new instance of the &lt;see cref="InputCollection" /&gt; class.</context>
+        <line>50</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ConstructorSummaryDocumentationMustBeginWithStandardText" ruleCheckId="SA1642">
+        <context>The documentation text within the constructor's summary tag must begin with the text: Initializes a new instance of the &lt;see cref="InputCollection" /&gt; class.</context>
+        <line>60</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.LayoutRules" rule="OpeningCurlyBracketsMustNotBeFollowedByBlankLine" ruleCheckId="SA1505">
+        <context>An opening curly bracket must not be followed by a blank line.</context>
+        <line>199</line>
+        <warning>False</warning>
+      </violation>
+    </violations>
+  </sourcecode>
+  <sourcecode name="InputKind.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/11/2012 17:06:36</timestamp>
+    <milliseconds>399</milliseconds>
     <violations />
   </sourcecode>
   <sourcecode name="Job.cs" parser="StyleCop.CSharp.CsParser">
@@ -139,6 +245,15 @@
     <milliseconds>916</milliseconds>
     <violations />
   </sourcecode>
+  <sourcecode name="MonitorInput.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/12/2012 16:26:48</timestamp>
+    <milliseconds>909</milliseconds>
+    <violations />
+  </sourcecode>
   <sourcecode name="AssemblyInfo.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>06/14/2012 15:14:57</timestamp>
@@ -153,8 +268,8 @@
       <timestamp>06/14/2012 15:14:57</timestamp>
       <milliseconds>46</milliseconds>
     </settings>
-    <timestamp>06/26/2012 11:01:07</timestamp>
-    <milliseconds>927</milliseconds>
+    <timestamp>07/09/2012 15:29:52</timestamp>
+    <milliseconds>989</milliseconds>
     <violations />
   </sourcecode>
   <sourcecode name="Record.cs" parser="StyleCop.CSharp.CsParser">
@@ -162,8 +277,8 @@
       <timestamp>06/14/2012 15:14:57</timestamp>
       <milliseconds>46</milliseconds>
     </settings>
-    <timestamp>07/09/2012 12:52:54</timestamp>
-    <milliseconds>434</milliseconds>
+    <timestamp>07/10/2012 16:38:34</timestamp>
+    <milliseconds>490</milliseconds>
     <violations />
   </sourcecode>
   <sourcecode name="RequestMessage.cs" parser="StyleCop.CSharp.CsParser">
@@ -189,8 +304,8 @@
       <timestamp>06/14/2012 15:14:57</timestamp>
       <milliseconds>46</milliseconds>
     </settings>
-    <timestamp>06/26/2012 11:14:09</timestamp>
-    <milliseconds>183</milliseconds>
+    <timestamp>07/12/2012 10:28:31</timestamp>
+    <milliseconds>638</milliseconds>
     <violations>
       <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ConstructorSummaryDocumentationMustBeginWithStandardText" ruleCheckId="SA1642">
         <context>The documentation text within the constructor's summary tag must begin with the text: Initializes a new instance of the &lt;see cref="ResourceCollection" /&gt; class.</context>
@@ -227,8 +342,8 @@
       <timestamp>06/14/2012 15:14:57</timestamp>
       <milliseconds>46</milliseconds>
     </settings>
-    <timestamp>06/21/2012 14:55:39</timestamp>
-    <milliseconds>739</milliseconds>
+    <timestamp>07/11/2012 16:44:49</timestamp>
+    <milliseconds>996</milliseconds>
     <violations />
   </sourcecode>
   <sourcecode name="Role.cs" parser="StyleCop.CSharp.CsParser">
@@ -240,13 +355,22 @@
     <milliseconds>168</milliseconds>
     <violations />
   </sourcecode>
+  <sourcecode name="ScriptInput.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/11/2012 17:42:48</timestamp>
+    <milliseconds>644</milliseconds>
+    <violations />
+  </sourcecode>
   <sourcecode name="Service.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>06/14/2012 15:14:57</timestamp>
       <milliseconds>46</milliseconds>
     </settings>
-    <timestamp>07/09/2012 12:48:40</timestamp>
-    <milliseconds>254</milliseconds>
+    <timestamp>07/11/2012 16:47:39</timestamp>
+    <milliseconds>198</milliseconds>
     <violations />
   </sourcecode>
   <sourcecode name="ServiceArgs.cs" parser="StyleCop.CSharp.CsParser">
@@ -310,20 +434,59 @@
     <milliseconds>705</milliseconds>
     <violations />
   </sourcecode>
+  <sourcecode name="TcpConnections.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/11/2012 13:36:47</timestamp>
+    <milliseconds>959</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="TcpInput.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/11/2012 17:42:48</timestamp>
+    <milliseconds>660</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="TcpSplunkInput.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/11/2012 17:42:48</timestamp>
+    <milliseconds>660</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="UdpConnections.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/11/2012 13:44:55</timestamp>
+    <milliseconds>375</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="UdpInput.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/11/2012 17:42:48</timestamp>
+    <milliseconds>664</milliseconds>
+    <violations />
+  </sourcecode>
   <sourcecode name="Upload.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>06/14/2012 15:14:57</timestamp>
       <milliseconds>46</milliseconds>
     </settings>
-    <timestamp>07/09/2012 12:52:09</timestamp>
-    <milliseconds>87</milliseconds>
-    <violations>
-      <violation namespace="StyleCop.CSharp.LayoutRules" rule="ClosingCurlyBracketsMustNotBePrecededByBlankLine" ruleCheckId="SA1508">
-        <context>A closing curly bracket must not be preceded by a blank line.</context>
-        <line>95</line>
-        <warning>False</warning>
-      </violation>
-    </violations>
+    <timestamp>07/09/2012 12:53:16</timestamp>
+    <milliseconds>269</milliseconds>
+    <violations />
   </sourcecode>
   <sourcecode name="User.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
@@ -343,15 +506,6 @@
     <milliseconds>260</milliseconds>
     <violations />
   </sourcecode>
-  <sourcecode name="Xml.cs" parser="StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>06/14/2012 15:14:57</timestamp>
-      <milliseconds>46</milliseconds>
-    </settings>
-    <timestamp>06/14/2012 11:57:04</timestamp>
-    <milliseconds>562</milliseconds>
-    <violations />
-  </sourcecode>
   <sourcecode name="Value.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>06/14/2012 15:14:57</timestamp>
@@ -361,77 +515,58 @@
     <milliseconds>348</milliseconds>
     <violations />
   </sourcecode>
-  <sourcecode name="EventType.cs" parser="StyleCop.CSharp.CsParser">
+  <sourcecode name="WindowsActiveDirectoryInput.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>06/14/2012 15:14:57</timestamp>
       <milliseconds>46</milliseconds>
     </settings>
-    <timestamp>07/10/2012 12:04:19</timestamp>
-    <milliseconds>130</milliseconds>
+    <timestamp>07/11/2012 17:42:48</timestamp>
+    <milliseconds>670</milliseconds>
     <violations />
   </sourcecode>
-  <sourcecode name="EventTypeCollection.cs" parser="StyleCop.CSharp.CsParser">
+  <sourcecode name="WindowsEventLogInput.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>06/14/2012 15:14:57</timestamp>
       <milliseconds>46</milliseconds>
     </settings>
-    <timestamp>07/10/2012 12:10:11</timestamp>
-    <milliseconds>369</milliseconds>
-    <violations>
-      <violation namespace="StyleCop.CSharp.LayoutRules" rule="OpeningCurlyBracketsMustNotBeFollowedByBlankLine" ruleCheckId="SA1505">
-        <context>An opening curly bracket must not be followed by a blank line.</context>
-        <line>23</line>
-        <warning>False</warning>
-      </violation>
-      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="DocumentationTextMustBeginWithACapitalLetter" ruleCheckId="SA1628">
-        <context>The documentation text within the param tag must begin with a capital letter.</context>
-        <line>29</line>
-        <warning>False</warning>
-      </violation>
-      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
-        <context>The call to Create must begin with the 'this.', 'base.', 'object.' or 'EventTypeCollection.' prefix to indicate the intended method call. </context>
-        <line>52</line>
-        <warning>False</warning>
-      </violation>
-    </violations>
-  </sourcecode>
-  <sourcecode name="ApplicationUpdate.cs" parser="StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>06/14/2012 15:14:57</timestamp>
-      <milliseconds>46</milliseconds>
-    </settings>
-    <timestamp>07/10/2012 14:56:31</timestamp>
-    <milliseconds>797</milliseconds>
+    <timestamp>07/11/2012 17:42:48</timestamp>
+    <milliseconds>674</milliseconds>
     <violations />
   </sourcecode>
-  <sourcecode name="ApplicationSetup.cs" parser="StyleCop.CSharp.CsParser">
+  <sourcecode name="WindowsPerfmonInput.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>06/14/2012 15:14:57</timestamp>
       <milliseconds>46</milliseconds>
     </settings>
-    <timestamp>07/10/2012 15:01:00</timestamp>
-    <milliseconds>867</milliseconds>
+    <timestamp>07/11/2012 17:42:48</timestamp>
+    <milliseconds>698</milliseconds>
     <violations />
   </sourcecode>
-  <sourcecode name="ApplicationArchive.cs" parser="StyleCop.CSharp.CsParser">
+  <sourcecode name="WindowsRegistryInput.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>06/14/2012 15:14:57</timestamp>
       <milliseconds>46</milliseconds>
     </settings>
-    <timestamp>07/10/2012 15:06:16</timestamp>
-    <milliseconds>469</milliseconds>
+    <timestamp>07/12/2012 15:58:51</timestamp>
+    <milliseconds>103</milliseconds>
     <violations />
   </sourcecode>
-  <project key="-1956151431">
-    <configuration>DEBUG;TRACE</configuration>
-  </project>
-  <sourcecode name="Application.cs" parser="StyleCop.CSharp.CsParser">
+  <sourcecode name="WindowsWmiInput.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>06/14/2012 15:14:57</timestamp>
       <milliseconds>46</milliseconds>
     </settings>
-    <timestamp>07/10/2012 15:27:02</timestamp>
-    <milliseconds>634</milliseconds>
+    <timestamp>07/11/2012 17:42:46</timestamp>
+    <milliseconds>222</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="Xml.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>06/14/2012 11:57:04</timestamp>
+    <milliseconds>562</milliseconds>
     <violations />
   </sourcecode>
 </stylecopresultscache>

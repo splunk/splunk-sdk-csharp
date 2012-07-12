@@ -109,7 +109,7 @@ namespace UnitTests
             {
                 user.RestartBackgroundJobs = false;
             }
-            user.Roles = new string[] {"power"};
+            user.Roles = new string[] { "power" };
             user.Update();
             user.Refresh();
 

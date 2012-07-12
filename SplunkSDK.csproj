@@ -61,11 +61,21 @@
     <Compile Include="EventType.cs" />
     <Compile Include="EventTypeCollection.cs" />
     <Compile Include="Index.cs" />
+    <Compile Include="Input.cs" />
+    <Compile Include="InputCollection.cs" />
+    <Compile Include="InputKind.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="MessageCollection.cs" />
+    <Compile Include="MonitorInput.cs" />
     <Compile Include="Role.cs" />
+    <Compile Include="ScriptInput.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="StormService.cs" />
+    <Compile Include="TcpConnections.cs" />
+    <Compile Include="TcpInput.cs" />
+    <Compile Include="TcpSplunkInput.cs" />
+    <Compile Include="UdpConnections.cs" />
+    <Compile Include="UdpInput.cs" />
     <Compile Include="Upload.cs" />
     <Compile Include="User.cs" />
     <Compile Include="ServiceInfo.cs" />
@@ -89,6 +99,11 @@
     <Compile Include="SplunkException.cs" />
     <Compile Include="UserCollection.cs" />
     <Compile Include="Value.cs" />
+    <Compile Include="WindowsActiveDirectoryInput.cs" />
+    <Compile Include="WindowsEventLogInput.cs" />
+    <Compile Include="WindowsPerfmonInput.cs" />
+    <Compile Include="WindowsRegistryInput.cs" />
+    <Compile Include="WindowsWmiInput.cs" />
     <Compile Include="Xml.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

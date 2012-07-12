@@ -201,7 +201,7 @@ namespace Splunk
         /// </summary>
         /// <param name="key">The key</param>
         /// <returns>True or false</returns>
-        public bool ContainsKey(object key) 
+        public virtual bool ContainsKey(object key) 
         {
             return this.Validate().Items.ContainsKey((string)key);
         }
@@ -213,7 +213,7 @@ namespace Splunk
         /// <param name="key">The key</param>
         /// <param name="splunkNamespace">The namespace</param>
         /// <returns>True or false</returns>
-        public bool ContainsKey(object key, Args splunkNamespace) 
+        public virtual bool ContainsKey(object key, Args splunkNamespace) 
         {
             this.Validate();
             List<T> entities = this.Items[(string)key];
@@ -295,7 +295,7 @@ namespace Splunk
         /// </summary>
         /// <param name="key">The key</param>
         /// <returns>The object, or default(object) if not found.</returns>
-        public T Get(object key) 
+        public virtual T Get(object key) 
         {
             this.Validate();
             if (!this.Items.ContainsKey((string)key)) 
@@ -321,7 +321,7 @@ namespace Splunk
         /// <param name="key">The key</param>
         /// <param name="splunkNamespace">The namespace</param>
         /// <returns>The object, or default(object) if not found.</returns>
-        public T Get(object key, Args splunkNamespace) 
+        public virtual T Get(object key, Args splunkNamespace) 
         {
             this.Validate();
             if (!this.Items.ContainsKey((string)key)) 
@@ -435,7 +435,7 @@ namespace Splunk
         /// </summary>
         /// <param name="value">The AtomFeed</param>
         /// <returns>The resource collection</returns>
-        private ResourceCollection<T> Load(AtomFeed value) 
+        protected ResourceCollection<T> Load(AtomFeed value) 
         {
             base.Load(value);
             foreach (AtomEntry entry in value.Entries) 

@@ -74,7 +74,7 @@ namespace Splunk
         /// </summary>
         /// <param name="name">The name of this Entity</param>
         /// <returns>The Entity</returns>
-        public T Create(string name) 
+        public virtual T Create(string name) 
         {
             return this.Create(name, (Args)null);
         }
@@ -85,7 +85,7 @@ namespace Splunk
         /// <param name="name">The name of this Entity</param>
         /// <param name="args">The variable argument list</param>
         /// <returns>The Entity</returns>
-        public T Create(string name, Args args) 
+        public virtual T Create(string name, Args args) 
         {
             args = Args.Create(args);
             args.Add("name", name);
@@ -98,12 +98,12 @@ namespace Splunk
         /// Removes an entity from this collection. Note that this method can throw
         /// the SplunkException "AMBIGUOUS" if the collection contains more than
         /// one entity with the specified key. Disambiguation is done through the
-        /// similar method Remove(Object key, Dictionary namespace)
+        /// similar method Remove(object key, Dictionary namespace)
         /// which uses the namespace to perform the disambiguation.
         /// </summary>
         /// <param name="key">The name of this Entity</param>
         /// <returns>The removed Entity</returns>
-        public T Remove(string key) 
+        public virtual T Remove(string key) 
         {
             this.Validate();
             if (!this.ContainsKey(key)) 
@@ -131,7 +131,7 @@ namespace Splunk
         /// <param name="key">The name of this Entity</param>
         /// <param name="splunkNamespace">The namespace</param>
         /// <returns>The removed Entity</returns>
-        public T Remove(string key, Args splunkNamespace) 
+        public virtual T Remove(string key, Args splunkNamespace) 
         {
             this.Validate();
             if (!this.ContainsKey(key)) 
