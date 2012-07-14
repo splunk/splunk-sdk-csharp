@@ -465,7 +465,6 @@ namespace Splunk
         {
             this.Items.Clear();
             ResponseMessage response = this.List();
-            /* assert(response.getStatus() == 200); */
             AtomFeed feed = AtomFeed.Parse(response.Content);
             this.Load(feed);
             return this;

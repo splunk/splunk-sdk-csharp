@@ -298,6 +298,12 @@ namespace Splunk
         {
             if (this.toUpdate.ContainsKey(key)) 
             {
+                double dummy = 0;
+                if (this.toUpdate[key].GetType() == dummy.GetType())
+                {
+                    return (int)this.toUpdate[key];
+                }
+
                 return Value.ToFloat((string)this.toUpdate[key]);
             }
             return this.GetContent().GetFloat(key);
@@ -312,6 +318,12 @@ namespace Splunk
         {
             if (this.toUpdate.ContainsKey(key)) 
             {
+                int dummy = 0;
+                if (this.toUpdate[key].GetType() == dummy.GetType())
+                {
+                    return (int)this.toUpdate[key];
+                }
+
                 return Value.ToInteger((string)this.toUpdate[key]);
             }
             return this.GetContent().GetInteger(key);
@@ -328,6 +340,12 @@ namespace Splunk
         {
             if (this.toUpdate.ContainsKey(key)) 
             {
+                int dummy = 0;
+                if (this.toUpdate[key].GetType() == dummy.GetType())
+                {
+                    return (int)this.toUpdate[key];
+                }
+
                 return Value.ToInteger((string)this.toUpdate[key]);
             }
             return this.GetContent().GetInteger(key, defaultValue);
@@ -363,21 +381,25 @@ namespace Splunk
             return this.GetContent().GetLong(key, defaultValue);
         }
 
-        /**
-         * Returns the metadata (eai:acl) of this entity. This data includes
-         * permissions for accessing the resource, and values that indicate 
-         * which resource fields are wildcards, required, and optional.
-         *
-         * @return The metadata of this entity, or {@code null} if none exist.
-        public EntityMetadata GetMetadata() {
+        /// <summary>
+        /// Returns the metadata (eai:acl) of this entity. This data includes
+        /// permissions for accessing the resource, and values that indicate 
+        /// which resource fields are wildcards, required, and optional.
+        /// </summary>
+        /// <returns>The metadata</returns>
+         public EntityMetadata GetMetadata() 
+         {
             // CONSIDER: For entities that don't have an eai:acl field, which is
             // uncommon but does happen at least in the case of a DeploymentClient
             // that is not enabled, we return null. A slightly friendlier option
             // would be to return a metadata instance that defaults all values?
-            if (!containsKey("eai:acl")) return null;
-            return new EntityMetadata(this);
+             if (!this.ContainsKey("eai:acl"))
+             {
+                 return null;
+             }
+             
+             return new EntityMetadata(this);
         }
-         */
 
         /// <summary>
         /// Returns the string value associated with the specified key.
@@ -504,6 +526,11 @@ namespace Splunk
         /// <param name="value">The value</param>
         public void SetCacheValue(string key, object value) 
         {
+            if (this.toUpdate.ContainsKey(key))
+            {
+                this.toUpdate.Remove(key);
+            }
+
             this.toUpdate.Add(key, value);
         }
 
@@ -537,7 +564,6 @@ namespace Splunk
                     mergedArgs.Add(element.Key, element.Value);
                 }
             }
-            mergedArgs = args.Concat(this.toUpdate).ToDictionary(x => x.Key, x => x.Value);
             this.Service.Post(this.ActionPath("edit"), mergedArgs);
             this.toUpdate.Clear();
             this.Invalidate();

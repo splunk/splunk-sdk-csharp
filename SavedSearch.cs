@@ -1781,14 +1781,9 @@ namespace Splunk
         {
             ResponseMessage response = this.Service.Get(this.ActionPath("history"));
             AtomFeed feed;
-            try
-            {
-                feed = AtomFeed.Parse(response.Content);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+
+            feed = AtomFeed.Parse(response.Content);
+
             int count = feed.Entries.Count;
             Job[] result = new Job[count];
             for (int i = 0; i < count; ++i)

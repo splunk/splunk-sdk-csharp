@@ -365,20 +365,31 @@ namespace Splunk
                 }
             }
 
-            HttpWebResponse response = (HttpWebResponse)webRequest.GetResponse();
-            int status = response.StatusCode.GetHashCode();
+            int status;
+            HttpWebResponse response = null;
+
+            try
+            {
+                response = (HttpWebResponse)webRequest.GetResponse();
+                status = response.StatusCode.GetHashCode();
+            }
+            catch (WebException ex)
+            {
+                if (ex.Status == WebExceptionStatus.ProtocolError && ex.Response != null)
+                {
+                    var resp = (HttpWebResponse)ex.Response;
+                    status = resp.StatusCode.GetHashCode();
+                }
+                throw;
+            }
 
             Stream input;
             input = status >= 400
                 ? null
-                : response.GetResponseStream();
+                : response != null ? response.GetResponseStream() : null;
 
             ResponseMessage returnResponse = new ResponseMessage(status, input);
 
-            if (status >= 400) 
-            {
-                throw HttpException.CreateFromLastError("HTTP error");
-            }
             return returnResponse;
         }
 

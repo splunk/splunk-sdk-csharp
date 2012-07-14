@@ -243,10 +243,20 @@ namespace Splunk
         /// <param name="args">The key/value pairs to update</param>
         public override void Update(Dictionary<string, object> args)
         {
-            // Merge cached setters and live args together before updating.
+            // Merge cached setters and live args together before updating; live
+            // args get precedence over the cached setter args.
             Dictionary<string, object> mergedArgs = new Dictionary<string, object>();
-            mergedArgs.Concat(this.toUpdate);
-            mergedArgs.Concat(args);
+            foreach (KeyValuePair<string, object> element in args)
+            {
+                mergedArgs.Add(element.Key, element.Value);
+            }
+            foreach (KeyValuePair<string, object> element in this.toUpdate)
+            {
+                if (!mergedArgs.ContainsKey(element.Key))
+                {
+                    mergedArgs.Add(element.Key, element.Value);
+                }
+            }
             Service.Post(this.Path + "/settings", mergedArgs);
             toUpdate.Clear();
             this.Invalidate();

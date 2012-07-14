@@ -355,15 +355,15 @@ namespace Splunk
             return new ConfCollection(this, args);
         }
 
-        ///**
-        // * Returns an array of system capabilities.
-        // *
-        // * @return An array of capabilities.
-        // */
-        //public string[] GetCapabilities() {
-        //    Entity caps = new Entity(this, "authorization/capabilities");
-        //    return caps.getStringArray("capabilities");
-        //}
+        /// <summary>
+        /// Returns the array of the system capabilities.
+        /// </summary>
+        /// <returns>The capabilities</returns>
+        public string[] Capabilities() 
+        {
+            Entity caps = new Entity(this, "authorization/capabilities");
+            return caps.GetStringArray("capabilities");
+        }
 
         ///**
         // * Returns the configuration and status of a deployment client.
@@ -629,17 +629,6 @@ namespace Splunk
         //}
 
         ///**
-        // * Returns the current owner context for this {@code Service} instance. 
-        // * A value of {@code "-"} indicates a wildcard, and a {@code null} value 
-        // * indicates no owner context.
-        // *
-        // * @return The current owner context.
-        // */
-        //public string GetOwner() {
-        //    return this.owner;
-        //}
-
-        ///**
         // * Returns a collection of licenser pool configurations.
         // *
         // * @return A collection of licenser pool configurations.
@@ -756,16 +745,15 @@ namespace Splunk
             return new MessageCollection(this);
         }
 
-        ///**
-        // * Returns a collection of system messages.
-        // *
-        // * @param args Optional arguments, such as "count" and "offset" for 
-        // * pagination.
-        // * @return A collection of system messages.
-        // */
-        //public MessageCollection GetMessages(Args args) {
-        //    return new MessageCollection(this, args);
-        //}
+        /// <summary>
+        /// Returns the collection of messages.
+        /// </summary>
+        /// <param name="args">The arguments</param>
+        /// <returns>The collection of messages</returns>
+        public MessageCollection GetMessages(Args args) 
+        {
+            return new MessageCollection(this, args);
+        }
 
         ///**
         // * Returns global TCP output properties.
@@ -919,7 +907,8 @@ namespace Splunk
         /// </summary>
         /// <param name="args">The arguments</param>
         /// <returns>The collection of saves searches</returns>
-        public SavedSearchCollection GetSavedSearches(Args args) {
+        public SavedSearchCollection GetSavedSearches(Args args) 
+        {
             return new SavedSearchCollection(this, args);
         }
 
@@ -932,24 +921,13 @@ namespace Splunk
             return new Settings(this);
         }
 
-        ///**
-        // * Returns the current session token. Session tokens can be shared across
-        // * multiple {@code Service} instances.
-        // *
-        // * @return The session token.
-        // */
-        //public string GetToken() {
-        //    return this.token;
-        //}
-
         /// <summary>
         /// Returns a collection of in-progress oneshot uploads.
         /// </summary>
         /// <returns>The uploads</returns>
         public EntityCollection<Upload> GetUploads()
         {
-            return new EntityCollection<Upload>(
-                this, "data/inputs/oneshot", typeof(Upload));
+            return new EntityCollection<Upload>(this, "data/inputs/oneshot", typeof(Upload));
         }
 
         /// <summary>
@@ -959,25 +937,8 @@ namespace Splunk
         /// <returns>The uploads</returns>
         public EntityCollection<Upload> GetUploads(Args splunkNamespace) 
         {
-            return new EntityCollection<Upload>(
-                this, "data/inputs/oneshot", splunkNamespace, typeof(Upload));
+            return new EntityCollection<Upload>(this, "data/inputs/oneshot", splunkNamespace, typeof(Upload));
         }
-
-        ///**
-        // * Returns the Splunk account username that was used to authenticate the
-        // * current session.
-        // *
-        // * @return The current username.
-        // */
-        //public string GetUsername() {
-        //    return this.username;
-        //}
-
-        ///**
-        // * Returns a collection of Splunk users.
-        // *
-        // * @return A collection of users.
-        // */
 
         /// <summary>
         ///Returns a collection of Splunk users.
@@ -988,16 +949,15 @@ namespace Splunk
            return new UserCollection(this);
         }
 
-        ///**
-        // * Returns a collection of Splunk users.
-        // *
-        // * @param args Optional arguments, such as "count" and "offset" for 
-        // * pagination.
-        // * @return A collection of users.
-        // */
-        //public UserCollection GetUsers(Args args) {
-        //    return new UserCollection(this, args);
-        //}
+        /// <summary>
+        /// Returns a collection of Splunk users.
+        /// </summary>
+        /// <param name="args">The arguments</param>
+        /// <returns>The collection of Splunk users</returns>
+        public UserCollection GetUsers(Args args) 
+        {
+            return new UserCollection(this, args);
+        }
 
         /// <summary>
         /// Authenticates the Service instance with a username and password.
@@ -1040,42 +1000,42 @@ namespace Splunk
             return this;
         }
 
-        ///**
-        // * Creates a oneshot synchronous search.
-        // *
-        // * @param query The search query.
-        // * @return The search results.
-        // */
-        //public InputStream oneshot(string query) {
-        //   return oneshot(query, null, null);
-        //}
+        /// <summary>
+        /// CReayes a oneshot synchronous search
+        /// </summary>
+        /// <param name="query">The search string</param>
+        /// <returns>The IO stream</returns>
+        public Stream Oneshot(string query) 
+        {
+           return this.Oneshot(query, null, null);
+        }
 
-        ///**
-        // * Creates a oneshot synchronous search using search arguments.
-        // *
-        // * @param query The search query.
-        // * @param inputArgs The search arguments.
-        // * @return The search results.
-        // */
-        //public InputStream oneshot(string query, Map inputArgs) {
-        //    return oneshot(query, inputArgs, null);
-        //}
+        /// <summary>
+        /// Creates a oneshot synchronous search using search arguments.
+        /// </summary>
+        /// <param name="query">The search string</param>
+        /// <param name="inputArgs">The input arguments</param>
+        /// <returns>The IO stream</returns>
+        public Stream Oneshot(string query, Args inputArgs) 
+        {
+            return this.Oneshot(query, inputArgs, null);
+        }
 
-        ///**
-        // * Creates a oneshot synchronous search using search arguments.
-        // *
-        // * @param query The search query.
-        // * @param inputArgs The search arguments.
-        // * @param outputArgs The output qualifier arguments.
-        // * @return The search results.
-        // */
-        //public InputStream oneshot(string query, Map inputArgs, Map outputArgs) {
-        //    inputArgs = Args.create(inputArgs);
-        //    inputArgs.put("search", query);
-        //    inputArgs.put("exec_mode", "oneshot");
-        //    ResponseMessage response = post("search/jobs", inputArgs);
-        //    return response.getContent();
-        //}
+        /// <summary>
+        /// Creates a oneshot synchronous search using search arguments.
+        /// </summary>
+        /// <param name="query">The search query</param>
+        /// <param name="inputArgs">The input arguments</param>
+        /// <param name="outputArgs">The output arguments</param>
+        /// <returns>The IO stream</returns>
+        public Stream Oneshot(string query, Args inputArgs, Args outputArgs) 
+        {
+            inputArgs = Args.Create(inputArgs);
+            inputArgs.Add("search", query);
+            inputArgs.Add("exec_mode", "oneshot");
+            ResponseMessage response = this.Post("search/jobs", inputArgs);
+            return response.Content;
+        }
 
         /// <summary>
         /// Opens a socket to the host and specified port.
@@ -1089,29 +1049,29 @@ namespace Splunk
             return socket;
         }
 
-        ///**
-        // * Parses a search query and returns a semantic map for the search in JSON 
-        // * format.
-        // *
-        // * @param query The search query.
-        // * @return The parse response message.
-        // */
-        //public ResponseMessage parse(string query) {
-        //    return parse(query, null);
-        //}
+        /// <summary>
+        /// Parses a search query and returns a semantic map for the search in JSON format.
+        /// </summary>
+        /// <param name="query">The search query</param>
+        /// <returns>The parse repsonse</returns>
+        public ResponseMessage Parse(string query) 
+        {
+            return this.Parse(query, null);
+        }
 
-        ///**
-        // * Parses a search query with additional arguments and returns a semantic
-        // * map for the search in JSON format.
-        // *
-        // * @param query The search query.
-        // * @param args Additional parse arguments.
-        // * @return The parse response message.
-        // */
-        //public ResponseMessage parse(string query, Map args) {
-        //    args = Args.create(args).add("q", query);
-        //    return Get("search/parser", args);
-        //}
+        /// <summary>
+        /// Parses a search query with additional arguments and returns a semantic
+        ///  map for the search in JSON format.
+        /// </summary>
+        /// <param name="query">The search query</param>
+        /// <param name="args">The arguments</param>
+        /// <returns>The parse repsonse</returns>
+        public ResponseMessage Parse(string query, Args args) 
+        {
+            args = Args.Create(args);
+            args.Add("q", query);
+            return this.Get("search/parser", args);
+        }
 
         /// <summary>
         /// Issues a restart request to the service. 

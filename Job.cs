@@ -85,6 +85,18 @@ namespace Splunk
         }
 
         /// <summary>
+        /// Gets the earliest time from which we are sure no events later than
+        /// this time will be scanned later. (Use this as a progress indicator.)
+        /// </summary>
+        public DateTime CursorTime
+        {
+            get
+            {
+                return this.GetDate("cursorTime");
+            }
+        }
+
+        /// <summary>
         /// Gets the delegate for this job.
         /// </summary>
         /// <returns>The delegate</returns>
@@ -161,17 +173,16 @@ namespace Splunk
             }
         }
 
-        /**
-         * The earliest time a search job is configured to start.
-         * @see #getLatestTime
-         * @see #getCursorTime
-         * @see #getDoneProgress
-         *
-         * @return The earliest time, in UTC format.
-        public Date GetEarliestTime() {
-            return GetDate("earliestTime");
+        /// <summary>
+        /// Gets earliest time a search job is configured to start.
+        /// </summary>
+        public DateTime EarliestTime 
+        {
+            get
+            {
+                return this.GetDate("earliestTime");
+            }
         }
-         */
 
         /// <summary>
         /// Gets the count of events stored by search that are available to be
@@ -296,19 +307,16 @@ namespace Splunk
             }
         }
 
-        /**
-         * Returns the latest time a search job is configured to start. Note
-        /// that if dirty, this has the side effect of retrieving refreshed
-        /// data from the server.
-         * @see #getCursorTime
-         * @see #getEarliestTime
-         * @see #getDoneProgress
-         *
-         * @return The latest time, in UTC format.
-        public Date GetLatestTime() {
-            return GetDate("latestTime");
+        /// <summary>
+        /// Gets the latest time a search job is configured to start.
+        /// </summary>
+        public DateTime LatestTime
+        {
+            get
+            {
+                return this.GetDate("latestTime");
+            }
         }
-         */
 
         /// <summary>
         /// Gets the number of previews that have been generated so far for this job.
@@ -774,19 +782,6 @@ namespace Splunk
         {
             return this.Control("pause");
         }
-
-        /**
-         * Returns the earliest time from which we are sure no events later than
-         * this time will be scanned later. (Use this as a progress indicator.)
-         * @see #getLatestTime
-         * @see #getEarliestTime
-         * @see #getDoneProgress
-         *
-         * @return The earliest time.
-        public Date GetCursorTime() {
-            return GetDate("cursorTime");
-        }
-         */
 
         /// <summary>
         /// The Stream IO handle for the results from this job.

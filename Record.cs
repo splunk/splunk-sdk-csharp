@@ -31,7 +31,7 @@ namespace Splunk
         /// </summary>
         /// <param name="key">The key</param>
         /// <returns>The value</returns>
-        public bool GetBoolean(string key) 
+        public bool GetBoolean(string key)
         {
             return Value.ToBoolean(this.GetString(key));
         }
@@ -43,9 +43,9 @@ namespace Splunk
         /// <param name="key">The key</param>
         /// <param name="defaultValue">The default value</param>
         /// <returns>The value</returns>
-        public bool GetBoolean(string key, bool defaultValue) 
+        public bool GetBoolean(string key, bool defaultValue)
         {
-            if (!this.ContainsKey(key)) 
+            if (!this.ContainsKey(key))
             {
                 return defaultValue;
             }
@@ -57,7 +57,7 @@ namespace Splunk
         /// </summary>
         /// <param name="key">The key</param>
         /// <returns>The value</returns>
-        public long GetByteCount(string key) 
+        public long GetByteCount(string key)
         {
             return Value.ToByteCount(this.GetString(key));
         }
@@ -69,9 +69,9 @@ namespace Splunk
         /// <param name="key">The key</param>
         /// <param name="defaultValue">The default value</param>
         /// <returns>The value</returns>
-        public long GetByteCount(string key, long defaultValue) 
+        public long GetByteCount(string key, long defaultValue)
         {
-            if (!this.ContainsKey(key)) 
+            if (!this.ContainsKey(key))
             {
                 return defaultValue;
             }
@@ -83,7 +83,7 @@ namespace Splunk
         /// </summary>
         /// <param name="key">The key</param>
         /// <returns>The DateTime structure</returns>
-        public DateTime GetDate(string key) 
+        public DateTime GetDate(string key)
         {
             return Value.ToDate(this.GetString(key));
         }
@@ -110,7 +110,7 @@ namespace Splunk
         /// </summary>
         /// <param name="key">The key</param>
         /// <returns>The value</returns>
-        public double GetFloat(string key) 
+        public double GetFloat(string key)
         {
             return Value.ToFloat(this.GetString(key));
         }
@@ -120,7 +120,7 @@ namespace Splunk
         /// </summary>
         /// <param name="key">The key</param>
         /// <returns>The value</returns>
-        public int GetInteger(string key) 
+        public int GetInteger(string key)
         {
             return Value.ToInteger(this.GetString(key));
         }
@@ -132,9 +132,9 @@ namespace Splunk
         /// <param name="key">The key</param>
         /// <param name="defaultValue">The default value</param>
         /// <returns>The value</returns>
-        public int GetInteger(string key, int defaultValue) 
+        public int GetInteger(string key, int defaultValue)
         {
-            if (!this.ContainsKey(key)) 
+            if (!this.ContainsKey(key))
             {
                 return defaultValue;
             }
@@ -146,7 +146,7 @@ namespace Splunk
         /// </summary>
         /// <param name="key">The key</param>
         /// <returns>The value</returns>
-        public long GetLong(string key) 
+        public long GetLong(string key)
         {
             return Value.ToLong(this.GetString(key));
         }
@@ -158,9 +158,9 @@ namespace Splunk
         /// <param name="key">The key</param>
         /// <param name="defaultValue">The default value</param>
         /// <returns>The value</returns>
-        public long GetLong(string key, int defaultValue) 
+        public long GetLong(string key, int defaultValue)
         {
-            if (!this.ContainsKey(key)) 
+            if (!this.ContainsKey(key))
             {
                 return defaultValue;
             }
@@ -172,7 +172,7 @@ namespace Splunk
         /// </summary>
         /// <param name="key">The key</param>
         /// <returns>The value</returns>
-        public string GetString(string key) 
+        public string GetString(string key)
         {
             object returnValue = null;
             this.TryGetValue(key, out returnValue);
@@ -186,9 +186,9 @@ namespace Splunk
         /// <param name="key">The key</param>
         /// <param name="defaultValue">The default</param>
         /// <returns>The value</returns>
-        public string GetString(string key, string defaultValue) 
+        public string GetString(string key, string defaultValue)
         {
-            if (!this.ContainsKey(key)) 
+            if (!this.ContainsKey(key))
             {
                 return defaultValue;
             }
@@ -218,40 +218,40 @@ namespace Splunk
         /// <param name="key">The key</param>
         /// <param name="defaultValue">The default value</param>
         /// <returns>The value</returns>
-        public string[] GetStringArray(string key, string[] defaultValue) 
+        public string[] GetStringArray(string key, string[] defaultValue)
         {
-            if (!this.ContainsKey(key)) 
+            if (!this.ContainsKey(key))
             {
                 return defaultValue;
             }
             return this.GetStringArray(key);
         }
 
-        /**
-         * Returns the value associated with the given key, cast to the given type
-         * parameter.
-         *
-         * @param key The key of the value being retrieved.
-         * @param <T> The type to cast the return value to.
-         * @return The value associated with the given key, cast to the given type.
-        <T> T GetValue(string key) {
-            return (T)get(key);
+        /// <summary>
+        /// Returns the value associated with the given key.
+        /// </summary>
+        /// <param name="key">The key</param>
+        /// <returns>The value</returns>
+        public object GetValue(string key)
+        {
+            return this[key];
         }
-         */
 
-        /**
-         * Returns the value associated with the given key, or {@code defaultValue}
-         * if the key does not exist, cast to the given type parameter.
-         *
-         * @param key The key of the value being retrieved.
-         * @param defaultValue The value to return if the key does not exist.
-         * @param <T> The type to cast the return value to.
-         * @return The value associated with the given key, or {@code defautlValue}
-         *         if the key does not exist.
-        <T> T GetValue(string key, T defaultValue) {
-            if (!containsKey(key)) return defaultValue;
-            return (T)get(key);
+        /// <summary>
+        /// Returns the value associated with the given key, or the defaultValue
+        /// if the key does not exist
+        /// </summary>
+        /// <param name="key">The key</param>
+        /// <param name="defaultValue">The default value</param>
+        /// <returns>The value</returns>
+        public object GetValue(string key, object defaultValue)
+        {
+            if (!this.ContainsKey(key))
+            {
+                return defaultValue;
+            }
+
+            return this[key];
         }
-         */
     }
 }

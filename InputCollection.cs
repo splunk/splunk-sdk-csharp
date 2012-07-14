@@ -205,18 +205,10 @@ namespace Splunk
                     }
                     else
                     {
-                        throw ex;
+                        throw;
                     }
                 }
-                AtomFeed feed;
-                try
-                {
-                    feed = AtomFeed.Parse(response.Content);
-                }
-                catch (Exception e)
-                {
-                    throw e;
-                }
+                AtomFeed feed = AtomFeed.Parse(response.Content);
                 base.Load(feed);
             }
 

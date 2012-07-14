@@ -59,6 +59,7 @@
     <Compile Include="AtomObject.cs" />
     <Compile Include="AtomEntry.cs" />
     <Compile Include="ConfCollection.cs" />
+    <Compile Include="EntityMetadata.cs" />
     <Compile Include="EventType.cs" />
     <Compile Include="EventTypeCollection.cs" />
     <Compile Include="Index.cs" />
