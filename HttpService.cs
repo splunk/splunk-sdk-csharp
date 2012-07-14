@@ -242,7 +242,7 @@ namespace Splunk
             string paq = uri.PathAndQuery; // need to access PathAndQuery
             FieldInfo flagsFieldInfo = typeof(Uri).GetField("m_Flags", BindingFlags.Instance | BindingFlags.NonPublic);
             ulong flags = (ulong)flagsFieldInfo.GetValue(uri);
-            flags &= ~((ulong)0x30); // Flags.PathNotCanonical|Flags.QueryNotCanonical
+            flags &= ~((ulong)0x30); // Flags.PathNotCanonical|Flags.QueryNotCanonical 0x30
             flagsFieldInfo.SetValue(uri, flags);
             return uri;
         }

@@ -58,6 +58,7 @@
     <Compile Include="AtomFeed.cs" />
     <Compile Include="AtomObject.cs" />
     <Compile Include="AtomEntry.cs" />
+    <Compile Include="ConfCollection.cs" />
     <Compile Include="EventType.cs" />
     <Compile Include="EventTypeCollection.cs" />
     <Compile Include="Index.cs" />
@@ -68,6 +69,8 @@
     <Compile Include="MessageCollection.cs" />
     <Compile Include="MonitorInput.cs" />
     <Compile Include="Role.cs" />
+    <Compile Include="SavedSearch.cs" />
+    <Compile Include="SavedSearchCollection.cs" />
     <Compile Include="ScriptInput.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="StormService.cs" />

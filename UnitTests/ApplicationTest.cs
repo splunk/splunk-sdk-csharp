@@ -51,7 +51,7 @@ namespace UnitTests
         /// The app tests
         /// </summary>
         [TestMethod]
-        public void ApplicationTest1()
+        public void Application()
         {
             string dummyString;
             bool dummyBool;

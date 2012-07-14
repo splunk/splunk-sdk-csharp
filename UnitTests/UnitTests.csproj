@@ -46,12 +46,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationTest.cs" />
+    <Compile Include="ConfTest.cs" />
     <Compile Include="EventTypeTest.cs" />
     <Compile Include="IndexTest.cs" />
     <Compile Include="InputTest.cs" />
     <Compile Include="MessageTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoleTest.cs" />
+    <Compile Include="SavedSearchTest.cs" />
     <Compile Include="SearchTest.cs" />
     <Compile Include="ServiceTest.cs" />
     <Compile Include="StormTest.cs" />

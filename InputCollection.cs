@@ -24,7 +24,7 @@ namespace Splunk
     /// Represents the Input Collection class. 
     /// </summary>
     /// <typeparam name="T">The Input class and its derived classes</typeparam>
-    public class InputCollection<T> : EntityCollection<Input> where T : Input
+    public class InputCollection : EntityCollection<Input> 
     {
         /// <summary>
         /// A static list of the input kinds.
@@ -101,9 +101,9 @@ namespace Splunk
         /// <param name="name">The Input name</param>
         /// <param name="kind">The kind of Input to create</param>
         /// <returns>The new Input object</returns>
-        public T Create(string name, InputKind kind)
+        public Input Create(string name, InputKind kind)
         {
-            return (T)this.Create(name, kind, (Dictionary<string, object>)null);
+            return this.Create(name, kind, (Dictionary<string, object>)null);
         }
 
         /// <summary>
@@ -113,14 +113,14 @@ namespace Splunk
         /// <param name="kind">The kind of Input to create</param>
         /// <param name="args">The new Input object</param>
         /// <returns>The input</returns>
-        public T Create(string name, InputKind kind, Dictionary<string, object> args)
+        public Input Create(string name, InputKind kind, Dictionary<string, object> args)
         {
             args = Args.Create(args);
             args.Add("name", name);
             string path = this.Path + "/" + kind.RelPath;
             this.Service.Post(path, args);
             this.Invalidate();
-            return (T)this.Get(name);
+            return this.Get(name);
         }
 
         /// <summary>

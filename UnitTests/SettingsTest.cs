@@ -36,7 +36,7 @@ namespace UnitTests
         /// and then reverts back to the original
         /// </summary>
         [TestMethod]
-        public void SettingsTest1()
+        public void Settings()
         {
             Service service = Connect();
 

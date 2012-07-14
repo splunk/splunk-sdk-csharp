@@ -65,7 +65,7 @@ namespace UnitTests
         /// Tests the basic index functionality
         /// </summary>
         [TestMethod]
-        public void IndexTest1()
+        public void Index()
         {
             Service service = Connect();
             DateTimeOffset offset = new DateTimeOffset(DateTime.Now);

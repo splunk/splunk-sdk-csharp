@@ -58,7 +58,7 @@ namespace UnitTests
         /// Test the event types.
         /// </summary>
         [TestMethod]
-        public void EventTypeTest1()
+        public void EventType()
         {
             Service service = Connect();
 

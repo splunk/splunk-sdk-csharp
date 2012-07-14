@@ -37,7 +37,7 @@ namespace UnitTests
         /// Tests the getting of service info (there are no set arguments)
         /// </summary>
         [TestMethod]
-        public void ServiceInfoTest()
+        public void ServiceInfo()
         {
             List<string> expected = new List<string> 
             {

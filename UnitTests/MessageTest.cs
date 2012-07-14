@@ -34,7 +34,7 @@ namespace UnitTests
         /// Tests basic messages
         /// </summary>
         [TestMethod]
-        public void TestMessage1()
+        public void Message()
         {
             Service service = Connect();
 

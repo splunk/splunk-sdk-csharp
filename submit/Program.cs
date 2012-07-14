@@ -35,7 +35,7 @@ namespace SplunkSubmit
         public static void Main(string[] argv)
         {
             Service service;
-            Args args = new Args();
+            //Args args = new Args();
             Command cli = Command.Splunk("submit");
             cli.Parse(argv);
             service = Service.Connect(cli.opts);

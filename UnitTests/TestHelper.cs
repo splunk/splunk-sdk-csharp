@@ -75,6 +75,68 @@ namespace UnitTests
         }
 
         /// <summary>
+        /// Create a fresh test app with the given name, delete the existing
+        /// test app and reboot Splunk.
+        /// </summary>
+        /// <param name="name">The app name</param>
+        public void CreateApp(string name)
+        {
+            EntityCollection<Application> apps;
+
+            Service service = this.Connect();
+
+            apps = service.GetApplications();
+            if (apps.ContainsKey(name))
+            {
+                apps.Remove(name);
+                this.SplunkRestart();
+                service = this.Connect();
+            }
+
+            apps = service.GetApplications();
+            Assert.IsFalse(apps.ContainsKey(name), this.assertRoot + "#1");
+
+            apps.Create(name);
+            this.SplunkRestart();
+            service = this.Connect();
+
+            apps = service.GetApplications();
+            Assert.IsTrue(apps.ContainsKey(name), this.assertRoot + "#2");
+        }
+
+        /// <summary>
+        /// Remove the given app and reboot Splunk if needed.
+        /// </summary>
+        /// <param name="name">The app name</param>
+        public void RemoveApp(string name)
+        {
+            EntityCollection<Application> apps;
+
+            Service service = this.Connect();
+
+            apps = service.GetApplications();
+            if (apps.ContainsKey(name))
+            {
+                apps.Remove(name);
+                this.SplunkRestart();
+                service = this.Connect();
+            }
+
+            apps = service.GetApplications();
+            Assert.IsFalse(apps.ContainsKey(name), this.assertRoot + "#3");
+        }
+
+        /// <summary>
+        /// Returns the command object, which picks up .splunkrc
+        /// </summary>
+        /// <returns>The command object</returns>
+        public Command SetUp()
+        {
+            this.command = Command.Splunk();
+            return this.command;
+        }
+
+        /// <summary>
         /// Restarts splunk with a default 3 minute restart time check.
         /// </summary>
         public void SplunkRestart() 
@@ -150,6 +212,20 @@ namespace UnitTests
             }
             
             Assert.IsTrue(restarted, this.assertRoot + "#5");
+        }
+
+        /// <summary>
+        /// Wait for a job to be queryable
+        /// </summary>
+        /// <param name="job">The job</param>
+        /// <returns>The same job</returns>
+        public Job Ready(Job job)
+        {
+            while (!job.IsReady)
+            {
+                Thread.Sleep(10);
+            }
+            return job;
         }
 
         /// <summary>

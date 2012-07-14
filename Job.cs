@@ -472,7 +472,6 @@ namespace Splunk
         {
             get
             {
-                this.CheckReady();
                 return this.GetString("sid");
             }
         }
@@ -862,8 +861,10 @@ namespace Splunk
         {
             StreamReader streamReader = new StreamReader(response.Content);
             XmlDocument doc = new XmlDocument();
-            doc.LoadXml(streamReader.ReadToEnd());
-            return doc.SelectSingleNode("/sid").InnerText;
+            string foo = streamReader.ReadToEnd();
+            doc.LoadXml(foo);
+            //doc.LoadXml(streamReader.ReadToEnd());
+            return doc.SelectSingleNode("/response/sid").InnerText;
         }
 
         /// <summary>

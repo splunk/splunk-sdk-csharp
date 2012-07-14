@@ -30,7 +30,7 @@ namespace UnitTests
         /// Test login to storm and wubmit two events.
         /// </summary>
         [TestMethod]
-        public void StormTest1()
+        public void Storm()
         {
             // the storm token provided by Splunk
             Args loginArgs = new Args(

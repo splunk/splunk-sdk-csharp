@@ -35,7 +35,7 @@ namespace UnitTests
         /// Test the creation of users, update of values and removal
         /// </summary>
         [TestMethod]
-        public void UserTest1()
+        public void User()
         {
             Service service = Connect();
 

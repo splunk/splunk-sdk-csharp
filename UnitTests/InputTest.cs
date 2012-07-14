@@ -180,11 +180,11 @@ namespace UnitTests
         /// Touch test all the inputs in the system.
         /// </summary>
         [TestMethod]
-        public void TestInputs()
+        public void Inputs()
         {
             Service service = Connect();
 
-            InputCollection<Input> inputs = service.GetInputs();
+            InputCollection inputs = service.GetInputs();
             string dummyString;
             InputKind dummyInputKind;
 
@@ -203,10 +203,10 @@ namespace UnitTests
         /// Tests the Monitor Create, Read, Update and Delete
         /// </summary>
         [TestMethod]
-        public void TestMonitorInputCRUD()
+        public void MonitorInputCRUD()
         {
             Service service = Connect();
-            InputCollection<Input> inputCollection = service.GetInputs();
+            InputCollection inputCollection = service.GetInputs();
             ServiceInfo info = service.GetInfo();
 
             // CRUD Monitor input
@@ -285,10 +285,10 @@ namespace UnitTests
         /// Tests the Script Create, Read, Update and Delete
         /// </summary>
         [TestMethod]
-        public void TestScriptInputCRUD()
+        public void ScriptInputCRUD()
         {
             Service service = Connect();
-            InputCollection<Input> inputCollection = service.GetInputs();
+            InputCollection inputCollection = service.GetInputs();
             ServiceInfo info = service.GetInfo();
 
             // CRUD Script input
@@ -346,10 +346,10 @@ namespace UnitTests
         /// Tests the Windows Tcp (raw) Create, Read, Update and Delete
         /// </summary>
         [TestMethod]
-        public void TestTcpInputCRUD()
+        public void TcpInputCRUD()
         {
             Service service = Connect();
-            InputCollection<Input> inputCollection = service.GetInputs();
+            InputCollection inputCollection = service.GetInputs();
             string port = "9999"; // test port
 
             // CRUD TCP (raw) input
@@ -397,10 +397,10 @@ namespace UnitTests
         /// Tests the Windows Tcp (cooked) Create, Read, Update and Delete
         /// </summary>
         [TestMethod]
-        public void TestTcpSplunkInputCRUD()
+        public void TcpSplunkInputCRUD()
         {
             Service service = Connect();
-            InputCollection<Input> inputCollection = service.GetInputs();
+            InputCollection inputCollection = service.GetInputs();
             string port = "9998"; // test port
 
             // CRUD TCP (cooked) input
@@ -439,10 +439,10 @@ namespace UnitTests
         /// Tests the Windows UDP Create, Read, Update and Delete
         /// </summary>
         [TestMethod]
-        public void TestUdpInputCRUD()
+        public void UdpInputCRUD()
         {
             Service service = Connect();
-            InputCollection<Input> inputCollection = service.GetInputs();
+            InputCollection inputCollection = service.GetInputs();
             string port = "9997"; // test port
 
             // CRUD UDP input
@@ -486,7 +486,7 @@ namespace UnitTests
         /// Tests the Windows Active Directory Create, Read, Update and Delete
         /// </summary>
         [TestMethod]
-        public void TestWindowsActiveDirectoryInputCRUD()
+        public void WindowsActiveDirectoryInputCRUD()
         {
             // Need an Active Directory Domain Controller
         }
@@ -495,10 +495,10 @@ namespace UnitTests
         /// Tests the Windows EventLog Create, Read, Update and Delete
         /// </summary>
         [TestMethod]
-        public void TestWindowsEventLogInputCRUD()
+        public void WindowsEventLogInputCRUD()
         {
             Service service = Connect();
-            InputCollection<Input> inputCollection = service.GetInputs();
+            InputCollection inputCollection = service.GetInputs();
             ServiceInfo info = service.GetInfo();
 
             if (info.OsName.Equals("Windows"))
@@ -538,10 +538,10 @@ namespace UnitTests
         /// Tests the Windows Perfmon Create, Read, Update and Delete
         /// </summary>
         [TestMethod]
-        public void TestWindowsPerfmonInputCRUD()
+        public void WindowsPerfmonInputCRUD()
         {
             Service service = Connect();
-            InputCollection<Input> inputCollection = service.GetInputs();
+            InputCollection inputCollection = service.GetInputs();
             ServiceInfo info = service.GetInfo();
 
             if (info.OsName.Equals("Windows"))
@@ -600,10 +600,10 @@ namespace UnitTests
         /// Tests the Windows Registry Create, Read, Update and Delete
         /// </summary>
         [TestMethod]
-        public void TestWindowsRegistryInputCRUD()
+        public void WindowsRegistryInputCRUD()
         {
             Service service = Connect();
-            InputCollection<Input> inputCollection = service.GetInputs();
+            InputCollection inputCollection = service.GetInputs();
             ServiceInfo info = service.GetInfo();
 
             if (info.OsName.Equals("Windows"))
@@ -660,10 +660,10 @@ namespace UnitTests
         /// Tests the Windows WMI Create, Read, Update and Delete
         /// </summary>
         [TestMethod]
-        public void TestWindowsWMIInputCRUD()
+        public void WindowsWMIInputCRUD()
         {
             Service service = Connect();
-            InputCollection<Input> inputCollection = service.GetInputs();
+            InputCollection inputCollection = service.GetInputs();
             ServiceInfo info = service.GetInfo();
 
             if (info.OsName.Equals("Windows"))

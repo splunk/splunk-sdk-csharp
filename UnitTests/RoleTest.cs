@@ -29,7 +29,7 @@ namespace UnitTests
         /// Test the basic getting of the roles
         /// </summary>
         [TestMethod]
-        public void TestRoles1()
+        public void Roles()
         {
             Service service = Connect();
             EntityCollection<Role> roles = service.GetRoles();

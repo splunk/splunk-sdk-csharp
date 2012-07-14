@@ -336,25 +336,24 @@ namespace Splunk
                 this, "/services/apps/local", typeof(Application));
         }
 
-        ///**
-        // * Returns the collection of configurations.
-        // *
-        // * @return The configurations collection.
-        // */
-        //public ConfCollection GetConfs() {
-        //    return new ConfCollection(this);
-        //}
+        /// <summary>
+        /// Returns the collection of configurations
+        /// </summary>
+        /// <returns>The config collection</returns>
+        public ConfCollection GetConfs() 
+        {
+            return new ConfCollection(this);
+        }
 
-        ///**
-        // * Returns the collection of configurations.
-        // *
-        // * @param args Optional arguments, such as "count" and "offset" for 
-        // * pagination.
-        // * @return The configurations collection.
-        // */
-        //public ConfCollection GetConfs(Args args) {
-        //    return new ConfCollection(this, args);
-        //}
+        /// <summary>
+        /// Returns the collection of applications.
+        /// </summary>
+        /// <param name="args">The arguments</param>
+        /// <returns>The config collection</returns>
+        public ConfCollection GetConfs(Args args) 
+        {
+            return new ConfCollection(this, args);
+        }
 
         ///**
         // * Returns an array of system capabilities.
@@ -551,9 +550,9 @@ namespace Splunk
         /// Returns a collection of configured inputs.
         /// </summary>
         /// <returns>The input collection</returns>
-        public InputCollection<Input> GetInputs() 
+        public InputCollection GetInputs() 
         {
-            return new InputCollection<Input>(this);
+            return new InputCollection(this);
         }
 
         /// <summary>
@@ -561,9 +560,9 @@ namespace Splunk
         /// </summary>
         /// <param name="args">Optional arguments</param>
         /// <returns>The input collection</returns>
-        public InputCollection<Input> GetInputs(Args args) 
+        public InputCollection GetInputs(Args args) 
         {
-            return new InputCollection<Input>(this, args);
+            return new InputCollection(this, args);
         }
 
         /// <summary>
@@ -906,25 +905,23 @@ namespace Splunk
                 this, "authentication/roles", args, typeof(Role));
         }
 
-        ///**
-        // * Returns a collection of saved searches.
-        // *
-        // * @return A collection of saved searches.
-        // */
-        //public SavedSearchCollection GetSavedSearches() {
-        //    return new SavedSearchCollection(this);
-        //}
+        /// <summary>
+        /// Returds a collection of saved searches.
+        /// </summary>
+        /// <returns>The collection of saves searches</returns>
+        public SavedSearchCollection GetSavedSearches() 
+        {
+            return new SavedSearchCollection(this);
+        }
 
-        ///**
-        // * Returns a collection of saved searches.
-        // *
-        // * @param args Optional arguments, such as "count" and "offset" for 
-        // * pagination.
-        // * @return A collection of saved searches.
-        // */
-        //public SavedSearchCollection GetSavedSearches(Args args) {
-        //    return new SavedSearchCollection(this, args);
-        //}
+        /// <summary>
+        /// Returns a collection of saved searches
+        /// </summary>
+        /// <param name="args">The arguments</param>
+        /// <returns>The collection of saves searches</returns>
+        public SavedSearchCollection GetSavedSearches(Args args) {
+            return new SavedSearchCollection(this, args);
+        }
 
         /// <summary>
         ///  Returns service configuration information for an instance of Splunk.

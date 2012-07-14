@@ -11,8 +11,8 @@
       <timestamp>06/15/2012 13:45:39</timestamp>
       <milliseconds>256</milliseconds>
     </settings>
-    <timestamp>06/28/2012 15:51:25</timestamp>
-    <milliseconds>718</milliseconds>
+    <timestamp>07/12/2012 16:36:26</timestamp>
+    <milliseconds>712</milliseconds>
     <violations>
       <violation namespace="StyleCop.CSharp.MaintainabilityRules" rule="FieldsMustBePrivate" ruleCheckId="SA1401">
         <context>Fields must be declared with private access. Use properties to expose fields.</context>
