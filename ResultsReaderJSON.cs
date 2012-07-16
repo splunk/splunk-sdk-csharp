@@ -22,7 +22,7 @@ namespace Splunk
     using Newtonsoft.Json;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Reads a results/event JSOMN stream one event at a time. 
     /// </summary>
     public class ResultsReaderJSON : ResultsReader
     {
