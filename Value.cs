@@ -120,9 +120,9 @@ namespace Splunk
             {
                 return new DateTime(Convert.ToInt64(value) * 1000);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw new Exception(e.Message);
+                throw;
             }
         }
 

@@ -17,6 +17,9 @@
 namespace UnitTests
 {
     using System;
+    using System.IO;
+    using System.Net.Sockets;
+    using System.Text;
     using System.Threading;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Splunk;
@@ -67,6 +70,7 @@ namespace UnitTests
         [TestMethod]
         public void Index()
         {
+            string indexName = "sdk-tests2";
             Service service = Connect();
             DateTimeOffset offset = new DateTimeOffset(DateTime.Now);
             string now = DateTime.UtcNow.ToString("yyyy-MM-dd'T'HH:mm:ss") +
@@ -133,15 +137,15 @@ namespace UnitTests
                 dummyBool = idx.IsInternal;
             }
 
-            if (!indexes.ContainsKey("sdk-tests"))
+            if (!indexes.ContainsKey(indexName))
             {
-                indexes.Create("sdk-tests");
+                indexes.Create(indexName);
                 indexes.Refresh();
             }
 
-            Assert.IsTrue(indexes.ContainsKey("sdk-tests"), assertRoot + "#1");
+            Assert.IsTrue(indexes.ContainsKey(indexName), assertRoot + "#1");
 
-            Index index = indexes.Get("sdk-tests");
+            Index index = indexes.Get(indexName);
 
             // get old values, skip saving paths and things we cannot write
             Args restore = new Args();
@@ -206,7 +210,7 @@ namespace UnitTests
             this.SplunkRestart();
 
             service = this.Connect();
-            index = service.GetIndexes().Get("sdk-tests");
+            index = service.GetIndexes().Get(indexName);
 
             index.Enable();
             Assert.IsFalse(index.IsDisabled);
@@ -221,7 +225,6 @@ namespace UnitTests
             index.Clean(180);
             Assert.AreEqual(0, index.TotalEventCount, assertRoot + "#4");
 
-            /*
             // stream events to index
             Socket socket = index.Attach();
             NetworkStream stream = new NetworkStream(socket);
@@ -233,13 +236,12 @@ namespace UnitTests
             writer.Close();
             socket.Close();
 
-            wait_event_count(index, 2, 30);
+            this.Wait_event_count(index, 2, 30);
             Assert.AreEqual(2, index.TotalEventCount, assertRoot + "#5");
             
             // clean
             index.Clean(180);
             Assert.AreEqual(0, index.TotalEventCount, assertRoot + "#6");
-            */
 
             string filename;
             if (info.OsName.Equals("Windows"))

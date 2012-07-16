@@ -19,12 +19,13 @@ namespace Splunk
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Runtime.Serialization;
 
     /// <summary>
     /// Represents the basic data representation, extending the basic 
     /// Dictionary with some basic get methods.
     /// </summary>
-    public class Record : Dictionary<string, object>
+    public class Record : Dictionary<string, object>, ISerializable
     {
         /// <summary>
         /// Returns the boolean value associated with the given key.

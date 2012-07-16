@@ -17,11 +17,12 @@
 namespace Splunk
 {
     using System;
+    using System.Runtime.Serialization;
 
     /// <summary>
     /// Represents a splunk exception
     /// </summary>
-    public class SplunkException : Exception
+    public class SplunkException : Exception, ISerializable
     {
         /// <summary>
         /// Represents when a job has been submitted to splunk, but has not

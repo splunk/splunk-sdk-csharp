@@ -356,7 +356,6 @@ namespace Splunk
                     StreamWriter streamWriter = new StreamWriter(stream);
                     streamWriter.Write(content);
                     streamWriter.Flush();
-                    streamWriter.Close();
                     stream.Close();
                 }
                 catch (Exception e)

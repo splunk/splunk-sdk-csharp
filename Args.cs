@@ -17,6 +17,7 @@
 namespace Splunk
 {
     using System.Collections.Generic;
+    using System.Runtime.Serialization;
     using System.Text;
     using System.Web;
 
@@ -24,7 +25,7 @@ namespace Splunk
     /// A UTF-8 safe, web argument encoding extension for 
     /// standard the Dictionary type
     /// </summary>
-    public class Args : Dictionary<string, object>
+    public class Args : Dictionary<string, object>, ISerializable
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Args"/> class.
