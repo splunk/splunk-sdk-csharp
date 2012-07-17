@@ -45,8 +45,8 @@
       <timestamp>06/14/2012 15:14:57</timestamp>
       <milliseconds>46</milliseconds>
     </settings>
-    <timestamp>06/14/2012 10:56:03</timestamp>
-    <milliseconds>547</milliseconds>
+    <timestamp>07/16/2012 14:51:49</timestamp>
+    <milliseconds>563</milliseconds>
     <violations />
   </sourcecode>
   <sourcecode name="AtomEntry.cs" parser="StyleCop.CSharp.CsParser">
@@ -90,8 +90,8 @@
       <timestamp>06/14/2012 15:14:57</timestamp>
       <milliseconds>46</milliseconds>
     </settings>
-    <timestamp>07/14/2012 12:15:29</timestamp>
-    <milliseconds>213</milliseconds>
+    <timestamp>07/14/2012 12:36:28</timestamp>
+    <milliseconds>195</milliseconds>
     <violations>
       <violation namespace="StyleCop.CSharp.MaintainabilityRules" rule="FieldsMustBePrivate" ruleCheckId="SA1401">
         <context>Fields must be declared with private access. Use properties to expose fields.</context>
@@ -105,8 +105,8 @@
       <timestamp>06/14/2012 15:14:57</timestamp>
       <milliseconds>46</milliseconds>
     </settings>
-    <timestamp>07/11/2012 16:42:53</timestamp>
-    <milliseconds>568</milliseconds>
+    <timestamp>07/16/2012 09:51:49</timestamp>
+    <milliseconds>383</milliseconds>
     <violations>
       <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ConstructorSummaryDocumentationMustBeginWithStandardText" ruleCheckId="SA1642">
         <context>The documentation text within the constructor's summary tag must begin with the text: Initializes a new instance of the &lt;see cref="EntityCollection" /&gt; class.</context>
@@ -129,6 +129,15 @@
         <warning>False</warning>
       </violation>
     </violations>
+  </sourcecode>
+  <sourcecode name="EntityMetadata.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/14/2012 12:21:06</timestamp>
+    <milliseconds>582</milliseconds>
+    <violations />
   </sourcecode>
   <sourcecode name="EventType.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
@@ -153,8 +162,8 @@
       <timestamp>06/14/2012 15:14:57</timestamp>
       <milliseconds>46</milliseconds>
     </settings>
-    <timestamp>07/14/2012 11:19:20</timestamp>
-    <milliseconds>737</milliseconds>
+    <timestamp>07/16/2012 15:16:29</timestamp>
+    <milliseconds>655</milliseconds>
     <violations />
   </sourcecode>
   <sourcecode name="Index.cs" parser="StyleCop.CSharp.CsParser">
@@ -256,6 +265,15 @@
     <milliseconds>989</milliseconds>
     <violations />
   </sourcecode>
+  <sourcecode name="Record.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/16/2012 14:49:30</timestamp>
+    <milliseconds>631</milliseconds>
+    <violations />
+  </sourcecode>
   <sourcecode name="RequestMessage.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>06/14/2012 15:14:57</timestamp>
@@ -270,8 +288,8 @@
       <timestamp>06/14/2012 15:14:57</timestamp>
       <milliseconds>46</milliseconds>
     </settings>
-    <timestamp>06/14/2012 12:16:44</timestamp>
-    <milliseconds>399</milliseconds>
+    <timestamp>07/16/2012 12:29:15</timestamp>
+    <milliseconds>697</milliseconds>
     <violations />
   </sourcecode>
   <sourcecode name="ResourceCollection.cs" parser="StyleCop.CSharp.CsParser">
@@ -317,8 +335,8 @@
       <timestamp>06/14/2012 15:14:57</timestamp>
       <milliseconds>46</milliseconds>
     </settings>
-    <timestamp>07/11/2012 16:44:49</timestamp>
-    <milliseconds>996</milliseconds>
+    <timestamp>07/15/2012 11:45:50</timestamp>
+    <milliseconds>860</milliseconds>
     <violations />
   </sourcecode>
   <sourcecode name="Role.cs" parser="StyleCop.CSharp.CsParser">
@@ -398,22 +416,22 @@
       <timestamp>06/14/2012 15:14:57</timestamp>
       <milliseconds>46</milliseconds>
     </settings>
-    <timestamp>06/14/2012 11:56:05</timestamp>
-    <milliseconds>621</milliseconds>
+    <timestamp>07/16/2012 14:44:55</timestamp>
+    <milliseconds>285</milliseconds>
     <violations>
       <violation namespace="StyleCop.CSharp.MaintainabilityRules" rule="FieldsMustBePrivate" ruleCheckId="SA1401">
         <context>Fields must be declared with private access. Use properties to expose fields.</context>
-        <line>30</line>
+        <line>31</line>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.MaintainabilityRules" rule="FieldsMustBePrivate" ruleCheckId="SA1401">
         <context>Fields must be declared with private access. Use properties to expose fields.</context>
-        <line>35</line>
+        <line>36</line>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.MaintainabilityRules" rule="FieldsMustBePrivate" ruleCheckId="SA1401">
         <context>Fields must be declared with private access. Use properties to expose fields.</context>
-        <line>41</line>
+        <line>42</line>
         <warning>False</warning>
       </violation>
     </violations>
@@ -504,8 +522,8 @@
       <timestamp>06/14/2012 15:14:57</timestamp>
       <milliseconds>46</milliseconds>
     </settings>
-    <timestamp>07/10/2012 11:07:31</timestamp>
-    <milliseconds>348</milliseconds>
+    <timestamp>07/16/2012 14:49:30</timestamp>
+    <milliseconds>647</milliseconds>
     <violations />
   </sourcecode>
   <sourcecode name="WindowsActiveDirectoryInput.cs" parser="StyleCop.CSharp.CsParser">
@@ -562,25 +580,32 @@
     <milliseconds>562</milliseconds>
     <violations />
   </sourcecode>
-  <sourcecode name="Record.cs" parser="StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>06/14/2012 15:14:57</timestamp>
-      <milliseconds>46</milliseconds>
-    </settings>
-    <timestamp>07/14/2012 12:16:37</timestamp>
-    <milliseconds>298</milliseconds>
-    <violations />
-  </sourcecode>
   <project key="-1956151431">
     <configuration>DEBUG;TRACE</configuration>
   </project>
-  <sourcecode name="EntityMetadata.cs" parser="StyleCop.CSharp.CsParser">
+  <sourcecode name="ParseTimezone.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>06/14/2012 15:14:57</timestamp>
       <milliseconds>46</milliseconds>
     </settings>
-    <timestamp>07/14/2012 12:21:06</timestamp>
-    <milliseconds>582</milliseconds>
-    <violations />
+    <timestamp>07/16/2012 15:47:21</timestamp>
+    <milliseconds>563</milliseconds>
+    <violations>
+      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
+        <context>The field must have a documentation header.</context>
+        <line>124</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
+        <context>The method must have a documentation header.</context>
+        <line>126</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
+        <context>The method must have a documentation header.</context>
+        <line>136</line>
+        <warning>False</warning>
+      </violation>
+    </violations>
   </sourcecode>
 </stylecopresultscache>

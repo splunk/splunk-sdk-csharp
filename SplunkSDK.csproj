@@ -69,6 +69,7 @@
     <Compile Include="Message.cs" />
     <Compile Include="MessageCollection.cs" />
     <Compile Include="MonitorInput.cs" />
+    <Compile Include="ReplaceTimezone.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="SavedSearch.cs" />
     <Compile Include="SavedSearchCollection.cs" />
