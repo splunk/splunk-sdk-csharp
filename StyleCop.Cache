@@ -517,15 +517,6 @@
     <milliseconds>260</milliseconds>
     <violations />
   </sourcecode>
-  <sourcecode name="Value.cs" parser="StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>06/14/2012 15:14:57</timestamp>
-      <milliseconds>46</milliseconds>
-    </settings>
-    <timestamp>07/16/2012 14:49:30</timestamp>
-    <milliseconds>647</milliseconds>
-    <violations />
-  </sourcecode>
   <sourcecode name="WindowsActiveDirectoryInput.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>06/14/2012 15:14:57</timestamp>
@@ -580,9 +571,6 @@
     <milliseconds>562</milliseconds>
     <violations />
   </sourcecode>
-  <project key="-1956151431">
-    <configuration>DEBUG;TRACE</configuration>
-  </project>
   <sourcecode name="ParseTimezone.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>06/14/2012 15:14:57</timestamp>
@@ -607,5 +595,17 @@
         <warning>False</warning>
       </violation>
     </violations>
+  </sourcecode>
+  <project key="-1956151431">
+    <configuration>DEBUG;TRACE</configuration>
+  </project>
+  <sourcecode name="Value.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/17/2012 09:43:58</timestamp>
+    <milliseconds>841</milliseconds>
+    <violations />
   </sourcecode>
 </stylecopresultscache>

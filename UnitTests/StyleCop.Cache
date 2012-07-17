@@ -59,9 +59,6 @@
     <milliseconds>808</milliseconds>
     <violations />
   </sourcecode>
-  <project key="1730235888">
-    <configuration>DEBUG;TRACE</configuration>
-  </project>
   <sourcecode name="ApplicationTest.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>06/14/2012 15:14:57</timestamp>
@@ -96,15 +93,6 @@
     </settings>
     <timestamp>07/14/2012 08:57:31</timestamp>
     <milliseconds>901</milliseconds>
-    <violations />
-  </sourcecode>
-  <sourcecode name="IndexTest.cs" parser="StyleCop.CSharp.CsParser">
-    <settings>
-      <timestamp>06/14/2012 15:14:57</timestamp>
-      <milliseconds>46</milliseconds>
-    </settings>
-    <timestamp>07/16/2012 11:36:57</timestamp>
-    <milliseconds>452</milliseconds>
     <violations />
   </sourcecode>
   <sourcecode name="InputTest.cs" parser="StyleCop.CSharp.CsParser">
@@ -204,6 +192,18 @@
     </settings>
     <timestamp>07/14/2012 08:57:31</timestamp>
     <milliseconds>820</milliseconds>
+    <violations />
+  </sourcecode>
+  <project key="1730235888">
+    <configuration>DEBUG;TRACE</configuration>
+  </project>
+  <sourcecode name="IndexTest.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>06/14/2012 15:14:57</timestamp>
+      <milliseconds>46</milliseconds>
+    </settings>
+    <timestamp>07/17/2012 11:12:31</timestamp>
+    <milliseconds>448</milliseconds>
     <violations />
   </sourcecode>
 </stylecopresultscache>

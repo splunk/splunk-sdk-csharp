@@ -74,9 +74,21 @@ namespace UnitTests
             Service service = Connect();
             DateTimeOffset offset = new DateTimeOffset(DateTime.Now);
             string now = DateTime.UtcNow.ToString("yyyy-MM-dd'T'HH:mm:ss") +
-                string.Format("{0}{1}", offset.Offset.Hours.ToString("D2"), offset.Offset.Minutes.ToString("D2"));
+                string.Format("{0}{1} ", offset.Offset.Hours.ToString("D2"), offset.Offset.Minutes.ToString("D2"));
 
             ServiceInfo info = service.GetInfo();
+
+            // set can_delete if not set, so we can delete events from the index.
+            User user = service.GetUsers().Get("admin");
+            string[] roles = user.Roles;
+            if (!this.Contains(roles, "can_delete"))
+            {
+                string[] newRoles = new string[roles.Length + 1];
+                roles.CopyTo(newRoles, 0);
+                newRoles[roles.Length] = "can_delete";
+                user.Roles = newRoles;
+                user.Update();
+            }
 
             EntityCollection<Index> indexes = service.GetIndexes();
             foreach (Index idx in indexes.Values)
@@ -201,7 +213,9 @@ namespace UnitTests
             index.Update(restore);
             index.Refresh();
 
-            index.Clean(180);
+            service.Oneshot(string.Format("search index={0} * | delete", indexName));
+            this.Wait_event_count(index, 0, 45);
+            //index.Clean(180);
             Assert.AreEqual(0, index.TotalEventCount, assertRoot + "#2");
 
             index.Disable();
@@ -218,11 +232,12 @@ namespace UnitTests
             // submit events to index
             index.Submit(now + " Hello World. \u0150");
             index.Submit(now + " Goodbye world. \u0150");
-            this.Wait_event_count(index, 2, 30);
+            this.Wait_event_count(index, 2, 45);
             Assert.AreEqual(2, index.TotalEventCount, assertRoot + "#3");
 
-            // clean
-            index.Clean(180);
+            service.Oneshot(string.Format("search index={0} * | delete", indexName));
+            //index.Clean(180);
+            this.Wait_event_count(index, 0, 45);
             Assert.AreEqual(0, index.TotalEventCount, assertRoot + "#4");
 
             // stream events to index
@@ -236,11 +251,12 @@ namespace UnitTests
             writer.Close();
             socket.Close();
 
-            this.Wait_event_count(index, 2, 30);
+            this.Wait_event_count(index, 2, 45);
             Assert.AreEqual(2, index.TotalEventCount, assertRoot + "#5");
-            
-            // clean
-            index.Clean(180);
+
+            service.Oneshot(string.Format("search index={0} * | delete", indexName));
+            this.Wait_event_count(index, 0, 45);
+            // index.Clean(180);
             Assert.AreEqual(0, index.TotalEventCount, assertRoot + "#6");
 
             string filename;
@@ -269,6 +285,13 @@ namespace UnitTests
             {
                 throw new Exception("File " + filename + "failed to upload: Exception -> " + e.Message);
             }
+
+            index.Clean(180);
+            Assert.AreEqual(0, index.TotalEventCount, assertRoot + "#7");
+
+            // Restore original roles
+            user.Roles = roles;
+            user.Update();
         }
     }
 }

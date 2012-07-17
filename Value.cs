@@ -103,13 +103,15 @@ namespace Splunk
         /// <returns>The DateTime strucgture</returns>
         public static DateTime ToDate(string value)
         {
-            // try our best to replace a textual timezone
-            // format with a UTC timezone. 
-            value = ReplaceTimezone.ReplaceTimeZone(value);
-
-            // Try all the formats.
-            foreach (var date in dateFormats)
+            try
             {
+                return DateTime.Parse(value);
+            }
+            catch (Exception)
+            {
+                // try our best to replace a textual timezone
+                // format with a UTC timezone. 
+                value = ReplaceTimezone.ReplaceTimeZone(value);
                 try
                 {
                     return DateTime.Parse(value);
