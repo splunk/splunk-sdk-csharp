@@ -189,24 +189,9 @@ page for more information.
 
 ### Support
 
-1. You will be granted support if you or your company are already covered 
-   under an existing maintenance/support agreement. Send an email to 
-   support@splunk.com and please include the SDK you are referring to in the 
-   subject. 
+* SDKs in Preview will not be Splunk supported. Once the PHP SDK moves to an Open Beta we will provide more detail on support.
 
-2. If you are not covered under an existing maintenance/support agreement you 
-   can find help through the broader community at:
-
-   <ul>
-<li><a href='http://splunk-base.splunk.com/answers/'>Splunk Answers</a> - tags SDK, java, python, javascript are available to identify your questions</li>
-<li><a href='http://groups.google.com/group/splunkdev'>Splunkdev Google Group</a></li>
-</ul>
-
-3. Splunk will NOT provide support for SDKs if the core library (this is the 
-   code in the `splunk` directory) has been modified. If you modify an SDK and 
-   want support, you can find help through the broader community and Splunk 
-   answers (see above). We also want to know about why you modified the core 
-   library. You can send feedback to: devinfo@splunk.com
+* Issues should be filed here: [https://github.com/splunk/splunk-sdk-php/issues](https://github.com/splunk/splunk-sdk-php/issues)
 
 ### Contact Us
 
