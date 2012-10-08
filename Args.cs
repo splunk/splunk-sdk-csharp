@@ -135,7 +135,7 @@ namespace Splunk
             key = Encode(key);
             foreach (string value in values) 
             {
-                if (builder.Length > 0) 
+                if ((builder.Length > 0) && (builder[builder.Length-1] != '&')) 
                 {
                     builder.Append('&');
                 }
