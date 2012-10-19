@@ -64,8 +64,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Returns the long byte count value associated with the given key, adding
-        /// a default value if the key is not present in the dictionary.
+        /// Returns the long byte count value associated with the given key, 
+        /// adding a default value if the key is not present in the dictionary.
         /// </summary>
         /// <param name="key">The key</param>
         /// <param name="defaultValue">The default value</param>
@@ -209,7 +209,10 @@ namespace Splunk
             {
                 return null;
             }
-            return ((List<object>)this[key]).Select(i => i.ToString()).ToList().ToArray();
+            return ((List<object>)this[key]).Select(i => i
+                                                        .ToString())
+                                                        .ToList()
+                                                        .ToArray();
         }
 
         /// <summary>

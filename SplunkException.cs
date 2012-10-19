@@ -36,13 +36,14 @@ namespace Splunk
         public static int TIMEOUT = 2;
 
         /// <summary>
-        /// Represents when an operation is requested on object that is ambigously
-        /// defined due to 
+        /// Represents when an operation is requested on object that is 
+        /// ambiguously defined due to namespace rules. 
         /// </summary>
         public static int AMBIGUOUS = 3;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SplunkException"/> class.
+        /// Initializes a new instance of the <see cref="SplunkException"/> 
+        /// class.
         /// </summary>
         /// <param name="code">The code</param>
         /// <param name="text">The text</param>

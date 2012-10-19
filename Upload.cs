@@ -22,7 +22,7 @@ namespace Splunk
     using System.Text;
 
     /// <summary>
-    /// The Upload class reprents an active file uploading to Splunk.
+    /// The Upload class represents an active file uploading to Splunk.
     /// </summary>
     public class Upload : Entity
     {

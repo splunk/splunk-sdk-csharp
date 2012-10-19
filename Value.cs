@@ -24,7 +24,7 @@ namespace Splunk
     public class Value
     {
         /// <summary>
-        /// The parsable date formats 
+        /// The parseable date formats 
         /// </summary>
         private static string[] dateFormats = 
         {
@@ -35,10 +35,10 @@ namespace Splunk
         };
 
         /// <summary>
-        /// Converts a string of either 0/1 or true/false to a bool.
+        /// Converts a string of either 0/1 or true/false to a boolean value.
         /// </summary>
         /// <param name="value">The string value</param>
-        /// <returns>The bool value</returns>
+        /// <returns>The boolean value</returns>
         public static bool ToBoolean(string value) 
         {
             if (value == null) 
@@ -65,7 +65,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Converts a string to numeriv byte count. The input can be a number
+        /// Converts a string to numeric byte count. The input can be a number
         /// or a number followed by KB, MB, GB.
         /// </summary>
         /// <param name="value">The string value</param>
@@ -89,7 +89,8 @@ namespace Splunk
                 }
                 else 
                 {
-                    throw new Exception(string.Format("Value error: '{0}'", value));
+                    throw new 
+                        Exception(string.Format("Value error: '{0}'", value));
                 }
                 value = value.Substring(0, value.Length - 2);
             }
@@ -100,7 +101,7 @@ namespace Splunk
         /// Converts a date string to a DateTime structure.
         /// </summary>
         /// <param name="value">The date string</param>
-        /// <returns>The DateTime strucgture</returns>
+        /// <returns>The DateTime structure</returns>
         public static DateTime ToDate(string value)
         {
             try

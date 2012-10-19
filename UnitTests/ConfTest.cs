@@ -93,7 +93,7 @@ namespace UnitTests
             Assert.IsTrue(service.GetApplications().ContainsKey(app), assertRoot + "#8");
 
             // Create an app specific service instance
-            Args args = new Args(this.SetUp().opts);
+            Args args = new Args(this.SetUp().Opts);
             args.Add("app", app);
             args.Add("owner", owner);
             service = Service.Connect(args);

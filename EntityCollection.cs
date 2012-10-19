@@ -22,11 +22,13 @@ namespace Splunk
     /// <summary>
     /// Represents the Entity Collection class. 
     /// </summary>
-    /// <typeparam name="T">The Generic parameter that matches The Entity class, or any class derived from Entity.</typeparam>
+    /// <typeparam name="T">The Generic parameter that matches The Entity class,
+    /// or any class derived from Entity.</typeparam>
     public class EntityCollection<T> : ResourceCollection<T> where T : Entity
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EntityCollection"/> class.
+        /// Initializes a new instance of the <see cref="EntityCollection"/> 
+        /// class.
         /// </summary>
         /// <param name="service">The service</param>
         /// <param name="path">The endpoint for this collection</param>
@@ -36,7 +38,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EntityCollection"/> class.
+        /// Initializes a new instance of the <see cref="EntityCollection"/> 
+        /// class.
         /// </summary>
         /// <param name="service">The service</param>
         /// <param name="path">The endpoint for this collection</param>
@@ -47,7 +50,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EntityCollection"/> class.
+        /// Initializes a new instance of the <see cref="EntityCollection"/> 
+        /// class.
         /// </summary>
         /// <param name="service">The service</param>
         /// <param name="path">The endpoint for this collection</param>
@@ -58,13 +62,15 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EntityCollection"/> class.
+        /// Initializes a new instance of the <see cref="EntityCollection"/> 
+        /// class.
         /// </summary>
         /// <param name="service">The service</param>
         /// <param name="path">The endpoint for this collection</param>
         /// <param name="args">The variable argument list</param>
         /// <param name="itemClass">The type of this Entity</param>
-        public EntityCollection(Service service, string path, Args args, Type itemClass) 
+        public EntityCollection(
+                Service service, string path, Args args, Type itemClass) 
             : base(service, path, args, itemClass) 
         {
         }
@@ -95,10 +101,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Removes an entity from this collection. Note that this method can throw
-        /// the SplunkException "AMBIGUOUS" if the collection contains more than
-        /// one entity with the specified key. Disambiguation is done through the
-        /// similar method Remove(object key, Dictionary namespace)
+        /// Removes an entity from this collection. Note that this method can 
+        /// throw the SplunkException "AMBIGUOUS" if the collection contains 
+        /// more than one entity with the specified key. Disambiguation is done 
+        /// through the similar method Remove(object key, Dictionary namespace)
         /// which uses the namespace to perform the disambiguation.
         /// </summary>
         /// <param name="key">The name of this Entity</param>
@@ -113,7 +119,9 @@ namespace Splunk
             List<T> entities = this.Items[key];
             if (entities != null && entities.Count > 1) 
             {
-                throw new SplunkException(SplunkException.AMBIGUOUS, "Key has multiple values, specify a namespace");
+                throw new SplunkException(
+                    SplunkException.AMBIGUOUS, 
+                    "Key has multiple values, specify a namespace");
             }
             if (entities == null) 
             {
@@ -126,7 +134,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Removes an entity from this collection, with a namespace restriction.
+        /// Removes an entity from this collection, with a namespace 
+        /// restriction.
         /// </summary>
         /// <param name="key">The name of this Entity</param>
         /// <param name="splunkNamespace">The namespace</param>
@@ -139,7 +148,8 @@ namespace Splunk
                 return default(T);
             }
             List<T> entities = Items[key];
-            string pathMatcher = Service.Fullpath(string.Empty, splunkNamespace);
+            string pathMatcher = 
+                    Service.Fullpath(string.Empty, splunkNamespace);
             if (entities.Count == 0) 
             {
                 return default(T);

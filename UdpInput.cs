@@ -37,8 +37,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the style of host connection. Valid values are: "ip", "dns", and
-        /// "none".
+        /// Gets or sets the style of host connection. Valid values are: "ip", 
+        /// "dns", and "none".
         /// </summary>
         public string ConnectionHost
         {
@@ -65,7 +65,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the source host of this TCP input where this indexer gets its data.
+        /// Gets or sets the source host of this TCP input where this indexer 
+        /// gets its data.
         /// </summary>
         public string Host
         {
@@ -159,8 +160,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the initial source key for this TCP input. Typically this value 
-        /// is the input file path.
+        /// Gets or sets the initial source key for this TCP input. Typically 
+        /// this value is the input file path.
         /// </summary>
         public string Source
         {

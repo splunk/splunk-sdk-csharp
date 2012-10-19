@@ -22,13 +22,14 @@ namespace Splunk
     using System.Text;
 
     /// <summary>
-    /// Thie Message Collection class represents a collection of
+    /// The Message Collection class represents a collection of
     /// Messages.
     /// </summary>
     public class MessageCollection : EntityCollection<Message>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MessageCollection"/> class.
+        /// Initializes a new instance of the <see cref="MessageCollection"/> 
+        /// class.
         /// </summary>
         /// <param name="service">The service</param>
         public MessageCollection(Service service)
@@ -37,7 +38,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MessageCollection"/> class.
+        /// Initializes a new instance of the <see cref="MessageCollection"/> 
+        /// class.
         /// </summary>
         /// <param name="service">The service</param>
         /// <param name="args">The optional arguments</param>

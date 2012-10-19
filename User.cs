@@ -55,7 +55,7 @@ namespace Splunk
 
         /// <summary>
         /// Gets a value indicating whether the user's default app was set 
-        /// specficially by the user.
+        /// specifically by the user.
         /// </summary>
         public bool DefaultAppIsUserOverride
         {
@@ -66,8 +66,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the name of the role that the default app was inherited from, or 
-        /// 'system' if it was inherited from the default system setting. 
+        /// Gets the name of the role that the default app was inherited from, 
+        /// or 'system' if it was inherited from the default system setting. 
         /// </summary>
         public string DefaultAppSourceRole
         {
@@ -126,9 +126,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value indicating whether to restart background search jobs when
-        /// Splunk restarts. When true, a background search job for this user that has not
-        /// completed is restarted when Splunk restarts. 
+        /// Sets a value indicating whether to restart background search jobs 
+        /// when Splunk restarts. When true, a background search job for this 
+        /// user that has not completed is restarted when Splunk restarts. 
         /// </summary>
         public bool RestartBackgroundJobs
         {
@@ -139,7 +139,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the roles assigned to this user, as an array of strings.
+        /// Gets or sets the roles assigned to this user, as an array of 
+        /// strings.
         /// </summary>
         public string[] Roles
         {
@@ -166,7 +167,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the time zone to use when displaying dates for this user.
+        /// Gets or sets the time zone to use when displaying dates for this 
+        /// user.
         /// </summary>
         public string Tz
         {

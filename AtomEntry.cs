@@ -37,7 +37,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the value of the Atom entry's contentelement.
+        /// Gets or sets the value of the Atom entry's content element.
         /// </summary>
         public Record Content 
         {
@@ -68,7 +68,8 @@ namespace Splunk
             XmlElement root = Xml.Parse(input).DocumentElement;
             string rname = root.Name;
             string xmlns = root.GetAttribute("xmlns");
-            if (!rname.Equals("entry") && !xmlns.Equals("http://www.w3.org/2005/Atom")) 
+            if (!rname.Equals("entry") && 
+                !xmlns.Equals("http://www.w3.org/2005/Atom")) 
             {
                 throw new Exception("Unrecognized XML format");
             }
@@ -154,7 +155,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Parses a dict content element and returns a Record
+        /// Parses a dictinary content element and returns a Record
         /// object containing the parsed values.
         /// </summary>
         /// <param name="element">An XML element</param>
@@ -225,8 +226,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Parses the value content of a dict/key or a list/item element. The value
-        /// is either text, a dict element, or a list element.
+        /// Parses the value content of a dictionary/key or a list/item element.
+        /// The value is either text, a dictionary element, or a list element.
         /// </summary>
         /// <param name="element">The XML element</param>
         /// <returns>Either the dictionary or list of values</returns>

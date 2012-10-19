@@ -27,7 +27,8 @@ namespace Splunk
     public class ResultsReaderJSON : ResultsReader
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ResultsReaderJSON"/> class.
+        /// Initializes a new instance of the <see cref="ResultsReaderJSON"/> 
+        /// class.
         /// </summary>
         /// <param name="stream">Stream to be parsed</param>
         public ResultsReaderJSON(Stream stream) : base(stream) 
@@ -37,7 +38,8 @@ namespace Splunk
             // if stream is empty, return a null reader.
             try 
             {
-                // Note: reading causes the side effect of setting the json node info
+                // Note: reading causes the side effect of setting the json node
+                // information.
                 if (!this.JsonReader.Read())
                 {
                     this.JsonReader = null;
@@ -87,7 +89,8 @@ namespace Splunk
                 return null;
             }
 
-            //Events are almost flat, so no need for a true general parser solution.
+            // Events are almost flat, so no need for a true general parser 
+            // solution.
             while (this.JsonReader.Read())
             {
                 if (returnData == null) 
@@ -104,20 +107,31 @@ namespace Splunk
                     string data = string.Empty;
                     while (this.JsonReader.Read()) 
                     {
-                        if (this.JsonReader.TokenType.Equals(JsonToken.EndArray)) 
+                        if (this
+                            .JsonReader
+                            .TokenType
+                            .Equals(JsonToken.EndArray)) 
                         {
                             break;
                         }
 
-                        if (this.JsonReader.TokenType.Equals(JsonToken.PropertyName))
+                        if (this
+                            .JsonReader
+                            .TokenType
+                            .Equals(JsonToken.PropertyName))
                         {
-                            data = data + (data.Equals(string.Empty) ? string.Empty : ",") +
-                                    this.JsonReader.Value;
+                            data = data + (data.Equals(string.Empty) 
+                                ? string.Empty 
+                                : ",") +
+                                this.JsonReader.Value;
                         }
                     }
                     returnData.Add(name, data);
                 }
-                else if (this.JsonReader.TokenType.Equals(JsonToken.PropertyName)) 
+                else if (this
+                    .JsonReader
+                    .TokenType
+                    .Equals(JsonToken.PropertyName)) 
                 {
                     name = (string)this.JsonReader.Value;
                 }

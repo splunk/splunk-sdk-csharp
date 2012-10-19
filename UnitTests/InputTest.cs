@@ -458,7 +458,7 @@ namespace UnitTests
             Assert.IsTrue(inputCollection.ContainsKey(port), assertRoot + "#35");
             UdpInput udpInput = (UdpInput)inputCollection.Get(port);
 
-            udpInput.ConnectionHost = "connectionHost.com";
+            udpInput.ConnectionHost = "ip";
             udpInput.Host = "myhost";
             udpInput.Index = "main";
             udpInput.NoAppendingTimeStamp = true;
@@ -468,7 +468,7 @@ namespace UnitTests
             udpInput.SourceType = "mysourcetype";
             udpInput.Update();
 
-            Assert.AreEqual("connectionHost.com", udpInput.ConnectionHost, assertRoot + "#36");
+            Assert.AreEqual("ip", udpInput.ConnectionHost, assertRoot + "#36");
             Assert.AreEqual("myhost", udpInput.Host, assertRoot + "#37");
             Assert.AreEqual("main", udpInput.Index, assertRoot + "#38");
             Assert.IsTrue(udpInput.NoAppendingTimeStamp, assertRoot + "#39");
@@ -642,17 +642,20 @@ namespace UnitTests
                 Assert.AreEqual("main", windowsRegistryInput.Index, assertRoot + "#74");
 
                 // adjust a few of the arguments
-                windowsRegistryInput.Type = new string[] { "create,delete" };
+                windowsRegistryInput.Type = new string[] { "create", "delete" };
+                // touch the new Type (testing get after set)
+                string[] foo = windowsRegistryInput.Type;
                 windowsRegistryInput.Baseline = false;
                 windowsRegistryInput.Update();
 
                 Assert.AreEqual("*", windowsRegistryInput.Proc, assertRoot + "#75");
-                Assert.IsTrue(windowsRegistryInput.Type.Contains("create,delete"), assertRoot + "#76");
-                Assert.IsFalse(windowsRegistryInput.Baseline, assertRoot + "#77");
+                Assert.IsTrue(windowsRegistryInput.Type.Contains("create"), assertRoot + "#76");
+                Assert.IsTrue(windowsRegistryInput.Type.Contains("delete"), assertRoot + "#77");
+                Assert.IsFalse(windowsRegistryInput.Baseline, assertRoot + "#78");
 
                 windowsRegistryInput.Remove();
                 inputCollection.Refresh();
-                Assert.IsFalse(inputCollection.ContainsKey(name), assertRoot + "#78");
+                Assert.IsFalse(inputCollection.ContainsKey(name), assertRoot + "#79");
             }
         }
 

@@ -44,7 +44,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Creates a socket to the splunk server using the default index, and default port
+        /// Creates a socket to the splunk server using the default index, and 
+        /// default port.
         /// </summary>
         /// <returns>The Socket</returns>
         public Socket Attach() 
@@ -53,7 +54,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Creates a socket to the splunk server using the named index, and default port
+        /// Creates a socket to the splunk server using the named index, and 
+        /// default port.
         /// </summary>
         /// <param name="indexName">The index to write to</param>
         /// <returns>The Socket</returns>
@@ -63,7 +65,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Creates a socket to the splunk server using the default index and variable arguments
+        /// Creates a socket to the splunk server using the default index and 
+        /// variable arguments.
         /// </summary>
         /// <param name="args">The variable arguments</param>
         /// <returns>The Socket</returns>
@@ -73,7 +76,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Creates a socket to the splunk server using the named index and variable arguments.
+        /// Creates a socket to the splunk server using the named index and 
+        /// variable arguments.
         /// </summary>
         /// <param name="indexName">The index name</param>
         /// <param name="args">The variable arguments</param>
@@ -130,7 +134,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Submits the data using HTTP post, using variable arguments to the default index
+        /// Submits the data using HTTP post, using variable arguments to the 
+        /// default index.
         /// </summary>
         /// <param name="args">The variable arguments</param>
         /// <param name="data">The data</param>
@@ -143,7 +148,7 @@ namespace Splunk
         /// Submits the data to the named index using variable arguments.
         /// </summary>
         /// <param name="indexName">The named index</param>
-        /// <param name="args">The variable arfuments</param>
+        /// <param name="args">The variable arguments</param>
         /// <param name="data">The data</param>
         public void Submit(string indexName, Args args, string data) 
         {
@@ -160,7 +165,8 @@ namespace Splunk
                 sendString = sendString + ((indexName == null) ? "?" : "&");
                 sendString = sendString + args.Encode();
             }
-            this.service.Send(this.service.SimpleReceiverEndPoint + sendString, request);
+            this.service.Send(
+                this.service.SimpleReceiverEndPoint + sendString, request);
         }
 
         /// <summary>

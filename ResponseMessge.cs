@@ -16,8 +16,10 @@
 
 namespace Splunk
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Net;
 
     /// <summary>
     /// The basic HTTP response object
@@ -40,14 +42,21 @@ namespace Splunk
         private Stream content;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ResponseMessage"/> class
+        /// The parent response. Needed for finalizing cleanup.
+        /// </summary>
+        private HttpWebResponse response;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ResponseMessage"/> 
+        /// class
         /// </summary>
         public ResponseMessage() 
         { 
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ResponseMessage"/> class
+        /// Initializes a new instance of the <see cref="ResponseMessage"/> 
+        /// class.
         /// with an initial status.
         /// </summary>
         /// <param name="status">The status</param>
@@ -57,19 +66,42 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ResponseMessage"/> class
+        /// Initializes a new instance of the <see cref="ResponseMessage"/> 
+        /// class.
         /// with an initial status and stream.
         /// </summary>
         /// <param name="status">The status</param>
         /// <param name="content">The content stream</param>
-        public ResponseMessage(int status, Stream content) 
+        /// <param name="response">The response.</param>
+        public ResponseMessage(
+            int status, Stream content, HttpWebResponse response) 
         {
             this.status = status;
             this.content = content;
+            this.response = response;
         }
 
         /// <summary>
-        /// Gets the body content stream
+        /// Finalizes an instance of the <see cref="ResponseMessage"/> 
+        /// class.
+        /// </summary>
+        ~ResponseMessage()
+        {
+            if (this.response != null)
+            {
+                try
+                {
+                    this.response.Close();
+                }
+                catch (Exception)
+                {
+                    // ignore
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the body content stream.
         /// </summary>
         /// <returns>The stream</returns>
         public Stream Content 
@@ -81,7 +113,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the dictionay of the response headers
+        /// Gets the dictionary of the response headers.
         /// </summary>
         /// <returns>The response headers</returns>
         public Dictionary<string, string> Header
@@ -97,7 +129,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the response HTTP status code
+        /// Gets the response HTTP status code.
         /// </summary>
         /// <returns>The status</returns>
         public int Status 

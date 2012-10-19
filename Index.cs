@@ -37,9 +37,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the data retrieved from this index has been
-        /// UTF8-encoded. Indexing performance degrades when this parameter is set to
-        /// to true.
+        /// Gets or sets a value indicating whether the data retrieved from this
+        /// index has been UTF8-encoded. Indexing performance degrades when this
+        /// parameter is set to true.
         /// </summary>
         public bool AssureUTF8
         {
@@ -66,9 +66,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the block sign size for this index. This value defines the number
-        /// of events that make up a block for block signatures. A value of 0 means
-        /// block signing is disabled.
+        /// Gets or sets the block sign size for this index. This value defines 
+        /// the number of events that make up a block for block signatures. A 
+        /// value of 0 means block signing is disabled.
         /// </summary>
         public int BlockSignSize
         {
@@ -184,10 +184,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether asychronous "online fsck" bucket repair 
-        /// is enabled. When this feature is enabled, you don't have to wait for buckets to be 
-        /// repaired before starting Splunk, but you might notice a slight 
-        /// degradation in performance as a result.
+        /// Gets or sets a value indicating whether asnychronous "online fsck" 
+        /// bucket repair is enabled. When this feature is enabled, you don't 
+        /// have to wait for buckets to be repaired before starting Splunk, but 
+        /// one might notice a slight degradation in performance as a result.
         /// </summary>
         public bool EnableOnlineBucketRepair
         {
@@ -203,7 +203,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value indicating whether real-time search is enabled for this index.
+        /// Gets a value indicating whether real-time search is enabled for this
+        /// index.
         /// </summary>
         public bool EnableRealtimeSearch
         {
@@ -214,9 +215,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the maximum age for a bucket, after which the data in this index
-        /// rolls to frozen. If archiving is necessary for frozen data, see the
-        /// coldToFrozen attributes.
+        /// Gets or sets the maximum age for a bucket, after which the data in 
+        /// this index rolls to frozen. If archiving is necessary for frozen 
+        /// data, see the coldToFrozen attributes.
         /// </summary>
         public int FrozenTimePeriodInSecs
         {
@@ -244,7 +245,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the expanded absolute path to both hot and warm buckets for this index.
+        /// Gets the expanded absolute path to both hot and warm buckets for 
+        /// this index.
         /// </summary>
         public string HomePathExpanded
         {
@@ -267,7 +269,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the last nitialization time for this index. (wkcfix consider date)
+        /// Gets the last initialization time for this index. (wkcfix consider date)
         /// </summary>
         public string LastInitTime
         {
@@ -278,8 +280,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets if a warm or cold bucket is older than the specified age, 
-        /// do not create or rebuild its bloomfilter. Specify 0 to never rebuild bloomfilters.
+        /// Gets or sets if a warm or cold bucket is older than the specified 
+        /// age, do not create or rebuild its bloomfilter. Specify 0 to never 
+        /// rebuild bloomfilters.
         /// </summary>
         public string MaxBloomBackfillBucketAge
         {
@@ -295,8 +298,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the maximum number of concurrent optimize processes that
-        /// can run against a hot bucket for this index.
+        /// Gets or sets the maximum number of concurrent optimize processes 
+        /// that can run against a hot bucket for this index.
         /// </summary>
         public int MaxConcurrentOptimizes
         {
@@ -312,10 +315,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the maximum data size before triggering a roll from hot to warm
-        /// buckets for this index. Note that the maximum data size, in MB, or 
-        /// "auto" (which means 750MB), or "auto_high_volume" (which means 10GB on 
-        /// a 64-bit system, or 1GB on a 32-bit system).
+        /// Gets or sets the maximum data size before triggering a roll from 
+        /// hot to warm buckets for this index. Note that the maximum data size,
+        /// in MB, or "auto" (which means 750MB), or "auto_high_volume" (which 
+        /// means 10GB on a 64-bit system, or 1GB on a 32-bit system).
         /// </summary>
         public string MaxDataSize
         {
@@ -331,7 +334,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the maximum number of hot buckets that can exist for this index.
+        /// Gets or sets the maximum number of hot buckets that can exist for 
+        /// this index.
         /// </summary>
         public int MaxHotBuckets
         {
@@ -400,8 +404,8 @@ namespace Splunk
 
         /// <summary>
         /// Gets or sets the maximum number of unique lines that are allowed 
-        /// in a bucket's .data files for this index. A value of 0 means infinite
-        /// lines.
+        /// in a bucket's .data files for this index. A value of 0 means 
+        /// infinite lines.
         /// </summary>
         public int MaxMetaEntries
         {
@@ -417,7 +421,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the  maximum number of concurrent helper processes for this index.
+        /// Gets the  maximum number of concurrent helper processes for this 
+        /// index.
         /// </summary>
         public int MaxRunningProcessGroups
         {
@@ -428,8 +433,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets timestamp of the newest event time in the index. If not available,
-        /// the Systems concept of minimum time is returned.
+        /// Gets timestamp of the newest event time in the index. If not 
+        /// available, the Systems concept of minimum time is returned.
         /// </summary>
         public DateTime MaxTime
         {
@@ -457,9 +462,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the maximum number of warm buckets for this index. If this 
-        /// value is exceeded, the warm buckets with the lowest value for their 
-        /// latest times are moved to cold.
+        /// Gets or sets the maximum number of warm buckets for this index. If 
+        /// this value is exceeded, the warm buckets with the lowest value for 
+        /// their latest times are moved to cold.
         /// </summary>
         public int MaxWarmDBCount
         {
@@ -487,10 +492,11 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the frequency at which Splunkd forces a filesystem sync while 
-        /// compressing journal slices for this index. A value of "disable" disables 
-        /// this feature completely, while a value of 0 forces a file-system sync 
-        /// after completing compression of every journal slice.
+        /// Gets or sets the frequency at which Splunkd forces a filesystem sync
+        /// while compressing journal slices for this index. A value of 
+        /// "disable" disables this feature completely, while a value of 0 
+        /// forces a file-system sync after completing compression of every 
+        /// journal slice.
         /// </summary>
         public string MinRawFileSyncSecs
         {
@@ -506,8 +512,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the timestamp of the oldest event time in the index. If not available,
-        /// the Systems concept of maximum time is returned.
+        /// Gets the timestamp of the oldest event time in the index. If not 
+        /// available, the Systems concept of maximum time is returned.
         /// </summary>
         public DateTime MinTime
         {
@@ -551,9 +557,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the frequency, in seconds, at which metadata is for partially synced (synced
-        /// in-place) for this index. A value of 0 disables partial syncing, so
-        /// metadata is only synced on the ServiceMetaPeriod interval.
+        /// Gets or sets the frequency, in seconds, at which metadata is for 
+        /// partially synced (synced in-place) for this index. A value of 0 
+        /// disables partial syncing, so metadata is only synced on the 
+        /// ServiceMetaPeriod interval.
         /// </summary>
         public int PartialServiceMetaPeriod
         {
@@ -603,9 +610,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the target uncompressed size of individual raw slices in the
-        /// rawdata journal for this index. WARNING:This is an advanced parameter. 
-        /// Only change it if you are instructed to do so by Splunk Support.
+        /// Gets or sets the target uncompressed size of individual raw slices 
+        /// in the raw data journal for this index. WARNING:This is an advanced 
+        /// parameter. Only change it if you are instructed to do so by Splunk 
+        /// Support.
         /// </summary>
         public int RawChunkSizeBytes
         {
@@ -621,8 +629,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the frequency to check for the need to create a new hot bucket
-        /// and the need to roll or freeze any warm or cold buckets for this index.
+        /// Gets or sets the frequency to check for the need to create a new hot
+        /// bucket and the need to roll or freeze any warm or cold buckets for 
+        /// this index.
         /// </summary>
         public int RotatePeriodInSecs
         {
@@ -638,7 +647,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the frequency at which metadata is synced to disk for this index.
+        /// Gets or sets the frequency at which metadata is synced to disk for 
+        /// this index.
         /// </summary>
         public int ServiceMetaPeriod
         {
@@ -654,7 +664,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a comma separated list of indexes that suppress "index missing" messages.
+        /// Gets a comma separated list of indexes that suppress "index missing"
+        /// messages.
         /// </summary>
         public string SuppressBannerList
         {
@@ -677,9 +688,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the sync operation is invoked before the file
-        /// descriptor is closed on metadata updates. WARNING:This is an advanced parameter. 
-        /// Only change it if you are instructed to do so by Splunk Support.
+        /// Gets or sets a value indicating whether the sync operation is 
+        /// invoked before the file descriptor is closed on metadata updates. 
+        /// WARNING:This is an advanced parameter. Only change it if you are 
+        /// instructed to do so by Splunk Support.
         /// </summary>
         public bool SyncMeta
         {
@@ -695,8 +707,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the absolute path to the thawed index for this index. This value
-        ///  may contain shell expansion terms.
+        /// Gets the absolute path to the thawed index for this index. This 
+        /// value may contain shell expansion terms.
         /// </summary>
         public string ThawedPath
         {
@@ -718,7 +730,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the frequency at which Splunk checks for an index throttling condition.
+        /// Gets or sets the frequency at which Splunk checks for an index 
+        /// throttling condition.
         /// </summary>
         public int ThrottleCheckPeriod
         {
@@ -777,9 +790,11 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Cleans this index removing all events, with specific timeout value. -1 Waits forever. 
+        /// Cleans this index removing all events, with specific timeout value.
+        /// -1 Waits forever. 
         /// </summary>
-        /// <param name="maxSeconds">The maximum number of seconds to wait before returning</param>
+        /// <param name="maxSeconds">The maximum number of seconds to wait 
+        /// before returning</param>
         /// <returns>The index</returns>
         public Index Clean(int maxSeconds)
         {
@@ -804,7 +819,8 @@ namespace Splunk
                 }
                 this.Refresh();
             }
-            throw new SplunkException(SplunkException.TIMEOUT, "Index cleaning timed out");
+            throw new SplunkException(
+                SplunkException.TIMEOUT, "Index cleaning timed out");
         }
 
         /// <summary>
@@ -812,7 +828,8 @@ namespace Splunk
         /// </summary>
         public void RollHotBuckets()
         {
-            ResponseMessage response = this.Service.Post(this.Path + "/roll-hot-buckets");
+            ResponseMessage response = 
+                this.Service.Post(this.Path + "/roll-hot-buckets");
             Debug.Assert(response.Status == 200, "Status not 200!");
         }
 
@@ -838,8 +855,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Uploads a file to this index as an event stream. Note: This file must be 
-        /// directly accessible by the Splunk server, by the file-path supplied. 
+        /// Uploads a file to this index as an event stream. Note: This file 
+        /// must be directly accessible by the Splunk server, by the file-path
+        /// supplied. 
         /// </summary>
         /// <param name="filepath">The file</param>
         public void Upload(string filepath)

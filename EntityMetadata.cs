@@ -29,7 +29,8 @@ namespace Splunk
         private Entity entity;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EntityMetadata"/> class.
+        /// Initializes a new instance of the <see cref="EntityMetadata"/> 
+        /// class.
         /// </summary>
         /// <param name="entity">The entity</param>
         public EntityMetadata(Entity entity)
@@ -38,7 +39,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value indicating whether this entity's permission can be changed.
+        /// Gets a value indicating whether this entity's permission can be 
+        /// changed.
         /// </summary>
         public bool CanChangePermissions
         {
@@ -49,7 +51,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value indicating whether this resource can be shared via an app.
+        /// Gets a value indicating whether this resource can be shared via an 
+        /// app.
         /// </summary>
         public bool CanShareApp
         {
@@ -71,7 +74,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value indicating whether the resource can be shared to a specific user.
+        /// Gets a value indicating whether the resource can be shared to a 
+        /// specific user.
         /// </summary>
         public bool CanShareUser
         {

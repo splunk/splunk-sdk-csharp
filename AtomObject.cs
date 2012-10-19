@@ -62,7 +62,7 @@ namespace Splunk
 
         /// <summary>
         /// Initializes a particular property of the current instance based
-        /// on the given XML
+        /// on the given XML.
         /// </summary>
         /// <param name="element">The XML element</param>
         public virtual void Init(XmlElement element) 
@@ -97,8 +97,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Initializesthe current AtomObect instance from the given XML element by 
-        /// invoking init() on each child of the XML element.
+        /// Initializes the current AtomObect instance from the given XML 
+        /// element by invoking init() on each child of the XML element.
         /// </summary>
         /// <param name="element">The XML element</param>
         public void Load(XmlElement element) 

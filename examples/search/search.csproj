@@ -35,13 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SplunkSDK, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\GitHub\splunk-sdk-csharp\bin\Debug\SplunkSDK.dll</HintPath>
-    </Reference>
-    <Reference Include="SplunkSDKHelper">
-      <HintPath>..\..\..\..\GitHub\splunk-sdk-csharp\sdk-helper\bin\Debug\SplunkSDKHelper.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -56,6 +49,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\sdk-helper\SplunkSDKHelper.csproj">
+      <Project>{4135f018-6041-4269-a76f-b6aaf87e260d}</Project>
+      <Name>SplunkSDKHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SplunkSDK.csproj">
+      <Project>{ca4151a1-3ef9-461d-9e03-34627273150d}</Project>
+      <Name>SplunkSDK</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

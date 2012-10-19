@@ -22,7 +22,8 @@ namespace Splunk
     public class ApplicationArchive : Entity
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ApplicationArchive"/> class.
+        /// Initializes a new instance of the <see cref="ApplicationArchive"/> 
+        /// class.
         /// </summary>
         /// <param name="service">The connected service</param>
         /// <param name="path">The path</param>
@@ -55,8 +56,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value indicating whether to reload the objects contained in the 
-        /// locally-installed app.
+        /// Gets a value indicating whether to reload the objects contained in 
+        /// the locally-installed app.
         /// </summary>
         public bool Refreshes
         {
@@ -67,7 +68,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a URL to the app archive file on the server, for web browser access.
+        /// Gets a URL to the app archive file on the server, for web browser 
+        /// access.
         /// </summary>
         public string Url
         {

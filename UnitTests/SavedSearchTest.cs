@@ -154,7 +154,7 @@ namespace UnitTests
                 dummyInt = savedSearch.MaxConcurrent;
                 dummyDateTime = savedSearch.NextScheduledTime;
                 dummyString = savedSearch.QualifiedSearch;
-                dummyBool = savedSearch.RealtimeSchedule;
+                dummyInt = savedSearch.RealtimeSchedule;
                 dummyString = savedSearch.RequestUiDispatchApp;
                 dummyString = savedSearch.RequestUiDispatchView;
                 dummyBool = savedSearch.RestartOnSearchPeerAdd;

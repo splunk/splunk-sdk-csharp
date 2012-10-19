@@ -39,15 +39,15 @@ namespace SplunkSearch
             Command cli = Command.Splunk("search");
             cli.AddRule("search", typeof(string), "search string");
             cli.Parse(argv);
-            if (!cli.opts.ContainsKey("search"))
+            if (!cli.Opts.ContainsKey("search"))
             {
                 System.Console.WriteLine("Search query string required, use --search=\"query\"");
                 Environment.Exit(1);
             }
 
-            service = Service.Connect(cli.opts);
+            service = Service.Connect(cli.Opts);
             JobCollection jobs = service.GetJobs();
-            Job job = jobs.Create((string)cli.opts["search"]);
+            Job job = jobs.Create((string)cli.Opts["search"]);
             while (!job.IsDone) 
             {
                 Thread.Sleep(1000);

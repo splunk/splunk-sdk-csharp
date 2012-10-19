@@ -40,14 +40,16 @@ namespace Splunk
         private object content = null;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RequestMessage"/> class.
+        /// Initializes a new instance of the <see cref="RequestMessage"/> 
+        /// class.
         /// </summary>
         public RequestMessage() 
         { 
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RequestMessage"/> class,
+        /// Initializes a new instance of the <see cref="RequestMessage"/> 
+        /// class,
         /// with specific method.
         /// </summary>
         /// <param name="method">The method</param>

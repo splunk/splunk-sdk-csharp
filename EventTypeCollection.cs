@@ -22,7 +22,8 @@ namespace Splunk
     public class EventTypeCollection : EntityCollection<EventType>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EventTypeCollection"/> class.
+        /// Initializes a new instance of the <see cref="EventTypeCollection"/> 
+        /// class.
         /// </summary>
         /// <param name="service">The connected service</param>
         public EventTypeCollection(Service service)
@@ -31,7 +32,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EventTypeCollection"/> class.
+        /// Initializes a new instance of the <see cref="EventTypeCollection"/> 
+        /// class.
         /// </summary>
         /// <param name="service">The connected service</param>
         /// <param name="args">The arguments</param>

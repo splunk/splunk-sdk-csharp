@@ -27,17 +27,18 @@ namespace Splunk
     /// address (host:port) accessed using http or https protocol scheme.
     /// <para>
     /// A Service instance also captures an optional namespace contect 
-    /// consisting of an opriont owner name (or "-" wildcard) and optional app
+    /// consisting of an optional owner name (or "-" wildcard) and optional app
     /// name (or "-" wildcard).
     /// </para>
-    /// To access the Service members, the Service instance must be authenticated
-    /// by presenting credentials using the the login method, or by contructing
-    /// the Service instance using the connect method.
+    /// To access the Service members, the Service instance must be 
+    /// authenticated by presenting credentials using the the login method, or 
+    /// by constructing the Service instance using the connect method.
     /// </summary>
     public class Service : HttpService 
     {
         /// <summary>
-        /// The default host name, which is used when a host name is not provided.
+        /// The default host name, which is used when a host name is not 
+        /// provided.
         /// </summary>
         private static string defaultHost = "localhost";
 
@@ -116,7 +117,9 @@ namespace Splunk
             this.App = Args.Get(args, "app", null);
             this.Host = Args.Get(args, "host", defaultHost);
             this.Owner = Args.Get(args, "owner", null);
-            this.Port = args.ContainsKey("port") ? Convert.ToInt32(args["port"]) : defaultPort;
+            this.Port = args.ContainsKey("port") 
+                ? Convert.ToInt32(args["port"]) 
+                : defaultPort;
             this.Scheme = Args.Get(args, "scheme", defaultScheme);
             this.Token = Args.Get(args, "token", null);
         }
@@ -130,8 +133,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the current owner context. A of "nobody" means that all users
-        /// have access to the resource.
+        /// Gets or sets the current owner context. A of "nobody" means that 
+        /// all users have access to the resource.
         /// </summary>
         private string Owner 
         {
@@ -139,7 +142,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the password, which is used to authenticate the Splunk instance.
+        /// Gets or sets the password, which is used to authenticate the Splunk 
+        /// instance.
         /// </summary>
         private string Password 
         {
@@ -147,7 +151,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the default password endpoint, can change over Splunk versions.
+        /// Gets or sets the default password endpoint, can change over Splunk 
+        /// versions.
         /// </summary>
         public string PasswordEndPoint 
         {
@@ -171,8 +176,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the Splunk account username, which is used to authenticate the Splunk
-        /// instance.
+        /// Gets or sets the Splunk account username, which is used to 
+        /// authenticate the Splunk instance.
         /// </summary>
         private string Username 
         {
@@ -203,12 +208,13 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Establishes a connection to a Splunk service using a map of arguments. 
-        /// This member creates a new Service instance and authenticates 
-        /// the session using credentials passed in from the args dictionary.
+        /// Establishes a connection to a Splunk service using a map of 
+        /// arguments. This member creates a new Service instance and 
+        /// authenticates the session using credentials passed in from the args
+        /// dictionary.
         /// </summary>
         /// <param name="args">The connection arguments</param>
-        /// <returns>The serfvice instance</returns>
+        /// <returns>The service instance</returns>
         public static Service Connect(Dictionary<string, object> args) 
         {
             Service service = new Service(args);
@@ -248,8 +254,8 @@ namespace Splunk
 
         /// <summary>
         /// Ensures that the given path is fully qualified, prepending a path
-        /// prefix if necessary. The path prefix is constructed using the current 
-        /// owner and app context when available.
+        /// prefix if necessary. The path prefix is constructed using the
+        /// current owner and app context when available.
         /// </summary>
         /// <param name="path">The path</param>
         /// <returns>The fully qualified URL</returns>
@@ -260,8 +266,8 @@ namespace Splunk
 
         /// <summary>
         /// Ensures that the given path is fully qualified, prepending a path
-        /// prefix if necessary. The path prefix is constructed using the current 
-        /// owner and app context when available.
+        /// prefix if necessary. The path prefix is constructed using the 
+        /// current owner and app context when available.
         /// </summary>
         /// <param name="path">The path</param>
         /// <param name="splunkNamespace">The Splunk namespace</param>
@@ -523,7 +529,8 @@ namespace Splunk
         /// <returns>The Index collection</returns>
         public EntityCollection<Index> GetIndexes() 
         {
-            return new EntityCollection<Index>(this, "data/indexes", typeof(Index));
+            return new 
+                EntityCollection<Index>(this, "data/indexes", typeof(Index));
         }
 
         /// <summary>
@@ -886,7 +893,7 @@ namespace Splunk
         /// Returns a collection of Splunk user roles.
         /// </summary>
         /// <param name="args">Optional parameters</param>
-        /// <returns>A collecgtion of Splunk Roles</returns>
+        /// <returns>A collection of Splunk Roles</returns>
         public EntityCollection<Role> GetRoles(Args args) 
         {
             return new EntityCollection<Role>(
@@ -894,7 +901,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Returds a collection of saved searches.
+        /// Returns a collection of saved searches.
         /// </summary>
         /// <returns>The collection of saves searches</returns>
         public SavedSearchCollection GetSavedSearches() 
@@ -913,7 +920,8 @@ namespace Splunk
         }
 
         /// <summary>
-        ///  Returns service configuration information for an instance of Splunk.
+        ///  Returns service configuration information for an instance of 
+        ///  Splunk.
         /// </summary>
         /// <returns>This Splunk instances settings</returns>
         public Settings GetSettings()
@@ -927,7 +935,8 @@ namespace Splunk
         /// <returns>The uploads</returns>
         public EntityCollection<Upload> GetUploads()
         {
-            return new EntityCollection<Upload>(this, "data/inputs/oneshot", typeof(Upload));
+            return new EntityCollection<Upload>(
+                this, "data/inputs/oneshot", typeof(Upload));
         }
 
         /// <summary>
@@ -937,7 +946,8 @@ namespace Splunk
         /// <returns>The uploads</returns>
         public EntityCollection<Upload> GetUploads(Args splunkNamespace) 
         {
-            return new EntityCollection<Upload>(this, "data/inputs/oneshot", splunkNamespace, typeof(Upload));
+            return new EntityCollection<Upload>(
+                this, "data/inputs/oneshot", splunkNamespace, typeof(Upload));
         }
 
         /// <summary>
@@ -978,10 +988,17 @@ namespace Splunk
             StreamReader streamReader = new StreamReader(response.Content);
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(streamReader.ReadToEnd());
-            string sessionKey = doc.SelectSingleNode("/response/sessionKey").InnerText;
+            string sessionKey = doc
+                .SelectSingleNode("/response/sessionKey")
+                .InnerText;
             this.Token = "Splunk " + sessionKey;
 
             this.Version = this.GetInfo().Version;
+            if (!this.Version.Contains("."))
+            {
+                // internal build
+                this.Version = "5.0";
+            }
             if (this.VersionCompare("4.3") >= 0)
             {
                 this.PasswordEndPoint = "storage/passwords";
@@ -1001,7 +1018,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// CReayes a oneshot synchronous search
+        /// Creates a oneshot synchronous search
         /// </summary>
         /// <param name="query">The search string</param>
         /// <returns>The IO stream</returns>
@@ -1044,13 +1061,15 @@ namespace Splunk
         /// <returns>The connected socket</returns>
         public Socket Open(int port) 
         {
-            Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            Socket socket = new Socket(
+               AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             socket.Connect(this.Host, port);
             return socket;
         }
 
         /// <summary>
-        /// Parses a search query and returns a semantic map for the search in JSON format.
+        /// Parses a search query and returns a semantic map for the search in 
+        /// JSON format.
         /// </summary>
         /// <param name="query">The search query</param>
         /// <returns>The parse repsonse</returns>
@@ -1060,8 +1079,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Parses a search query with additional arguments and returns a semantic
-        ///  map for the search in JSON format.
+        /// Parses a search query with additional arguments and returns a s
+        /// emantic map for the search in JSON format.
         /// </summary>
         /// <param name="query">The search query</param>
         /// <param name="args">The arguments</param>
@@ -1083,9 +1102,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Creates a simplified synchronous search using search arguments. Use this
-        /// method for simple searches. For output control arguments, use overload
-        /// with outputArgs.
+        /// Creates a simplified synchronous search using search arguments. Use 
+        /// this method for simple searches. For output control arguments, use 
+        /// overload with outputArgs.
         /// </summary>
         /// <param name="query">The search string</param>
         /// <returns>The Stream handle of the search</returns>
@@ -1095,9 +1114,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Creates a simplified synchronous search using search arguments. Use this
-        /// method for simple searches. For output control arguments, use overload
-        /// with outputArgs.
+        /// Creates a simplified synchronous search using search arguments. Use 
+        /// this method for simple searches. For output control arguments, use 
+        /// overload with outputArgs.
         /// </summary>
         /// <param name="query">The search string</param>
         /// <param name="inputArgs">The variable arguments</param>
@@ -1108,8 +1127,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Creates a simplified synchronous search using search arguments. Use this
-        /// method for simple searches.
+        /// Creates a simplified synchronous search using search arguments. Use 
+        /// this method for simple searches.
         /// </summary>
         /// <param name="query">The search string</param>
         /// <param name="inputArgs">The variable arguments</param>
@@ -1135,7 +1154,8 @@ namespace Splunk
         /// <param name="path">The path</param>
         /// <param name="request">The request message</param>
         /// <returns>The ResponseMessage</returns>
-        public override ResponseMessage Send(string path, RequestMessage request) 
+        public override 
+            ResponseMessage Send(string path, RequestMessage request) 
         {
             if (this.Token != null) 
             {
@@ -1145,12 +1165,13 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Compares the current version versus a desired version. If the current version is
-        /// less than the desired -1 is returned. If they are equal 0 is returned. If the 
-        /// current version is greater than the desired version 1 is returned.
+        /// Compares the current version versus a desired version. If the 
+        /// current version is less than the desired -1 is returned. If they are
+        /// equal 0 is returned. If the current version is greater than the
+        /// desired version 1 is returned.
         /// </summary>
         /// <param name="right">The desired version</param>
-        /// <returns>A avlue of -1, 0, or 1.</returns>
+        /// <returns>A value of -1, 0, or 1.</returns>
         public int VersionCompare(string right) 
         {
             // short cut for equality.
@@ -1159,7 +1180,7 @@ namespace Splunk
                 return 0;
             }
 
-            // if not the same, break down into individual digits for comparison.
+            // if not the same, break down into individual digits for comparison
             string[] leftDigits = this.Version.Split('.');
             string[] rightDigits = right.Split('.');
 
@@ -1171,16 +1192,19 @@ namespace Splunk
                     return 1;
                 }
                 // left side smaller>?
-                if (Convert.ToInt32(leftDigits[i]) < Convert.ToInt32(leftDigits[1])) 
+                if (Convert.ToInt32(leftDigits[i]) < 
+                    Convert.ToInt32(leftDigits[1])) 
                 {
                     return -1;
                 }
                 // left side bigger?
-                if (Convert.ToInt32(leftDigits[i]) > Convert.ToInt32(leftDigits[1])) 
+                if (Convert.ToInt32(leftDigits[i]) > 
+                    Convert.ToInt32(leftDigits[1])) 
                 {
                     return 1;
                 }
             }
+
             // we got to the end of the left side, and not equal, right side
             // most be larger by having more digits.
             return -1;

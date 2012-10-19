@@ -25,7 +25,8 @@ namespace Splunk
     public class UserCollection : EntityCollection<User>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="UserCollection"/> class.
+        /// Initializes a new instance of the <see cref="UserCollection"/> 
+        /// class.
         /// </summary>
         /// <param name="service">The service</param>
         public UserCollection(Service service)
@@ -34,7 +35,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UserCollection"/> class.
+        /// Initializes a new instance of the <see cref="UserCollection"/> 
+        /// class.
         /// </summary>
         /// <param name="service">The service</param>
         /// <param name="args">The args</param>
@@ -45,11 +47,11 @@ namespace Splunk
 
         /// <summary>
         /// Creates a new user entity from a username, password, and role.
-        /// Usernames must be unique on the system, and are used by the user to log
-        /// in to Splunk.
+        /// Usernames must be unique on the system, and are used by the user to 
+        /// log in to Splunk.
         /// </summary>
         /// <param name="name">The username for the new user</param>
-        /// <param name="password">The asswird fir this new user</param>
+        /// <param name="password">The password for this new user</param>
         /// <param name="role">A roles to assign this new user</param>
         /// <returns>The new user entity</returns>
         public User Create(string name, string password, string role)
@@ -59,8 +61,8 @@ namespace Splunk
 
         /// <summary>
         /// Creates a new user entity from a username, password, and role.
-        /// Usernames must be unique on the system, and are used by the user to log
-        /// in to Splunk.
+        /// Usernames must be unique on the system, and are used by the user to 
+        /// log in to Splunk.
         /// </summary>
         /// <param name="name">The username for the new user</param>
         /// <param name="password">The asswird fir this new user</param>
@@ -73,11 +75,11 @@ namespace Splunk
 
         /// <summary>
         /// Creates a new user entity from a username, password, and role.
-        /// Usernames must be unique on the system, and are used by the user to log
-        /// in to Splunk.
+        /// Usernames must be unique on the system, and are used by the user to 
+        /// log in to Splunk.
         /// </summary>
         /// <param name="name">The username for the new user</param>
-        /// <param name="password">The asswird fir this new user</param>
+        /// <param name="password">The password for this new user</param>
         /// <param name="role">A role to assign this new user</param>
         /// <param name="args">The optional args</param>
         /// <returns>The new user entity</returns>
@@ -91,8 +93,8 @@ namespace Splunk
 
         /// <summary>
         /// Creates a new user entity from a username, password, and role.
-        /// Usernames must be unique on the system, and are used by the user to log
-        /// in to Splunk.
+        /// Usernames must be unique on the system, and are used by the user to
+        /// log in to Splunk.
         /// </summary>
         /// <param name="name">The username for the new user</param>
         /// <param name="password">The asswird fir this new user</param>

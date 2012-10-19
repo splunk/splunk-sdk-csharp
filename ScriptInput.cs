@@ -174,7 +174,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value indicating whether the scripted input is enabled or disabled.
+        /// Sets a value indicating whether the scripted input is enabled or 
+        /// disabled.
         /// </summary>
         public bool Disabled
         {
@@ -185,8 +186,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the source name for events from this scripted input. The same source
-        /// should not be used for multiple data inputs.
+        /// Sets the source name for events from this scripted input. The same 
+        /// source should not be used for multiple data inputs.
         /// </summary>
         public string RenameSource
         {

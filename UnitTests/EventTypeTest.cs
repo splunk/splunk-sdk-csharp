@@ -74,10 +74,11 @@ namespace UnitTests
 
             string search = "index=_internal *";
 
-            Args args = new Args();
-            args.Add("description", "Dummy description");
-            args.Add("disabled", true);
-            args.Add("priority", 2);
+            EventTypeArgs args = new EventTypeArgs();
+            args.Description = "Dummy description";
+            args.Disabled = true;
+            args.Priority = 3;
+            args.Priority = 2;
             EventType eventType = eventTypeCollection.Create("sdk-test", search, args);
 
             Assert.IsTrue(eventTypeCollection.ContainsKey("sdk-test"), assertRoot + "#2");

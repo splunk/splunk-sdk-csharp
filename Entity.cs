@@ -31,9 +31,11 @@ namespace Splunk
         private Record content;
 
         /// <summary>
-        /// The local cache of value to update when either update methods are called.
+        /// The local cache of value to update when either update methods are 
+        /// called.
         /// </summary>
-        protected Dictionary<string, object> toUpdate = new Dictionary<string, object>();
+        protected Dictionary<string, object> toUpdate = 
+            new Dictionary<string, object>();
 
         /// <summary>
         ///  Initializes a new instance of the <see cref="Entity"/> class.
@@ -59,10 +61,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value indicating whether this entity is disabled. This method is 
-        /// available on almost every endpoint. Note
-        /// that if dirty, this has the side effect of retrieving refreshed
-        /// data from the server.
+        /// Gets a value indicating whether this entity is disabled. This method
+        /// is available on almost every endpoint. Note that if dirty, this has
+        /// the side effect of retrieving refreshed data from the server.
         /// </summary>
         public bool IsDisabled 
         {
@@ -201,8 +202,8 @@ namespace Splunk
 
         /// <summary>
         /// Returns the Boolean value associated with the specified key, or the
-        /// default value if the key does not exist. Boolean values can be converted
-        /// from: 0, 1, true, false.
+        /// default value if the key does not exist. Boolean values can be 
+        /// converted from: 0, 1, true, false.
         /// </summary>
         /// <param name="key">The key</param>
         /// <param name="defaultValue">The default value if key not found</param>
@@ -217,8 +218,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Returns the long value associated with the specified key. Long values
-        /// can be converted from: number, numberMB, numberGB.
+        /// Returns the long value associated with the specified key. Long 
+        /// values can be converted from: number, numberMB, numberGB.
         /// </summary>
         /// <param name="key">The key</param>
         /// <returns>The value</returns>
@@ -232,9 +233,9 @@ namespace Splunk
         }
 
         /// <summary>
-        ///  Returns the long value associated with the specified key, or the default
-        /// value if the key does not exist. Long values can be converted from: 
-        /// number, numberMB, numberGB.
+        /// Returns the long value associated with the specified key, or the 
+        /// default value if the key does not exist. Long values can be 
+        /// converted from: number, numberMB, numberGB.
         /// </summary>
         /// <param name="key">The key</param>
         /// <param name="defaultValue">The value if the key is not found</param>
@@ -258,8 +259,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Returns a date value associated with the specified key. Date values can
-        /// be converted from standard UTC time formats.
+        /// Returns a date value associated with the specified key. Date values 
+        /// can be converted from standard UTC time formats.
         /// </summary>
         /// <param name="key">The date string</param>
         /// <returns>The date</returns>
@@ -273,8 +274,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Returns a date value associated with the specified key, or the default
-        /// value if the key does not exist.
+        /// Returns a date value associated with the specified key, or the 
+        /// default value if the key does not exist.
         /// </summary>
         /// <param name="key">The key</param>
         /// <param name="defaultValue">The default time value</param>
@@ -290,7 +291,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Returns the double-floating point value associated with the specified key.
+        /// Returns the double-floating point value associated with the 
+        /// specified key.
         /// </summary>
         /// <param name="key">The key</param>
         /// <returns>The value</returns>
@@ -330,8 +332,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Returns the integer value associated with the specified key or the default
-        /// value if the key does not exist.
+        /// Returns the integer value associated with the specified key or the 
+        /// default value if the key does not exist.
         /// </summary>
         /// <param name="key">The key</param>
         /// <param name="defaultValue">The value if key not present</param>
@@ -366,8 +368,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Returns the long value associated with the specified key or the default
-        /// value if the key does not exist.
+        /// Returns the long value associated with the specified key or the 
+        /// default value if the key does not exist.
         /// </summary>
         /// <param name="key">The key</param>
         /// <param name="defaultValue">The value of key is not present</param>
@@ -389,10 +391,11 @@ namespace Splunk
         /// <returns>The metadata</returns>
          public EntityMetadata GetMetadata() 
          {
-            // CONSIDER: For entities that don't have an eai:acl field, which is
-            // uncommon but does happen at least in the case of a DeploymentClient
-            // that is not enabled, we return null. A slightly friendlier option
-            // would be to return a metadata instance that defaults all values?
+             // CONSIDER: For entities that don't have an eai:acl field, which is
+             // uncommon but does happen at least in the case of a 
+             // DeploymentClient that is not enabled, we return null. A slightly
+             // friendlier option would be to return a metadata instance that 
+             // defaults all values?
              if (!this.ContainsKey("eai:acl"))
              {
                  return null;
@@ -440,14 +443,14 @@ namespace Splunk
         {
             if (this.toUpdate.ContainsKey(key)) 
             {
-                return this.GetStringArray((string)this.toUpdate[key]);
+                return (string[])this.toUpdate[key];
             }
             return this.GetContent().GetStringArray(key);
         }
 
         /// <summary>
-        ///  Returns the string array value associated with the specified key, or the
-        ///  default value if the key does not exist.
+        /// Returns the string array value associated with the specified key, 
+        /// or the default value if the key does not exist.
         /// </summary>
         /// <param name="key">The key</param>
         /// <param name="defaultValue">The value if key is not found</param>
@@ -456,7 +459,7 @@ namespace Splunk
         {
             if (this.toUpdate.ContainsKey(key)) 
             {
-                return this.GetStringArray((string)this.toUpdate[key]);
+                return (string[])this.toUpdate[key];
             }
             return this.GetContent().GetStringArray(key, defaultValue);
         }
@@ -519,19 +522,14 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the local cache update value. Writing to the server is deferred until
-        /// the Update() method is called.
+        /// Sets the local cache update value. Writing to the server is deferred
+        /// until the Update() method is called.
         /// </summary>
         /// <param name="key">The key</param>
         /// <param name="value">The value</param>
         public void SetCacheValue(string key, object value) 
         {
-            if (this.toUpdate.ContainsKey(key))
-            {
-                this.toUpdate.Remove(key);
-            }
-
-            this.toUpdate.Add(key, value);
+            this.toUpdate[key] = value;
         }
 
         /// <summary>
@@ -543,16 +541,18 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Updates the entity with the values you previously set using the setter
-        /// methods, and any additional specified arguments. The specified arguments
-        /// take precedent over the values that were set using the setter methods.
+        /// Updates the entity with the values you previously set using the 
+        /// setter methods, and any additional specified arguments. The 
+        /// specified arguments take precedent over the values that were set 
+        /// using the setter methods.
         /// </summary>
         /// <param name="args">The key/value pairs to update</param>
         public virtual void Update(Dictionary<string, object> args)
         {
             // Merge cached setters and live args together before updating; live
             // args get precedence over the cached setter args.
-            Dictionary<string, object> mergedArgs = new Dictionary<string, object>();
+            Dictionary<string, object> mergedArgs = 
+                new Dictionary<string, object>();
             foreach (KeyValuePair<string, object> element in args)
             {
                 mergedArgs.Add(element.Key, element.Value);
@@ -570,8 +570,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Updates the entity with the accumulated arguments, established by the
-        /// individual setter methods for each specific entity class.
+        /// Updates the entity with the accumulated arguments, established by 
+        /// the individual setter methods for each specific entity class.
         /// </summary>
         public virtual void Update() 
         {

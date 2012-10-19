@@ -46,47 +46,48 @@ namespace SplunkSDKHelper
         /// <summary>
         /// The parsed command line flags (i.e. those that begin with - and --)
         /// </summary>
-        public Dictionary<string, object> opts = new Dictionary<string, object>();
+        public Dictionary<string, object> Opts = 
+            new Dictionary<string, object>();
 
         /// <summary>
         /// The application default field
         /// </summary>
-        public string app = null;
+        public string App = null;
 
         /// <summary>
         /// Help or usage.
         /// </summary>
-        public bool help = false;
+        public bool Help = false;
 
         /// <summary>
         /// The host (and its default) to connect to.
         /// </summary>
-        public string host = "localhost";
+        public string Host = "localhost";
 
         /// <summary>
         /// The owner
         /// </summary>
-        public string owner = null;
+        public string Owner = null;
 
         /// <summary>
         /// The port (and its default) to connect to.
         /// </summary>
-        public int port = 8089;
+        public int Port = 8089;
 
         /// <summary>
         /// The password used for authentication.
         /// </summary>
-        public string password = null;
+        public string Password = null;
 
         /// <summary>
         /// The scheme to use (http or https).
         /// </summary>
-        public string scheme = "https";
+        public string Scheme = "https";
 
         /// <summary>
         /// The username used for authentication.
         /// </summary>
-        public string username = null;
+        public string Username = null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Command"/> class.
@@ -131,17 +132,22 @@ namespace SplunkSDKHelper
         /// <returns>The Command instance.</returns>
         public Command Init() 
         {
-            this.rules.AddOption("h",  "help", false, "Display this help message");
-            this.rules.AddOption(null, "host", true, "Host name (default localhost)");
+            this.rules.AddOption(
+                "h",  "help", false, "Display this help message");
+            this.rules.AddOption(
+                null, "host", true, "Host name (default localhost)");
             this.rules.AddOption(OptionBuilder.Factory
                     .WithLongOpt("port")
                     .HasArg(true)
                     .WithType(typeof(int))
                     .WithDescription("Port number")
                     .Create());
-            this.rules.AddOption(null, "scheme", true, "Scheme (default https)");
-            this.rules.AddOption(null, "username", true, "Username to login with");
-            this.rules.AddOption(null, "password", true, "Password to login with");
+            this.rules.AddOption(
+                null, "scheme", true, "Scheme (default https)");
+            this.rules.AddOption(
+                null, "username", true, "Username to login with");
+            this.rules.AddOption(
+                null, "password", true, "Password to login with");
             this.rules.AddOption(null, "app", true, "App/namespace context");
             this.rules.AddOption(null, "owner", true, "Owner/user context");
             return this;
@@ -250,7 +256,8 @@ namespace SplunkSDKHelper
             cmdline = parser.Parse(this.rules, argv);
 
             // Unpack the cmdline into a simple Map of options and optionally
-            // assign values to any corresponding fields found in the Command class.
+            // assign values to any corresponding fields found in the Command 
+            // class.
             foreach (Option option in cmdline.Options) 
             {
                 string name = option.LongOpt;
@@ -263,8 +270,8 @@ namespace SplunkSDKHelper
                 // Figure out the type of the option and convert the value.
                 if (!option.HasArg) 
                 {
-                    // If it has no arg, then its implicitly boolean and presence
-                    // of the argument indicates truth.
+                    // If it has no arg, then its implicitly boolean and 
+                    // presence of the argument indicates truth.
                     value = true;
                 }
                 else 
@@ -272,7 +279,8 @@ namespace SplunkSDKHelper
                     Type type = (Type)option.Type;
                     if (type == null || type == typeof(string)) 
                     {
-                        // Null implies string, check for multivalue (unsupported)
+                        // Null implies string, check for multivalue 
+                        // (unsupported)
                     } 
                     else if (type == typeof(int)) 
                     {
@@ -284,12 +292,13 @@ namespace SplunkSDKHelper
                     }
                 }
 
-                if (this.opts.ContainsKey(name))
+                if (this.Opts.ContainsKey(name))
                 {
-                    // the established value is being overwritten by a newer value
-                    this.opts.Remove(name);
+                    // the established value is being overwritten by a newer 
+                    // value
+                    this.Opts.Remove(name);
                 }
-                this.opts.Add(name, value);
+                this.Opts.Add(name, value);
 
                 // Look for a field of the Command class (or subclass) that
                 // matches the long name of the option and, if found, assign the
@@ -309,7 +318,7 @@ namespace SplunkSDKHelper
             orig.CopyTo(this.args, 0);
             cmdline.Args.CopyTo(this.args, orig.Length);
 
-            if (this.help) 
+            if (this.Help) 
             {
                 this.PrintHelp();
                 Environment.Exit(0);
@@ -356,7 +365,8 @@ namespace SplunkSDKHelper
         /// <returns>The Command instance.</returns>
         public Command Splunkrc() 
         {
-            string home = Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
+            string home = 
+                Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
             this.Load(home + "\\.splunkrc");
             return this;
         }

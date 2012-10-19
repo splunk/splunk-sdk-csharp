@@ -1,11 +1,15 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplunkSDK", "SplunkSDK.csproj", "{CA4151A1-3EF9-461D-9E03-34627273150D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplunkSDKHelper", "sdk-helper\SplunkSDKHelper.csproj", "{4135F018-6041-4269-A76F-B6AAF87E260D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "search", "examples\search\search.csproj", "{F3692BB4-E692-4ED8-B999-FB7FBCF3126F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4135F018-6041-4269-A76F-B6AAF87E260D} = {4135F018-6041-4269-A76F-B6AAF87E260D}
+		{CA4151A1-3EF9-461D-9E03-34627273150D} = {CA4151A1-3EF9-461D-9E03-34627273150D}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "submit", "submit\submit.csproj", "{A585A939-E070-455D-9A99-A68618B54E1F}"
 EndProject

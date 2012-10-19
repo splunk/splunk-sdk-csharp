@@ -27,7 +27,8 @@ namespace Splunk
     public class AtomFeed : AtomObject
     {
         /// <summary>
-        /// Gets or sets the list of Atom entries contained in this AtomFeed object.
+        /// Gets or sets the list of Atom entries contained in this AtomFeed 
+        /// object.
         /// </summary>
         public List<AtomEntry> Entries 
         {
@@ -63,7 +64,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Creayes a new AtomFeed instance.
+        /// Creates a new AtomFeed instance.
         /// </summary>
         /// <returns>An empty AtomFeed object</returns>
         public static AtomFeed Create() 
@@ -83,7 +84,8 @@ namespace Splunk
         {
             XmlElement root = Xml.Parse(input).DocumentElement;
             string rname = root.Name;
-            if (!rname.Equals("feed") && !root.NamespaceURI.Equals("http://www.w3.org/2005/Atom")) 
+            if (!rname.Equals("feed") && 
+                !root.NamespaceURI.Equals("http://www.w3.org/2005/Atom")) 
             {
                 throw new Exception("Unrecognized XML format");
             }

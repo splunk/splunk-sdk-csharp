@@ -27,7 +27,8 @@ namespace Splunk
     public class ApplicationUpdate : Entity
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ApplicationUpdate"/> class.
+        /// Initializes a new instance of the <see cref="ApplicationUpdate"/> 
+        /// class.
         /// </summary>
         /// <param name="service">The connected service</param>
         /// <param name="path">The path</param>

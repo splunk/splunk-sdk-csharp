@@ -122,13 +122,12 @@ namespace Splunk
             new string[] { "ZP6", "+0600", "USSR Zone 5" }
         };
 
-        //
         /// <summary>
         /// Returns the date with the textual timezone replaced with 
         /// the UTC equivalent, if found.
         /// </summary>
-        /// <param name="date"></param>
-        /// <returns></returns>
+        /// <param name="date">The date</param>
+        /// <returns>The date with timezone string</returns>
         public static string ReplaceTimeZone(string date)
         {
             foreach (string[] timezone in timeZones)

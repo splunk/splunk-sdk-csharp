@@ -50,8 +50,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the priority of this event type. The range is 1 to 10, with 1
-        /// being the highest priority.
+        /// Gets or sets the priority of this event type. The range is 1 to 10, 
+        /// with 1 being the highest priority.
         /// </summary>
         public int Priority
         {
@@ -96,9 +96,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Updates the event type with the values you previously set using the setter
-        /// methods, and any additional specified arguments. The specified arguments
-        /// take precedent over the values that were set using the setter methods.
+        /// Updates the event type with the values you previously set using the 
+        /// setter methods, and any additional specified arguments. The 
+        /// specified arguments take precedent over the values that were set 
+        /// using the setter methods.
         /// </summary>
         /// <param name="args">The arguments</param>
         public override void Update(Dictionary<string, object> args)
@@ -113,13 +114,13 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Updates the event type with the accumulated arguments, established by the
-        /// individual setter methods for each specific entity class.
+        /// Updates the event type with the accumulated arguments, established 
+        /// by the individual setter methods for each specific entity class.
         /// </summary>
         public override void Update()
         {
             // If not present in the update keys, add required attribute as long
-            // as one pre-existing update pair exists
+            // as one pre-existing update pair exists.
             if (toUpdate.Count > 0 && !this.toUpdate.ContainsKey("search"))
             {
                 this.SetCacheValue("search", this.Search);

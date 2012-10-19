@@ -37,8 +37,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the fully-qualified path to the directory containing the 
-        /// default index for this instance of Splunk.
+        /// Gets or sets the fully-qualified path to the directory containing 
+        /// the default index for this instance of Splunk.
         /// </summary>
         public string SplunkDB
         {
@@ -65,7 +65,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether SSL is enabled on the Splunk management port.
+        /// Gets or sets a value indicating whether SSL is enabled on the Splunk
+        /// management port.
         /// </summary>
         public bool EnableSplunkWebSSL
         {
@@ -133,8 +134,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the amount of free disk space that is required for Splunk
-        /// to continue searching and indexing.
+        /// Gets or sets the amount of free disk space that is required for 
+        /// Splunk to continue searching and indexing.
         /// </summary>
         public int MinFreeSpace
         {
@@ -150,9 +151,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the string that is prepended to the Splunk symmetric key to
-        /// generate the final key that used to sign all traffic between master and
-        /// slave licensers.
+        /// Gets or sets the string that is prepended to the Splunk symmetric 
+        /// key to generate the final key that used to sign all traffic between 
+        /// master and slave licensers.
         /// </summary>
         public string Pass4SymmKey
         {
@@ -168,8 +169,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the name that is used to identify this Splunk instance for
-        /// features such as distributed search.
+        /// Gets or sets the name that is used to identify this Splunk instance 
+        /// for features such as distributed search.
         /// </summary>
         public string ServerName
         {
@@ -203,7 +204,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the instance is configured to start Splunk Web.
+        /// Gets or sets a value indicating whether the instance is configured 
+        /// to start Splunk Web.
         /// </summary>
         public bool StartWebServer
         {
@@ -236,16 +238,17 @@ namespace Splunk
 
         /// <summary>
         /// Updates the settings with the values previously set using the setter
-        /// methods, and any additional specified arguments. The specified arguments
-        /// take precedent over the values that were set using the setter methods.
-        /// The post message is sent to a non-normal endpoint.
+        /// methods, and any additional specified arguments. The specified
+        /// arguments take precedent over the values that were set using the 
+        /// setter methods. The post message is sent to a non-normal endpoint.
         /// </summary>
         /// <param name="args">The key/value pairs to update</param>
         public override void Update(Dictionary<string, object> args)
         {
             // Merge cached setters and live args together before updating; live
             // args get precedence over the cached setter args.
-            Dictionary<string, object> mergedArgs = new Dictionary<string, object>();
+            Dictionary<string, object> mergedArgs = 
+                new Dictionary<string, object>();
             foreach (KeyValuePair<string, object> element in args)
             {
                 mergedArgs.Add(element.Key, element.Value);
@@ -263,8 +266,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Updates the entity with the accumulated arguments, established by this
-        /// class. The post message is sent to a non-normal endpoint.
+        /// Updates the entity with the accumulated arguments, established by 
+        /// this class. The post message is sent to a non-normal endpoint.
         /// </summary>
         public override void Update()
         {

@@ -24,7 +24,8 @@ namespace Splunk
     public class SavedSearchCollection : EntityCollection<SavedSearch>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SavedSearchCollection"/> class.
+        /// Initializes a new instance of the 
+        /// <see cref="SavedSearchCollection"/> class.
         /// </summary>
         /// <param name="service">The connected service</param>
         public SavedSearchCollection(Service service)
@@ -33,7 +34,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SavedSearchCollection"/> class.
+        /// Initializes a new instance of the 
+        /// <see cref="SavedSearchCollection"/> class.
         /// </summary>
         /// <param name="service">The connected service</param>
         /// <param name="args">The arguments</param>
@@ -56,7 +58,7 @@ namespace Splunk
         /// Creates a saved search from a name and search expression.
         /// </summary>
         /// <param name="name">The name of the search</param>
-        /// <param name="search">The search strring</param>
+        /// <param name="search">The search string</param>
         /// <returns>The saved search</returns>
         public SavedSearch Create(string name, string search)
         {

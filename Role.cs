@@ -23,8 +23,8 @@ namespace Splunk
 
     /// <summary>
     /// The Role class represents a Splunk role, which is a collection of
-    /// permissions and capabilities. The user's role determines what the user can
-    ///see and interact with in Splunk.
+    /// permissions and capabilities. The user's role determines what the user 
+    /// can see and interact with in Splunk.
     /// </summary>
     public class Role : Entity
     {
@@ -71,8 +71,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets an array of roles used to import attributes from, such as
-        /// capabilities and allowed indexes to search.
+        /// Gets or sets an array of roles used to import attributes from, such 
+        /// as capabilities and allowed indexes to search.
         /// </summary>
         public string[] ImportedRoles
         {
@@ -100,8 +100,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the maximum disk space that can be used for search jobs by a user
-        /// with this role.
+        /// Gets the maximum disk space that can be used for search jobs by a 
+        /// user with this role.
         /// </summary>
         public int ImportedSearchDiskQuota
         {
@@ -112,10 +112,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a search string that restricts the scope of searches run by this
-        /// role. Only those events that also match this search string are shown to
-        /// the user. If a user has multiple roles with different search filters,
-        /// they are combined with an {@code OR}.
+        /// Gets a search string that restricts the scope of searches run by 
+        /// this role. Only those events that also match this search string are
+        /// shown to the user. If a user has multiple roles with different 
+        /// search filters, they are combined with an "OR"
         /// </summary>
         public string ImportedSearchFilter
         {
@@ -126,8 +126,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets an array of indexes that a user with this role has permissions to
-        /// search.
+        /// Gets an array of indexes that a user with this role has permissions 
+        /// to search.
         /// </summary>
         public string[] ImportedIndexesAllowed
         {
@@ -162,8 +162,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the maximum number of concurrent real-time search jobs a user
-        /// with this role is allowed to run.
+        /// Gets or sets the maximum number of concurrent real-time search jobs 
+        /// a use with this role is allowed to run.
         /// </summary>
         public int RtSearchJobsQuota
         {
@@ -179,8 +179,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the  maximum disk space that can be used for search jobs by a user
-        /// with this role.
+        /// Gets or sets the  maximum disk space that can be used for search 
+        /// jobs by a user with this role.
         /// </summary>
         public int SearchDiskQuota
         {
@@ -196,10 +196,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a search string that restricts the scope of searches run by this
-        /// role. Only those events that also match this search string are shown to
-        /// the user. If a user has multiple roles with different search filters,
-        /// they are combined with an OR.
+        /// Gets or sets a search string that restricts the scope of searches 
+        /// run by this role. Only those events that also match this search 
+        /// string are shown to the user. If a user has multiple roles with 
+        /// different search filters, they are combined with an OR.
         /// </summary>
         public string SearchFilter
         {
@@ -215,8 +215,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets an array of indexes that a user with this role has permissions
-        /// to search.
+        /// Gets or sets an array of indexes that a user with this role has 
+        /// permissions to search.
         /// </summary>
         public string[] SearchIndexesAllowed
         {
@@ -232,8 +232,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets an array of indexes to search by default when no index is
-        /// specified for a user with this role.
+        /// Gets or sets an array of indexes to search by default when no index
+        /// is specified for a user with this role.
         /// </summary>
         public string[] SearchIndexesDefault
         {
@@ -249,8 +249,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the maximum number of concurrent searches a user with this role 
-        /// is allowed to run.
+        /// Gets or sets the maximum number of concurrent searches a user with 
+        /// this role is allowed to run.
         /// </summary>
         public int SearchJobsQuota
         {
@@ -266,8 +266,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the maximum time span of a search that is allowed for users in
-        /// this role.
+        /// Gets or sets the maximum time span of a search that is allowed for 
+        /// users in this role.
         /// </summary>
         public int SearchTimeWin
         {

@@ -37,57 +37,69 @@ namespace Splunk
         /// <summary>
         /// The basic, unknown input type.
         /// </summary>
-        public static readonly InputKind Unknown = new InputKind("Unknown", typeof(Input));
+        public static readonly InputKind Unknown = 
+            new InputKind("Unknown", typeof(Input));
 
         /// <summary>
         /// The Monitor Input
         /// </summary>
-        public static readonly InputKind Monitor = new InputKind("monitor", typeof(MonitorInput));
+        public static readonly InputKind Monitor = 
+            new InputKind("monitor", typeof(MonitorInput));
 
         /// <summary>
         /// The Script Input
         /// </summary>
-        public static readonly InputKind Script = new InputKind("script", typeof(ScriptInput));
+        public static readonly InputKind Script = 
+            new InputKind("script", typeof(ScriptInput));
 
         /// <summary>
         /// The Raw TCP Input
         /// </summary>
-        public static readonly InputKind Tcp = new InputKind("tcp/raw", typeof(TcpInput));
+        public static readonly InputKind Tcp = 
+            new InputKind("tcp/raw", typeof(TcpInput));
 
         /// <summary>
         /// The Cooked TCP Input
         /// </summary>
-        public static readonly InputKind TcpSplunk = new InputKind("tcp/cooked", typeof(TcpSplunkInput));
+        public static readonly InputKind TcpSplunk = 
+            new InputKind("tcp/cooked", typeof(TcpSplunkInput));
 
         /// <summary>
         /// The UDP Input
         /// </summary>
-        public static readonly InputKind Udp = new InputKind("udp", typeof(UdpInput));
+        public static readonly InputKind Udp = 
+            new InputKind("udp", typeof(UdpInput));
 
         /// <summary>
         /// The Windows Active Directory Input
         /// </summary>
-        public static readonly InputKind WindowsActiveDirectory = new InputKind("ad", typeof(WindowsActiveDirectoryInput));
+        public static readonly InputKind WindowsActiveDirectory = 
+            new InputKind("ad", typeof(WindowsActiveDirectoryInput));
 
         /// <summary>
         /// The Windows Event Log Input
         /// </summary>
-        public static readonly InputKind WindowsEventLog = new InputKind("win-event-log-collections", typeof(WindowsEventLogInput));
+        public static readonly InputKind WindowsEventLog = 
+            new InputKind(
+                "win-event-log-collections", typeof(WindowsEventLogInput));
 
         /// <summary>
         /// The Windows Performance Monitor Input
         /// </summary>
-        public static readonly InputKind WindowsPerfmon = new InputKind("win-perfmon", typeof(WindowsPerfmonInput));
+        public static readonly InputKind WindowsPerfmon = 
+            new InputKind("win-perfmon", typeof(WindowsPerfmonInput));
 
         /// <summary>
         /// The Windows Registry Input
         /// </summary>
-        public static readonly InputKind WindowsRegistry = new InputKind("registry", typeof(WindowsRegistryInput));
+        public static readonly InputKind WindowsRegistry =
+            new InputKind("registry", typeof(WindowsRegistryInput));
 
         /// <summary>
         /// The Windows WMI Input
         /// </summary>
-        public static readonly InputKind WindowsWmi = new InputKind("win-wmi-collections", typeof(WindowsWmiInput));
+        public static readonly InputKind WindowsWmi = 
+            new InputKind("win-wmi-collections", typeof(WindowsWmiInput));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InputKind"/> class. 

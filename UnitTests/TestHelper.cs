@@ -52,7 +52,7 @@ namespace UnitTests
         /// <returns>The service</returns>
         public Service Connect() 
         {
-            return Service.Connect(this.command.opts);
+            return Service.Connect(this.command.Opts);
         }
 
         /// <summary>

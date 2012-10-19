@@ -232,7 +232,7 @@ namespace UnitTests
         {
             ResponseMessage response;
 
-            Service service = new Service(this.SetUp().host, this.SetUp().port, this.SetUp().scheme);
+            Service service = new Service(this.SetUp().Host, this.SetUp().Port, this.SetUp().Scheme);
 
             // Not logged in, should fail with 401
             try
@@ -246,7 +246,7 @@ namespace UnitTests
             }
 
             // Logged in, request should succeed
-            service.Login(this.SetUp().username, this.SetUp().password);
+            service.Login(this.SetUp().Username, this.SetUp().Password);
             response = service.Get("/services/authentication/users");
             this.CheckResponse(response);
 

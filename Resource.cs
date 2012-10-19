@@ -48,8 +48,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Resource"/> class, adding
-        /// optional arguments for namespace and other endpoint arguments.
+        /// Initializes a new instance of the <see cref="Resource"/> class, 
+        /// adding optional arguments for namespace and other endpoint 
+        /// arguments.
         /// </summary>
         /// <param name="service">The service</param>
         /// <param name="path">The path of this resource</param>
@@ -74,7 +75,8 @@ namespace Splunk
             }
             if (args.ContainsKey("sharing")) 
             {
-                splunkNamespace.AlternateAdd("sharing", args["sharing"].ToString());
+                splunkNamespace.AlternateAdd(
+                    "sharing", args["sharing"].ToString());
                 clonedArgs.Remove("sharing");
             }
             if (!clonedArgs.ContainsKey("count")) 
@@ -83,7 +85,8 @@ namespace Splunk
             }
 
             this.RefreshArgs = clonedArgs;
-            this.Path = service.Fullpath(path, splunkNamespace.Count == 0 ? null : splunkNamespace);
+            this.Path = service.Fullpath(
+                path, splunkNamespace.Count == 0 ? null : splunkNamespace);
             this.MaybeValid = false;
         }
 
@@ -124,8 +127,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this resource is clean or dirty. 
-        /// When dirty, we refresh the resource before returning 
+        /// Gets or sets a value indicating whether this resource is clean or 
+        /// dirty. When dirty, we refresh the resource before returning 
         /// any data contained therein.
         /// </summary>
         public bool MaybeValid 

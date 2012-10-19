@@ -44,7 +44,8 @@ namespace Splunk
         };
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InputCollection"/> class.
+        /// Initializes a new instance of the <see cref="InputCollection"/> 
+        /// class.
         /// </summary>
         /// <param name="service">The connected service</param>
         public InputCollection(Service service)
@@ -53,7 +54,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InputCollection"/> class.
+        /// Initializes a new instance of the <see cref="InputCollection"/> 
+        /// class.
         /// </summary>
         /// <param name="service">The connected service</param>
         /// <param name="args">The parameters</param>
@@ -113,7 +115,8 @@ namespace Splunk
         /// <param name="kind">The kind of Input to create</param>
         /// <param name="args">The new Input object</param>
         /// <returns>The input</returns>
-        public Input Create(string name, InputKind kind, Dictionary<string, object> args)
+        public Input 
+            Create(string name, InputKind kind, Dictionary<string, object> args)
         {
             args = Args.Create(args);
             args.Add("name", name);
@@ -187,7 +190,8 @@ namespace Splunk
             foreach (InputKind kind in kinds)
             {
                 string relpath = kind.RelPath;
-                string inputs = string.Format("{0}/{1}?count=-1", this.Path, relpath);
+                string inputs = 
+                    string.Format("{0}/{1}?count=-1", this.Path, relpath);
                 ResponseMessage response = null;
                 try
                 {
@@ -195,7 +199,8 @@ namespace Splunk
                 }
                 catch (WebException ex)
                 {
-                    if (ex.Status == WebExceptionStatus.ProtocolError && ex.Response != null)
+                    if (ex.Status == WebExceptionStatus.ProtocolError && 
+                        ex.Response != null)
                     {
                         var resp = (HttpWebResponse)ex.Response;
                         if (resp.StatusCode == HttpStatusCode.NotFound)
@@ -257,8 +262,8 @@ namespace Splunk
             this.Validate();
             // Because scripted input names are not 1:1 with the original name
             // (they are the absolute path on the splunk instance followed by
-            // the original name), we will iterate over the entities in the list,
-            // and if we find one that matches, return it.
+            // the original name), we will iterate over the entities in the 
+            // list, and if we find one that matches, return it.
             foreach (KeyValuePair<string, List<Input>> entry in this.Items)
             {
                 string entryKey = entry.Key;
@@ -271,7 +276,9 @@ namespace Splunk
                     {
                         if (entryValue.Count > 1)
                         {
-                            throw new SplunkException(SplunkException.AMBIGUOUS, "Key has multiple values, specify a namespace");
+                            throw new SplunkException(
+                                SplunkException.AMBIGUOUS,
+                                "Key has multiple values, specify a namespace");
                         }
                         return entryValue[0];
                     }
@@ -283,7 +290,9 @@ namespace Splunk
                         List<Input> entities = this.Items[key];
                         if (entities.Count > 1)
                         {
-                            throw new SplunkException(SplunkException.AMBIGUOUS, "Key has multiple values, specify a namespace");
+                            throw new SplunkException(
+                                SplunkException.AMBIGUOUS,
+                                "Key has multiple values, specify a namespace");
                         }
                         if (entities.Count == 0)
                         {
@@ -297,8 +306,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Retrieves the named, scoped and namespace-constrained input from the list, 
-        /// or null if it does not exist.
+        /// Retrieves the named, scoped and namespace-constrained input from the
+        /// list, or null if it does not exist.
         /// </summary>
         /// <param name="key">The name of the input</param>
         /// <param name="splunkNamespace">The namespace</param>
@@ -308,9 +317,10 @@ namespace Splunk
             this.Validate();
             // because scripted input names are not 1:1 with the original name
             // (they are the absolute path on the splunk instance followed by
-            // the original name), we will iterate over the entities in the list,
-            // and if we find one that matches, return it.
-            string pathMatcher = this.Service.Fullpath(string.Empty, splunkNamespace);
+            // the original name), we will iterate over the entities in the 
+            // list, and if we find one that matches, return it.
+            string pathMatcher = 
+                this.Service.Fullpath(string.Empty, splunkNamespace);
             foreach (KeyValuePair<string, List<Input>> entry in this.Items)
             {
                 string entryKey = entry.Key;

@@ -25,8 +25,8 @@ namespace Splunk
 
     /// <summary>
     /// The JobCollection class represents a collection of jobs. A job
-    /// is an individual instance of a running or completed search or report, along 
-    /// with its related output.
+    /// is an individual instance of a running or completed search or report, 
+    /// along with its related output.
     /// </summary>
     public class JobCollection : EntityCollection<Job>
     {
@@ -75,7 +75,8 @@ namespace Splunk
             {
                 if (args["exec_mode"].Equals("oneshot")) 
                 {
-                    throw new Exception("Oneshot not allowed, use service oneshot search method");
+                    throw new Exception(
+                      "Oneshot not allowed, use service oneshot search method");
                 }
             }
             args = Args.Create(args).AlternateAdd("search", query);
@@ -107,8 +108,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Returns the job's unique search identifier (SID), which is used as this
-        /// item's key.
+        /// Returns the job's unique search identifier (SID), which is used as 
+        /// this item's key.
         /// </summary>
         /// <param name="entry">The Atom Entry</param>
         /// <returns>The SID</returns>

@@ -32,8 +32,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the style of host connection. Valid values are: "ip", "dns", and
-        /// "none".
+        /// Gets or sets the style of host connection. Valid values are: "ip", 
+        /// "dns", and "none".
         /// </summary>
         public string ConnectionHost
         {
@@ -71,7 +71,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the source host of this TCP input where this indexer gets its data.
+        /// Gets or sets the source host of this TCP input where this indexer 
+        /// gets its data.
         /// </summary>
         public string Host
         {
@@ -131,8 +132,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the incoming host restriction for this TCP input. When specified, 
-        /// this input only accepts data from the specified host. 
+        /// Gets or sets the incoming host restriction for this TCP input. When 
+        /// specified, this input only accepts data from the specified host. 
         /// </summary>
         public string RestrictToHost
         {
@@ -148,8 +149,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the initial source key for this TCP input. Typically this value 
-        /// is the input file path.
+        /// Gets or sets the initial source key for this TCP input. Typically 
+        /// this value is the input file path.
         /// </summary>
         public string Source
         {
@@ -181,7 +182,8 @@ namespace Splunk
         }
         
         /// <summary>
-        /// Gets or sets a value indicating whether this TCP input is using secure socket layer (SSL).
+        /// Gets or sets a value indicating whether this TCP input is using 
+        /// secure socket layer (SSL).
         /// </summary>
         /// <returns></returns>
         public bool SSL

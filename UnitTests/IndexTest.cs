@@ -236,8 +236,8 @@ namespace UnitTests
             Assert.AreEqual(2, index.TotalEventCount, assertRoot + "#3");
 
             service.Oneshot(string.Format("search index={0} * | delete", indexName));
+            this.Wait_event_count(index, 0, 45);            
             //index.Clean(180);
-            this.Wait_event_count(index, 0, 45);
             Assert.AreEqual(0, index.TotalEventCount, assertRoot + "#4");
 
             // stream events to index
@@ -256,7 +256,7 @@ namespace UnitTests
 
             service.Oneshot(string.Format("search index={0} * | delete", indexName));
             this.Wait_event_count(index, 0, 45);
-            // index.Clean(180);
+            index.Clean(180);
             Assert.AreEqual(0, index.TotalEventCount, assertRoot + "#6");
 
             string filename;
@@ -286,7 +286,9 @@ namespace UnitTests
                 throw new Exception("File " + filename + "failed to upload: Exception -> " + e.Message);
             }
 
-            index.Clean(180);
+            service.Oneshot(string.Format("search index={0} * | delete", indexName));
+            this.Wait_event_count(index, 0, 45);            
+            //index.Clean(180);
             Assert.AreEqual(0, index.TotalEventCount, assertRoot + "#7");
 
             // Restore original roles

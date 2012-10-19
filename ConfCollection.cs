@@ -22,7 +22,8 @@ namespace Splunk
     public class ConfCollection : ResourceCollection<EntityCollection<Entity>>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ConfCollection"/> class.
+        /// Initializes a new instance of the <see cref="ConfCollection"/> 
+        /// class.
         /// </summary>
         /// <param name="service">The connected service</param>
         public ConfCollection(Service service)
@@ -31,12 +32,13 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ConfCollection"/> class.
+        /// Initializes a new instance of the <see cref="ConfCollection"/> 
+        /// class.
         /// </summary>
         /// <param name="service">The connected service</param>
         /// <param name="args">The arguments</param>
         public ConfCollection(Service service, Args args)
-            : base(service, "properties", args, typeof(EntityCollection<Entity>))
+           : base(service, "properties", args, typeof(EntityCollection<Entity>))
         {
         }
 
@@ -51,7 +53,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Creates a new stanza in the current configuration file with attributes.
+        /// Creates a new stanza in the current configuration file with 
+        /// attributes.
         /// </summary>
         /// <param name="name">The stanza name</param>
         /// <param name="args">The arguments</param>

@@ -31,7 +31,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the Splunk build number
+        /// Gets the Splunk build number.
         /// </summary>
         public int Build 
         {
@@ -42,7 +42,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the CPU architecture
+        /// Gets the CPU architecture.
         /// </summary>
         public string CpuArch 
         {
@@ -53,7 +53,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the GUID identifying this Splunk instance
+        /// Gets the GUID identifying this Splunk instance.
         /// </summary>
         public string Guid
         {
@@ -185,7 +185,8 @@ namespace Splunk
         }
 
         /// <summary>
-        ///  Gets a value indicating whether this Splunk instance is running under a free license.
+        ///  Gets a value indicating whether this Splunk instance is running 
+        ///  under a free license.
         /// </summary>
         public bool IsFree 
         {
@@ -196,7 +197,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value indicating whether real-time search is enabled for the service.
+        /// Gets a value indicating whether real-time search is enabled for the
+        /// service.
         /// </summary>
         public bool IsRtSearchEnabled 
         {
@@ -207,7 +209,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value indicating whether this Splunk instance is running under a trial license.
+        /// Gets a value indicating whether this Splunk instance is running 
+        /// under a trial license.
         /// </summary>
         public bool IsTrial 
         {

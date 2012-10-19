@@ -103,10 +103,11 @@ namespace Splunk
 
         /// <summary>
         /// Gets or sets the search command (or pipeline) that runs the action.
-        /// Generally, this command is a template search pipeline that is realized
-        /// with values from the saved search. To reference saved search field
-        /// values, wrap them in $. For example, use $name$ to reference the saved
-        /// search name, or use $search$ to reference the search query.
+        /// Generally, this command is a template search pipeline that is 
+        /// realized with values from the saved search. To reference saved 
+        /// search field values, wrap them in $. For example, use $name$ to 
+        /// reference the saved search name, or use $search$ to reference the 
+        /// search query.
         /// </summary>
         public string ActionEmailCommand
         {
@@ -122,8 +123,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the format of text in the email. This value also applies to any
-        /// attachments formats. Valid values are: "plain", "html", "raw", and "csv".
+        /// Gets or sets the format of text in the email. This value also 
+        /// applies to any attachments formats. Valid values are: "plain", 
+        /// "html", "raw", and "csv".
         /// </summary>
         public string ActionEmailFormat
         {
@@ -155,7 +157,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the the host name used in the web link (URL) that is sent in email alerts.
+        /// Gets or sets the the host name used in the web link (URL) that is 
+        /// sent in email alerts.
         /// </summary>
         public string ActionEmailHostname
         {
@@ -171,8 +174,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the search results are contained in the body of the
-        /// email.
+        /// Gets or sets a value indicating whether the search results are 
+        /// contained in the body of the email.
         /// </summary>
         public bool ActionEmailInline
         {
@@ -188,9 +191,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the address of the MTA server that is used to send the emails. If
-        /// this attribute is not set, this value defaults to the setting in the
-        /// alert_actions.conf file.
+        /// Gets or sets the address of the MTA server that is used to send the 
+        /// emails. If this attribute is not set, this value defaults to the 
+        /// setting in the alert_actions.conf file.
         /// </summary>
         public string ActionEmailMailServer
         {
@@ -206,7 +209,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the maximum number of search results to send in email alerts.
+        /// Gets or sets the maximum number of search results to send in email 
+        /// alerts.
         /// </summary>
         public int ActionEmailMaxResults
         {
@@ -222,10 +226,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the maximum amount of time an email action takes before the
-        /// action is canceled.
-        /// The valid format is <i>number</i> followed by a time unit ("s", "m", "h",
-        /// or "d").
+        /// Gets or sets the maximum amount of time an email action takes before
+        /// the action is canceled. The valid format is <i>number</i> followed 
+        /// by a time unit ("s", "m", "h", or "d").
         /// </summary>
         public string ActionEmailMaxTime
         {
@@ -241,7 +244,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the name of the view to deliver if {@code ActionEmailSendPdf} is enabled.
+        /// Gets or sets the name of the view to deliver if ActionEmailSendPdf
+        /// is enabled.
         /// </summary>
         public string ActionEmailPdfView
         {
@@ -257,9 +261,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the search string for pre-processing results before emailing
-        /// them. Usually preprocessing consists of filtering out unwanted internal
-        /// fields.
+        /// Gets or sets the search string for pre-processing results before 
+        /// emailing them. Usually preprocessing consists of filtering out 
+        /// unwanted internal fields.
         /// </summary>
         public string ActionEmailPreProcessResults
         {
@@ -282,12 +286,14 @@ namespace Splunk
         {
             get
             {
-                return this.GetString("action.email.reportPaperOrientation", null);
+                return this.GetString(
+                    "action.email.reportPaperOrientation", null);
             }
 
             set
             {
-                this.SetCacheValue("action.email.reportPaperOrientation", value);
+                this.SetCacheValue(
+                    "action.email.reportPaperOrientation", value);
             }
         }
 
@@ -315,7 +321,8 @@ namespace Splunk
         {
             get
             {
-                return this.GetBoolean("action.email.reportServerEnabled", false);
+                return this.GetBoolean(
+                    "action.email.reportServerEnabled", false);
             }
 
             set
@@ -325,8 +332,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the URL of the PDF report server, if one is set up and available
-        /// on the network.
+        /// Gets or sets the URL of the PDF report server, if one is set up and
+        /// available on the network.
         /// </summary>
         public string ActionEmailReportServerUrl
         {
@@ -342,7 +349,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to create and send the results in PDF format.
+        /// Gets or sets a value indicating whether to create and send the 
+        /// results in PDF format.
         /// </summary>
         public bool ActionEmailSendPdf
         {
@@ -358,7 +366,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether search results are attached to an email.
+        /// Gets or sets a value indicating whether search results are attached 
+        /// to an email.
         /// </summary>
         public bool ActionEmailSendResults
         {
@@ -390,7 +399,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a comma or semicolon delimited list of email recipients.
+        /// Gets or sets a comma or semicolon delimited list of email 
+        /// recipients.
         /// </summary>
         public string ActionEmailTo
         {
@@ -406,7 +416,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether running this email action results in a trackable alert.
+        /// Gets or sets a value indicating whether running this email action 
+        /// results in a trackable alert.
         /// </summary>
         public bool ActionEmailTrackAlert
         {
@@ -423,8 +434,8 @@ namespace Splunk
 
         /// <summary>
         /// Gets or sets the minimum time-to-live (ttl) of search artifacts if
-        /// this email action is triggered. If the value is a number followed by "p",
-        /// it is the number of scheduled search periods.
+        /// this email action is triggered. If the value is a number followed 
+        /// by "p", it is the number of scheduled search periods.
         /// </summary>
         public string ActionEmailTtl
         {
@@ -440,8 +451,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to use secure socket layer (SSL) when communicating
-        /// with the SMTP server.
+        /// Gets or sets a value indicating whether to use secure socket layer 
+        /// (SSL) when communicating with the SMTP server.
         /// </summary>
         public bool ActionEmailUseSsl
         {
@@ -457,8 +468,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to use transport layer security (TLS) when
-        /// communicating with the SMTP server.
+        /// Gets or sets a value indicating whether to use transport layer 
+        /// security (TLS) when communicating with the SMTP server.
         /// </summary>
         public bool ActionEmailUseTls
         {
@@ -474,15 +485,16 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether columns should be sorted from least wide to most wide,
-        /// left to right.
+        /// Gets or sets a value indicating whether columns should be sorted 
+        /// from least wide to most wide, left to right.
         /// This value is only used when ActionEmailFormat is "plain".
         /// </summary>
         public bool ActionEmailWidthSortColumns
         {
             get
             {
-                return this.GetBoolean("action.email.width_sort_columns", false);
+                return this.GetBoolean(
+                    "action.email.width_sort_columns", false);
             }
 
             set
@@ -508,7 +520,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the name of the lookup table or lookup path to populate.
+        /// Gets or sets the name of the lookup table or lookup path to 
+        /// populate.
         /// </summary>
         public string ActionPopulateLookupDest
         {
@@ -524,8 +537,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the host name used in the web link (URL) that is sent in
-        /// populate-lookup alerts.
+        /// Gets or sets the host name used in the web link (URL) that is sent 
+        /// in populate-lookup alerts.
         /// Valid forms are "hostname" and "protocol://hostname:port".
         /// </summary>
         public string ActionPopulateLookupHostname
@@ -542,7 +555,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the maximum number of search results to send in populate-lookup alerts.
+        /// Gets or sets the maximum number of search results to send in 
+        /// populate-lookup alerts.
         /// </summary>
         public int ActionPopulateLookupMaxResults
         {
@@ -558,9 +572,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the maximum amount of time an alert action takes before the
-        /// action is canceled.
-        /// The valid format is <i>number</i> followed by a time unit ("s", "m", "h",
+        /// Gets or sets the maximum amount of time an alert action takes 
+        /// before the action is canceled. 
+        /// The valid format is a number followed by a time unit ("s", "m", "h",
         /// or "d").
         /// </summary>
         public string ActionPopulateLookupMaxTime
@@ -577,14 +591,15 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether running this populate-lookup action results in a
-        /// trackable alert.
+        /// Gets or sets a value indicating whether running this populate-lookup 
+        /// action results in a trackable alert.
         /// </summary>
         public bool ActionPopulateLookupTrackAlert
         {
             get
             {
-                return this.GetBoolean("action.populate_lookup.track_alert", false);
+                return this.GetBoolean(
+                    "action.populate_lookup.track_alert", false);
             }
 
             set
@@ -628,7 +643,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the host name used in the web link (URL) that is sent in RSS alerts.
+        /// Gets or sets the host name used in the web link (URL) that is sent 
+        /// in RSS alerts.
         /// </summary>
         public string ActionRssHostname
         {
@@ -644,7 +660,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the maximum number of search results to send in RSS alerts.
+        /// Gets or sets the maximum number of search results to send in RSS 
+        /// alerts.
         /// </summary>
         public int ActionRssMaxResults
         {
@@ -660,9 +677,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the maximum amount of time an RSS alert action takes before the
-        /// action is canceled.
-        /// The valid format is <i>number</i> followed by a time unit ("s", "m", "h",
+        /// Gets or sets the maximum amount of time an RSS alert action takes 
+        /// before the action is canceled.
+        /// The valid format is a number followed by a time unit ("s", "m", "h",
         /// or "d").
         /// </summary>
         public string ActionRssMaxTime
@@ -679,7 +696,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether running this RSS action results in a trackable alert.
+        /// Gets or sets a value indicating whether running this RSS action 
+        /// results in a trackable alert.
         /// </summary>
         public bool ActionRssTrackAlert
         {
@@ -696,8 +714,8 @@ namespace Splunk
 
         /// <summary>
         /// Gets or sets the minimum time-to-live (ttl) of search artifacts if
-        /// this RSS action is triggered. If the value is a number followed by "p",
-        /// it is the number of scheduled search periods.
+        /// this RSS action is triggered. If the value is a number followed by 
+        /// "p", it is the number of scheduled search periods.
         /// </summary>
         public string ActionRssTtl
         {
@@ -745,8 +763,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the host name used in the web link (URL) that is sent in script
-        /// alerts.
+        /// Gets or sets the host name used in the web link (URL) that is sent 
+        /// in script alerts.
         /// Valid forms are "hostname" and "protocol://hostname:port".
         /// </summary>
         public string ActionScriptHostname
@@ -763,7 +781,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the maximum number of search results to send in script alerts.
+        /// Gets or sets the maximum number of search results to send in script 
+        /// alerts.
         /// </summary>
         public int ActionScriptMaxResults
         {
@@ -779,9 +798,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the maximum amount of time a script action takes before the
-        /// action is canceled.
-        /// The valid format is <i>number</i> followed by a time unit ("s", "m", "h",
+        /// Gets or sets the maximum amount of time a script action takes before
+        /// the action is canceled.
+        /// The valid format is a number followed by a time unit ("s", "m", "h",
         /// or "d").
         /// </summary>
         public string ActionScriptMaxTime
@@ -798,8 +817,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether running this script action results in a 
-        /// trackable alerts.
+        /// Gets or sets a value indicating whether running this script action 
+        /// results in a trackable alerts.
         /// </summary>
         public bool ActionScriptTrackAlert
         {
@@ -816,8 +835,8 @@ namespace Splunk
 
         /// <summary>
         /// Gets or sets the minimum time-to-live (ttl) of search artifacts if
-        /// this script action is triggered. If the value is a number followed by
-        /// "p", it is the number of scheduled search periods.
+        /// this script action is triggered. If the value is a number followed 
+        /// by "p", it is the number of scheduled search periods.
         /// </summary>
         public string ActionScriptTtl
         {
@@ -833,8 +852,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the name of the summary index where the results of the scheduled
-        /// search are saved.
+        /// Gets or sets the name of the summary index where the results of the 
+        /// scheduled search are saved.
         /// </summary>
         public string ActionSummaryIndexName
         {
@@ -851,10 +870,11 @@ namespace Splunk
 
         /// <summary>
         /// Gets or sets the search command (or pipeline) that runs the action.
-        /// Generally, this command is a template search pipeline that is realized
-        /// with values from the saved search. To reference saved search field
-        /// values, wrap them in $. For example, use $name$ to reference the saved
-        /// search name, or use $search$ to reference the search query.
+        /// Generally, this command is a template search pipeline that is 
+        /// realized with values from the saved search. To reference saved 
+        /// search field values, wrap them in $. For example, use $name$ to 
+        /// reference the saved search name, or use $search$ to reference the 
+        /// search query.
         /// </summary>
         public string ActionSummaryIndexCommand
         {
@@ -870,8 +890,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the host name used in the web link (URL) that is sent in
-        /// summary-index alerts.
+        /// Gets or sets the host name used in the web link (URL) that is sent
+        /// in summary-index alerts.
         /// Valid forms are "hostname" and "protocol://hostname:port".
         /// </summary>
         public string ActionSummaryIndexHostname
@@ -888,8 +908,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to run the summary indexing action as part of the
-        /// scheduled search.
+        /// Gets or sets a value indicating whether to run the summary indexing
+        /// action as part of the scheduled search.
         /// </summary>
         public bool ActionSummaryIndexInline
         {
@@ -905,7 +925,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the maximum number of search results to send in summary-index alerts.
+        /// Gets or sets the maximum number of search results to send in 
+        /// summary-index alerts.
         /// </summary>
         public int ActionSummaryIndexMaxResults
         {
@@ -921,9 +942,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the maximum amount of time a summary action takes before the
-        /// action is canceled.
-        /// The valid format is <i>number</i> followed by a time unit ("s", "m", "h",
+        /// Gets or sets the maximum amount of time a summary action takes 
+        /// before the action is canceled.
+        /// The valid format is a number followed by a time unit ("s", "m", "h",
         /// or "d").
         /// </summary>
         public string ActionSummaryIndexMaxTime
@@ -940,14 +961,15 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether running this summary-index action results in a
-        /// trackable alert.
+        /// Gets or sets a value indicating whether running this summary-index 
+        /// action results in a trackable alert.
         /// </summary>
         public bool ActionSummaryIndexTrackAlert
         {
             get
             {
-                return this.GetBoolean("action.summary_index.track_alert", false);
+                return this.GetBoolean(
+                    "action.summary_index.track_alert", false);
             }
 
             set
@@ -958,8 +980,8 @@ namespace Splunk
 
         /// <summary>
         /// Gets or sets the minimum time-to-live (ttl) of search artifacts if
-        /// a summary-index action is triggered. If the value is a number followed by
-        /// "p", it is the number of scheduled search periods.
+        /// a summary-index action is triggered. If the value is a number 
+        /// followed by "p", it is the number of scheduled search periods.
         /// </summary>
         public string ActionSummaryIndexTtl
         {
@@ -975,8 +997,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether Splunk applies the alert actions to the entire result
-        /// set (digest) or to each individual search result (per result).
+        /// Gets or sets a value indicating whether Splunk applies the alert 
+        /// actions to the entire result set (digest) or to each individual 
+        /// search result (per result).
         /// </summary>
         public bool AlertDigestMode
         {
@@ -993,7 +1016,7 @@ namespace Splunk
 
         /// <summary>
         /// Gets or sets the amount of time to show the alert in the dashboard.
-        /// The valid format is <i>number</i> followed by a time unit ("s", "m", "h",
+        /// The valid format is a number followed by a time unit ("s", "m", "h",
         /// or "d").
         /// </summary>
         public string AlertExpires
@@ -1027,7 +1050,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether alert suppression is enabled for this search.
+        /// Gets or sets a value indicating whether alert suppression is enabled
+        /// for this search.
         /// </summary>
         public bool AlertSuppress
         {
@@ -1043,7 +1067,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a comma-delimeted list of fields to use for alert suppression.
+        /// Gets or sets a comma-delimeted list of fields to use for alert 
+        /// suppression.
         /// </summary>
         public string AlertSuppressFields
         {
@@ -1061,7 +1086,7 @@ namespace Splunk
         /// <summary>
         /// Gets or sets the  suppression period, which is only valid if
         /// AlertSuppress is enabled.
-        /// The valid format is <i>number</i> followed by a time unit ("s", "m", "h",
+        /// The valid format is a number followed by a time unit ("s", "m", "h",
         /// or "d").
         /// </summary>
         public string AlertSuppressPeriod
@@ -1078,9 +1103,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates how to track the actions triggered
-        /// by this saved search. Valid values are: "true" (enabled), "false"
-        /// (disabled), and "auto" (tracking is based on the setting of each action).
+        /// Gets or sets a value that indicates how to track the actions
+        /// triggered by this saved search. Valid values are: "true" (enabled), 
+        /// "false" (disabled), and "auto" (tracking is based on the setting of
+        /// each action).
         /// </summary>
         public string AlertTrack
         {
@@ -1096,9 +1122,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the alert comparator. Valid values are: "greater than", "less
-        /// than", "equal to", "rises by", "drops by", "rises by perc", and "drops by
-        /// perc".
+        /// Gets or sets the alert comparator. Valid values are: "greater than", 
+        /// "less than", "equal to", "rises by", "drops by", "rises by perc",
+        /// and "drops by perc".
         /// </summary>
         public string AlertComparator
         {
@@ -1114,8 +1140,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a conditional search that is evaluated against the results of
-        /// the saved search.
+        /// Gets or sets a conditional search that is evaluated against the 
+        /// results of the saved search.
         /// </summary>
         public string AlertCondition
         {
@@ -1131,10 +1157,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the value to compare to before triggering the alert action.
-        /// If this value is expressed as a percentage, it indicates the value to use
-        /// when AlertComparator is set to "rises by perc" or "drops by
-        /// perc."
+        /// Gets or sets the value to compare to before triggering the alert 
+        /// action. If this value is expressed as a percentage, it indicates the
+        /// value to use when AlertComparator is set to "rises by perc" or 
+        /// "drops by perc."
         /// </summary>
         public string AlertThreshold
         {
@@ -1150,10 +1176,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates what to base the alert on. Valid values
-        /// are: "always", "custom", "number of events", "number of hosts", and
-        /// "number of sources". This value is overridden by {@code AlertCondition}
-        /// if specified.
+        /// Gets or sets a value that indicates what to base the alert on. Valid
+        /// values are: "always", "custom", "number of events", "number of 
+        /// hosts", and "number of sources". This value is overridden by 
+        /// AlertCondition if specified.
         /// </summary>
         public string AlertType
         {
@@ -1217,8 +1243,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the earliest time for this search. This value can be a relative
-        /// or absolute time as formatted by DispatchTimeFormat.
+        /// Gets or sets the earliest time for this search. This value can be a 
+        /// relative or absolute time as formatted by DispatchTimeFormat.
         /// </summary>
         public string DispatchEarliestTime
         {
@@ -1234,8 +1260,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets latest time for this search. This value can be a relative
-        /// or absolute time as formatted by DispatchTimeFormat.
+        /// Gets or sets latest time for this search. This value can be a
+        /// relative or absolute time as formatted by DispatchTimeFormat.
         /// </summary>
         public string DispatchLatestTime
         {
@@ -1251,7 +1277,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether lookups are enabled for this search.
+        /// Gets or sets a value indicating whether lookups are enabled for 
+        /// this search.
         /// </summary>
         public bool DispatchLookups
         {
@@ -1267,7 +1294,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the maximum number of results before finalizing the search.
+        /// Gets or sets the maximum number of results before finalizing the 
+        /// search.
         /// </summary>
         public int DispatchMaxCount
         {
@@ -1283,7 +1311,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the maximum amount of time before finalizing the search.
+        /// Gets or sets the maximum amount of time before finalizing the 
+        /// search.
         /// </summary>
         public string DispatchMaxTime
         {
@@ -1316,8 +1345,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to back fill the real-time window for this search.
-        /// This attribute is only valid for real-time searches.
+        /// Gets or sets a value indicating whether to back fill the real-time 
+        /// window for this search. This attribute is only valid for real-time 
+        /// searches.
         /// </summary>
         public bool DispatchRtBackfill
         {
@@ -1333,8 +1363,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether Splunk spawns a new search process when running
-        /// this saved search.
+        /// Gets or sets a value indicating whether Splunk spawns a new search 
+        /// process when running this saved search.
         /// </summary>
         public bool DispatchSpawnProcess
         {
@@ -1350,8 +1380,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the time format used to specify the earliest and latest times
-        /// for this search.
+        /// Gets or sets the time format used to specify the earliest and 
+        /// latest times for this search.
         /// </summary>
         public string DispatchTimeFormat
         {
@@ -1367,10 +1397,11 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the time to live (ttl) for artifacts of the scheduled search (the
-        /// time before the search job expires and artifacts are still available),
-        /// if no alerts are triggered. If the value is a number followed by "p", it
-        /// is the number of scheduled search periods.
+        /// Gets or sets the time to live (ttl) for artifacts of the scheduled 
+        /// search (the time before the search job expires and artifacts are 
+        /// still available), if no alerts are triggered. If the value is a 
+        /// number followed by "p", it is the number of scheduled search 
+        /// periods.
         /// </summary>
         public string DispatchTtl
         {
@@ -1402,8 +1433,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the maximum number of concurrent instances of this search
-        /// the scheduler is allowed to run.
+        /// Gets or sets the maximum number of concurrent instances of this 
+        /// search the scheduler is allowed to run.
         /// </summary>
         public int MaxConcurrent
         {
@@ -1441,15 +1472,18 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the scheduler computes the next run time of a
-        /// scheduled search based on the current time or on the last search run
-        /// time (for continuous scheduling).
+        /// Gets or sets a value indicating whether the scheduler computes the 
+        /// next run time of a scheduled search based on the current time or on
+        /// the last search run time (for continuous scheduling). Note, 
+        /// although the REST API specifies this as a boolean, and integer with
+        /// values of 0 or 1 makes more sense from a documentation point of 
+        /// view.
         /// </summary>
-        public bool RealtimeSchedule
+        public int RealtimeSchedule
         {
             get
             {
-                return this.GetBoolean("realtime_schedule");
+                return this.GetInteger("realtime_schedule");
             }
 
             set
@@ -1491,8 +1525,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether a real-time search managed by the scheduler is
-        /// restarted when a search peer becomes available for this saved search.
+        /// Gets or sets a value indicating whether a real-time search managed
+        /// by the scheduler is restarted when a search peer becomes available 
+        /// for this saved search.
         /// </summary>
         public bool RestartOnSearchPeerAdd
         {
@@ -1508,8 +1543,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this search is run when Splunk starts. 
-        /// If the search is not run on startup, it runs at the next scheduled time.
+        /// Gets or sets a value indicating whether this search is run when 
+        /// Splunk starts. If the search is not run on startup, it runs at the 
+        /// next scheduled time.
         /// </summary>
         public bool RunOnStartup
         {
@@ -1541,9 +1577,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the view state ID that is associated with the view specified in
-        /// the DisplayView attribute. This ID corresponds to a stanza in the
-        /// viewstates.conf configuration file.
+        /// Gets or sets the view state ID that is associated with the view 
+        /// specified in the DisplayView attribute. This ID corresponds to a 
+        /// stanza in the viewstates.conf configuration file.
         /// </summary>
         public string Vsid
         {
@@ -1570,7 +1606,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value indicating whether the populate-lookup action is enabled.
+        /// Gets a value indicating whether the populate-lookup action is 
+        /// enabled.
         /// </summary>
         public bool IsActionPopulateLookup
         {
@@ -1614,7 +1651,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this search is run on a schedule.
+        /// Gets or sets a value indicating whether this search is run on a 
+        /// schedule.
         /// </summary>
         public bool IsScheduled
         {
@@ -1630,7 +1668,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the search should be visible in the saved search list.
+        /// Gets or sets a value indicating whether the search should be visible
+        /// in the saved search list.
         /// </summary>
         public bool IsVisible
         {
@@ -1682,9 +1721,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value indicating whether the saved search is disabled. Disabled 
-        /// searches are not
-        /// visible in Splunk Web.
+        /// Sets a value indicating whether the saved search is disabled. 
+        /// Disabled searches are not visible in Splunk Web.
         /// </summary>
         public bool Disabled
         {
@@ -1695,7 +1733,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the wildcard argument that accepts any dispatch-related argument.
+        /// Sets the wildcard argument that accepts any dispatch-related 
+        /// argument.
         /// </summary>
         public string DispatchWildcard
         {
@@ -1756,7 +1795,8 @@ namespace Splunk
         /// <returns>The job</returns>
         public Job Dispatch(Args args)
         {
-            ResponseMessage response = this.Service.Post(this.ActionPath("dispatch"), args);
+            ResponseMessage response = 
+                this.Service.Post(this.ActionPath("dispatch"), args);
             this.Invalidate();
             string sid = Job.SidExtraction(response);
 
@@ -1779,7 +1819,8 @@ namespace Splunk
         /// <returns>An array of jobs</returns>
         public Job[] History()
         {
-            ResponseMessage response = this.Service.Get(this.ActionPath("history"));
+            ResponseMessage response = 
+                this.Service.Get(this.ActionPath("history"));
             AtomFeed feed;
 
             feed = AtomFeed.Parse(response.Content);
@@ -1795,9 +1836,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Updates the entity with the values you previously set using the setter
-        /// methods, and any additional specified arguments. The specified arguments
-        /// take precedent over the values that were set using the setter methods.
+        /// Updates the entity with the values you previously set using the 
+        /// setter methods, and any additional specified arguments. The 
+        /// specified arguments take precedent over the values that were set
+        /// using the setter methods.
         /// </summary>
         /// <param name="args">The key/value pairs to update</param>
         public override void Update(Dictionary<string, object> args)
@@ -1812,8 +1854,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Updates the entity with the accumulated arguments, established by the
-        /// individual setter methods for each specific entity class.
+        /// Updates the entity with the accumulated arguments, established by 
+        /// the individual setter methods for each specific entity class.
         /// </summary>
         public override void Update()
         {

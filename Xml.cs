@@ -26,8 +26,8 @@ namespace Splunk
     public class Xml
     {
         /// <summary>
-        /// Parses the given input stream and returns it as an XML document object
-        /// model (DOM).
+        /// Parses the given input stream and returns it as an XML document 
+        /// object model (DOM).
         /// </summary>
         /// <param name="input">The Stream</param>
         /// <returns>The XML document</returns>

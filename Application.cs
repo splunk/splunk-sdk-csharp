@@ -33,8 +33,8 @@ namespace Splunk
 
         /// <summary>
         /// Gets or sets the name of the app's author. For Splunkbase
-        /// apps, this value is the username of the Splunk.com account. For internal
-        /// apps, this value is the full name.
+        /// apps, this value is the username of the Splunk.com account. For 
+        /// internal apps, this value is the full name.
         /// </summary>
         public string Author
         {
@@ -50,7 +50,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether Splunk checks Splunkbase for updates.
+        /// Gets or sets a value indicating whether Splunk checks Splunkbase for
+        /// updates.
         /// </summary>
         public bool CheckForUpdates
         {
@@ -99,7 +100,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value indicating whether to reload objects contained in the locally-installed app.
+        /// Gets a value indicating whether to reload objects contained in the 
+        /// locally-installed app.
         /// </summary>
         public bool Refreshes
         {
@@ -126,8 +128,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the app's custom setup has been
-        /// performed. This field is available in Splunk version 4.2.4 and later.
+        /// Gets or sets a value indicating whether the app's custom setup has 
+        /// been performed. This field is available in Splunk version 4.2.4 and 
+        /// later.
         /// </summary>
         public bool IsConfigured
         {
@@ -143,7 +146,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the app can be managed by Splunk Manager.
+        /// Gets or sets a value indicating whether the app can be managed by 
+        /// Splunk Manager.
         /// </summary>
         public bool IsManageable
         {
@@ -159,7 +163,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the app is visible and navigable from Splunk Web.
+        /// Gets or sets a value indicating whether the app is visible and 
+        /// navigable from Splunk Web.
         /// </summary>
         public bool IsVisible
         {
@@ -175,7 +180,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value indicating whether a state change requires the app to be restarted.
+        /// Gets a value indicating whether a state change requires the app to 
+        /// be restarted.
         /// </summary>
         public bool StateChangeRequiresRestart
         {

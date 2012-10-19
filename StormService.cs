@@ -39,21 +39,22 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Encodes an ascii string to Base64.
+        /// Encodes an ASCII string to Base64.
         /// </summary>
-        /// <param name="toEncode">The ascii string to encode</param>
+        /// <param name="toEncode">The ASCII string to encode</param>
         /// <returns>The base 64 encoded string</returns>
         private static string Encode64(string toEncode)
         {
-            byte[] toEncodeAsBytes = System.Text.ASCIIEncoding.ASCII.GetBytes(toEncode);
+            byte[] toEncodeAsBytes = 
+                System.Text.ASCIIEncoding.ASCII.GetBytes(toEncode);
             return System.Convert.ToBase64String(toEncodeAsBytes);
         }
 
         /// <summary>
-        /// Establishes a connection to a Splunk Storm service using a dictionary of 
-        /// arguments. This member creates a new StormService instance and 
-        /// authenticates the session using credentials passed in from the 
-        /// Dictionary of args.
+        /// Establishes a connection to a Splunk Storm service using a 
+        /// dictionary of arguments. This member creates a new StormService 
+        /// instance and authenticates the session using credentials passed in 
+        /// from the Dictionary of args.
         /// </summary>
         /// <param name="args">The credentials </param>
         /// <returns>The Storm Service object</returns>

@@ -26,7 +26,7 @@ namespace Splunk
     using System.Web;
 
     /// <summary>
-    /// A genric HTTP/S layer that facilitates HTTP/S access to Splunk 
+    /// A generic HTTP/S layer that facilitates HTTP/S access to Splunk 
     /// </summary>
     public class HttpService
     {
@@ -146,7 +146,8 @@ namespace Splunk
             {
                 if (this.prefix == null)
                 {
-                    this.prefix = string.Format("{0}://{1}:{2}", this.Scheme, this.Host, this.Port);
+                    this.prefix = string.Format(
+                        "{0}://{1}:{2}", this.Scheme, this.Host, this.Port);
                 }
                 return this.prefix;
             }
@@ -234,15 +235,20 @@ namespace Splunk
         public Uri GetUrl(string path) 
         {
             // Taken from http://stackoverflow.com/questions/781205/getting-a-url-with-an-url-encoded-slash
-            // WebRequest can munge an encoded URL, and we don't want it to. This technique forces WebRequest
-            // to leave the URL alone. There is no simple mechanism to ask .Net to do this, once there is,
-            // this code can be changed. This code also may break in the future, as it reaches into the class's
-            // non-public fields and whacks them with a hammer. 
+            // WebRequest can munge an encoded URL, and we don't want it to. 
+            // This technique forces WebRequest to leave the URL alone. There is
+            // no simple mechanism to ask .Net to do this, once there is, this 
+            // code can be changed. This code also may break in the future, as 
+            // it reaches into the class's non-public fields and whacks them 
+            // with a hammer. 
             Uri uri = new Uri(this.Prefix + path);
             string paq = uri.PathAndQuery; // need to access PathAndQuery
-            FieldInfo flagsFieldInfo = typeof(Uri).GetField("m_Flags", BindingFlags.Instance | BindingFlags.NonPublic);
+            FieldInfo flagsFieldInfo = 
+                typeof(Uri).GetField(
+                    "m_Flags", BindingFlags.Instance | BindingFlags.NonPublic);
             ulong flags = (ulong)flagsFieldInfo.GetValue(uri);
-            flags &= ~((ulong)0x30); // Flags.PathNotCanonical|Flags.QueryNotCanonical 0x30
+            // Flags.PathNotCanonical|Flags.QueryNotCanonical = 0x30
+            flags &= ~((ulong)0x30); 
             flagsFieldInfo.SetValue(uri, flags);
             return uri;
         }
@@ -258,12 +264,14 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Issues a POST request against the service using a given path and arguments.
+        /// Issues a POST request against the service using a given path and 
+        /// arguments.
         /// </summary>
         /// <param name="path">The path</param>
         /// <param name="args">The arguments</param>
         /// <returns>The <see cref="repsonseMessage"/></returns>
-        public ResponseMessage Post(string path, Dictionary<string, object> args) 
+        public ResponseMessage 
+            Post(string path, Dictionary<string, object> args) 
         {
             RequestMessage request = new RequestMessage("POST");
             if (Count(args) > 0) 
@@ -285,12 +293,14 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Issues a DELETE request against the service using a given path and arguments.
+        /// Issues a DELETE request against the service using a given path and 
+        /// arguments.
         /// </summary>
         /// <param name="path">The path</param>
         /// <param name="args">The arguments</param>
         /// <returns>The <see cref="repsonseMessage"/></returns>
-        public ResponseMessage Delete(string path, Dictionary<string, object> args) 
+        public ResponseMessage 
+            Delete(string path, Dictionary<string, object> args) 
         {
             if (Count(args) > 0) 
             {
@@ -347,7 +357,8 @@ namespace Splunk
             object content = request.Content;
             if (content != null)
             {
-                // Get the bytes for proper encoded length when going over the wire.
+                // Get the bytes for proper encoded length when going over the 
+                // wire.
                 byte[] bytes = Encoding.UTF8.GetBytes((string)content);
                 try
                 {
@@ -374,7 +385,8 @@ namespace Splunk
             }
             catch (WebException ex)
             {
-                if (ex.Status == WebExceptionStatus.ProtocolError && ex.Response != null)
+                if (ex.Status == WebExceptionStatus.ProtocolError && 
+                    ex.Response != null)
                 {
                     var resp = (HttpWebResponse)ex.Response;
                     status = resp.StatusCode.GetHashCode();
@@ -387,17 +399,28 @@ namespace Splunk
                 ? null
                 : response != null ? response.GetResponseStream() : null;
 
-            ResponseMessage returnResponse = new ResponseMessage(status, input);
+            // If there is no input, then we can closeout this response
+            // straight away.
+            if (input == null)
+            {
+                response.Close();
+                response = null;
+            }
+
+            ResponseMessage returnResponse = 
+                new ResponseMessage(status, input, response);
 
             return returnResponse;
         }
 
         /// <summary>
-        /// Sets the trust policy for communication to the service. The default is trust all servers.
+        /// Sets the trust policy for communication to the service. The default 
+        /// is trust all servers.
         /// </summary>
         private void SetTrustPolicy() 
         {
-            ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
+            ServicePointManager.ServerCertificateValidationCallback = 
+                (sender, certificate, chain, sslPolicyErrors) => true;
             ServicePointManager.DefaultConnectionLimit = 100;
         }
     }

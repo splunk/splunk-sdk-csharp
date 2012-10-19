@@ -39,8 +39,5 @@ namespace UnitTests
         {
             // TBD
         }
-
     }
 }
-
-

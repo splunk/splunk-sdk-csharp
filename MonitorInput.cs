@@ -32,7 +32,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a regular expression for a file path that when matched is not indexed.
+        /// Gets or sets a regular expression for a file path that when matched 
+        /// is not indexed.
         /// </summary>
         public string Blacklist
         {
@@ -48,8 +49,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a string that is used to force Splunk to index files that have a
-        /// matching cyclic redundancy check (CRC).
+        /// Gets or sets a string that is used to force Splunk to index files 
+        /// that have a matching cyclic redundancy check (CRC).
         /// </summary>
         public string CrcSalt
         {
@@ -65,8 +66,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value indicating whether the index value is checked to ensure that it is the 
-        /// name of a valid index.
+        /// Sets a value indicating whether the index value is checked to ensure
+        /// that it is the  name of a valid index.
         /// </summary>
         public bool CheckIndex
         {
@@ -77,8 +78,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value indicating whether the name value is checked to ensure that 
-        /// it exists.
+        /// Sets a value indicating whether the name value is checked to ensure 
+        /// that it exists.
         /// </summary>
         public bool CheckPath
         {
@@ -100,8 +101,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether files that are seen for the first time will be read
-        /// from the end.
+        /// Gets or sets a value indicating whether files that are seen for the 
+        /// first time will be read from the end.
         /// </summary>
         public bool FollowTail
         {
@@ -133,10 +134,11 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the regular expression for a file path to determine the host. 
-        /// If the path for a file matches this regular expression, the captured 
-        /// value is used to populate the <b>host</b> field for events from this 
-        /// monitor input. The regular expression must have one capture group.
+        /// Gets or sets the regular expression for a file path to determine the
+        /// host. If the path for a file matches this regular expression, the 
+        /// captured value is used to populate the <b>host</b> field for events 
+        /// from this monitor input. The regular expression must have one 
+        /// capture group.
         /// </summary>
         public string HostRegex
         {
@@ -152,9 +154,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a time value that defines a rolling time window for monitoring 
-        /// files. If the modification time of a file being monitored falls outside 
-        /// of this rolling time window, the file is no longer being monitored.
+        /// Gets or sets a time value that defines a rolling time window for 
+        /// monitoring files. If the modification time of a file being monitored
+        /// falls outside of this rolling time window, the file is no longer 
+        /// being monitored.
         /// </summary>
         public string IgnoreOlderThan
         {
@@ -170,7 +173,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the index where events from this monitor input are stored.
+        /// Gets or sets the index where events from this monitor input are 
+        /// stored.
         /// </summary>
         public string Index
         {
@@ -186,8 +190,8 @@ namespace Splunk
         }
         
         /// <summary>
-        /// Gets or sets a value indicating whether  sub-directories are monitored within this monitor 
-        /// input.
+        /// Gets or sets a value indicating whether  sub-directories are 
+        /// monitored within this monitor input.
         /// </summary>
         public bool IsRecursive
         {
@@ -214,8 +218,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the queue for this monitor input. Valid values are "parsingQueue" and
-        /// "indexQueue".
+        /// Gets the queue for this monitor input. Valid values are 
+        /// "parsingQueue" and "indexQueue".
         /// </summary>
         public string Queue
         {
@@ -269,8 +273,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a regular expression for a file path that, when matched, is 
-        /// indexed. 
+        /// Gets or sets a regular expression for a file path that, when 
+        /// matched, is indexed. 
         /// </summary>
         public string Whitelist
         {
@@ -286,7 +290,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the specified slash-separate segment of the file path as the field value
+        /// Sets the specified slash-separate segment of the file path as the 
+        /// field value
         /// </summary>
         public string HostSegment
         {

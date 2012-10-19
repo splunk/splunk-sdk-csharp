@@ -22,7 +22,8 @@ namespace Splunk
     public class TcpConnections : Entity
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="TcpConnections"/> class.
+        /// Initializes a new instance of the <see cref="TcpConnections"/> 
+        /// class.
         /// </summary>
         /// <param name="service">The connected service</param>
         /// <param name="path">The path</param>

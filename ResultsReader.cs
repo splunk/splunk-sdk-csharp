@@ -58,7 +58,8 @@ namespace Splunk
         /// <summary>
         /// Returns the next event in the event stream.
         /// </summary>
-        /// <returns>The dictionary of key value pairs representing the event</returns>
+        /// <returns>The dictionary of key value pairs representing the event
+        /// </returns>
         public virtual Dictionary<string, string> GetNextEvent() 
         {
             return null;
