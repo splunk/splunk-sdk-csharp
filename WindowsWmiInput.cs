@@ -28,7 +28,8 @@ namespace Splunk
     public class WindowsWmiInput : Input
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="WindowsWmiInput"/> class.
+        /// Initializes a new instance of the <see cref="WindowsWmiInput"/> 
+        /// class.
         /// </summary>
         /// <param name="service">The connected service</param>
         /// <param name="path">The path</param>
@@ -65,8 +66,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the the properties (fields) collected for this class for this WMI
-        /// input.
+        /// Gets or sets the the properties (fields) collected for this class 
+        /// for this WMI input.
         /// </summary>
         public string[] Fields
         {
@@ -98,8 +99,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the counter instances of this Windows WMI input. An asterisk 
-        /// (*) is equivalent to all instances.
+        /// Gets or sets the counter instances of this Windows WMI input. An 
+        /// asterisk (*) is equivalent to all instances.
         /// </summary>
         public string[] Instances
         {
@@ -115,8 +116,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the interval at which WMI input providers are queried for this
-        /// WMI input.
+        /// Gets or sets the interval at which WMI input providers are queried 
+        /// for this WMI input.
         /// </summary>
         public int Interval
         {
@@ -143,8 +144,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the main host of this Windows Event Log input. Secondary hosts
-        /// are specified in the hosts attribute.
+        /// Gets or sets the main host of this Windows Event Log input. 
+        /// Secondary hosts are specified in the hosts attribute.
         /// </summary>
         public string LookupHost
         {
@@ -161,7 +162,8 @@ namespace Splunk
 
         /// <summary>
         /// Gets the collection name for this WMI input. This name appears in
-        /// configuration file, the source, and the sourcetype of the indexed data.
+        /// configuration file, the source, and the sourcetype of the indexed 
+        /// data.
         /// </summary>
         public string LocalName
         {
@@ -172,7 +174,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a comma-separated list of the additional servers used in monitoring.
+        /// Gets or sets a comma-separated list of the additional servers used 
+        /// in monitoring.
         /// </summary>
         public string Servers
         {
@@ -199,9 +202,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Updates the entity with the values you previously set using the setter
-        /// methods, and any additional specified arguments. The specified arguments
-        /// take precedent over the values that were set using the setter methods.
+        /// Updates the entity with the values you previously set using the 
+        /// setter methods, and any additional specified arguments. The 
+        /// specified arguments take precedent over the values that were set
+        /// using the setter methods.
         /// </summary>
         /// <param name="args">The key/value pairs to update</param>
         public override void Update(Dictionary<string, object> args)
@@ -229,13 +233,13 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Updates the entity with the accumulated arguments, established by the
-        /// individual setter methods for each specific entity class.
+        /// Updates the entity with the accumulated arguments, established by 
+        /// the individual setter methods for each specific entity class.
         /// </summary>
         public override void Update()
         {
-            // If not present in the update keys, add required attributes as long
-            // as one pre-existing update pair exists
+            // If not present in the update keys, add required attributes as 
+            // long as one pre-existing update pair exists
             if (toUpdate.Count > 0 && !toUpdate.ContainsKey("classes"))
             {
                 this.SetCacheValue("classes", this.Classes);

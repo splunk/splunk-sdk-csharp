@@ -42,7 +42,7 @@ namespace Splunk
         /// <param name="value">The value</param>
         public Args(string key, object value) 
         {
-            base.Add(key, value);
+            base[key] = value;
         }
 
         /// <summary>
@@ -54,19 +54,19 @@ namespace Splunk
         {
             foreach (KeyValuePair<string, object> entry in values) 
             {
-                base.Add(entry.Key, entry.Value);
+                base[entry.Key] = entry.Value;
             }
         }
 
         /// <summary>
-        /// Adds a key/value pair to an Args
+        /// Adds a key/value pair to an Args.
         /// </summary>
         /// <param name="key">The key</param>
         /// <param name="value">The value</param>
         /// <returns>The Args</returns>
         public Args AlternateAdd(string key, object value) 
         {
-            base.Add(key, value);
+            base[key] = value;
             return this;
         }
 
@@ -80,18 +80,20 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Creates a new Args instance and initializes it with a single key/value pair 
+        /// Creates a new Args instance and initializes it with a single 
+        /// key/value pair.
         /// </summary>
         /// <param name="key">The key</param>
         /// <param name="value">The value</param>
-        /// <returns>The new intialized Args</returns>
+        /// <returns>The new initialized Args</returns>
         public static Args Create(string key, object value) 
         {
             return new Args(key, value);
         }
         
         /// <summary>
-        /// Creates a new Args instance and initializes it with a pre-existing dictionary
+        /// Creates a new Args instance and initializes it with a pre-existing 
+        /// dictionary.
         /// </summary>
         /// <param name="values">The existing dictionary</param>
         /// <returns>The new initialized Args</returns>
@@ -101,7 +103,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Encodes a single string with UTF-8 encoding
+        /// Encodes a single string with UTF-8 encoding.
         /// </summary>
         /// <param name="value">The string</param>
         /// <returns>The UTF-8 encoded string</returns>
@@ -115,7 +117,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Encodes a hash map of string or string[] into a single UTF8-encoded string
+        /// Encodes a hash map of string or string[] into a single UTF8-encoded 
+        /// string.
         /// </summary>
         /// <param name="args">The string or string array</param>
         /// <returns>The UTF-8 encoded string</returns>
@@ -130,12 +133,14 @@ namespace Splunk
         /// <param name="builder">The string builder</param>
         /// <param name="key">The key</param>
         /// <param name="values">The string array</param>
-        private void EncodeValues(StringBuilder builder, string key, string[] values) 
+        private void 
+            EncodeValues(StringBuilder builder, string key, string[] values) 
         {
             key = Encode(key);
             foreach (string value in values) 
             {
-                if ((builder.Length > 0) && (builder[builder.Length-1] != '&')) 
+                if ((builder.Length > 0) && 
+                    (builder[builder.Length - 1] != '&')) 
                 {
                     builder.Append('&');
                 }
@@ -182,8 +187,10 @@ namespace Splunk
         /// <param name="args">The dictionary</param>
         /// <param name="key">The key</param>
         /// <param name="defaultValue">The default value</param>
-        /// <returns>The key's value in the dictionary, or the default value if not found</returns>
-        public static string Get(Dictionary<string, object> args, string key, string defaultValue) 
+        /// <returns>The key's value in the dictionary, or the default value if
+        /// not found</returns>
+        public static string 
+           Get(Dictionary<string, object> args, string key, string defaultValue) 
         {
             if (!args.ContainsKey(key)) 
             {

@@ -24,7 +24,8 @@ namespace Splunk
     public class WindowsEventLogInput : Input
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="WindowsEventLogInput"/> class.
+        /// Initializes a new instance of the 
+        /// <see cref="WindowsEventLogInput"/> class.
         /// </summary>
         /// <param name="service">The connected service</param>
         /// <param name="path">The path</param>
@@ -34,7 +35,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a comma-separated list of secondary hosts used in monitoring
+        /// Gets or sets a comma-separated list of secondary hosts used in 
+        /// monitoring.
         /// </summary>
         public string Hosts
         {
@@ -77,8 +79,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the list of event log names to gather data from for this Windows
-        /// Event Log input.
+        /// Gets or sets the list of event log names to gather data from for 
+        /// this Windows Event Log input.
         /// </summary>
         public string[] Logs
         {
@@ -96,8 +98,8 @@ namespace Splunk
         /// <summary>
         /// Gets the collection name of this Windows Event Log input. This name
         /// appears in the configuration file, the source, and the sourcetype of
-        /// the indexed data. If the value is "localhost", it will use native event
-        /// log collection; otherwise, it will use WMI.
+        /// the indexed data. If the value is "localhost", it will use native 
+        /// event log collection; otherwise, it will use WMI.
         /// </summary>
         public string LocalName
         {
@@ -108,8 +110,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the main host of this Windows Event Log input. Secondary hosts
-        /// are specified in the hosts attribute.
+        /// Gets or sets the main host of this Windows Event Log input.
+        /// Secondary hosts are specified in the hosts attribute.
         /// </summary>
         public string LookupHost
         {
@@ -125,9 +127,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Updates the entity with the values you previously set using the setter
-        /// methods, and any additional specified arguments. The specified arguments
-        /// take precedent over the values that were set using the setter methods.
+        /// Updates the entity with the values you previously set using the 
+        /// setter methods, and any additional specified arguments. The 
+        /// specified arguments take precedent over the values that were set 
+        /// using the setter methods.
         /// </summary>
         /// <param name="args">The key/value pairs to update</param>
         public override void Update(Dictionary<string, object> args)
@@ -143,8 +146,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Updates the entity with the accumulated arguments, established by the
-        /// individual setter methods for each specific entity class.
+        /// Updates the entity with the accumulated arguments, established by 
+        /// the individual setter methods for each specific entity class.
         /// </summary>
         public override void Update()
         {

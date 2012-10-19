@@ -24,7 +24,8 @@ namespace Splunk
     public class WindowsActiveDirectoryInput : Input
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="WindowsActiveDirectoryInput"/> class.
+        /// Initializes a new instance of the 
+        /// <see cref="WindowsActiveDirectoryInput"/> class.
         /// </summary>
         /// <param name="service">The connected service</param>
         /// <param name="path">The path</param>
@@ -72,8 +73,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the directory path subtree is being monitored for
-        /// this Windows Active Directory input.
+        /// Gets or sets a value indicating whether the directory path subtree
+        /// is being monitored for this Windows Active Directory input.
         /// </summary>
         public bool MonitorSubtree
         {
@@ -89,9 +90,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the starting location in the directory path for this Windows
-        /// Active Directory input. If not specified, the the root of the directory
-        /// tree is used.
+        /// Gets or sets the starting location in the directory path for this 
+        /// Windows Active Directory input. If not specified, the the root of 
+        /// the directory tree is used.
         /// </summary>
         public string StartingNode
         {
@@ -107,8 +108,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the fully-qualified domain name of a valid, network-accessible
-        /// domain controller. If not specified, the local machine is used.
+        /// Gets or sets the fully-qualified domain name of a valid, 
+        /// network-accessible domain controller. If not specified, the local 
+        /// machine is used.
         /// </summary>
         public string TargetDc
         {
@@ -124,9 +126,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Updates the entity with the values you previously set using the setter
-        /// methods, and any additional specified arguments. The specified arguments
-        /// take precedent over the values that were set using the setter methods.
+        /// Updates the entity with the values you previously set using the 
+        /// setter methods, and any additional specified arguments. The 
+        /// specified arguments take precedent over the values that were set 
+        /// using the setter methods.
         /// </summary>
         /// <param name="args">The key/value pairs to update</param>
         public override void Update(Dictionary<string, object> args)
@@ -142,8 +145,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Updates the entity with the accumulated arguments, established by the
-        /// individual setter methods for each specific entity class.
+        /// Updates the entity with the accumulated arguments, established by 
+        /// the individual setter methods for each specific entity class.
         /// </summary>
         public override void Update()
         {

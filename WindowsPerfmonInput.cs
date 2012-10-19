@@ -22,7 +22,8 @@ namespace Splunk
     public class WindowsPerfmonInput : Input
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="WindowsPerfmonInput"/> class.
+        /// Initializes a new instance of the <see cref="WindowsPerfmonInput"/> 
+        /// class.
         /// </summary>
         /// <param name="service">The connected service</param>
         /// <param name="path">The path</param>
@@ -32,8 +33,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a list of monitored counters for this Windows Perfmon input. 
-        /// An asterisk (*) is equivalent to all counters.
+        /// Gets or sets a list of monitored counters for this Windows Perfmon 
+        /// input. An asterisk (*) is equivalent to all counters.
         /// </summary>
         public string[] Counters
         {
@@ -76,8 +77,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the counter instances of this Windows Perfmon input. An asterisk 
-        /// (*) is equivalent to all instances.
+        /// Gets or sets the counter instances of this Windows Perfmon input. 
+        /// An asterisk (*) is equivalent to all instances.
         /// </summary>
         public string[] Instances
         {
@@ -93,8 +94,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the interval at which to poll the performance counters for this
-        /// Windows Perfmon input.
+        /// Gets or sets the interval at which to poll the performance counters 
+        /// for this Windows Perfmon input.
         /// </summary>
         public int Interval
         {
@@ -121,8 +122,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the performance monitor object for this Windows Perfmon input
-        /// (for example, "Process", "Server", or "PhysicalDisk".)
+        /// Gets or sets the performance monitor object for this Windows Perfmon
+        /// input (for example, "Process", "Server", or "PhysicalDisk".)
         /// </summary>
         public string Object
         {
