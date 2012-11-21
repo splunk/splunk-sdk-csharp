@@ -95,6 +95,28 @@ namespace Splunk
         }
 
         /// <summary>
+        /// Gets or sets the suggestion Splunk bucket rebuild process for the 
+        /// size of the time-series (tsidx) file to make.
+        /// Caution: This is an advanced parameter. Inappropriate use of this 
+        /// parameter causes splunkd to not start if rebuild is required. Do not
+        /// set this parameter unless instructed by Splunk Support.
+        /// This is introduced in Splunk 5.0. The default is 
+        /// "auto".
+        /// </summary>
+        public string BucketRebuildMemoryHint
+        {
+            get
+            {
+                return this.GetString("bucketRebuildMemoryHint", null);
+            }
+
+            set
+            {
+                this.SetCacheValue("bucketRebuildMemoryHint", value);
+            }
+        }
+
+        /// <summary>
         /// Gets the absolute file path to the cold database for this index. 
         /// This value may contain shell expansion terms.
         /// </summary>
@@ -269,13 +291,13 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the last initialization time for this index. (wkcfix consider date)
+        /// Gets the last initialization time for this index.
         /// </summary>
-        public string LastInitTime
+        public DateTime LastInitTime
         {
             get
             {
-                return this.GetString("lastInitTime", null);
+                return this.GetDate("lastInitTime", DateTime.MaxValue);
             }
         }
 
@@ -441,6 +463,29 @@ namespace Splunk
             get
             {
                 return this.GetDate("maxTime", DateTime.MinValue);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the Upper limit, in seconds, on how long an event can 
+        /// sit in raw slice. Applies only if replication is enabled for this 
+        /// index, otherwise is ignored. If there are any acknowledged events 
+        /// sharing this raw slice, this paramater does not apply. In this case,
+        /// maxTimeUnreplicatedWithAcks applies. Highest legal value is 
+        /// 2147483647. To disable this parameter, set to 0.
+        /// Note: this is an advanced parameter. Understand the consequences 
+        /// before changing. This is introduced in Splunk 5.0.
+        /// </summary>
+        public int MaxTimeUnreplicatedNoAcks
+        {
+            get
+            {
+                return this.GetInteger("maxTimeUnreplicatedNoAcks", -1);
+            }
+         
+            set
+            {
+                this.SetCacheValue("maxTimeUnreplicatedNoAcks", value);
             }
         }
 
@@ -625,6 +670,26 @@ namespace Splunk
             set
             {
                 this.SetCacheValue("rawChunkSizeBytes", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the replication factor. Valid Values are either a 
+        /// non-negative number or "auto." This parameter only applies to Splunk
+        /// clustering slaves. "auto": Use the value as configured with the 
+        /// master. "0": Specify zero to turn off replication for this index. 
+        /// This is introduced in Splunk 5.0.
+        /// </summary>
+        public string ReplicationFactor
+        {
+            get
+            {
+                return this.GetString("repFactor", null);
+            }
+
+            set
+            {
+                this.SetCacheValue("repFactor", value);
             }
         }
 

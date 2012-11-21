@@ -50,7 +50,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value indicating whether this input is disabled.
+        /// Sets a value indicating whether this input is disabled. Note: this
+        /// attribute is only available in splunk 4.3 or earlier.
         /// </summary>
         public bool Disabled
         {
@@ -113,7 +114,7 @@ namespace Splunk
         /// <summary>
         /// Gets the Input type of this object,  Windows Perfmon input.
         /// </summary>
-        public override InputKind Kind
+        public InputKind Kind
         {
             get
             {
@@ -135,6 +136,41 @@ namespace Splunk
             set
             {
                 this.SetCacheValue("object", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the source value to populate in he source field for 
+        /// events from this data input. The same source should not be used for 
+        /// multiple events. This is introduced in Splunk 5.0. 
+        /// </summary>
+        public string Source
+        {
+            get
+            {
+                return this.GetString("source", null);
+            }
+
+            set
+            {
+                this.SetCacheValue("source", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the sourcetype value to populate in the sourcetype 
+        /// field for incoming events. This is introduced in Splunk 5.0. 
+        /// </summary>
+        public string SourceType
+        {
+            get
+            {
+                return this.GetString("sourcetype", null);
+            }
+
+            set
+            {
+                this.SetCacheValue("sourcetype", value);
             }
         }
     }

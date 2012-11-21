@@ -69,6 +69,18 @@ namespace Splunk
         }
 
         /// <summary>
+        /// Sets a value indicating whether input monitoring is
+        /// disabled. This is introduced in Splunk 5.0. 
+        /// </summary>
+        public bool Disabled
+        {
+            set
+            {
+                this["disabled"] = value;
+            }
+        }
+
+        /// <summary>
         /// Sets a value indicating whether a file, seen for the first time, is 
         /// read from the end.
         /// </summary>

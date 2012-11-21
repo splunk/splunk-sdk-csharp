@@ -226,7 +226,17 @@ namespace Splunk
             }
             return service;
         }
-        
+
+        /// <summary>
+        /// Returns the array of the system capabilities.
+        /// </summary>
+        /// <returns>The capabilities</returns>
+        public string[] Capabilities()
+        {
+            Entity caps = new Entity(this, "authorization/capabilities");
+            return caps.GetStringArray("capabilities");
+        }
+
         /// <summary>
         /// Runs a search using the search/jobs/export endpoint which streams
         /// results back via a Stream.
@@ -362,127 +372,342 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Returns the array of the system capabilities.
+        /// Returns a collection of Cluster Configs. This is introduced in 
+        /// Splunk 5.0.
         /// </summary>
-        /// <returns>The capabilities</returns>
-        public string[] Capabilities() 
+        /// <returns>The Index collection</returns>
+        public EntityCollection<ClusterConfig> GetClusterConfigs()
         {
-            Entity caps = new Entity(this, "authorization/capabilities");
-            return caps.GetStringArray("capabilities");
+            return new
+                EntityCollection<ClusterConfig>(
+                    this, "cluster/config", typeof(ClusterConfig));
         }
 
-        ///**
-        // * Returns the configuration and status of a deployment client.
-        // *
-        // * @return The configuration and status.
-        // */
-        //public DeploymentClient GetDeploymentClient() {
-        //    return new DeploymentClient(this);
-        //}
+        /// <summary>
+        /// Returns a collection of Cluster Configs. This is introduced in 
+        /// Splunk 5.0.
+        /// </summary>
+        /// <param name="args">The optional arguments</param>
+        /// <returns>The Index collection</returns>
+        public EntityCollection<ClusterConfig> GetClusterConfigs(Args args)
+        {
+            return new EntityCollection<ClusterConfig>(
+                this, "cluster/config", args, typeof(ClusterConfig));
+        }
 
-        ///**
-        // * Returns the configuration of all deployment servers.
-        // *
-        // * @return The configuration of deployment servers.
-        // */
-        //public EntityCollection<DeploymentServer> GetDeploymentServers() {
-        //    return new EntityCollection<DeploymentServer>(
-        //        this, "deployment/server", DeploymentServer.class);
-        //}
+        /// <summary>
+        /// Returns a collection of Cluster Masters Buckets. This is introduced 
+        /// in Splunk 5.0.
+        /// </summary>
+        /// <returns>The Cluster Master's Bucker Collection</returns>
+        public EntityCollection<ClusterMasterBuckets> GetClusterMasterBuckets()
+        {
+            return new EntityCollection<ClusterMasterBuckets>(
+                this, "cluster/master/buckets", typeof(ClusterMasterBuckets));
+        }
 
-        ///**
-        // * Returns the configuration of all deployment servers.
-        // *
-        // * @param args Optional arguments, such as "count" and "offset" for 
-        // * pagination.
-        // * @return The configuration of deployment servers.
-        // */
-        //public EntityCollection<DeploymentServer> GetDeploymentServers(Args args) {
-        //    return new EntityCollection<DeploymentServer>(
-        //        this, "deployment/server", DeploymentServer.class, args);
-        //}
+        /// <summary>
+        /// Returns a collection of Cluster Masters Buckets. This is introduced 
+        /// in Splunk 5.0.
+        /// </summary>
+        /// <param name="args">The optional arguments</param>
+        /// <returns>The Cluster Master's Bucker Collection</returns>
+        public EntityCollection<ClusterMasterBuckets> 
+            GetClusterMasterBuckets(Args args)
+        {
+            return new EntityCollection<ClusterMasterBuckets>(
+                this, 
+                "cluster/master/buckets", 
+                args, 
+                typeof(ClusterMasterBuckets));
+        }
 
-        ///**
-        // * Returns a collection of class configurations for a deployment server.
-        // *
-        // * @return A collection of class configurations.
-        // */
-        //public EntityCollection<DeploymentServerClass> GetDeploymentServerClasses(){
-        //    return new EntityCollection<DeploymentServerClass>(
-        //        this, "deployment/serverclass", DeploymentServerClass.class);
-        //}
+        /// <summary>
+        /// Returns a collection of Cluster Masters Buckets. This is introduced 
+        /// in Splunk 5.0.
+        /// </summary>
+        /// <returns>The Cluster Master's Bucket Collection</returns>
+        public EntityCollection<ClusterMasterPeers> GetClusterMasterPeers()
+        {
+            return new EntityCollection<ClusterMasterPeers>(
+                this, "cluster/master/buckets", typeof(ClusterMasterPeers));
+        }
 
-        ///**
-        // * Returns a collection of class configurations for a deployment server.
-        // *
-        // * @param args Optional arguments, such as "count" and "offset" for 
-        // * pagination.
-        // * @return A collection of server class configurations.
-        // */
-        //public EntityCollection<DeploymentServerClass> GetDeploymentServerClasses(
-        //        Args args){
-        //    return new EntityCollection<DeploymentServerClass>(
-        //        this, "deployment/serverclass", DeploymentServerClass.class, args);
-        //}
+        /// <summary>
+        /// Returns a collection of Cluster Masters Buckets. This is introduced 
+        /// in Splunk 5.0.
+        /// </summary>
+        /// <param name="args">The optional arguments</param>
+        /// <returns>The Cluster Master's Bucket Collection</returns>
+        public EntityCollection<ClusterMasterPeers>
+            GetClusterMasterPeers(Args args)
+        {
+            return new EntityCollection<ClusterMasterPeers>(
+                this,
+                "cluster/master/buckets",
+                args,
+                typeof(ClusterMasterPeers));
+        }
 
-        ///**
-        // * Returns a collection of multi-tenant configurations.
-        // *
-        // * @return A collection of multi-tenant configurations.
-        // */
-        //public EntityCollection<DeploymentTenant> GetDeploymentTenants() {
-        //    return new EntityCollection<DeploymentTenant>(
-        //        this, "deployment/tenants", DeploymentTenant.class);
-        //}
+        /// <summary>
+        /// Returns a collection of Cluster Masters Buckets. This is introduced 
+        /// in Splunk 5.0.
+        /// </summary>
+        /// <returns>The Cluster Master's Generation Collection</returns>
+        public EntityCollection<ClusterMasterGeneration> 
+            GetClusterMasterGeneration()
+        {
+            return new EntityCollection<ClusterMasterGeneration>(
+                this, 
+                "cluster/master/buckets", 
+                typeof(ClusterMasterGeneration));
+        }
 
-        ///**
-        // * Returns a collection of multi-tenant configurations.
-        // *
-        // * @param args Optional arguments, such as "count" and "offset" for 
-        // * pagination.
-        // * @return A collection of multi-tenant configurations.
-        // */
-        //public EntityCollection<DeploymentTenant> GetDeploymentTenants(Args args) {
-        //    return new EntityCollection<DeploymentTenant>(
-        //        this, "deployment/tenants", DeploymentTenant.class, args);
-        //}
+        /// <summary>
+        /// Returns a collection of Cluster Masters Buckets. This is introduced 
+        /// in Splunk 5.0.
+        /// </summary>
+        /// <param name="args">The optional arguments</param>
+        /// <returns>The Cluster Master's Generation Collection</returns>
+        public EntityCollection<ClusterMasterGeneration>
+            GetClusterMasterGeneration(Args args)
+        {
+            return new EntityCollection<ClusterMasterGeneration>(
+                this,
+                "cluster/master/buckets",
+                args,
+                typeof(ClusterMasterGeneration));
+        }
 
-        ///**
-        // * Returns information about distributed search options.
-        // *
-        // * @return Distributed search information.
-        // */
-        //public DistributedConfiguration GetDistributedConfiguration() {
-        //    return new DistributedConfiguration(this);
-        //}
+        /// <summary>
+        /// Returns a collection of Cluster Master Info. This is introduced in 
+        /// Splunk 5.0.
+        /// </summary>
+        /// <returns>The Index collection</returns>
+        public EntityCollection<ClusterMasterInfo> GetClusterMasterInfo()
+        {
+            return new
+                EntityCollection<ClusterMasterInfo>(
+                    this, "cluster/master/info", typeof(ClusterMasterInfo));
+        }
 
-        ///**
-        // * Returns a collection of distributed search peers. A <i>search peer</i>
-        // * is a Splunk server to which another Splunk server distributes searches.
-        // * The Splunk server where the search originates is referred to as the
-        // * <i>search head</i>.
-        // *
-        // * @return A collection of search peers.
-        // */
-        //public EntityCollection<DistributedPeer> GetDistributedPeers() {
-        //    return new EntityCollection<DistributedPeer>(
-        //        this, "search/distributed/peers", DistributedPeer.class);
-        //}
+        /// <summary>
+        /// Returns a collection of Cluster Master info. This is introduced in 
+        /// Splunk 5.0.
+        /// </summary>
+        /// <param name="args">The optional arguments</param>
+        /// <returns>The Index collection</returns>
+        public 
+            EntityCollection<ClusterMasterInfo> GetClusterMasterInfo(Args args)
+        {
+            return new EntityCollection<ClusterMasterInfo>(
+                this, "cluster/master/info", args, typeof(ClusterMasterInfo));
+        }
 
-        ///**
-        // * Returns a collection of distributed search peers. A <i>search peer</i>
-        // * is a Splunk server to which another Splunk server distributes searches.
-        // * The Splunk server where the search originates is referred to as the
-        // * <i>search head</i>.
-        // *
-        // * @param args Optional arguments, such as "count" and "offset" for 
-        // * pagination.
-        // * @return A collection of search peers.
-        // */
-        //public EntityCollection<DistributedPeer> GetDistributedPeers(Args args) {
-        //    return new EntityCollection<DistributedPeer>(
-        //        this, "search/distributed/peers", DistributedPeer.class, args);
-        //}
+        /// <summary>
+        /// Returns a collection of Cluster Search Head Generation. This is 
+        /// introduced in Splunk 5.0.
+        /// </summary>
+        /// <returns>The Index collection</returns>
+        public EntityCollection<ClusterSearchHeadGeneration> 
+            GetClusterSearchHeadGeneration()
+        {
+            return new
+                EntityCollection<ClusterSearchHeadGeneration>(
+                    this, 
+                    "cluster/searchhead/generationo", 
+                    typeof(ClusterSearchHeadGeneration));
+        }
+
+        /// <summary>
+        /// Returns a collection of Cluster  Search Head Generation. This is 
+        /// introduced in Splunk 5.0.
+        /// </summary>
+        /// <param name="args">The optional arguments</param>
+        /// <returns>The Index collection</returns>
+        public EntityCollection<ClusterSearchHeadGeneration>
+            GetClusterSearchHeadGeneration(Args args)
+        {
+            return new EntityCollection<ClusterSearchHeadGeneration>(
+                this, 
+                "cluster/searchhead/generation", 
+                args, 
+                typeof(ClusterSearchHeadGeneration));
+        }
+
+        /// <summary>
+        /// Returns a collection of Cluster Slave Buckets This is introduced in 
+        /// Splunk 5.0.
+        /// </summary>
+        /// <returns>The Index collection</returns>
+        public EntityCollection<ClusterSlaveBuckets> GetClusterSlaveBuckets()
+        {
+            return new
+                EntityCollection<ClusterSlaveBuckets>(
+                    this, "cluster/slave/buckets", typeof(ClusterSlaveBuckets));
+        }
+
+        /// <summary>
+        /// Returns a collection of Cluster Slave Buckets. This is introduced in 
+        /// Splunk 5.0.
+        /// </summary>
+        /// <param name="args">The optional arguments</param>
+        /// <returns>The Index collection</returns>
+        public EntityCollection<ClusterSlaveBuckets> 
+            GetClusterSlaveBuckets(Args args)
+        {
+            return new EntityCollection<ClusterSlaveBuckets>(
+                this, 
+                "cluster/slave/buckets", 
+                args, 
+                typeof(ClusterSlaveBuckets));
+        }
+
+        /// <summary>
+        /// Returns a collection of Cluster Master Info. This is introduced in 
+        /// Splunk 5.0.
+        /// </summary>
+        /// <returns>The Index collection</returns>
+        public EntityCollection<ClusterSlaveInfo> GetClusterSlaveInfo()
+        {
+            return new
+                EntityCollection<ClusterSlaveInfo>(
+                    this, "cluster/slave/info", typeof(ClusterSlaveInfo));
+        }
+
+        /// <summary>
+        /// Returns a collection of Cluster Master info. This is introduced in 
+        /// Splunk 5.0.
+        /// </summary>
+        /// <param name="args">The optional arguments</param>
+        /// <returns>The Index collection</returns>
+        public EntityCollection<ClusterSlaveInfo> GetClusterSlaveInfo(Args args)
+        {
+            return new EntityCollection<ClusterSlaveInfo>(
+                this, "cluster/slave/info", args, typeof(ClusterSlaveInfo));
+        }
+
+        /// <summary>
+        /// Returns the configuration and status of a deployment client.
+        /// </summary>
+        /// <returns>The configuration and status</returns>
+        public DeploymentClient GetDeploymentClient() 
+        {
+            return new DeploymentClient(this);
+        }
+
+        /// <summary>
+        /// Returns the configuration of all deployment servers.
+        /// </summary>
+        /// <returns>The collection of deployment servers</returns>
+        public EntityCollection<DeploymentServer> GetDeploymentServers() 
+        {
+            return new EntityCollection<DeploymentServer>(
+                this, "deployment/server", typeof(DeploymentServer));
+        }
+
+        /// <summary>
+        /// Returns the configuration of all deployment servers.
+        /// </summary>
+        /// <param name="args">Optional arguments, such as "count" and "offset"
+        /// for pagination.</param>
+        /// <returns>The collection of deployment servers</returns>
+        public 
+            EntityCollection<DeploymentServer> GetDeploymentServers(Args args) 
+        {
+            return new EntityCollection<DeploymentServer>(
+                this, "deployment/server", typeof(DeploymentServer));
+        }
+
+        /// <summary>
+        /// Returns a collection of class configurations for a deployment 
+        /// server.
+        /// </summary>
+        /// <returns>A collection of class configurations.</returns>
+        public 
+            EntityCollection<DeploymentServerClass> GetDeploymentServerClasses()
+        {
+            return new EntityCollection<DeploymentServerClass>(
+                this, "deployment/serverclass", typeof(DeploymentServerClass));
+        }
+
+        /// <summary>
+        /// Returns a collection of class configurations for a deployment 
+        /// server.
+        /// </summary>
+        /// <param name="args">Optional arguments, such as "count" and "offset"
+        /// for pagination.</param>
+        /// <returns>A collection of class configurations.</returns>
+        public 
+            EntityCollection<DeploymentServerClass> GetDeploymentServerClasses(
+                Args args)
+        {
+            return new EntityCollection<DeploymentServerClass>(
+                this,
+                "deployment/serverclass",
+                args,
+                typeof(DeploymentServerClass));
+        }
+
+        /// <summary>
+        /// Returns a collection of multi-tenant configurations.
+        /// </summary>
+        /// <returns>A collection of multi-tenant configurations.</returns>
+        public EntityCollection<DeploymentTenant> GetDeploymentTenants() 
+        {
+            return new EntityCollection<DeploymentTenant>(
+                this, "deployment/tenants", typeof(DeploymentTenant));
+        }
+
+        /// <summary>
+        /// Returns a collection of multi-tenant configurations.
+        /// </summary>
+        /// <param name="args">Optional arguments, such as "count" and "offset"
+        /// for pagination.</param>
+        /// <returns>A collection of multi-tenant configurations.</returns>
+        public 
+            EntityCollection<DeploymentTenant> GetDeploymentTenants(Args args) 
+        {
+            return new EntityCollection<DeploymentTenant>(
+                this, "deployment/tenants", args, typeof(DeploymentTenant));
+        }
+
+        /// <summary>
+        /// Returns information about distributed search options.
+        /// </summary>
+        /// <returns>The information about distributed search options.</returns>
+        public DistributedConfiguration GetDistributedConfiguration() 
+        {
+            return new DistributedConfiguration(this);
+        }
+
+        /// <summary>
+        /// Returns a collection of distributed search peers. A search peer
+        /// is a Splunk server to which another Splunk server distributes 
+        /// searches. The Splunk server where the search originates is referred 
+        /// to as the search head.
+        /// </summary>
+        /// <returns>A collection of search peers.</returns>
+        public EntityCollection<DistributedPeer> GetDistributedPeers() 
+        {
+            return new EntityCollection<DistributedPeer>(
+                this, "search/distributed/peers", typeof(DistributedPeer));
+        }
+
+        /// <summary>
+        /// Returns a collection of distributed search peers. A search peer
+        /// is a Splunk server to which another Splunk server distributes 
+        /// searches. The Splunk server where the search originates is referred 
+        /// to as the search head. 
+        /// </summary>
+        /// <param name="args">Optional arguments, such as "count" and "offset"
+        /// for pagination.</param>
+        /// <returns> A collection of search peers.</returns>
+        public EntityCollection<DistributedPeer> GetDistributedPeers(Args args) 
+        {
+            return new EntityCollection<DistributedPeer>(
+               this, "search/distributed/peers", args, typeof(DistributedPeer));
+        }
 
         /// <summary>
         /// Returns a collection of saved event types.
@@ -503,25 +728,29 @@ namespace Splunk
             return new EventTypeCollection(this, args);
         }
 
-        ///**
-        // * Returns a collection of alerts that have been fired by the service.
-        // *
-        // * @return A collection of fired alerts.
-        // */
-        //public FiredAlertGroupCollection GetFiredAlertGroups() {
-        //    return new FiredAlertGroupCollection(this);
-        //}
+        /// <summary>
+        /// Returns a collection of alert groups of alerts that have been fired 
+        /// by the service.
+        /// </summary>
+        /// <returns>A collection of alert groups of alerts that have been fired 
+        /// by the service.</returns>
+        public FiredAlertsGroupCollection GetFiredAlertGroups()
+        {
+            return new FiredAlertsGroupCollection(this);
+        }
 
-        ///**
-        // * Returns a collection of alerts that have been fired by the service.
-        // *
-        // * @param args Optional arguments, such as "count" and "offset" for 
-        // * pagination.
-        // * @return A collection of fired alerts.
-        // */
-        //public FiredAlertGroupCollection GetFiredAlerts(Args args) {
-        //    return new FiredAlertGroupCollection(this, args);
-        //}
+        /// <summary>
+        /// Returns a collection of alert groups of alerts that have been fired 
+        /// by the service.
+        /// </summary>
+        /// <param name="args">Optional arguments, such as "count" and "offset"
+        /// for pagination.</param>
+        /// <returns>A collection of alert groups of alerts that have been fired 
+        /// by the service.</returns>
+        public FiredAlertsGroupCollection GetFiredAlerts(Args args)
+        {
+            return new FiredAlertsGroupCollection(this, args);
+        }
 
         /// <summary>
         /// Returns a collection of Splunk indexes.
@@ -591,157 +820,157 @@ namespace Splunk
             return new JobCollection(this, args);
         }
 
-        ///**
-        // * Returns a collection of license group configurations.
-        // *
-        // * @return A collection of license group configurations.
-        // */
-        //public EntityCollection<LicenseGroup> GetLicenseGroups() {
-        //    return new EntityCollection<LicenseGroup>(
-        //        this, "licenser/groups", LicenseGroup.class);
-        //}
+        /// <summary>
+        /// Returns a collection of license group configurations.
+        /// </summary>
+        /// <returns>A collection oflicense group configurations.</returns>
+        public EntityCollection<LicenseGroup> GetLicenseGroups() 
+        {
+            return new EntityCollection<LicenseGroup>(
+                this, "licenser/groups", typeof(LicenseGroup));
+        }
 
-        ///**
-        // * Returns a collection of license group configurations.
-        // *
-        // * @param args Optional arguments, such as "count" and "offset" for 
-        // * pagination.
-        // * @return A collection of license group configurations.
-        // */
-        //public EntityCollection<LicenseGroup> GetLicenseGroups(Args args) {
-        //    return new EntityCollection<LicenseGroup>(
-        //        this, "licenser/groups", LicenseGroup.class, args);
-        //}
+        /// <summary>
+        /// Returns a collection of license group configurations
+        /// </summary>
+        /// <param name="args">Optional arguments, such as "count" and "offset"
+        /// for pagination.</param>
+        /// <returns>A collection oflicense group configurations.</returns>
+        public EntityCollection<LicenseGroup> GetLicenseGroups(Args args) 
+        {
+            return new EntityCollection<LicenseGroup>(
+                this, "licenser/groups", args, typeof(LicenseGroup));
+        }
 
-        ///**
-        // * Returns a collection of messages from the licenser.
-        // *
-        // * @return A collection of licenser messages.
-        // */
-        //public EntityCollection<LicenseMessage> GetLicenseMessages() {
-        //    return new EntityCollection<LicenseMessage>(
-        //        this, "licenser/messages", LicenseMessage.class);
-        //}
+        /// <summary>
+        /// Returns a collection of messages from the licenser.
+        /// </summary>
+        /// <returns>A collection of messages from the licenser.</returns>
+        public EntityCollection<LicenseMessage> GetLicenseMessages()
+        {
+            return new EntityCollection<LicenseMessage>(
+                this, "licenser/messages", typeof(LicenseMessage));
+        }
 
-        ///**
-        // * Returns a collection of messages from the licenser.
-        // *
-        // * @param args Optional arguments, such as "count" and "offset" for 
-        // * pagination.
-        // * @return A collection of licenser messages.
-        // */
-        //public EntityCollection<LicenseMessage> GetLicenseMessages(Args args) {
-        //    return new EntityCollection<LicenseMessage>(
-        //        this, "licenser/messages", LicenseMessage.class, args);
-        //}
+        /// <summary>
+        /// Returns a collection of messages from the licenser.
+        /// </summary>
+        /// <param name="args">Optional arguments, such as "count" and "offset"
+        /// for pagination.</param>
+        /// <returns>A collection of messages from the licenser.</returns>
+        public EntityCollection<LicenseMessage> GetLicenseMessages(Args args) 
+        {
+            return new EntityCollection<LicenseMessage>(
+                this, "licenser/messages", args, typeof(LicenseMessage));
+        }
 
-        ///**
-        // * Returns a collection of licenser pool configurations.
-        // *
-        // * @return A collection of licenser pool configurations.
-        // */
-        //public LicensePoolCollection GetLicensePools() {
-        //    return new LicensePoolCollection(this);
-        //}
+        /// <summary>
+        /// Returns a collection of license pools from the licenser.
+        /// </summary>
+        /// <returns>A collection of licenses pools from the licenser.</returns>
+        public EntityCollection<LicensePool> GetLicensePools()
+        {
+            return new LicensePoolCollection(this);
+        }
 
-        ///**
-        // * Returns a collection of licenser pool configurations.
-        // *
-        // * @param args Optional arguments, such as "count" and "offset" for 
-        // * pagination.
-        // * @return A collection of licenser pool configurations.
-        // */
-        //public LicensePoolCollection GetLicensePools(Args args) {
-        //    return new LicensePoolCollection(this, args);
-        //}
+        /// <summary>
+        /// Returns a collection of messages from the licenser.
+        /// </summary>
+        /// <param name="args">Optional arguments, such as "count" and "offset"
+        /// for pagination.</param>
+        /// <returns>A collection of license pools from the licenser.</returns>
+        public EntityCollection<LicensePool> GetLicensePools(Args args)
+        {
+            return new LicensePoolCollection(this, args);
+        }
 
-        ///**
-        // * Returns a collection of slaves reporting to this license master.
-        // *
-        // * @return A collection of licenser slaves.
-        // */
-        //public EntityCollection<LicenseSlave> GetLicenseSlaves() {
-        //    return new EntityCollection<LicenseSlave>(
-        //        this, "licenser/slaves", LicenseSlave.class);
-        //}
+        /// <summary>
+        /// Returns a collection of slaves reporting to this license master.
+        /// </summary>
+        /// <returns>A collection of licenser slaves.</returns>
+        public EntityCollection<LicenseSlave> GetLicenseSlaves() 
+        {
+            return new EntityCollection<LicenseSlave>(
+                this, "licenser/slaves", typeof(LicenseSlave));
+        }
 
-        ///**
-        // * Returns a collection of slaves reporting to this license master.
-        // *
-        // * @param args Optional arguments, such as "count" and "offset" for 
-        // * pagination.
-        // * @return A collection of licenser slaves.
-        // */
-        //public EntityCollection<LicenseSlave> GetLicenseSlaves(Args args) {
-        //    return new EntityCollection<LicenseSlave>(
-        //        this, "licenser/slaves", LicenseSlave.class, args);
-        //}
+        /// <summary>
+        /// Returns a collection of slaves reporting to this license master.
+        /// </summary>
+        /// <param name="args">Optional arguments, such as "count" and "offset"
+        /// for pagination.</param>
+        /// <returns>A collection of licenser slaves.</returns>
+        public EntityCollection<LicenseSlave> GetLicenseSlaves(Args args) 
+        {
+            return new EntityCollection<LicenseSlave>(
+                this, "licenser/slaves", args, typeof(LicenseSlave));
+        }
 
-        ///**
-        // * Returns a collection of license stack configurations.
-        // *
-        // * @return A collection of license stack configurations.
-        // */
-        //public EntityCollection<LicenseStack> GetLicenseStacks() {
-        //    return new EntityCollection<LicenseStack>(
-        //        this, "licenser/stacks", LicenseStack.class);
-        //}
+        /// <summary>
+        ///  Returns a collection of license stack configurations.
+        /// </summary>
+        /// <returns>A collection of license stack configurations.</returns>
+        public EntityCollection<LicenseStack> GetLicenseStacks() 
+        {
+            return new EntityCollection<LicenseStack>(
+                this, "licenser/stacks", typeof(LicenseStack));
+        }
 
-        ///**
-        // * Returns a collection of license stack configurations.
-        // *
-        // * @param args Optional arguments, such as "count" and "offset" for 
-        // * pagination.
-        // * @return A collection of license stack configurations.
-        // */
-        //public EntityCollection<LicenseStack> GetLicenseStacks(Args args) {
-        //    return new EntityCollection<LicenseStack>(
-        //        this, "licenser/stacks", LicenseStack.class, args);
-        //}
+        /// <summary>
+        /// Returns a collection of license stack configurations.
+        /// </summary>
+        /// <param name="args">Optional arguments, such as "count" and "offset"
+        /// for pagination.</param>
+        /// <returns>A collection of license stack configurations.</returns>
+        public EntityCollection<LicenseStack> GetLicenseStacks(Args args) 
+        {
+            return new EntityCollection<LicenseStack>(
+                this, "licenser/stacks", args, typeof(LicenseStack));
+        }
 
-        ///**
-        // * Returns a collection of licenses for this service.
-        // *
-        // * @return A collection of licenses.
-        // */
-        //public EntityCollection<License> GetLicenses() {
-        //    return new EntityCollection<License>(
-        //        this, "licenser/licenses", License.class);
-        //}
+        /// <summary>
+        /// Returns a collection of licenses for this service.
+        /// </summary>
+        /// <returns>A collection of licenses.</returns>
+        public EntityCollection<License> GetLicenses() 
+        {
+            return new EntityCollection<License>(
+                this, "licenser/licenses", typeof(License));
+        }
 
-        ///**
-        // * Returns a collection of licenses for this service.
-        // *
-        // * @param args Optional arguments, such as "count" and "offset" for 
-        // * pagination.
-        // * @return A collection of licenses.
-        // */
-        //public EntityCollection<License> GetLicenses(Args args) {
-        //    return new EntityCollection<License>(
-        //        this, "licenser/licenses", License.class, args);
-        //}
+        /// <summary>
+        /// Returns a collection of licenses for this service.
+        /// </summary>
+        /// <param name="args">Optional arguments, such as "count" and "offset"
+        /// for pagination.</param>
+        /// <returns>A collection of licenses.</returns>
+        public EntityCollection<License> GetLicenses(Args args) 
+        {
+            return new EntityCollection<License>(
+                this, "licenser/licenses", args, typeof(License));
+        }
 
-        ///**
-        // * Returns a collection of service logging categories and their status.
-        // *
-        // * @return A collection of logging categories.
-        // */
-        //public EntityCollection<Logger> GetLoggers() {
-        //    return new EntityCollection<Logger>(
-        //        this, "server/logger", Logger.class);
-        //}
+        /// <summary>
+        /// Returns a collection of service logging categories and their status.
+        /// </summary>
+        /// <returns>A collection of logging categories.</returns>
+        public EntityCollection<Logger> GetLoggers()
+        {
+            return new EntityCollection<Logger>(
+                this, "server/logger", typeof(Logger));
+        }
 
-        ///**
-        // * Returns a collection of service logging categories and their status.
-        // *
-        // * @param args Optional arguments, such as "count" and "offset" for 
-        // * pagination.
-        // * @return A collection of logging categories.
-        // */
-        //public EntityCollection<Logger> GetLoggers(Args args) {
-        //    return new EntityCollection<Logger>(
-        //        this, "server/logger", Logger.class, args);
-        //}
+        /// <summary>
+        /// Returns a collection of service logging categories and their status.
+        /// </summary>
+        /// <param name="args">Optional arguments, such as "count" and "offset"
+        /// for pagination.</param>
+        /// <returns>A collection of logging categories.</returns>
+        public EntityCollection<Logger> GetLoggers(Args args) 
+        {
+            return new EntityCollection<Logger>(
+                this, "server/logger", args, typeof(Logger));
+        }
 
         /// <summary>
         /// Returns the collection of messages.
@@ -762,113 +991,106 @@ namespace Splunk
             return new MessageCollection(this, args);
         }
 
-        ///**
-        // * Returns global TCP output properties.
-        // *
-        // * @return Global TCP output properties.
-        // */
-        //public OutputDefault GetOutputDefault() {
-        //    return new OutputDefault(this);
-        //}
+        /// <summary>
+        /// Returns the flobal TCP output properties.
+        /// </summary>
+        /// <returns>The flobal TCP output properties.</returns>
+        public OutputDefault GetOutputDefault() 
+        {
+            return new OutputDefault(this);
+        }
 
-        ///**
-        // * Returns a collection of output group configurations.
-        // *
-        // * @return A collection of output group configurations.
-        // */
-        //public EntityCollection<OutputGroup> GetOutputGroups() {
-        //    return new EntityCollection<OutputGroup>(
-        //        this, "data/outputs/tcp/group", OutputGroup.class);
-        //}
+        /// <summary>
+        /// Returns a collection of output group configurations.
+        /// </summary>
+        /// <returns>A collection of output group configurations.</returns>
+        public EntityCollection<OutputGroup> GetOutputGroups() 
+        {
+            return new EntityCollection<OutputGroup>(
+                this, "data/outputs/tcp/group", typeof(OutputGroup));
+        }
 
-        ///**
-        // * Returns a collection of output group configurations.
-        // *
-        // * @param args Optional arguments, such as "count" and "offset" for 
-        // * pagination.
-        // * @return A collection of output group configurations.
-        // */
-        //public EntityCollection<OutputGroup> GetOutputGroups(Args args) {
-        //    return new EntityCollection<OutputGroup>(
-        //        this, "data/outputs/tcp/group", OutputGroup.class, args);
-        //}
+        /// <summary>
+        /// Returns a collection of output group configurations.
+        /// </summary>
+        /// <param name="args">Optional arguments, such as "count" and "offset"
+        /// for pagination.</param>
+        /// <returns>A collection of output group configurations.</returns>
+        public EntityCollection<OutputGroup> GetOutputGroups(Args args) 
+        {
+            return new EntityCollection<OutputGroup>(
+                this, "data/outputs/tcp/group", args, typeof(OutputGroup));
+        }
 
-        ///**
-        // * Returns a collection of data-forwarding configurations.
-        // *
-        // * @return A collection of data-forwarding configurations.
-        // */
-        //public EntityCollection<OutputServer> GetOutputServers() {
-        //    return new EntityCollection<OutputServer>(
-        //        this, "data/outputs/tcp/server", OutputServer.class);
-        //}
+        /// <summary>
+        /// Returns a collection of data-forwarding configurations.
+        /// </summary>
+        /// <returns>A collection of data-forwarding configurations.</returns>
+        public EntityCollection<OutputServer> GetOutputServers() 
+        {
+            return new EntityCollection<OutputServer>(
+                this, "data/outputs/tcp/server", typeof(OutputServer));
+        }
 
-        ///**
-        // * Returns a collection of data-forwarding configurations.
-        // *
-        // * @param args Optional arguments, such as "count" and "offset" for 
-        // * pagination.
-        // * @return A collection of data-forwarding configurations.
-        // */
-        //public EntityCollection<OutputServer> GetOutputServers(Args args) {
-        //    return new EntityCollection<OutputServer>(
-        //        this, "data/outputs/tcp/server", OutputServer.class, args);
-        //}
+        /// <summary>
+        /// Returns a collection of data-forwarding configurations.
+        /// </summary>
+        /// <param name="args">Optional arguments, such as "count" and "offset"
+        /// for pagination.</param>
+        /// <returns>A collection of data-forwarding configurations.</returns>
+        public EntityCollection<OutputServer> GetOutputServers(Args args) 
+        {
+            return new EntityCollection<OutputServer>(
+                this, "data/outputs/tcp/server", args, typeof(OutputServer));
+        }
 
-        ///**
-        // * Returns a collection of configurations for forwarding data in standard
-        // * syslog format.
-        // *
-        // * @return A collection of syslog forwarders.
-        // */
-        //public EntityCollection<OutputSyslog> GetOutputSyslogs() {
-        //    return new EntityCollection<OutputSyslog>(
-        //        this, "data/outputs/tcp/syslog", OutputSyslog.class);
-        //}
+        /// <summary>
+        /// Returns a collection of configurations for forwarding data in 
+        /// standard syslog format.
+        /// </summary>
+        /// <returns>A collection of configurations for forwarding data in 
+        /// standard syslog format.</returns>
+        public EntityCollection<OutputSyslog> GetOutputSyslogs() 
+        {
+            return new EntityCollection<OutputSyslog>(
+                this, "data/outputs/tcp/syslog", typeof(OutputSyslog));
+        }
 
-        ///**
-        // * Returns a collection of configurations for forwarding data in standard
-        // * syslog format.
-        // *
-        // * @param args Optional arguments, such as "count" and "offset" for 
-        // * pagination.
-        // * @return A collection of syslog forwarders.
-        // */
-        //public EntityCollection<OutputSyslog> GetOutputSyslogs(Args args) {
-        //    return new EntityCollection<OutputSyslog>(
-        //        this, "data/outputs/tcp/syslog", OutputSyslog.class, args);
-        //}
+        /// <summary>
+        /// Returns a collection of configurations for forwarding data in 
+        /// standard syslog format.
+        /// </summary>
+        /// <param name="args">Optional arguments, such as "count" and "offset"
+        /// for pagination.</param>
+        /// <returns>A collection of configurations for forwarding data in 
+        /// standard syslog format.</returns>
+        public EntityCollection<OutputSyslog> GetOutputSyslogs(Args args)
+        {
+            return new EntityCollection<OutputSyslog>(
+                this, "data/outputs/tcp/syslog", args, typeof(OutputSyslog));
+        }
 
-        ///**
-        // * Returns the current password that was used to authenticate the session.
-        // *
-        // * @return The current password.
-        // */
-        //public string GetPassword() {
-        //    return this.password;
-        //}
+        /// <summary>
+        /// Returns a collection of credentials. This collection is used for 
+        /// managing secure credentials.
+        /// </summary>
+        /// <returns>A collection of credentials.</returns>
+        public CredentialCollection GetCredentials() 
+        {
+            return new CredentialCollection(this);
+        }
 
-        ///**
-        // * Returns a collection of passwords. This collection is used for managing
-        // * secure credentials.
-        // *
-        // * @return A collection of passwords.
-        // */
-        //public PasswordCollection GetPasswords() {
-        //    return new PasswordCollection(this);
-        //}
-
-        ///**
-        // * Returns a collection of passwords. This collection is used for managing
-        // * secure credentials.
-        // *
-        // * @param args Optional arguments, such as "count" and "offset" for 
-        // * pagination.
-        // * @return A collection of passwords.
-        // */
-        //public PasswordCollection GetPasswords(Args args) {
-        //    return new PasswordCollection(this, args);
-        //}
+        /// <summary>
+        /// Returns a collection of credentials. This collection is used for 
+        /// managing secure credentials.
+        /// </summary>
+        /// <param name="args">Optional arguments, such as "count" and "offset"
+        /// for pagination.</param>
+        /// <returns>A collection of credentials.</returns>
+        public CredentialCollection GetPasswords(Args args) 
+        {
+            return new CredentialCollection(this, args);
+        }
 
         /// <summary>
         /// Returns the receiver object for this Splunk service
@@ -997,7 +1219,7 @@ namespace Splunk
             if (!this.Version.Contains("."))
             {
                 // internal build
-                this.Version = "5.0";
+                this.Version = "6.0";
             }
             if (this.VersionCompare("4.3") >= 0)
             {

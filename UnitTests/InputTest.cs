@@ -38,7 +38,7 @@ namespace UnitTests
         /// <param name="input">The Input</param>
         private void TouchSpecificInput(Input input)
         {
-            InputKind inputKind = input.Kind;
+            InputKind inputKind = input.GetKind();
             TcpConnections tcpConnections = null;
             UdpConnections udpConnections = null;
             string[] dummyStrings;
@@ -194,7 +194,7 @@ namespace UnitTests
                 dummyString = input.Name;
                 dummyString = input.Title;
                 dummyString = input.Path;
-                dummyInputKind = input.Kind;
+                dummyInputKind = input.GetKind();
                 this.TouchSpecificInput(input);
             }
         }

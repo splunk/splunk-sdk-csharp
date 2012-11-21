@@ -303,12 +303,34 @@ namespace Splunk
                 double dummy = 0;
                 if (this.toUpdate[key].GetType() == dummy.GetType())
                 {
-                    return (int)this.toUpdate[key];
+                    return (double)this.toUpdate[key];
                 }
 
                 return Value.ToFloat((string)this.toUpdate[key]);
             }
             return this.GetContent().GetFloat(key);
+        }
+
+        /// <summary>
+        /// Returns the double-floating point value associated with the 
+        /// specified key. Or the default value if the key does not exist.
+        /// </summary>
+        /// <param name="key">The key</param>
+        /// <param name="defaultValue">The default value</param>
+        /// <returns>The value</returns>
+        public double GetFloat(string key, double defaultValue)
+        {
+            if (this.toUpdate.ContainsKey(key))
+            {
+                double dummy = 0;
+                if (this.toUpdate[key].GetType() == dummy.GetType())
+                {
+                    return (double)this.toUpdate[key];
+                }
+
+                return Value.ToFloat((string)this.toUpdate[key]);
+            }
+            return this.GetContent().GetFloat(key, defaultValue);
         }
 
         /// <summary>

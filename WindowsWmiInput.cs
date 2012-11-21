@@ -135,7 +135,7 @@ namespace Splunk
         /// <summary>
         /// Gets the Input type of this object,  Windows WMI input.
         /// </summary>
-        public override InputKind Kind
+        public InputKind Kind
         {
             get
             {

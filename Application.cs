@@ -147,7 +147,7 @@ namespace Splunk
 
         /// <summary>
         /// Gets or sets a value indicating whether the app can be managed by 
-        /// Splunk Manager.
+        /// Splunk Manager. Note: this is deprecated in Splunk 5.0.
         /// </summary>
         public bool IsManageable
         {

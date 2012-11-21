@@ -25,6 +25,17 @@ namespace Splunk
     public class InputKind
     {
         /// <summary>
+        /// The map of known inputs, aka relative paths.
+        /// </summary>
+        private static Dictionary<string, InputKind> knownRelativePaths = 
+            new Dictionary<string, InputKind>();
+
+        /// <summary>
+        /// The kind of input.
+        /// </summary>
+        private string kind;
+
+        /// <summary>
         /// The relative path from the inputs endpoint.
         /// </summary>
         private string relpath;
@@ -108,8 +119,25 @@ namespace Splunk
         /// <param name="inputClass">The input class</param>
         public InputKind(string relpath, Type inputClass)
         {
+            this.kind = relpath;
             this.relpath = relpath;
             this.inputClass = inputClass;
+
+            knownRelativePaths.Add(relpath, this);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InputKind"/> class. 
+        /// </summary>
+        /// <param name="relpath">The relative input path</param>
+        /// <param name="inputClass">The input class</param>
+        public InputKind(string relpath, Type inputClass, string kind)
+        {
+            this.kind = kind;
+            this.relpath = relpath;
+            this.inputClass = inputClass;
+
+            knownRelativePaths.Add(relpath, this);
         }
 
         /// <summary>
@@ -134,6 +162,17 @@ namespace Splunk
         }
 
         /// <summary>
+        /// Gets the kind of this input
+        /// </summary>
+        public string Kind
+        {
+            get
+            {
+                return this.kind;
+            }
+        }
+
+        /// <summary>
         /// Gets the relative path of this input
         /// </summary>
         public string RelPath
@@ -152,6 +191,18 @@ namespace Splunk
             get
             {
                 return this.inputClass;
+            }
+        }
+
+        public static InputKind Create(string relPath)
+        {
+            if (knownRelativePaths.ContainsKey(relPath))
+            {
+                return knownRelativePaths[relPath];
+            }
+            else
+            {
+                return new InputKind(relPath, typeof(Input));
             }
         }
     }

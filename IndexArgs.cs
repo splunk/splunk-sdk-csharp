@@ -48,6 +48,22 @@ namespace Splunk
         }
 
         /// <summary>
+        /// Sets the suggestion Splunk bucket rebuild process for the size of 
+        /// the time-series (tsidx) file to make.
+        /// Caution: This is an advanced parameter. Inappropriate use of this 
+        /// parameter causes splunkd to not start if rebuild is required. Do not
+        /// set this parameter unless instructed by Splunk Support.
+        /// The default is "auto". This is introduced in Splunk 5.0. 
+        /// </summary>
+        public string BucketRebuildMemoryHint
+        {
+            set
+            {
+                this["BucketRebuildMemoryHint"] = value;
+            }
+        }
+
+        /// <summary>
         /// Sets an absolute filesystem path, local to the server, that contains
         /// the colddbs for the index. The path must be both readable and 
         /// writable. Cold databases are opened as needed when searching. May be
@@ -294,6 +310,24 @@ namespace Splunk
         }
 
         /// <summary>
+        /// Sets the Upper limit, in seconds, on how long an event can sit in 
+        /// raw slice. Applies only if replication is enabled for this index,
+        /// otherwise is ignored. If there are any acknowledged events sharing 
+        /// this raw slice, this paramater does not apply. In this case,
+        /// maxTimeUnreplicatedWithAcks applies. Highest legal value is 
+        /// 2147483647. To disable this parameter, set to 0.
+        /// Note: this is an advanced parameter. Understand the consequences 
+        /// before changing. This is introduced in Splunk 5.0. 
+        /// </summary>
+        public int MaxTimeUnreplicatedNoAcks
+        {
+            set
+            {
+                this["MaxTimeUnreplicatedNoAcks"] = value;
+            }
+        }
+
+        /// <summary>
         /// Sets the  maximum number of warm buckets. If this number is 
         /// exceeded, the warm bucket/s with the lowest value for their latest 
         /// times will be moved to cold. The default is 300.
@@ -385,6 +419,21 @@ namespace Splunk
             set
             {
                 this["rawChunkSizeBytes"] = value;
+            }
+        }
+
+        /// <summary>
+        /// Sets the replication factor. Valid Values are either a non-negative 
+        /// number or "auto." This parameter only applies to Splunk clustering 
+        /// slaves. "auto": Use the value as configured with the master.
+        /// "0": Specify zero to turn off replication for this index. This is 
+        /// introduced in Splunk 5.0. 
+        /// </summary>
+        public string ReplicationFactor
+        {
+            set
+            {
+                this["repFactor"] = value;
             }
         }
 

@@ -39,10 +39,43 @@ namespace Splunk
             try 
             {
                 // Note: reading causes the side effect of setting the json node
-                // information.
+                // information. 
                 if (!this.JsonReader.Read())
                 {
                     this.JsonReader = null;
+                    return;
+                }
+                
+                // Introduced in Splunk 5.0, the format of the JSON object 
+                // changed. Prior to 5.0, the array of events were a top level 
+                // JSON element. In 5.0, the results are ain an array under the
+                // key "results".
+                if (this.JsonReader.TokenType.Equals(JsonToken.StartObject))
+                {
+                    while (true)
+                    {
+                        if (!this.JsonReader.Read())
+                        {
+                            this.JsonReader = null;
+                            return;
+                        }
+
+                        if (this
+                            .JsonReader
+                            .TokenType
+                            .Equals(JsonToken.PropertyName))
+                        {
+                            if (this.JsonReader.Value.Equals("results")) 
+                            {
+                                this.JsonReader.Read();
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    // Pre Splunk 5.0
                 }
             }
             catch (Exception) 
@@ -79,9 +112,9 @@ namespace Splunk
         /// present in the stream
         /// </summary>
         /// <returns>A dictionary of key/value pairs in the event</returns>
-        public override Dictionary<string, string> GetNextEvent()
+        public override Dictionary<string, object> GetNextEvent()
         {
-            Dictionary<string, string> returnData = null;
+            Dictionary<string, object> returnData = null;
             string name = string.Empty;
 
             if (this.JsonReader == null)
@@ -95,7 +128,7 @@ namespace Splunk
             {
                 if (returnData == null) 
                 {
-                    returnData = new Dictionary<string, string>();
+                    returnData = new Dictionary<string, object>();
                 }
 
                 if (this.JsonReader.TokenType.Equals(JsonToken.StartObject)) 
@@ -104,7 +137,7 @@ namespace Splunk
                 }
                 else if (this.JsonReader.TokenType.Equals(JsonToken.StartArray)) 
                 {
-                    string data = string.Empty;
+                    List<string> data = new List<string>();
                     while (this.JsonReader.Read()) 
                     {
                         if (this
@@ -120,13 +153,11 @@ namespace Splunk
                             .TokenType
                             .Equals(JsonToken.PropertyName))
                         {
-                            data = data + (data.Equals(string.Empty) 
-                                ? string.Empty 
-                                : ",") +
-                                this.JsonReader.Value;
+                            data.Add((string)this.JsonReader.Value);
                         }
                     }
-                    returnData.Add(name, data);
+
+                    returnData.Add(name, data.ToArray());
                 }
                 else if (this
                     .JsonReader

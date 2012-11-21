@@ -996,8 +996,8 @@ namespace Splunk
         }
 
         /*
-         *   args.*	 String Wildcard argument that accepts any saved search template argument, such as args.username=foobar when the search is search $username$.
-         *   dispatch.*  String	 Wildcard argument that accepts any dispatch related argument.
+         * args.* String Wildcard argument that accepts any saved search template argument, such as args.username=foobar when the search is search $username$.
+         *   dispatch.* String Wildcard argument that accepts any dispatch related argument.
          *
          * wkcfix: not sure how to model with a setter.
          */

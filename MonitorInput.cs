@@ -49,6 +49,23 @@ namespace Splunk
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether input monitoring is
+        /// disabled. This is introduced in Splunk 5.0. 
+        /// </summary>
+        public bool Disabled
+        {
+            get
+            {
+                return this.GetBoolean("disabled", false);
+            }
+
+            set
+            {
+                this.SetCacheValue("disabled", value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a string that is used to force Splunk to index files 
         /// that have a matching cyclic redundancy check (CRC).
         /// </summary>
@@ -209,7 +226,7 @@ namespace Splunk
         /// <summary>
         /// Gets the Input type of this object, Monitor.
         /// </summary>
-        public override InputKind Kind
+        public InputKind Kind
         {
             get
             {

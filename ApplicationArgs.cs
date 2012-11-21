@@ -75,7 +75,7 @@ namespace Splunk
 
         /// <summary>
         /// Sets a value indicating whether the application can be managed by  
-        /// the Splunk Manager.
+        /// the Splunk Manager. Note: this is deprecated in Splunk 5.0.
         /// </summary>
         public bool Manageable
         {

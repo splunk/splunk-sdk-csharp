@@ -17,6 +17,7 @@
 namespace Splunk
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Net;
 
@@ -26,22 +27,7 @@ namespace Splunk
     /// <typeparam name="T">The Input class and its derived classes</typeparam>
     public class InputCollection : EntityCollection<Input> 
     {
-        /// <summary>
-        /// A static list of the input kinds.
-        /// </summary>
-        private static InputKind[] kinds = new InputKind[] 
-        {
-            InputKind.Monitor,
-            InputKind.Script,
-            InputKind.Tcp,
-            InputKind.TcpSplunk,
-            InputKind.Udp,
-            InputKind.WindowsActiveDirectory,
-            InputKind.WindowsEventLog,
-            InputKind.WindowsPerfmon,
-            InputKind.WindowsRegistry,
-            InputKind.WindowsWmi
-        };
+        protected List<InputKind> inputKinds = new List<InputKind>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InputCollection"/> 
@@ -62,6 +48,42 @@ namespace Splunk
         public InputCollection(Service service, Args args)
             : base(service, "data/inputs", args)
         {
+        }
+
+        private List<InputKind> AssembleInputKindList(ArrayList subPath)
+        {
+            List<InputKind> kinds = new List<InputKind>();
+            ResponseMessage response =
+                this.Service.Get(this.Path + "/" + Util.Join("/", subPath));
+            AtomFeed feed = AtomFeed.Parse(response.Content);
+            foreach (AtomEntry entry in feed.Entries)
+            {
+                string itemKeyName = ItemKey(entry);
+                bool hasCreateLink = entry.Links.ContainsKey("create");
+
+                ArrayList thisSubPath = new ArrayList(subPath);
+                thisSubPath.Add(itemKeyName);
+
+                string relPath = Util.Join("/", thisSubPath);
+
+                if (relPath.Equals("all") || relPath.Equals("tcp/ssl"))
+                {
+                    continue;
+                }
+                else if (hasCreateLink)
+                {
+                    InputKind newKind = InputKind.Create(relPath);
+                    kinds.Add(newKind);
+                }
+                else
+                {
+                    List<InputKind> subKinds =
+                        this.AssembleInputKindList(thisSubPath);
+                    kinds.AddRange(subKinds);
+                }
+            }
+
+            return kinds;
         }
 
         /// <summary>
@@ -158,6 +180,7 @@ namespace Splunk
         /// <returns>The input</returns>
         public override Input Get(object key, Args splunkNamespace)
         {
+            Util.EnsureNamespaceIsExact(splunkNamespace);
             return this.RetrieveInput((string)key, splunkNamespace);
         }
 
@@ -168,14 +191,28 @@ namespace Splunk
         /// <returns>The input kind</returns>
         protected InputKind ItemKind(string path)
         {
-            foreach (InputKind kind in kinds)
+            string relpathWithInputName = 
+                Util.SubstringAfter(path, "/data/inputs/", null);
+            foreach (InputKind kind in inputKinds)
             {
-                if (path.IndexOf("data/inputs/" + kind.RelPath) > 0)
+                if (relpathWithInputName.StartsWith(kind.RelPath)) 
                 {
                     return kind;
                 }
             }
             return InputKind.Unknown; // Didn't recognize the input kind
+        }
+
+        private static bool 
+            MatchesInputName(InputKind kind, string searchFor, string searchIn)
+        {
+            if (kind == InputKind.Script)
+            {
+                return searchIn.EndsWith("/" + searchFor) ||
+                       searchIn.EndsWith("\\" + searchFor);
+            }
+
+            return searchFor.Equals(searchIn);
         }
 
         /// <summary>
@@ -184,10 +221,11 @@ namespace Splunk
         /// <returns>The input collection</returns>
         public override Resource Refresh()
         {
+            this.RefreshInputKinds();
             this.Items.Clear();
 
             // Iterate over all input kinds and collect all instances.
-            foreach (InputKind kind in kinds)
+            foreach (InputKind kind in inputKinds)
             {
                 string relpath = kind.RelPath;
                 string inputs = 
@@ -220,6 +258,16 @@ namespace Splunk
             return this;
         }
 
+        private void RefreshInputKinds()
+        {
+            List<InputKind> kinds = 
+                this.AssembleInputKindList(new ArrayList());
+
+            this.inputKinds.Clear();
+            foreach (InputKind kind in kinds) {
+                this.inputKinds.Add(kind);
+            }
+        }
         /// <summary>
         /// Removes an Input from the collection
         /// </summary>
@@ -243,6 +291,7 @@ namespace Splunk
         /// <returns>The input</returns>
         public override Input Remove(string key, Args splunkNamespace)
         {
+            Util.EnsureNamespaceIsExact(splunkNamespace);
             Input input = this.RetrieveInput(key, splunkNamespace);
             if (input != null)
             {
@@ -260,46 +309,23 @@ namespace Splunk
         private Input RetrieveInput(string key)
         {
             this.Validate();
-            // Because scripted input names are not 1:1 with the original name
-            // (they are the absolute path on the splunk instance followed by
-            // the original name), we will iterate over the entities in the 
-            // list, and if we find one that matches, return it.
+
             foreach (KeyValuePair<string, List<Input>> entry in this.Items)
             {
                 string entryKey = entry.Key;
                 List<Input> entryValue = entry.Value;
+                InputKind kind = entryValue[0].GetKind();
 
-                if (entryValue[0].Kind.Equals(InputKind.Script))
+                if (InputCollection.MatchesInputName(kind, key, entryKey))
                 {
-                    if (entryKey.EndsWith("/" + key) ||
-                        entryKey.EndsWith("\\" + key))
+                    if (entryValue.Count > 1)
                     {
-                        if (entryValue.Count > 1)
-                        {
-                            throw new SplunkException(
-                                SplunkException.AMBIGUOUS,
-                                "Key has multiple values, specify a namespace");
-                        }
-                        return entryValue[0];
+                        throw new SplunkException(
+                            SplunkException.AMBIGUOUS,
+                            "Key has multiple values, specify a namespace");
                     }
-                }
-                else
-                {
-                    if (this.Items.ContainsKey(key))
-                    {
-                        List<Input> entities = this.Items[key];
-                        if (entities.Count > 1)
-                        {
-                            throw new SplunkException(
-                                SplunkException.AMBIGUOUS,
-                                "Key has multiple values, specify a namespace");
-                        }
-                        if (entities.Count == 0)
-                        {
-                            continue;
-                        }
-                        return entities[0];
-                    }
+
+                    return entryValue[0];
                 }
             }
             return null;
@@ -314,47 +340,30 @@ namespace Splunk
         /// <returns>The input</returns>
         private Input RetrieveInput(string key, Args splunkNamespace)
         {
+            Util.EnsureNamespaceIsExact(splunkNamespace);
             this.Validate();
-            // because scripted input names are not 1:1 with the original name
-            // (they are the absolute path on the splunk instance followed by
-            // the original name), we will iterate over the entities in the 
-            // list, and if we find one that matches, return it.
+
             string pathMatcher = 
                 this.Service.Fullpath(string.Empty, splunkNamespace);
             foreach (KeyValuePair<string, List<Input>> entry in this.Items)
             {
                 string entryKey = entry.Key;
                 List<Input> entryValue = entry.Value;
+                InputKind kind = entryValue[0].GetKind();
 
-                if (entryValue[0].Kind.Equals(InputKind.Script))
+                if (InputCollection.MatchesInputName(kind, key, entryKey))
                 {
-                    if (entryKey.EndsWith("/" + key) ||
-                        entryKey.EndsWith("\\" + key))
+
+                    List<Input> entities = this.Items[key];
+                    if (entities.Count == 0)
                     {
-                        foreach (Input entity in entryValue)
-                        {
-                            if (entity.Path.StartsWith(pathMatcher))
-                            {
-                                return entity;
-                            }
-                        }
+                        continue;
                     }
-                }
-                else
-                {
-                    if (this.Items.ContainsKey(key))
+                    foreach (Input entity in entities)
                     {
-                        List<Input> entities = this.Items[key];
-                        if (entities.Count == 0)
+                        if (entity.Path.StartsWith(pathMatcher))
                         {
-                            continue;
-                        }
-                        foreach (Input entity in entities)
-                        {
-                            if (entity.Path.StartsWith(pathMatcher))
-                            {
-                                return entity;
-                            }
+                            return entity;
                         }
                     }
                 }

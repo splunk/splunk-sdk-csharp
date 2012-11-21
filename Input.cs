@@ -35,12 +35,21 @@ namespace Splunk
         /// Gets the unknown input kind. Must be overridden in sub-classes.
         /// </summary>
         /// <returns></returns>
-        public virtual InputKind Kind
+        public virtual InputKind GetKind()
         {
-            get
+            string[] pathComponents = 
+                Util.SubstringAfter(this.Path, "/data/inputs/", null).Split('/');
+            string kindPath;
+            if (pathComponents[0].Equals("tcp"))
             {
-                return InputKind.Unknown;
+                kindPath = "tcp/" + pathComponents[1];
             }
+            else
+            {
+                kindPath = pathComponents[0];
+            }
+
+            return InputKind.Create(kindPath);
         }
     }
 }

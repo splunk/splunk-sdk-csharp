@@ -79,7 +79,10 @@ namespace UnitTests
                 dummyBool = app.Refreshes;
                 dummyString = app.Version;
                 dummyBool = app.IsConfigured;
-                dummyBool = app.IsManageable;
+                if (service.VersionCompare("5.0") < 0)
+                {
+                    dummyBool = app.IsManageable;
+                }
                 dummyBool = app.IsVisible;
                 dummyBool = app.StateChangeRequiresRestart;
                 ApplicationUpdate applicationUpdate = app.AppUpdate();
@@ -109,7 +112,10 @@ namespace UnitTests
             }
             createArgs.Add("description", "this is a description");
             createArgs.Add("label", "SDKTEST");
-            createArgs.Add("manageable", false);
+            if (service.VersionCompare("5.0") < 0)
+            {
+                createArgs.Add("manageable", false);
+            }
             createArgs.Add("template", "barebones");
             createArgs.Add("visible", false);
             apps.Create("sdk-tests", createArgs);
@@ -120,7 +126,10 @@ namespace UnitTests
             Assert.AreEqual("SDKTEST", app2.Label, assertRoot + "#3");
             Assert.AreEqual("me", app2.Author, assertRoot + "#4");
             Assert.IsFalse(app2.IsConfigured, assertRoot + "#5");
-            Assert.IsFalse(app2.IsManageable, assertRoot + "#6");
+            if (service.VersionCompare("5.0") < 0)
+            {
+                Assert.IsFalse(app2.IsManageable, assertRoot + "#6");
+            }
             Assert.IsFalse(app2.IsVisible, assertRoot + "#7");
 
             // update the app
@@ -128,7 +137,10 @@ namespace UnitTests
             app2.Description = "new description";
             app2.Label = "new label";
             app2.IsVisible = false;
-            app2.IsManageable = false;
+            if (service.VersionCompare("5.0") < 0)
+            {
+                app2.IsManageable = false;
+            }
             app2.Version = "5.0.0";
             app2.Update();
 

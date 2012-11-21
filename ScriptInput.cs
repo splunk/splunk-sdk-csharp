@@ -106,7 +106,7 @@ namespace Splunk
         /// <summary>
         /// Gets the Input type of this object, Script.
         /// </summary>
-        public override InputKind Kind
+        public InputKind Kind
         {
             get
             {

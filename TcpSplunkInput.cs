@@ -106,7 +106,7 @@ namespace Splunk
         /// <summary>
         /// Gets the Input type of this object, Tcp (cooked).
         /// </summary>
-        public override InputKind Kind
+        public InputKind Kind
         {
             get
             {

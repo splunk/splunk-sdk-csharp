@@ -279,6 +279,47 @@ namespace Splunk
         }
 
         /// <summary>
+        /// Gets or sets the space-spearated list of CID fonts for handling 
+        /// simplfied Chinese (gb), tradional Chinese (cns), Japanese (jp), and 
+        /// Korea (kor) in integrated PDF rendering. If multiple fonts provide a
+        /// glyph for a given character code, the glyph from the first font 
+        /// specified in the list is used. To skip loading any CID fonts, 
+        /// specify an empty string. The defaults is "gb cns jp kor". This is 
+        /// introduced in Splunk 5.0. 
+        /// </summary>
+        public string ActionEmailReportCIDFontList
+        {
+            get
+            {
+                return this.GetString("action.email.reportCIDFontList", null);
+            }
+
+            set
+            {
+                this.SetCacheValue("action.email.reportCIDFontList", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to include the Splunk logo
+        /// with the report. This is introduced in Splunk 5.0. 
+        /// </summary>
+        public bool ActionEmailReportIncludeSplunkLogo
+        {
+            get
+            {
+                return this.GetBoolean(
+                    "action.email.reportIncludeSplunkLogo", false);
+            }
+
+            set
+            {
+                this.SetCacheValue(
+                    "action.email.reportIncludeSplunkLogo", value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the paper orientation. Valid values are "portrait" and
         /// "landscape".
         /// </summary>
@@ -1191,6 +1232,26 @@ namespace Splunk
             set
             {
                 this.SetCacheValue("alert_type", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the maximum ratio of summary_size/bucket_size, which 
+        /// specifies when to stop summarization and deem it unhelpful for a 
+        /// bucket. Note: The test is only performed if the summary size is 
+        /// larger than auto_summarize.max_summary_size. The default is 0.1.
+        /// This is introduced in Splunk 5.0. 
+        /// </summary>
+        public double AutoSummarizeMaxSummaryRatio
+        {
+            get
+            {
+                return this.GetFloat("auto_summarize.max_summary_ratio", -1.0);
+            }
+
+            set
+            {
+                this.SetCacheValue("auto_summarize.max_summary_ratio", value);
             }
         }
 

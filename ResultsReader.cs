@@ -60,7 +60,7 @@ namespace Splunk
         /// </summary>
         /// <returns>The dictionary of key value pairs representing the event
         /// </returns>
-        public virtual Dictionary<string, string> GetNextEvent() 
+        public virtual Dictionary<string, object> GetNextEvent() 
         {
             return null;
         }

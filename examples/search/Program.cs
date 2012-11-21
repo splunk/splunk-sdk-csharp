@@ -58,7 +58,7 @@ namespace SplunkSearch
             outArgs.Add("count", "0");
             Stream stream = job.Results(outArgs);
             ResultsReaderJSON rr = new ResultsReaderJSON(stream);
-            Dictionary<string, string> map;
+            Dictionary<string, object> map;
             while ((map = rr.GetNextEvent()) != null)
             {
                 System.Console.WriteLine("EVENT:");

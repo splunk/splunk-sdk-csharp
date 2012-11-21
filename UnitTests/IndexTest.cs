@@ -113,7 +113,7 @@ namespace UnitTests
                 dummyString = idx.HomePath;
                 dummyString = idx.HomePathExpanded;
                 dummyString = idx.IndexThreads;
-                dummyString = idx.LastInitTime;
+                dummyTime = idx.LastInitTime;
                 dummyString = idx.MaxBloomBackfillBucketAge;
                 dummyInt = idx.MaxConcurrentOptimizes;
                 dummyString = idx.MaxDataSize;

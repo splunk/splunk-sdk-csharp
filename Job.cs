@@ -284,6 +284,38 @@ namespace Splunk
         }
 
         /// <summary>
+        /// Gets the earliest (inclusive), respectively, time bounds for the 
+        /// search, based on the index time bounds.The time string can be either 
+        /// a UTC time (with fractional seconds), a relative time specifier 
+        /// (to now) or a formatted time string. This is introduced in Splunk 
+        /// 5.0. 
+        /// </summary>
+        public string IndexEarliest
+        {
+            get
+            {
+                this.CheckReady();
+                return this.GetString("index_earliest", null);
+            }
+        }
+
+        /// <summary>
+        /// Gets the latest (exclusive), respectively, time bounds for the 
+        /// search, based on the index time bounds. The time string can be 
+        /// either a UTC time (with fractional seconds), a relative time 
+        /// specifier (to now) or a formatted time string. This is introduced in
+        /// Splunk 5.0. 
+        /// </summary>
+        public string IndexLatest
+        {
+            get
+            {
+                this.CheckReady();
+                return this.GetString("index_latest", null);
+            }
+        }
+
+        /// <summary>
         /// Gets all positive keywords used by this job. A positive keyword is 
         /// a keyword that is not in a NOT clause. 
         /// </summary>

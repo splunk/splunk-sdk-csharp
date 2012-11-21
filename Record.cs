@@ -117,6 +117,22 @@ namespace Splunk
         }
 
         /// <summary>
+        /// Returns the double value associated with the given key.
+        /// </summary>
+        /// <param name="key">The key</param>
+        /// <param name="defaultValue">The default value</param>
+        /// <returns>The value</returns>
+        public double GetFloat(string key, double defaultValue)
+        {
+            if (!this.ContainsKey(key))
+            {
+                return defaultValue;
+            }
+
+            return Value.ToFloat(this.GetString(key));
+        }
+
+        /// <summary>
         /// Returns the int value associated with the given key.
         /// </summary>
         /// <param name="key">The key</param>

@@ -4,6 +4,6 @@
     <ReferencePath>C:\Users\wcolgate\Documents\GitHub\splunk-sdk-csharp\bin\Debug\</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <StartArguments>--search="search index=_internal * | head 10 | fields - _*"</StartArguments>
+    <StartArguments>--search="search index=_internal %2a | head 10 "</StartArguments>
   </PropertyGroup>
 </Project>
