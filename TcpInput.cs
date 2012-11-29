@@ -141,11 +141,6 @@ namespace Splunk
             {
                 return this.GetString("restrictToHost", null);
             }
-
-            set
-            {
-                this.SetCacheValue("restrictToHost", value);
-            }
         }
 
         /// <summary>

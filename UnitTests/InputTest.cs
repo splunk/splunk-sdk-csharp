@@ -373,7 +373,6 @@ namespace UnitTests
             {
                 // Behavioral difference between 4.3 and earlier versions
                 tcpInput.RawTcpDoneTimeout = 120;
-                tcpInput.RestrictToHost = "four.five.com";
             }
             tcpInput.Source = "tcp";
             tcpInput.SourceType = "sdk-tests";
@@ -418,11 +417,6 @@ namespace UnitTests
 
             tcpSplunkInput.ConnectionHost = "one.two.three";
             tcpSplunkInput.Host = "myhost";
-            if (service.VersionCompare("4.3") >= 0)
-            {
-                // Behavioral difference between 4.3 and earlier versions
-                tcpSplunkInput.RestrictToHost = "four.five.com";
-            }
             tcpSplunkInput.SSL = false;
             tcpSplunkInput.Update();
 
