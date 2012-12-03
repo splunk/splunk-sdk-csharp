@@ -1246,18 +1246,7 @@ namespace Splunk
         /// <returns>The IO stream</returns>
         public Stream Oneshot(string query) 
         {
-           return this.Oneshot(query, null, null);
-        }
-
-        /// <summary>
-        /// Creates a oneshot synchronous search using search arguments.
-        /// </summary>
-        /// <param name="query">The search string</param>
-        /// <param name="inputArgs">The input arguments</param>
-        /// <returns>The IO stream</returns>
-        public Stream Oneshot(string query, Args inputArgs) 
-        {
-            return this.Oneshot(query, inputArgs, null);
+           return this.Oneshot(query, null);
         }
 
         /// <summary>
@@ -1267,8 +1256,9 @@ namespace Splunk
         /// <param name="inputArgs">The input arguments</param>
         /// <param name="outputArgs">The output arguments</param>
         /// <returns>The IO stream</returns>
-        public Stream Oneshot(string query, Args inputArgs, Args outputArgs) 
+        public Stream Oneshot(string query, Args inputArgs) 
         {
+            inputArgs = (inputArgs == null) ? Args.Create() : inputArgs; 
             inputArgs = Args.Create(inputArgs);
             inputArgs.Add("search", query);
             inputArgs.Add("exec_mode", "oneshot");

@@ -118,11 +118,25 @@ namespace Splunk
         /// <summary>
         /// Gets the slaves usage in bytes.
         /// </summary>
-        public int SlavesUsageBytes
+        public Dictionary<string, int> SlavesUsageBytes
         {
             get
             {
-                return this.GetInteger("slaves_usage_bytes", 0);
+                Dictionary<string, object> value = 
+                    (Dictionary<string, object>)this.Get("slaves_usage_bytes");
+                if (value == null)
+                {
+                    value = new Dictionary<string, object>();
+                }
+
+                Dictionary<string, int> usageBytes = 
+                    new Dictionary<string, int>();
+                foreach (string key in value.Keys)
+                {
+                    usageBytes[key] = int.Parse((string)value[key]);
+                }
+
+                return usageBytes;
             }
         }
 

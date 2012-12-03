@@ -1103,7 +1103,7 @@ namespace Splunk
         /// Sets thethe maximum amount of time, in seconds,  before finalizing 
         /// the search. The default is 500,000.
         /// </summary>
-        public int DispatchMaxTime
+        public string DispatchMaxTime
         {
             set
             {

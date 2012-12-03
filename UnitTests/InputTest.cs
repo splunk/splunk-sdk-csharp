@@ -508,17 +508,17 @@ namespace UnitTests
                 Assert.IsFalse(inputCollection.ContainsKey(name), assertRoot + "#52");
 
                 // CRUD Windows Event Log Input
-                args.Add("lookup_host", "127.0.0.1");
+                args.Add("lookup_host", service.Host);
                 inputCollection.Create(name, InputKind.WindowsEventLog, args);
                 Assert.IsTrue(inputCollection.ContainsKey(name), assertRoot + "#53");
                 WindowsEventLogInput windowsEventLogInput = (WindowsEventLogInput)inputCollection.Get(name);
 
                 windowsEventLogInput.Index = "main";
-                windowsEventLogInput.LookupHost = "127.0.0.1";
+                windowsEventLogInput.LookupHost = service.Host;
                 windowsEventLogInput.Hosts = "one.two.three,four.five.six";
                 windowsEventLogInput.Update();
 
-                Assert.AreEqual("127.0.0.1", windowsEventLogInput.LookupHost, assertRoot + "#54");
+                Assert.AreEqual(service.Host, windowsEventLogInput.LookupHost, assertRoot + "#54");
                 Assert.AreEqual("one.two.three,four.five.six", windowsEventLogInput.Hosts, assertRoot + "#55");
                 Assert.AreEqual("main", windowsEventLogInput.Index, assertRoot + "#55");
 
@@ -679,14 +679,14 @@ namespace UnitTests
                 // CRUD Windows Wmi Input
                 args.Add("classes", "PerfOS_Processor");
                 args.Add("interval", 600);
-                args.Add("lookup_host", "127.0.0.1");
+                args.Add("lookup_host", service.Host);
                 inputCollection.Create(name, InputKind.WindowsWmi, args);
                 Assert.IsTrue(inputCollection.ContainsKey(name), assertRoot + "#81");
                 WindowsWmiInput windowsWmiInput = (WindowsWmiInput)inputCollection.Get(name);
 
                 Assert.AreEqual("Win32_PerfFormattedData_PerfOS_Processor", windowsWmiInput.Classes, assertRoot + "#82");
                 Assert.AreEqual(600, windowsWmiInput.Interval, assertRoot + "#83");
-                Assert.AreEqual(windowsWmiInput.LookupHost, "127.0.0.1", assertRoot + "#84");
+                Assert.AreEqual(windowsWmiInput.LookupHost, service.Host, assertRoot + "#84");
 
                 windowsWmiInput.Classes = "PerfDisk_LogicalDisk";
                 windowsWmiInput.Fields = new string[] { "Caption" };
