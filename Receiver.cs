@@ -20,7 +20,9 @@ namespace Splunk
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Net.Security;
     using System.Net.Sockets;
+    using System.Security.Cryptography.X509Certificates;
     using System.Text;
 
     /// <summary>
@@ -44,49 +46,51 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Creates a socket to the splunk server using the default index, and 
+        /// Creates a SSL stream to the splunk server using the default index, and 
         /// default port.
         /// </summary>
-        /// <returns>The Socket</returns>
-        public Socket Attach() 
+        /// <returns>SSL stream</returns>
+        public SslStream Attach() 
         {
             return this.Attach(null, null);
         }
 
         /// <summary>
-        /// Creates a socket to the splunk server using the named index, and 
+        /// Creates a SSL stream to the splunk server using the named index, and 
         /// default port.
         /// </summary>
         /// <param name="indexName">The index to write to</param>
-        /// <returns>The Socket</returns>
-        public Socket Attach(string indexName) 
+        /// <returns>SSL stream</returns>
+        public SslStream Attach(string indexName) 
         {
             return this.Attach(indexName, null);
         }
 
         /// <summary>
-        /// Creates a socket to the splunk server using the default index and 
+        /// Creates a SSL stream to the splunk server using the default index and 
         /// variable arguments.
         /// </summary>
         /// <param name="args">The variable arguments</param>
-        /// <returns>The Socket</returns>
-        public Socket Attach(Args args)
+        /// <returns>SSL stream</returns>
+        public SslStream Attach(Args args)
         {
             return this.Attach(null, args);
         }
 
         /// <summary>
-        /// Creates a socket to the splunk server using the named index and 
+        /// Creates a SSL stream to the splunk server using the named index and 
         /// variable arguments.
         /// </summary>
         /// <param name="indexName">The index name</param>
         /// <param name="args">The variable arguments</param>
-        /// <returns>The Socket</returns>
-        public Socket Attach(string indexName, Args args) 
+        /// <returns>SSL stream</returns>
+        public SslStream Attach(string indexName, Args args) 
         {
             Socket socket = this.service.Open(this.service.Port);
             NetworkStream stream = new NetworkStream(socket);
-            StreamWriter writer = new StreamWriter(stream);
+            socket.NoDelay = true;
+            socket.SendBufferSize = 1;
+            var sslStream = new SslStream(stream, false, new RemoteCertificateValidationCallback(ValidateSslCertificate), null);
             string postUrl = "POST /services/receivers/stream";
             if (indexName != null) 
             {
@@ -106,13 +110,31 @@ namespace Splunk
                 "Authorization: {3}\r\n" +
                 "X-Splunk-Input-Mode: Streaming\r\n\r\n",
                 postUrl,
-                this.service.Host, 
+                this.service.Host,
                 this.service.Port,
                 this.service.Token);
-            writer.Write(Encoding.UTF8.GetBytes(header));
-            writer.Flush();
-            return socket;
+            sslStream.AuthenticateAsClient(this.service.Host);
+            sslStream.Write(Encoding.UTF8.GetBytes(header));
+            sslStream.Flush();            
+            return sslStream;
         }
+
+        /// <summary>
+        /// Validates the SSL (X509) certificate. Always valid.
+        /// SECURITY WARNING: Though the SSL certificate is validated, nothing is done if the certificate
+        /// produces errors. Example: Mismatch hostname on certificate. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="certificate"></param>
+        /// <param name="chain"></param>
+        /// <param name="sslPolicyErrors"></param>
+        /// <returns></returns>
+        private static bool ValidateSslCertificate(object sender, X509Certificate certificate,
+                                                    X509Chain chain, SslPolicyErrors sslPolicyErrors)
+        {
+            return true;
+        }
+
 
         /// <summary>
         /// Submits the data using HTTP post, to the default index

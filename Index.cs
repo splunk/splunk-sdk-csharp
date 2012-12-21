@@ -18,6 +18,7 @@ namespace Splunk
 {
     using System;
     using System.Diagnostics;
+    using System.Net.Security;
     using System.Net.Sockets;
     using System.Threading;
 
@@ -834,21 +835,21 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Creates a writable socket to this index.
+        /// Creates a writable SSL stream to this index.
         /// </summary>
-        /// <returns>The network socket</returns>
-        public Socket Attach()
+        /// <returns>The SSL stream</returns>
+        public SslStream Attach()
         {
             Receiver receiver = this.Service.GetReceiver();
             return receiver.Attach(this.Name);
         }
 
         /// <summary>
-        /// Creates a writable socket to this index, adding optional arguments.
+        /// Creates a writable SSL stream to this index, adding optional arguments.
         /// </summary>
         /// <param name="args">The arguments</param>
-        /// <returns>The network socket</returns>
-        public Socket Attach(Args args)
+        /// <returns>The SSL stream</returns>
+        public SslStream Attach(Args args)
         {
             Receiver receiver = this.Service.GetReceiver();
             return receiver.Attach(this.Name, args);
