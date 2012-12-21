@@ -86,11 +86,10 @@ namespace Splunk
         /// <returns>SSL stream</returns>
         public SslStream Attach(string indexName, Args args) 
         {
-            Socket socket = this.service.Open(this.service.Port);
-            NetworkStream stream = new NetworkStream(socket);
-            socket.NoDelay = true;
-            socket.SendBufferSize = 1;
-            var sslStream = new SslStream(stream, false, new RemoteCertificateValidationCallback(ValidateSslCertificate), null);
+            TcpClient tcp = new TcpClient();
+            tcp.NoDelay = true;
+            tcp.Connect(this.service.Host, this.service.Port);            
+            var sslStream = new SslStream(tcp.GetStream(), false, new RemoteCertificateValidationCallback(ValidateSslCertificate), null);
             string postUrl = "POST /services/receivers/stream";
             if (indexName != null) 
             {
@@ -106,16 +105,15 @@ namespace Splunk
             string header = string.Format(
                 "{0} HTTP/1.1\r\n" +
                 "Host: {1}:{2}\r\n" +
-                "Accept-Encoding: identity\r\n" +
                 "Authorization: {3}\r\n" +
-                "X-Splunk-Input-Mode: Streaming\r\n\r\n",
+                "x-splunk-input-mode: streaming\r\n\r\n",
                 postUrl,
                 this.service.Host,
                 this.service.Port,
                 this.service.Token);
             sslStream.AuthenticateAsClient(this.service.Host);
             sslStream.Write(Encoding.UTF8.GetBytes(header));
-            sslStream.Flush();            
+            sslStream.Flush();      
             return sslStream;
         }
 
