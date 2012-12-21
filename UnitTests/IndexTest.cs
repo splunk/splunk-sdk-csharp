@@ -241,16 +241,15 @@ namespace UnitTests
             Assert.AreEqual(0, index.TotalEventCount, assertRoot + "#4");
 
             // stream events to index
-            Socket socket = index.Attach();
-            NetworkStream stream = new NetworkStream(socket);
-            StreamWriter writer = new StreamWriter(stream);
+            
+            var sslStream = index.Attach();
+            StreamWriter writer = new StreamWriter(sslStream);
 
             writer.Write(Encoding.UTF8.GetBytes(now + " Hello World again. \u0150\r\n"));
             writer.Write(Encoding.UTF8.GetBytes(now + " Goodbye World again.\u0150\r\n"));
             writer.Flush();
             writer.Close();
-            socket.Close();
-
+            
             this.Wait_event_count(index, 2, 45);
             Assert.AreEqual(2, index.TotalEventCount, assertRoot + "#5");
 
