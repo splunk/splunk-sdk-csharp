@@ -22,6 +22,7 @@ namespace SplunkSubmit
     using System.Text;
     using Splunk;
     using SplunkSDKHelper;
+    using System.IO;
 
     /// <summary>
     /// An example program to submit events into splunk
@@ -42,6 +43,12 @@ namespace SplunkSubmit
             Receiver receiver = new Receiver(service);
             receiver.Submit("Hello World. \u0150");
             receiver.Submit("Goodbye world. \u0150");
+
+            var sslStream = receiver.Attach();
+            using (var writer = new StreamWriter(sslStream))
+            {
+                writer.Write("Hello World");
+            }
         }
     }
 }
