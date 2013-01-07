@@ -30,57 +30,11 @@ namespace Splunk
     /// via the simple or streaming receiver endpoint.
     /// </summary>
     public class Receiver
-    {
-        private class SSLStreamWrapper : SslStream
-        {
-            public SSLStreamWrapper(
-                TcpClient tcpClient,
-                Stream innerStream,
-                bool leaveInnerStreamOpen,
-                RemoteCertificateValidationCallback userCertificateValidationCallback,
-                LocalCertificateSelectionCallback userCertificateSelectionCallback,
-                EncryptionPolicy encryptionPolicy)
-                : base(
-                    innerStream,
-                    leaveInnerStreamOpen,
-                    userCertificateValidationCallback,
-                    userCertificateSelectionCallback,
-                    encryptionPolicy)
-            {
-                this.tcpClient = tcpClient;
-            }
-
-            // Dispose(bool disposing) executes in two distinct scenarios.
-            // If disposing equals true, the method has been called directly
-            // or indirectly by a user's code. Managed and unmanaged resources
-            // can be disposed.
-            // If disposing equals false, the method has been called by the
-            // runtime from inside the finalizer and you should not reference
-            // other objects. Only unmanaged resources can be disposed.
-            protected override void Dispose(bool disposing)
-            {
-                // If this is called from the finalizer, don't referece the parent connection object.
-                // It is ok since its manage resources will be cleaned up as part of regular GC and 
-                // the runtime will call its Dispose with 'disposing' being false.
-                if (disposing)
-                {
-                    tcpClient.Close();
-                }
-            }
-
-            private TcpClient tcpClient;
-        }
-        
+    {        
         /// <summary>
         /// A reference to the attached service.
         /// </summary>
         private Service service = null;
-
-        public RemoteCertificateValidationCallback SSLRemoteCertificateValidationCallback { get; set; }
-        
-        public LocalCertificateSelectionCallback SSLLocalCertificateValidationCallback{ get; set; }
-        
-        public EncryptionPolicy SSLEncryptionPolicy { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Receiver"/> class.
@@ -91,6 +45,23 @@ namespace Splunk
             this.service = service;
         }
 
+        /// <summary>
+        /// Gets or sets the RemoteCertificateValidationCallback delegate responsible for validating the certificate supplied by the Splunk server 
+        /// if SSL (i.e. https) is used. If none is set (which is the default), no validation will be performed.
+        /// </summary>
+        public RemoteCertificateValidationCallback SSLRemoteCertificateValidationCallback { get; set; }
+
+        /// <summary>
+        /// Gets or sets the LocalCertificateSelectionCallback delegate responsible for selecting the certificate used for authentication with the Splunk server 
+        /// if SSL (i.e. https) is used. If none is set (which is the default), no local certificate is used.
+        /// </summary>
+        public LocalCertificateSelectionCallback SSLLocalCertificateValidationCallback { get; set; }
+
+        /// <summary>
+        /// Gets or sets the EncryptionPolicy to use with the Splunk server if SSL (i.e. https) is used. 
+        /// </summary>
+        public EncryptionPolicy SSLEncryptionPolicy { get; set; }
+        
         /// <summary>
         /// Creates a socket to the splunk server using the default index, and 
         /// default port.
@@ -136,7 +107,7 @@ namespace Splunk
             if (this.service.Scheme == "https")
             {
                 var remoteCertificateValidationCallback = 
-                    SSLRemoteCertificateValidationCallback ?? delegate { return true; };    
+                    this.SSLRemoteCertificateValidationCallback ?? delegate { return true; };    
 
                 TcpClient tcp = new TcpClient();
                 tcp.Connect(this.service.Host, this.service.Port);
@@ -146,8 +117,8 @@ namespace Splunk
                     tcp.GetStream(), 
                     false, 
                     delegate { return true; },
-                    SSLLocalCertificateValidationCallback,
-                    SSLEncryptionPolicy);
+                    this.SSLLocalCertificateValidationCallback,
+                    this.SSLEncryptionPolicy);
 
                 sslStream.AuthenticateAsClient(this.service.Host);
 
@@ -282,6 +253,69 @@ namespace Splunk
         public void Log(string indexName, Args args, string data) 
         {
             this.Submit(indexName, args, data);
+        }
+
+        /// <summary>
+        /// Wrapper class of SslStream for closing TCP connection 
+        /// when closing the stream
+        /// </summary>
+        private class SSLStreamWrapper : SslStream
+        {
+            /// <summary>
+            /// The TcpClient object the SSLStream object is based on.
+            /// </summary>
+            private TcpClient tcpClient;
+            
+            /// <summary>
+            /// Initializes a new instance of the <see cref="SSLStreamWrapper"/> class.
+            /// </summary>
+            /// <param name="tcpClient">A TcpClient object the SSLStream object is based on.</param>
+            /// <param name="innerStream">A Stream object used by the SslStream for sending and receiving data.</param>
+            /// <param name="leaveInnerStreamOpen">
+            ///     A Boolean value that indicates the closure behavior of the Stream 
+            ///     object used by the SslStream for sending and receiving data. This parameter indicates if the inner stream is left open.</param>
+            /// <param name="validationCallback">A RemoteCertificateValidationCallback delegate responsible for validating the certificate supplied by the remote party.</param>
+            /// <param name="selectionCallback">A LocalCertificateSelectionCallback delegate responsible for selecting the certificate used for authentication.</param>
+            /// <param name="encryptionPolicy">The EncryptionPolicy to use.</param>
+            public SSLStreamWrapper(
+                TcpClient tcpClient,
+                Stream innerStream,
+                bool leaveInnerStreamOpen,
+                RemoteCertificateValidationCallback validationCallback,
+                LocalCertificateSelectionCallback selectionCallback,
+                EncryptionPolicy encryptionPolicy)
+                : base(
+                    innerStream,
+                    leaveInnerStreamOpen,
+                    validationCallback,
+                    selectionCallback,
+                    encryptionPolicy)
+            {
+                this.tcpClient = tcpClient;
+            }
+
+            /// <summary>
+            /// Release resources including the tcpClient.
+            /// </summary>
+            /// <param name="disposing">True to release both managed and unmanaged resources; 
+            ///     false to release only unmanaged resources. </param>
+            protected override void Dispose(bool disposing)
+            {
+                // Dispose(bool disposing) executes in two distinct scenarios.
+                // If disposing equals true, the method has been called directly
+                // or indirectly by a user's code. Managed and unmanaged resources
+                // can be disposed.
+                // If disposing equals false, the method has been called by the
+                // runtime from inside the finalizer and you should not reference
+                // other objects. Only unmanaged resources can be disposed.
+                // If this is called from the finalizer, don't reference tcpClient.
+                // It is ok since its manage resources will be cleaned up as part of regular GC and 
+                // the runtime will call its Dispose with 'disposing' being false.
+                if (disposing)
+                {
+                    this.tcpClient.Close();
+                }
+            }
         }
     }
 }

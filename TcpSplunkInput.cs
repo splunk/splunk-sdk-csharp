@@ -132,7 +132,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the incoming host restriction for this TCP input. When 
+        /// Gets the incoming host restriction for this TCP input. When 
         /// specified, this input only accepts data from the specified host. 
         /// </summary>
         public string RestrictToHost
@@ -144,7 +144,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the initial source key for this TCP input. Typically 
+        /// Gets the initial source key for this TCP input. Typically 
         /// this value is the input file path.
         /// </summary>
         public string Source

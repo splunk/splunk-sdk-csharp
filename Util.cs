@@ -69,6 +69,5 @@ namespace Splunk
                     "An exact namespace must be provided");
             }
         }
-
     }
 }

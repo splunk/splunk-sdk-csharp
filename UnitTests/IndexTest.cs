@@ -24,14 +24,6 @@ namespace UnitTests
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Splunk;
 
-    internal static class StreamHelper
-    {
-        public static void Write(this Stream stream, byte[] bytes)
-        {
-            stream.Write(bytes, 0, bytes.Length);
-        }
-    }
-
     /// <summary>
     /// Tests the Index class
     /// </summary>
