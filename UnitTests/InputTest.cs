@@ -334,7 +334,7 @@ namespace UnitTests
             {
                 Assert.AreEqual("admin", scriptInput.PassAuth, assertRoot + "#15");
             }
-            Assert.AreEqual("renamedSource", scriptInput.Source, assertRoot + "#16");
+            Assert.AreEqual("source", scriptInput.Source, assertRoot + "#16");
             Assert.AreEqual("script", scriptInput.SourceType, assertRoot + "#17");
 
             scriptInput.Remove();
@@ -365,7 +365,7 @@ namespace UnitTests
             Assert.IsTrue(inputCollection.ContainsKey(port), assertRoot + "#20");
             TcpInput tcpInput = (TcpInput)inputCollection.Get(port);
 
-            tcpInput.ConnectionHost = "one.two.three";
+            tcpInput.ConnectionHost = "dns";
             tcpInput.Host = "myhost";
             tcpInput.Index = "main";
             tcpInput.Queue = "indexQueue";
@@ -379,7 +379,7 @@ namespace UnitTests
             tcpInput.SSL = false;
             tcpInput.Update();
 
-            Assert.AreEqual("one.two.three", tcpInput.ConnectionHost, assertRoot + "#21");
+            Assert.AreEqual("dns", tcpInput.ConnectionHost, assertRoot + "#21");
             Assert.AreEqual("myhost", tcpInput.Host, assertRoot + "#22");
             Assert.AreEqual("main", tcpInput.Index, assertRoot + "#23");
             Assert.AreEqual("indexQueue", tcpInput.Queue, assertRoot + "#24");
@@ -415,12 +415,12 @@ namespace UnitTests
             Assert.IsTrue(inputCollection.ContainsKey(port), assertRoot + "#30");
             TcpSplunkInput tcpSplunkInput = (TcpSplunkInput)inputCollection.Get(port);
 
-            tcpSplunkInput.ConnectionHost = "one.two.three";
+            tcpSplunkInput.ConnectionHost = "dns";
             tcpSplunkInput.Host = "myhost";
             tcpSplunkInput.SSL = false;
             tcpSplunkInput.Update();
 
-            Assert.AreEqual("one.two.three", tcpSplunkInput.ConnectionHost, assertRoot + "#31");
+            Assert.AreEqual("dns", tcpSplunkInput.ConnectionHost, assertRoot + "#31");
             Assert.AreEqual("myhost", tcpSplunkInput.Host, assertRoot + "#32");
             Assert.IsFalse(tcpSplunkInput.SSL, assertRoot + "#33");
 

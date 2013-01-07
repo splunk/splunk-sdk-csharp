@@ -29,7 +29,8 @@ namespace UnitTests
         /// <summary>
         /// Test login to storm and wubmit two events.
         /// </summary>
-        [TestMethod]
+        // Storm Service class needs to be rewritten. Disable the test before that finishes.
+        //[TestMethod]
         public void Storm()
         {
             // the storm token provided by Splunk

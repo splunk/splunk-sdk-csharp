@@ -62,32 +62,73 @@ namespace SplunkSDKHelper
         /// <summary>
         /// The host (and its default) to connect to.
         /// </summary>
-        public string Host = "localhost";
+        public string Host
+        {
+            get
+            {
+               var value = Opts["host"];
+               return (string)value ?? "localhost";
+            }
+        }
 
         /// <summary>
         /// The owner
         /// </summary>
-        public string Owner = null;
+        public string Owner 
+        {
+            get
+            {
+                return (string)Opts["owner"];
+            }
+        }
 
         /// <summary>
         /// The port (and its default) to connect to.
         /// </summary>
-        public int Port = 8089;
+        public int Port
+        {
+            get
+            {
+                var value = Opts["port"];
+                return (int)(value ?? 8089);
+            }
+        }
+
 
         /// <summary>
         /// The password used for authentication.
         /// </summary>
-        public string Password = null;
+        public string Password   
+        {
+            get
+            {
+               return (string)Opts["password"];
+            }
+        }
 
         /// <summary>
         /// The scheme to use (http or https).
         /// </summary>
-        public string Scheme = "https";
+        public string Scheme
+        {
+            get
+            {
+                var value = Opts["scheme"];
+                return (string)value ?? "https";
+            }
+        }
 
         /// <summary>
         /// The username used for authentication.
         /// </summary>
-        public string Username = null;
+        public string Username
+        {
+            get
+            {
+                return (string)Opts["username"];
+            }
+        }
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Command"/> class.

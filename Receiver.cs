@@ -20,7 +20,9 @@ namespace Splunk
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Net.Security;
     using System.Net.Sockets;
+    using System.Security.Cryptography.X509Certificates;
     using System.Text;
 
     /// <summary>
@@ -29,10 +31,56 @@ namespace Splunk
     /// </summary>
     public class Receiver
     {
+        private class SSLStreamWrapper : SslStream
+        {
+            public SSLStreamWrapper(
+                TcpClient tcpClient,
+                Stream innerStream,
+                bool leaveInnerStreamOpen,
+                RemoteCertificateValidationCallback userCertificateValidationCallback,
+                LocalCertificateSelectionCallback userCertificateSelectionCallback,
+                EncryptionPolicy encryptionPolicy)
+                : base(
+                    innerStream,
+                    leaveInnerStreamOpen,
+                    userCertificateValidationCallback,
+                    userCertificateSelectionCallback,
+                    encryptionPolicy)
+            {
+                this.tcpClient = tcpClient;
+            }
+
+            // Dispose(bool disposing) executes in two distinct scenarios.
+            // If disposing equals true, the method has been called directly
+            // or indirectly by a user's code. Managed and unmanaged resources
+            // can be disposed.
+            // If disposing equals false, the method has been called by the
+            // runtime from inside the finalizer and you should not reference
+            // other objects. Only unmanaged resources can be disposed.
+            protected override void Dispose(bool disposing)
+            {
+                // If this is called from the finalizer, don't referece the parent connection object.
+                // It is ok since its manage resources will be cleaned up as part of regular GC and 
+                // the runtime will call its Dispose with 'disposing' being false.
+                if (disposing)
+                {
+                    tcpClient.Close();
+                }
+            }
+
+            private TcpClient tcpClient;
+        }
+        
         /// <summary>
         /// A reference to the attached service.
         /// </summary>
         private Service service = null;
+
+        public RemoteCertificateValidationCallback SSLRemoteCertificateValidationCallback { get; set; }
+        
+        public LocalCertificateSelectionCallback SSLLocalCertificateValidationCallback{ get; set; }
+        
+        public EncryptionPolicy SSLEncryptionPolicy { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Receiver"/> class.
@@ -47,8 +95,8 @@ namespace Splunk
         /// Creates a socket to the splunk server using the default index, and 
         /// default port.
         /// </summary>
-        /// <returns>The Socket</returns>
-        public Socket Attach() 
+        /// <returns>The Stream</returns>
+        public Stream Attach() 
         {
             return this.Attach(null, null);
         }
@@ -58,8 +106,8 @@ namespace Splunk
         /// default port.
         /// </summary>
         /// <param name="indexName">The index to write to</param>
-        /// <returns>The Socket</returns>
-        public Socket Attach(string indexName) 
+        /// <returns>The Stream</returns>
+        public Stream Attach(string indexName) 
         {
             return this.Attach(indexName, null);
         }
@@ -70,7 +118,7 @@ namespace Splunk
         /// </summary>
         /// <param name="args">The variable arguments</param>
         /// <returns>The Socket</returns>
-        public Socket Attach(Args args)
+        public Stream Attach(Args args)
         {
             return this.Attach(null, args);
         }
@@ -82,11 +130,35 @@ namespace Splunk
         /// <param name="indexName">The index name</param>
         /// <param name="args">The variable arguments</param>
         /// <returns>The Socket</returns>
-        public Socket Attach(string indexName, Args args) 
+        public Stream Attach(string indexName, Args args) 
         {
-            Socket socket = this.service.Open(this.service.Port);
-            NetworkStream stream = new NetworkStream(socket);
-            StreamWriter writer = new StreamWriter(stream);
+            Stream stream;
+            if (this.service.Scheme == "https")
+            {
+                var remoteCertificateValidationCallback = 
+                    SSLRemoteCertificateValidationCallback ?? delegate { return true; };    
+
+                TcpClient tcp = new TcpClient();
+                tcp.Connect(this.service.Host, this.service.Port);
+
+                var sslStream = new SSLStreamWrapper(
+                    tcp,
+                    tcp.GetStream(), 
+                    false, 
+                    delegate { return true; },
+                    SSLLocalCertificateValidationCallback,
+                    SSLEncryptionPolicy);
+
+                sslStream.AuthenticateAsClient(this.service.Host);
+
+                stream = sslStream;
+            }
+            else
+            {
+                Socket socket = this.service.Open(this.service.Port);
+                stream = new NetworkStream(socket, true);
+            }
+            
             string postUrl = "POST /services/receivers/stream";
             if (indexName != null) 
             {
@@ -109,9 +181,12 @@ namespace Splunk
                 this.service.Host, 
                 this.service.Port,
                 this.service.Token);
-            writer.Write(Encoding.UTF8.GetBytes(header));
-            writer.Flush();
-            return socket;
+
+            var bytes = Encoding.UTF8.GetBytes(header);
+            stream.Write(bytes, 0, bytes.Length);
+            stream.Flush();
+
+            return stream;
         }
 
         /// <summary>
