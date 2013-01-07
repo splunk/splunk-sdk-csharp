@@ -46,21 +46,39 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the RemoteCertificateValidationCallback delegate responsible for validating the certificate supplied by the Splunk server 
-        /// if SSL (i.e. https) is used. If none is set (which is the default), no validation will be performed.
+        /// Gets or sets the RemoteCertificateValidationCallback delegate 
+        /// responsible for validating the certificate supplied by the Splunk 
+        /// server if SSL (i.e. https) is used. 
+        /// If none is set (which is the default), 
+        /// no validation will be performed.
         /// </summary>
-        public RemoteCertificateValidationCallback SSLRemoteCertificateValidationCallback { get; set; }
+        public RemoteCertificateValidationCallback 
+            SSLRemoteCertificateValidationCallback 
+        { 
+            get; set; 
+        }
 
         /// <summary>
-        /// Gets or sets the LocalCertificateSelectionCallback delegate responsible for selecting the certificate used for authentication with the Splunk server 
-        /// if SSL (i.e. https) is used. If none is set (which is the default), no local certificate is used.
+        /// Gets or sets the LocalCertificateSelectionCallback delegate 
+        /// responsible for selecting the certificate used for authentication 
+        /// with the Splunk server if SSL (i.e. https) is used. 
+        /// If none is set (which is the default), 
+        /// no local certificate is used.
         /// </summary>
-        public LocalCertificateSelectionCallback SSLLocalCertificateValidationCallback { get; set; }
+        public LocalCertificateSelectionCallback 
+            SSLLocalCertificateValidationCallback 
+        { 
+            get; set; 
+        }
 
         /// <summary>
-        /// Gets or sets the EncryptionPolicy to use with the Splunk server if SSL (i.e. https) is used. 
+        /// Gets or sets the EncryptionPolicy to use with the Splunk server 
+        /// if SSL (i.e. https) is used. 
         /// </summary>
-        public EncryptionPolicy SSLEncryptionPolicy { get; set; }
+        public EncryptionPolicy SSLEncryptionPolicy 
+        { 
+            get; set; 
+        }
         
         /// <summary>
         /// Creates a socket to the splunk server using the default index, and 
@@ -107,7 +125,8 @@ namespace Splunk
             if (this.service.Scheme == "https")
             {
                 var remoteCertificateValidationCallback = 
-                    this.SSLRemoteCertificateValidationCallback ?? delegate { return true; };    
+                    this.SSLRemoteCertificateValidationCallback ?? 
+                        delegate { return true; };    
 
                 TcpClient tcp = new TcpClient();
                 tcp.Connect(this.service.Host, this.service.Port);
@@ -115,8 +134,8 @@ namespace Splunk
                 var sslStream = new SSLStreamWrapper(
                     tcp,
                     tcp.GetStream(), 
-                    false, 
-                    delegate { return true; },
+                    false,
+                    remoteCertificateValidationCallback,
                     this.SSLLocalCertificateValidationCallback,
                     this.SSLEncryptionPolicy);
 
@@ -269,14 +288,29 @@ namespace Splunk
             /// <summary>
             /// Initializes a new instance of the <see cref="SSLStreamWrapper"/> class.
             /// </summary>
-            /// <param name="tcpClient">A TcpClient object the SSLStream object is based on.</param>
-            /// <param name="innerStream">A Stream object used by the SslStream for sending and receiving data.</param>
+            /// <param name="tcpClient">
+            /// A TcpClient object the SSLStream object is based on.
+            /// </param>
+            /// <param name="innerStream">
+            /// A Stream object used by the SslStream for sending and receiving data.
+            /// </param>
             /// <param name="leaveInnerStreamOpen">
-            ///     A Boolean value that indicates the closure behavior of the Stream 
-            ///     object used by the SslStream for sending and receiving data. This parameter indicates if the inner stream is left open.</param>
-            /// <param name="validationCallback">A RemoteCertificateValidationCallback delegate responsible for validating the certificate supplied by the remote party.</param>
-            /// <param name="selectionCallback">A LocalCertificateSelectionCallback delegate responsible for selecting the certificate used for authentication.</param>
-            /// <param name="encryptionPolicy">The EncryptionPolicy to use.</param>
+            /// A Boolean value that indicates the closure behavior of 
+            /// the Stream object used by the SslStream for sending and 
+            /// receiving data. 
+            /// This parameter indicates if the inner stream is left open.
+            /// </param>
+            /// <param name="validationCallback">
+            /// A RemoteCertificateValidationCallback delegate responsible for
+            /// validating the certificate supplied by the remote party.
+            /// </param>
+            /// <param name="selectionCallback">
+            /// A LocalCertificateSelectionCallback delegate responsible for 
+            /// selecting the certificate used for authentication.
+            /// </param>
+            /// <param name="encryptionPolicy">
+            /// The EncryptionPolicy to use.
+            /// </param>
             public SSLStreamWrapper(
                 TcpClient tcpClient,
                 Stream innerStream,
