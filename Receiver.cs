@@ -124,10 +124,6 @@ namespace Splunk
             Stream stream;
             if (this.service.Scheme == "https")
             {
-                var remoteCertificateValidationCallback = 
-                    this.SSLRemoteCertificateValidationCallback ?? 
-                        delegate { return true; };    
-
                 TcpClient tcp = new TcpClient();
                 tcp.Connect(this.service.Host, this.service.Port);
 
@@ -135,7 +131,8 @@ namespace Splunk
                     tcp,
                     tcp.GetStream(), 
                     false,
-                    remoteCertificateValidationCallback,
+                    this.SSLRemoteCertificateValidationCallback ?? 
+                        delegate { return true; },    
                     this.SSLLocalCertificateValidationCallback,
                     this.SSLEncryptionPolicy);
 
