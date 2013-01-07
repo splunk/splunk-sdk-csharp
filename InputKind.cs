@@ -131,6 +131,7 @@ namespace Splunk
         /// </summary>
         /// <param name="relpath">The relative input path</param>
         /// <param name="inputClass">The input class</param>
+        /// <param name="kind">The kind</param>
         public InputKind(string relpath, Type inputClass, string kind)
         {
             this.kind = kind;
@@ -194,6 +195,11 @@ namespace Splunk
             }
         }
 
+        /// <summary>
+        /// Creates an input.
+        /// </summary>
+        /// <param name="relPath">The relative path</param>
+        /// <returns>The input kind</returns>
         public static InputKind Create(string relPath)
         {
             if (knownRelativePaths.ContainsKey(relPath))

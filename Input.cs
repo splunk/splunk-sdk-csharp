@@ -34,7 +34,7 @@ namespace Splunk
         /// <summary>
         /// Gets the unknown input kind. Must be overridden in sub-classes.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The input kind</returns>
         public virtual InputKind GetKind()
         {
             string[] pathComponents = 

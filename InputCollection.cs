@@ -24,9 +24,13 @@ namespace Splunk
     /// <summary>
     /// Represents the Input Collection class. 
     /// </summary>
-    /// <typeparam name="T">The Input class and its derived classes</typeparam>
+    /// <typeparam name="Input">The Input class and its derived classes</typeparam>
     public class InputCollection : EntityCollection<Input> 
     {
+        /// <summary>
+        /// The dynamic list of input kinds. The list is dynamic to deal with
+        /// modular inputs.
+        /// </summary>
         protected List<InputKind> inputKinds = new List<InputKind>();
 
         /// <summary>
@@ -50,6 +54,11 @@ namespace Splunk
         {
         }
 
+        /// <summary>
+        /// Assembles the input kind list by refreshing from the server.
+        /// </summary>
+        /// <param name="subPath">The sub path</param>
+        /// <returns>The list of input kinds</returns>
         private List<InputKind> AssembleInputKindList(ArrayList subPath)
         {
             List<InputKind> kinds = new List<InputKind>();
@@ -193,7 +202,7 @@ namespace Splunk
         {
             string relpathWithInputName = 
                 Util.SubstringAfter(path, "/data/inputs/", null);
-            foreach (InputKind kind in inputKinds)
+            foreach (InputKind kind in this.inputKinds)
             {
                 if (relpathWithInputName.StartsWith(kind.RelPath)) 
                 {
@@ -203,6 +212,13 @@ namespace Splunk
             return InputKind.Unknown; // Didn't recognize the input kind
         }
 
+        /// <summary>
+        /// Performs a comparison of input kinds. 
+        /// </summary>
+        /// <param name="kind">The input kind</param>
+        /// <param name="searchFor">What to search for</param>
+        /// <param name="searchIn">The path to search</param>
+        /// <returns>Whether the match succeeded or failed</returns>
         private static bool 
             MatchesInputName(InputKind kind, string searchFor, string searchIn)
         {
@@ -225,7 +241,7 @@ namespace Splunk
             this.Items.Clear();
 
             // Iterate over all input kinds and collect all instances.
-            foreach (InputKind kind in inputKinds)
+            foreach (InputKind kind in this.inputKinds)
             {
                 string relpath = kind.RelPath;
                 string inputs = 
@@ -258,16 +274,21 @@ namespace Splunk
             return this;
         }
 
+        /// <summary>
+        /// Refreshes the inputs from the server.
+        /// </summary>
         private void RefreshInputKinds()
         {
             List<InputKind> kinds = 
                 this.AssembleInputKindList(new ArrayList());
 
             this.inputKinds.Clear();
-            foreach (InputKind kind in kinds) {
+            foreach (InputKind kind in kinds) 
+            {
                 this.inputKinds.Add(kind);
             }
         }
+
         /// <summary>
         /// Removes an Input from the collection
         /// </summary>
@@ -353,7 +374,6 @@ namespace Splunk
 
                 if (InputCollection.MatchesInputName(kind, key, entryKey))
                 {
-
                     List<Input> entities = this.Items[key];
                     if (entities.Count == 0)
                     {

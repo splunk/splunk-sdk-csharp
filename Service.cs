@@ -1254,7 +1254,6 @@ namespace Splunk
         /// </summary>
         /// <param name="query">The search query</param>
         /// <param name="inputArgs">The input arguments</param>
-        /// <param name="outputArgs">The output arguments</param>
         /// <returns>The IO stream</returns>
         public Stream Oneshot(string query, Args inputArgs) 
         {

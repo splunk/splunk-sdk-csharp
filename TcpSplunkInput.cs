@@ -132,7 +132,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the incoming host restriction for this TCP input. When 
+        /// Gets the incoming host restriction for this TCP input. When 
         /// specified, this input only accepts data from the specified host. 
         /// </summary>
         public string RestrictToHost

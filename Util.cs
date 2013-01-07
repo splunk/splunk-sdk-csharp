@@ -18,8 +18,18 @@ namespace Splunk
 {
     using System.Collections;
 
-    class Util
+    /// <summary>
+    /// A collection of utility routines.
+    /// </summary>
+    public class Util
     {
+        /// <summary>
+        /// Returns the substring after a found element.
+        /// </summary>
+        /// <param name="template">The original string</param>
+        /// <param name="toFind">What to find</param>
+        /// <param name="defaultTo">Default if not found</param>
+        /// <returns>The substring after 'toFind'</returns>
         public static string 
             SubstringAfter(string template, string toFind, string defaultTo)
         {
@@ -37,11 +47,17 @@ namespace Splunk
             }
         }
 
+        /// <summary>
+        /// Joins a new string with the elements of the array.
+        /// </summary>
+        /// <param name="joiner">The joiner</param>
+        /// <param name="joinees">The joinees</param>
+        /// <returns>The combined string</returns>
         public static string Join(string joiner, ArrayList joinees)
         {
             if (joinees.Count == 0)
             {
-                return "";
+                return string.Empty;
             }
 
             string joined = (string)joinees[0];
@@ -53,6 +69,10 @@ namespace Splunk
             return joined;
         }
 
+        /// <summary>
+        /// Validates an exact namespace.
+        /// </summary>
+        /// <param name="nameSpace">The namespace</param>
         public static void EnsureNamespaceIsExact(Args nameSpace)
         {
             string app = (string)nameSpace["app"];
@@ -69,6 +89,5 @@ namespace Splunk
                     "An exact namespace must be provided");
             }
         }
-
     }
 }
