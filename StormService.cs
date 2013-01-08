@@ -33,7 +33,7 @@ namespace Splunk
         /// <summary>
         /// Initializes a new instance of the <see cref="StormService"/> class.
         /// </summary>
-        public StormService() : base("api.splunkstorm.com", 443, "https")
+        public StormService() : base("api.splunkstorm.com", 443, HttpService.SchemeHttps)
         {
             this.SimpleReceiverEndPoint = "/1/inputs/http";
         }

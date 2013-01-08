@@ -20,6 +20,7 @@ namespace Splunk
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Net;
     using System.Net.Security;
     using System.Net.Sockets;
     using System.Security.Cryptography.X509Certificates;
@@ -122,22 +123,12 @@ namespace Splunk
         public Stream Attach(string indexName, Args args) 
         {
             Stream stream;
-            if (this.service.Scheme == "https")
+            if (this.service.Scheme == HttpService.SchemeHttps)
             {
                 TcpClient tcp = new TcpClient();
                 tcp.Connect(this.service.Host, this.service.Port);
-
-                var sslStream = new SSLStreamWrapper(
-                    tcp,
-                    tcp.GetStream(), 
-                    false,
-                    this.SSLRemoteCertificateValidationCallback ?? 
-                        delegate { return true; },    
-                    this.SSLLocalCertificateValidationCallback,
-                    this.SSLEncryptionPolicy);
-
+                var sslStream = new SSLStreamWrapper(tcp);
                 sslStream.AuthenticateAsClient(this.service.Host);
-
                 stream = sslStream;
             }
             else
@@ -288,39 +279,12 @@ namespace Splunk
             /// <param name="tcpClient">
             /// A TcpClient object the SSLStream object is based on.
             /// </param>
-            /// <param name="innerStream">
-            /// A Stream object used by the SslStream for sending and receiving data.
-            /// </param>
-            /// <param name="leaveInnerStreamOpen">
-            /// A Boolean value that indicates the closure behavior of 
-            /// the Stream object used by the SslStream for sending and 
-            /// receiving data. 
-            /// This parameter indicates if the inner stream is left open.
-            /// </param>
-            /// <param name="validationCallback">
-            /// A RemoteCertificateValidationCallback delegate responsible for
-            /// validating the certificate supplied by the remote party.
-            /// </param>
-            /// <param name="selectionCallback">
-            /// A LocalCertificateSelectionCallback delegate responsible for 
-            /// selecting the certificate used for authentication.
-            /// </param>
-            /// <param name="encryptionPolicy">
-            /// The EncryptionPolicy to use.
-            /// </param>
             public SSLStreamWrapper(
-                TcpClient tcpClient,
-                Stream innerStream,
-                bool leaveInnerStreamOpen,
-                RemoteCertificateValidationCallback validationCallback,
-                LocalCertificateSelectionCallback selectionCallback,
-                EncryptionPolicy encryptionPolicy)
+                TcpClient tcpClient)
                 : base(
-                    innerStream,
-                    leaveInnerStreamOpen,
-                    validationCallback,
-                    selectionCallback,
-                    encryptionPolicy)
+                    tcpClient.GetStream(),
+                    false,
+                    ServicePointManager.ServerCertificateValidationCallback)
             {
                 this.tcpClient = tcpClient;
             }

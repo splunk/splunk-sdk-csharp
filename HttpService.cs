@@ -49,6 +49,21 @@ namespace Splunk
         /// Gets or sets the scheme used to access the service
         /// </summary>
         private string scheme;
+
+        /// <summary>
+        /// Constant for http scheme
+        /// </summary>
+        public const string SchemeHttp = "http";
+
+        /// <summary>
+        /// Constant for https scheme
+        /// </summary>
+        public const string SchemeHttps = "https";
+
+        /// <summary>
+        /// Constant for default scheme
+        /// </summary>
+        public const string DefaultScheme = SchemeHttps;
         
         /// <summary>
         /// Initializes a new instance of the <see cref="HttpService"/> class.
@@ -97,7 +112,16 @@ namespace Splunk
             this.InitProperties();
             this.Host = host;
             this.Port = port;
+
+            scheme = scheme.ToLower();
+
+            if (scheme != SchemeHttp && scheme != SchemeHttps)
+            {
+                throw new Exception("Scheme not supported");
+            }
+            
             this.Scheme = scheme;
+            
             this.SetTrustPolicy();
         }
 
@@ -419,8 +443,12 @@ namespace Splunk
         /// </summary>
         private void SetTrustPolicy() 
         {
-            ServicePointManager.ServerCertificateValidationCallback = 
-                (sender, certificate, chain, sslPolicyErrors) => true;
+            if (ServicePointManager.ServerCertificateValidationCallback == null)
+            {
+                ServicePointManager.ServerCertificateValidationCallback =
+                    (sender, certificate, chain, sslPolicyErrors) => true;
+            }
+
             ServicePointManager.DefaultConnectionLimit = 100;
         }
     }
