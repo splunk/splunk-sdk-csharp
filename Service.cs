@@ -34,7 +34,7 @@ namespace Splunk
     /// authenticated by presenting credentials using the the login method, or 
     /// by constructing the Service instance using the connect method.
     /// </summary>
-    public class Service : HttpService 
+    public class Service : BaseService 
     {
         /// <summary>
         /// The default host name, which is used when a host name is not 
@@ -1249,7 +1249,6 @@ namespace Splunk
         /// </summary>
         /// <param name="query">The search query</param>
         /// <param name="inputArgs">The input arguments</param>
-        /// <param name="outputArgs">The output arguments</param>
         /// <returns>The IO stream</returns>
         public Stream Oneshot(string query, Args inputArgs) 
         {

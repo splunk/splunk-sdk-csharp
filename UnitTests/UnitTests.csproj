@@ -57,7 +57,6 @@
     <Compile Include="SavedSearchTest.cs" />
     <Compile Include="SearchTest.cs" />
     <Compile Include="ServiceTest.cs" />
-    <Compile Include="StormTest.cs" />
     <Compile Include="StreamHelper.cs" />
     <Compile Include="TestHelper.cs" />
     <Compile Include="SettingsTest.cs" />

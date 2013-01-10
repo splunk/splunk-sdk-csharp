@@ -59,6 +59,7 @@
     <Compile Include="AtomFeed.cs" />
     <Compile Include="AtomObject.cs" />
     <Compile Include="AtomEntry.cs" />
+    <Compile Include="BaseService.cs" />
     <Compile Include="ClusterSlaveBuckets.cs" />
     <Compile Include="ClusterConfig.cs" />
     <Compile Include="ClusterMasterBuckets.cs" />
@@ -121,7 +122,6 @@
     <Compile Include="ScriptInput.cs" />
     <Compile Include="ScriptInputArgs.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="StormService.cs" />
     <Compile Include="TcpConnections.cs" />
     <Compile Include="TcpInput.cs" />
     <Compile Include="TcpInputArgs.cs" />
