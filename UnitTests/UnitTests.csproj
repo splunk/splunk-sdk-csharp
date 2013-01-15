@@ -51,8 +51,8 @@
     <Compile Include="IndexTest.cs" />
     <Compile Include="InputTest.cs" />
     <Compile Include="MessageTest.cs" />
-    <Compile Include="EntityMetadataTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResultsReaderTest.cs" />
     <Compile Include="RoleTest.cs" />
     <Compile Include="SavedSearchTest.cs" />
     <Compile Include="SearchTest.cs" />
@@ -71,6 +71,11 @@
       <Project>{CA4151A1-3EF9-461D-9E03-34627273150D}</Project>
       <Name>SplunkSDK</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="results5.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

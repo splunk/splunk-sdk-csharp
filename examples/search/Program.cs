@@ -57,7 +57,7 @@ namespace SplunkSearch
             Args outArgs = new Args("output_mode", "json");
             outArgs.Add("count", "0");
             Stream stream = job.Results(outArgs);
-            ResultsReaderJSON rr = new ResultsReaderJSON(stream);
+            ResultsReaderJson rr = new ResultsReaderJson(stream);
             Dictionary<string, object> map;
             while ((map = rr.GetNextEvent()) != null)
             {
