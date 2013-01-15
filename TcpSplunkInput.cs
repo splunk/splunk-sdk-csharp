@@ -144,7 +144,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the initial source key for this TCP input. Typically 
+        /// Gets the initial source key for this TCP input. Typically 
         /// this value is the input file path.
         /// </summary>
         public string Source

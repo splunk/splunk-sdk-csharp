@@ -225,6 +225,7 @@ namespace UnitTests
 
             service = this.Connect();
             index = service.GetIndexes().Get(indexName);
+            user = service.GetUsers().Get("admin");
 
             index.Enable();
             Assert.IsFalse(index.IsDisabled);
@@ -236,20 +237,17 @@ namespace UnitTests
             Assert.AreEqual(2, index.TotalEventCount, assertRoot + "#3");
 
             service.Oneshot(string.Format("search index={0} * | delete", indexName));
-            this.Wait_event_count(index, 0, 45);            
+            this.Wait_event_count(index, 0, 45);
             //index.Clean(180);
             Assert.AreEqual(0, index.TotalEventCount, assertRoot + "#4");
 
             // stream events to index
-            Socket socket = index.Attach();
-            NetworkStream stream = new NetworkStream(socket);
-            StreamWriter writer = new StreamWriter(stream);
+            Stream stream = index.Attach();
 
-            writer.Write(Encoding.UTF8.GetBytes(now + " Hello World again. \u0150\r\n"));
-            writer.Write(Encoding.UTF8.GetBytes(now + " Goodbye World again.\u0150\r\n"));
-            writer.Flush();
-            writer.Close();
-            socket.Close();
+            stream.Write(Encoding.UTF8.GetBytes(now + " Hello World again. \u0150\r\n"));
+            stream.Write(Encoding.UTF8.GetBytes(now + " Goodbye World again.\u0150\r\n"));
+
+            stream.Close();
 
             this.Wait_event_count(index, 2, 45);
             Assert.AreEqual(2, index.TotalEventCount, assertRoot + "#5");

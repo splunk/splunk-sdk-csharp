@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2012 Splunk, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"): you may
@@ -16,28 +16,21 @@
 
 namespace UnitTests
 {
-    using System;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Splunk;
+    using System.IO;
 
     /// <summary>
-    /// Test Metadata types.
+    /// For Extension method on Stream object
     /// </summary>
-    [TestClass]
-    public class MetadataTypeTest : TestHelper
+    internal static class StreamHelper
     {
         /// <summary>
-        /// Assert string root
+        /// Extension method of stream object
         /// </summary>
-        private static string assertRoot = "Metadata Type assert: ";
-
-        /// <summary>
-        /// Test the Metadata types.
-        /// </summary>
-        [TestMethod]
-        public void MetadataType()
+        /// <param name="stream">Object the extension method is on.</param>
+        /// <param name="bytes">Input of the method</param>
+        public static void Write(this Stream stream, byte[] bytes)
         {
-            // TBD
+            stream.Write(bytes, 0, bytes.Length);
         }
     }
 }

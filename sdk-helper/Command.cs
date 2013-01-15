@@ -60,36 +60,6 @@ namespace SplunkSDKHelper
         public bool Help = false;
 
         /// <summary>
-        /// The host (and its default) to connect to.
-        /// </summary>
-        public string Host = "localhost";
-
-        /// <summary>
-        /// The owner
-        /// </summary>
-        public string Owner = null;
-
-        /// <summary>
-        /// The port (and its default) to connect to.
-        /// </summary>
-        public int Port = 8089;
-
-        /// <summary>
-        /// The password used for authentication.
-        /// </summary>
-        public string Password = null;
-
-        /// <summary>
-        /// The scheme to use (http or https).
-        /// </summary>
-        public string Scheme = "https";
-
-        /// <summary>
-        /// The username used for authentication.
-        /// </summary>
-        public string Username = null;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="Command"/> class.
         /// </summary>
         /// <param name="appName">The application name</param>
@@ -99,10 +69,79 @@ namespace SplunkSDKHelper
         }
 
         /// <summary>
+        /// Gets the host to connect to.
+        /// </summary>
+        public string Host
+        {
+            get
+            {
+                var value = this.Opts["host"];
+                return (string)value ?? "localhost";
+            }
+        }
+
+        /// <summary>
+        /// Gets the owner
+        /// </summary>
+        public string Owner
+        {
+            get
+            {
+                return (string)this.Opts["owner"];
+            }
+        }
+
+        /// <summary>
+        /// Gets the port to connect to.
+        /// </summary>
+        public int Port
+        {
+            get
+            {
+                var value = this.Opts["port"];
+                return (int)(value ?? 8089);
+            }
+        }
+
+        /// <summary>
+        /// Gets the password used for authentication.
+        /// </summary>
+        public string Password
+        {
+            get
+            {
+                return (string)this.Opts["password"];
+            }
+        }
+
+        /// <summary>
+        /// Gets the scheme to use (http or https).
+        /// </summary>
+        public string Scheme
+        {
+            get
+            {
+                var value = this.Opts["scheme"];
+                return (string)value ?? "https";
+            }
+        }
+
+        /// <summary>
+        /// Gets the username used for authentication.
+        /// </summary>
+        public string Username
+        {
+            get
+            {
+                return (string)this.Opts["username"];
+            }
+        }
+
+        /// <summary>
         /// Creates a new Command instance with no name.
         /// </summary>
         /// <returns>The Command instance</returns>
-        public static Command Create() 
+        public static Command Create()
         {
             return Create(null);
         }
@@ -112,7 +151,7 @@ namespace SplunkSDKHelper
         /// </summary>
         /// <param name="appName">The application name</param>
         /// <returns>The Command instance</returns>
-        public static Command Create(string appName) 
+        public static Command Create(string appName)
         {
             return new Command(appName);
         }
@@ -121,7 +160,7 @@ namespace SplunkSDKHelper
         /// Exposes the private rule options.
         /// </summary>
         /// <returns>The Options</returns>
-        public Options GetRules() 
+        public Options GetRules()
         {
             return this.rules;
         }
@@ -130,10 +169,10 @@ namespace SplunkSDKHelper
         /// Initializes with default Splunk command options.
         /// </summary>
         /// <returns>The Command instance.</returns>
-        public Command Init() 
+        public Command Init()
         {
             this.rules.AddOption(
-                "h",  "help", false, "Display this help message");
+                "h", "help", false, "Display this help message");
             this.rules.AddOption(
                 null, "host", true, "Host name (default localhost)");
             this.rules.AddOption(OptionBuilder.Factory
@@ -159,7 +198,7 @@ namespace SplunkSDKHelper
         /// <param name="name">The name of the rule</param>
         /// <param name="description">The description of the rule</param>
         /// <returns>The Command instance</returns>
-        public Command AddRule(string name, string description) 
+        public Command AddRule(string name, string description)
         {
             this.rules.AddOption(null, name, false, description);
             return this;
@@ -172,7 +211,7 @@ namespace SplunkSDKHelper
         /// <param name="argType">The type of the argument</param>
         /// <param name="description">The description</param>
         /// <returns>The Command instance</returns>
-        public Command AddRule(string name, Type argType, string description) 
+        public Command AddRule(string name, Type argType, string description)
         {
             this.rules.AddOption(
                 OptionBuilder.Factory

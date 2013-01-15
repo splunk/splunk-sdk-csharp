@@ -34,7 +34,7 @@ namespace Splunk
     /// authenticated by presenting credentials using the the login method, or 
     /// by constructing the Service instance using the connect method.
     /// </summary>
-    public class Service : HttpService 
+    public class Service : BaseService 
     {
         /// <summary>
         /// The default host name, which is used when a host name is not 
@@ -47,11 +47,6 @@ namespace Splunk
         /// provided.
         /// </summary>
         private static int defaultPort = 8089;
-
-        /// <summary>
-        /// The default scheme, which is used when a scheme is not provided.
-        /// </summary>
-        private static string defaultScheme = "https";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Service"/> class
@@ -101,7 +96,7 @@ namespace Splunk
             this.Host = args.Host == null ? defaultHost : args.Host;
             this.Owner = args.Owner;
             this.Port = args.Port == 0 ? defaultPort : args.Port;
-            this.Scheme = args.Scheme == null ? defaultScheme : args.Scheme;
+            this.Scheme = args.Scheme == null ? HttpService.DefaultScheme : args.Scheme;
             this.Token = args.Token;
         }
 
@@ -120,7 +115,7 @@ namespace Splunk
             this.Port = args.ContainsKey("port") 
                 ? Convert.ToInt32(args["port"]) 
                 : defaultPort;
-            this.Scheme = Args.Get(args, "scheme", defaultScheme);
+            this.Scheme = Args.Get(args, "scheme", HttpService.DefaultScheme);
             this.Token = Args.Get(args, "token", null);
         }
 

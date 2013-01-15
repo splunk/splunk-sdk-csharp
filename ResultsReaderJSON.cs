@@ -24,14 +24,14 @@ namespace Splunk
     /// <summary>
     /// Reads a results/event JSOMN stream one event at a time. 
     /// </summary>
-    public class ResultsReaderJSON : ResultsReader
+    public class ResultsReaderJson : ResultsReader
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ResultsReaderJSON"/> 
+        /// Initializes a new instance of the <see cref="ResultsReaderJson"/> 
         /// class.
         /// </summary>
         /// <param name="stream">Stream to be parsed</param>
-        public ResultsReaderJSON(Stream stream) : base(stream) 
+        public ResultsReaderJson(Stream stream) : base(stream) 
         {
             this.JsonReader = new JsonTextReader(new StreamReader(stream));
 
