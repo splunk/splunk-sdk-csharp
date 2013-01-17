@@ -265,14 +265,19 @@ namespace Splunk
             // code can be changed. This code also may break in the future, as 
             // it reaches into the class's non-public fields and whacks them 
             // with a hammer. 
+            // An alternative is to use 
+            // genericUriParserOptions="DontUnescapePathDotsAndSlashes"
+            // in app.config. However, that is a global setting, which is owned
+            // by the application using the Splunk SDK. There's no way to 
+            // configure the setting just of the Splunk SDK assembly.
             Uri uri = new Uri(this.Prefix + path);
             string paq = uri.PathAndQuery; // need to access PathAndQuery
-            FieldInfo flagsFieldInfo = 
+            FieldInfo flagsFieldInfo =
                 typeof(Uri).GetField(
                     "m_Flags", BindingFlags.Instance | BindingFlags.NonPublic);
             ulong flags = (ulong)flagsFieldInfo.GetValue(uri);
             // Flags.PathNotCanonical|Flags.QueryNotCanonical = 0x30
-            flags &= ~((ulong)0x30); 
+            flags &= ~((ulong)0x30);
             flagsFieldInfo.SetValue(uri, flags);
             return uri;
         }
