@@ -95,7 +95,7 @@ namespace Splunk
         /// </summary>
         public new void Disable()
         {
-            throw new Exception("Disable unsupported");
+            throw new NotSupportedException("Disable unsupported");
         }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace Splunk
         /// </summary>
         public new void Enable()
         {
-            throw new Exception("Enable unsupported");
+            throw new NotSupportedException("Enable unsupported");
         }
 
         /// <summary>

@@ -540,7 +540,7 @@ namespace Splunk
         /// <returns>Always throws an exception</returns>
         public object Remove(object key) 
         {
-            throw new Exception("Remove unsupported");
+            throw new NotSupportedException("Remove unsupported");
         }
 
         /// <summary>

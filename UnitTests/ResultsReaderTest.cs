@@ -30,18 +30,44 @@ namespace UnitTests
     public class ResultsReaderTest : TestHelper
     {
         /// <summary>
-        /// Input file for the json test
+        /// Input file for the json test on Splunk Version 5
         /// </summary>
-        private const string JsonInputFilePath = "results5.json";
-        
+        private const string Splunk5JsonInputFilePath = "results5.json";
+
         /// <summary>
-        /// Test json format using an input file (not splunk server)
+        /// Input file for the json test on Splunk Version 4
+        /// </summary>
+        private const string Splunk4JsonInputFilePath = "results4.json";
+
+        /// <summary>
+        /// Test json format using an input file representing 
+        /// Splunk Version 5
         /// </summary>
         [TestMethod]
-        [DeploymentItem(JsonInputFilePath)]
+        [DeploymentItem(Splunk5JsonInputFilePath)]
         public void TestReadJsonOnSplunk5()
         {
-            var input = this.OpenResource(JsonInputFilePath);
+            this.TestReadJason(Splunk5JsonInputFilePath);
+        }
+
+        /// <summary>
+        /// Test json format using an input file representing
+        /// Splunk Version 4
+        /// </summary>
+        [TestMethod]
+        [DeploymentItem(Splunk4JsonInputFilePath)]
+        public void TestReadJsonOnSplunk4()
+        {
+            this.TestReadJason(Splunk4JsonInputFilePath);
+        }
+
+        /// <summary>
+        /// Test json format using an input file
+        /// </summary>
+        /// <param name="path">Path to the input file</param>
+        private void TestReadJason(string path)
+        {
+            var input = this.OpenResource(path);
             var reader = new ResultsReaderJson(input);
             var expected = new Dictionary<string, object>();
 
@@ -59,6 +85,52 @@ namespace UnitTests
 
             Assert.IsNull(reader.GetNextEvent());
         }
+
+    //    private void testReadMultivalue(
+    //        String filename,
+    //        String delimiter) throws IOException {
+        
+    //    // Test legacy getNextEvent() interface on 2-valued and 1-valued fields
+    //    {
+    //        ResultsReader reader = createResultsReader(type, openResource(filename));
+            
+    //        HashMap<String, String> firstResult = reader.getNextEvent();
+    //        {
+    //            String siDelimited = firstResult.get("_si");
+    //            String[] siArray = siDelimited.split(Pattern.quote(delimiter));
+    //            assertEquals(2, siArray.length);
+    //            // (siArray[0] should be the locally-determined hostname of
+    //            //  splunkd, but there is no good way to test this
+    //            //  consistently.)
+    //            assertEquals("_internal", siArray[1]);
+    //        }
+    //        assertEquals("_internal", firstResult.get("index"));
+            
+    //        assertNull("Expected exactly one result.", reader.getNextEvent());
+    //        reader.close();
+    //    }
+        
+    //    // Test new getNextEvent() interface on 2-valued and 1-valued fields
+    //    {
+    //        ResultsReader reader = createResultsReader(type, openResource(filename));
+            
+    //        Event firstResult = reader.getNextEvent();
+    //        {
+    //            String[] siArray = firstResult.getArray("_si", delimiter);
+    //            assertEquals(2, siArray.length);
+    //            // (siArray[0] should be the locally-determined hostname of
+    //            //  splunkd, but there is no good way to test this
+    //            //  consistently.)
+    //            assertEquals("_internal", siArray[1]);
+    //        }
+    //        assertEquals(
+    //                new String[] {"_internal"},
+    //                firstResult.getArray("index", delimiter));
+            
+    //        assertNull("Expected exactly one result.", reader.getNextEvent());
+    //        reader.close();
+    //    }
+    //}
 
         /// <summary>
         /// Open file resource from network or local disk

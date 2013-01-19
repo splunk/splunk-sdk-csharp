@@ -19,6 +19,7 @@ namespace Splunk
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Reflection;
 
     /// <summary>
@@ -42,7 +43,8 @@ namespace Splunk
         };
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ResourceCollection"/> 
+        /// Initializes a new instance of the 
+        /// <see cref="ResourceCollection{T}"/> 
         /// class.
         /// </summary>
         /// <param name="service">The service</param>
@@ -52,11 +54,12 @@ namespace Splunk
             : base(service, path) 
         {
             this.itemClass = itemClass;
-            this.Items = new Dictionary<string, List<T>>();
+            this.Items = new OrderedDictionary();
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ResourceCollection"/> 
+        /// Initializes a new instance of the 
+        /// <see cref="ResourceCollection{T}"/> 
         /// class.
         /// </summary>
         /// <param name="service">The service</param>
@@ -68,7 +71,7 @@ namespace Splunk
             : base(service, path, args) 
         {
             this.itemClass = itemClass;
-            this.Items = new Dictionary<string, List<T>>();
+            this.Items = new OrderedDictionary();
         }
 
         /// <summary>
@@ -94,14 +97,14 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the items in the collection. Because of namespace 
+        /// Gets the items in the collection. Because of namespace 
         /// rules, a key-name may result in multiple Entities, thus the key 
         /// resolves to a list of one or more Entities.
         /// </summary>
-        protected Dictionary<string, List<T>> Items 
+        protected IDictionary<string, List<T>> Items 
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -109,23 +112,13 @@ namespace Splunk
         /// that if the local resource collection is dirty, will refresh an
         /// up-to-date copy from the server.
         /// </summary>
-        public ICollection<T> Keys 
+        public IEnumerable<string> Keys 
         {
             get 
             {
                 List<T> collection = new List<T>();
                 this.Validate();
-                Dictionary<string, List<T>>.KeyCollection keySet = 
-                    this.Items.Keys;
-                foreach (string key in keySet) 
-                {
-                    List<T> list = this.Items[key];
-                    foreach (T item in list) 
-                    {
-                        collection.Add(item);
-                    }
-                }
-                return collection;
+                return this.Items.Keys;
             }
         }
 
@@ -146,14 +139,13 @@ namespace Splunk
         /// that if the local resource collection is dirty, will refresh an 
         /// up-to-date copy from the server.
         /// </summary>
-        public ICollection<T> Values 
+        public IEnumerable<T> Values 
         {
             get 
             {
                 List<T> collection = new List<T>();
                 this.Validate();
-                Dictionary<string, List<T>>.KeyCollection keySet = 
-                    this.Items.Keys;
+                var keySet = this.Items.Keys;
                 foreach (string key in keySet) 
                 {
                     List<T> list = this.Items[key];
@@ -173,7 +165,7 @@ namespace Splunk
         /// <param name="value">The value</param>
         public void Add(object key, T value) 
         {
-            throw new Exception("Add unsupported");
+            throw new NotSupportedException("Add unsupported");
         }
 
         /// <summary>
@@ -498,7 +490,7 @@ namespace Splunk
         /// <returns>Throws an exception</returns>
         public T Remove(object key) 
         {
-            throw new Exception("Remove unsupported");
+            throw new NotSupportedException("Remove unsupported");
         }
 
         /// <summary>
@@ -526,6 +518,113 @@ namespace Splunk
             }
             List<T> entities = this.Items[(string)key];
             return entities.Count;
+        }
+
+        /// <summary>
+        /// Wrapper to preserve order with an unordered base dictionary
+        /// </summary>
+        private class OrderedDictionary : Dictionary<string, List<T>>,
+            IDictionary<string, List<T>>,
+            IEnumerable<KeyValuePair<string, List<T>>>,
+            IEnumerable,
+            ICollection<KeyValuePair<string, List<T>>>
+        {
+            /// <summary>
+            /// A linked list for ordering
+            /// </summary>
+            private LinkedList<KeyValuePair<string, List<T>>> linkedList = 
+                new LinkedList<KeyValuePair<string, List<T>>>();
+
+            /// <summary>
+            /// Initializes a new instance of the 
+            /// <see cref="OrderedDictionary"/> class.
+            /// </summary>
+            public OrderedDictionary()
+            {
+            }
+
+            /// <summary>
+            /// Adds to the dictionary and the end of enumeration.
+            /// </summary>
+            /// <param name="key">Key of the element to add.</param>
+            /// <param name="value">Value of the element to add.</param>
+            void IDictionary<string, List<T>>.Add(string key, List<T> value)
+            {
+                base.Add(key, value);
+
+                this.linkedList.AddLast(
+                    new KeyValuePair<string, List<T>>(key, value));
+            }
+
+            /// <summary>
+            /// Not supported. Use 'IDictionary.Add' instead.
+            /// </summary>
+            /// <param name="item">The element to add.</param>
+            void ICollection<KeyValuePair<string, List<T>>>.Add(
+                KeyValuePair<string, List<T>> item)
+            {
+                throw new NotSupportedException(
+                    "ICollection.Add unsupported. Use IDictionary.Add instead.");
+            }
+            
+            /// <summary>
+            /// Remove using key. This method is not supported.
+            /// </summary>
+            /// <param name="key">The key of the element to remiove.</param>
+            /// <returns>Not supported.</returns>
+            bool IDictionary<string, List<T>>.Remove(string key)
+            {
+                throw new NotSupportedException("Remove unsupported.");
+            }
+
+            /// <summary>
+            /// Remove using item. This method is not supported.
+            /// </summary>
+            /// <param name="item">The element to remove.</param>
+            /// <returns>Not supported.</returns>
+            bool ICollection<KeyValuePair<string, List<T>>>.Remove(
+                KeyValuePair<string, List<T>> item)
+            {
+                throw new NotSupportedException("Remove unsupported.");
+            }
+
+            /// <summary>
+            /// Returns an enumerator that iterates through 
+            /// the collection in order.
+            /// </summary>
+            /// <returns>An enumerator</returns>
+            IEnumerator<KeyValuePair<string, List<T>>>
+                IEnumerable<KeyValuePair<string, List<T>>>.GetEnumerator()
+            {
+                return this.linkedList.GetEnumerator();
+            }
+
+            /// <summary>
+            /// Returns an enumerator that iterates through 
+            /// the collection in order.
+            /// </summary>
+            /// <returns>An enumerator</returns>
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return this.linkedList.GetEnumerator();
+            }
+
+            ICollection<string> IDictionary<string, List<T>>.Keys
+            {
+                get
+                {
+                    return this.linkedList.Select(x => x.Key).ToList();
+                }
+            }
+
+            /// <summary>
+            /// Clear the collection.
+            /// </summary>
+            void ICollection<KeyValuePair<string, List<T>>>.Clear()
+            {
+                base.Clear();
+                this.linkedList.Clear();
+            }
         }
     }
 }
