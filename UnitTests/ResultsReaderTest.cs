@@ -18,6 +18,7 @@ namespace UnitTests
 {
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -83,7 +84,8 @@ namespace UnitTests
             expected.Add("sum(kb)", "5979.036338");
             this.AssertNextEventEquals(expected, reader);
 
-            Assert.IsNull(reader.GetNextEvent());
+            var iter = reader.GetEnumerator();
+            Assert.IsFalse(iter.MoveNext());
         }
 
     //    private void testReadMultivalue(
@@ -152,7 +154,9 @@ namespace UnitTests
             Dictionary<string, object> expected,
             ResultsReader reader)
         {
-            var actual = reader.GetNextEvent();
+            var iter = reader.GetEnumerator();
+            iter.MoveNext();
+            var actual = iter.Current;
             CollectionAssert.AreEquivalent(
                 expected, 
                 actual);
