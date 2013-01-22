@@ -17,6 +17,7 @@
 namespace Splunk
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.IO;
     using Newtonsoft.Json;
@@ -108,78 +109,80 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the next event, or returns null when no more events are
-        /// present in the stream
+        /// Gets the enumerator for data returned from Splunk.
         /// </summary>
-        /// <returns>A dictionary of key/value pairs in the event</returns>
-        public override Dictionary<string, object> GetNextEvent()
+        /// <returns>A enumerator</returns>
+        public override IEnumerator<Dictionary<string, object>> GetEnumerator()
         {
             Dictionary<string, object> returnData = null;
             string name = string.Empty;
 
             if (this.JsonReader == null)
             {
-                return null;
+                yield break;
             }
 
-            // Events are almost flat, so no need for a true general parser 
-            // solution.
-            while (this.JsonReader.Read())
+            while (true)
             {
-                if (returnData == null) 
+                // Events are almost flat, so no need for a true general parser 
+                // solution.
+                while (this.JsonReader.Read())
                 {
-                    returnData = new Dictionary<string, object>();
-                }
-
-                if (this.JsonReader.TokenType.Equals(JsonToken.StartObject)) 
-                {
-                    // skip
-                }
-                else if (this.JsonReader.TokenType.Equals(JsonToken.StartArray)) 
-                {
-                    List<string> data = new List<string>();
-                    while (this.JsonReader.Read()) 
+                    if (returnData == null)
                     {
-                        if (this
-                            .JsonReader
-                            .TokenType
-                            .Equals(JsonToken.EndArray)) 
-                        {
-                            break;
-                        }
-
-                        if (this
-                            .JsonReader
-                            .TokenType
-                            .Equals(JsonToken.PropertyName))
-                        {
-                            data.Add((string)this.JsonReader.Value);
-                        }
+                        returnData = new Dictionary<string, object>();
                     }
 
-                    returnData.Add(name, data.ToArray());
+                    if (this.JsonReader.TokenType.Equals(JsonToken.StartObject))
+                    {
+                        // skip
+                    }
+                    else if (this.JsonReader.TokenType.Equals(JsonToken.StartArray))
+                    {
+                        List<string> data = new List<string>();
+                        while (this.JsonReader.Read())
+                        {
+                            if (this
+                                .JsonReader
+                                .TokenType
+                                .Equals(JsonToken.EndArray))
+                            {
+                                break;
+                            }
+
+                            if (this
+                                .JsonReader
+                                .TokenType
+                                .Equals(JsonToken.PropertyName))
+                            {
+                                data.Add((string)this.JsonReader.Value);
+                            }
+                        }
+
+                        returnData.Add(name, data.ToArray());
+                    }
+                    else if (this
+                        .JsonReader
+                        .TokenType
+                        .Equals(JsonToken.PropertyName))
+                    {
+                        name = (string)this.JsonReader.Value;
+                    }
+                    else if (this.JsonReader.TokenType.Equals(JsonToken.String))
+                    {
+                        returnData.Add(name, (string)this.JsonReader.Value);
+                    }
+                    else if (this.JsonReader.TokenType.Equals(JsonToken.EndObject))
+                    {
+                        break;
+                    }
+                    else if (this.JsonReader.TokenType.Equals(JsonToken.EndArray))
+                    {
+                        yield break; // this is the end of the event set.
+                    }
                 }
-                else if (this
-                    .JsonReader
-                    .TokenType
-                    .Equals(JsonToken.PropertyName)) 
-                {
-                    name = (string)this.JsonReader.Value;
-                }
-                else if (this.JsonReader.TokenType.Equals(JsonToken.String)) 
-                {
-                    returnData.Add(name, (string)this.JsonReader.Value);
-                }
-                else if (this.JsonReader.TokenType.Equals(JsonToken.EndObject))
-                {
-                    break;
-                }
-                else if (this.JsonReader.TokenType.Equals(JsonToken.EndArray))
-                {
-                    return null; // this is the end of the event set.
-                }
+                yield return returnData;
             }
-            return returnData;
         }
     }
 }
