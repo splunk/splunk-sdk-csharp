@@ -544,6 +544,28 @@ namespace Splunk
             }
 
             /// <summary>
+            /// Gets ordered Keys collection.
+            /// </summary>
+            ICollection<string> IDictionary<string, List<T>>.Keys
+            {
+                get
+                {
+                    return this.linkedList.Select(x => x.Key).ToList();
+                }
+            }
+
+            /// <summary>
+            /// Gets Values collection. Not supported.
+            /// </summary>
+            ICollection<List<T>> IDictionary<string, List<T>>.Values
+            {
+                get
+                {
+                    throw new NotSupportedException("Values property unsupported.");
+                }
+            }
+            
+            /// <summary>
             /// Adds to the dictionary and the end of enumeration.
             /// </summary>
             /// <param name="key">Key of the element to add.</param>
@@ -607,14 +629,6 @@ namespace Splunk
             IEnumerator IEnumerable.GetEnumerator()
             {
                 return this.linkedList.GetEnumerator();
-            }
-
-            ICollection<string> IDictionary<string, List<T>>.Keys
-            {
-                get
-                {
-                    return this.linkedList.Select(x => x.Key).ToList();
-                }
             }
 
             /// <summary>
