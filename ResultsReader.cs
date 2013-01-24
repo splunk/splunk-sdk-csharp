@@ -57,16 +57,15 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the enumerator for data returned from Splunk.
+        /// Returns an enumerator over the events in the event stream.
         /// </summary>
-        /// <returns>A enumertor</returns>
+        /// <returns>An enumerator of events</returns>
         public abstract IEnumerator<Dictionary<string, object>> GetEnumerator();
 
         /// <summary>
-        /// Gets the next event, or returns null when no more events are
-        /// present in the stream
+        /// Returns an enumerator over the events in the event stream.
         /// </summary>
-        /// <returns>A enumerator</returns>
+        /// <returns>An enumerator of events</returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
