@@ -76,6 +76,7 @@
     <Compile Include="DistributedConfiguration.cs" />
     <Compile Include="DistributedPeer.cs" />
     <Compile Include="DistributedPeerArgs.cs" />
+    <Compile Include="Event.cs" />
     <Compile Include="EventTypeArgs.cs" />
     <Compile Include="ConfCollection.cs" />
     <Compile Include="EntityMetadata.cs" />

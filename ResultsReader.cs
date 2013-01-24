@@ -24,7 +24,7 @@ namespace Splunk
     /// The abstract class results reader to return events from a stream
     /// in key/value pairs.
     /// </summary>
-    public abstract class ResultsReader : IEnumerable<Dictionary<string, object>>
+    public abstract class ResultsReader : IEnumerable<Event>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ResultsReader"/> class.
@@ -60,7 +60,7 @@ namespace Splunk
         /// Gets the enumerator for data returned from Splunk.
         /// </summary>
         /// <returns>A enumertor</returns>
-        public abstract IEnumerator<Dictionary<string, object>> GetEnumerator();
+        public abstract IEnumerator<Event> GetEnumerator();
 
         /// <summary>
         /// Gets the next event, or returns null when no more events are
