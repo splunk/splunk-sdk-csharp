@@ -48,7 +48,7 @@ namespace UnitTests
         [DeploymentItem(Splunk5JsonInputFilePath)]
         public void TestReadJsonOnSplunk5()
         {
-            this.TestReadJason(Splunk5JsonInputFilePath);
+            this.TestReadJson(Splunk5JsonInputFilePath);
         }
 
         /// <summary>
@@ -59,14 +59,14 @@ namespace UnitTests
         [DeploymentItem(Splunk4JsonInputFilePath)]
         public void TestReadJsonOnSplunk4()
         {
-            this.TestReadJason(Splunk4JsonInputFilePath);
+            this.TestReadJson(Splunk4JsonInputFilePath);
         }
 
         /// <summary>
         /// Test json format using an input file
         /// </summary>
         /// <param name="path">Path to the input file</param>
-        private void TestReadJason(string path)
+        private void TestReadJson(string path)
         {
             var input = this.OpenResource(path);
             var reader = new ResultsReaderJson(input);
@@ -96,52 +96,7 @@ namespace UnitTests
             expected.Add(key, new Event.Field(value));
         }
 
-    //    private void testReadMultivalue(
-    //        String filename,
-    //        String delimiter) throws IOException {
-        
-    //    // Test legacy getNextEvent() interface on 2-valued and 1-valued fields
-    //    {
-    //        ResultsReader reader = createResultsReader(type, openResource(filename));
-            
-    //        HashMap<String, String> firstResult = reader.getNextEvent();
-    //        {
-    //            String siDelimited = firstResult.get("_si");
-    //            String[] siArray = siDelimited.split(Pattern.quote(delimiter));
-    //            assertEquals(2, siArray.length);
-    //            // (siArray[0] should be the locally-determined hostname of
-    //            //  splunkd, but there is no good way to test this
-    //            //  consistently.)
-    //            assertEquals("_internal", siArray[1]);
-    //        }
-    //        assertEquals("_internal", firstResult.get("index"));
-            
-    //        assertNull("Expected exactly one result.", reader.getNextEvent());
-    //        reader.close();
-    //    }
-        
-    //    // Test new getNextEvent() interface on 2-valued and 1-valued fields
-    //    {
-    //        ResultsReader reader = createResultsReader(type, openResource(filename));
-            
-    //        Event firstResult = reader.getNextEvent();
-    //        {
-    //            String[] siArray = firstResult.getArray("_si", delimiter);
-    //            assertEquals(2, siArray.length);
-    //            // (siArray[0] should be the locally-determined hostname of
-    //            //  splunkd, but there is no good way to test this
-    //            //  consistently.)
-    //            assertEquals("_internal", siArray[1]);
-    //        }
-    //        assertEquals(
-    //                new String[] {"_internal"},
-    //                firstResult.getArray("index", delimiter));
-            
-    //        assertNull("Expected exactly one result.", reader.getNextEvent());
-    //        reader.close();
-    //    }
-    //}
-
+  
         /// <summary>
         /// Open file resource from network or local disk
         /// </summary>

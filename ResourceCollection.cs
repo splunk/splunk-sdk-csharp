@@ -108,7 +108,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets an ICollection of keys in the collection of resources. Note 
+        /// Gets an <see cref="IEnumerable"/> of keys in the collection of resources. Note 
         /// that if the local resource collection is dirty, will refresh an
         /// up-to-date copy from the server.
         /// </summary>
@@ -135,7 +135,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets an ICollection of values in the collection of resources. Note 
+        /// Gets an <see cref="IEnumerable"/> of values in the collection of resources. Note 
         /// that if the local resource collection is dirty, will refresh an 
         /// up-to-date copy from the server.
         /// </summary>
@@ -521,7 +521,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Wrapper to preserve order with an unordered base dictionary
+        /// Wrapper to preserve order with an unordered base dictionary.
+        /// We can't use System.Collections.Specialized.OrderedDictionary
+        /// directly since we want a typed interface from IDictionary generics.
         /// </summary>
         private class OrderedDictionary : Dictionary<string, List<T>>,
             IDictionary<string, List<T>>,
