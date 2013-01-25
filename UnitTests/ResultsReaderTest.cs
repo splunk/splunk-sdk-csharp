@@ -70,24 +70,33 @@ namespace UnitTests
         {
             var input = this.OpenResource(path);
             var reader = new ResultsReaderJson(input);
-            var expected = new Dictionary<string, object>();
+            var expected = new Event();
 
-            expected.Add("series", "twitter");
-            expected.Add("sum(kb)", "14372242.758775");
+            AddToEvent(expected, "series", "twitter");
+            AddToEvent(expected, "sum(kb)", "14372242.758775");
             this.AssertNextEventEquals(expected, reader);
 
-            expected.Add("series", "splunkd");
-            expected.Add("sum(kb)", "267802.333926");
+            AddToEvent(expected, "series", "splunkd");
+            AddToEvent(expected, "sum(kb)", "267802.333926");
             this.AssertNextEventEquals(expected, reader);
 
-            expected.Add("series", "splunkd_access");
-            expected.Add("sum(kb)", "5979.036338");
+            AddToEvent(expected, "series", "splunkd_access");
+            AddToEvent(expected, "sum(kb)", "5979.036338");
             this.AssertNextEventEquals(expected, reader);
 
             var iter = reader.GetEnumerator();
             Assert.IsFalse(iter.MoveNext());
         }
 
+        private static void AddToEvent(
+            Event expected,
+            string key,
+            string value)
+        {
+            expected.Add(key, new Event.Field(value));
+        }
+
+  
         /// <summary>
         /// Open file resource from network or local disk
         /// </summary>
@@ -105,15 +114,16 @@ namespace UnitTests
         /// <param name="expected">Expected result</param>
         /// <param name="reader">Results reader</param>
         private void AssertNextEventEquals(
-            Dictionary<string, object> expected,
+            Event expected,
             ResultsReader reader)
         {
             var iter = reader.GetEnumerator();
             iter.MoveNext();
             var actual = iter.Current;
+
             CollectionAssert.AreEquivalent(
-                expected, 
-                actual);
+                expected.Select(x => x.Value.ToString()).ToArray(),
+                actual.Select(x => x.Value.ToString()).ToArray());
 
             expected.Clear();
         }

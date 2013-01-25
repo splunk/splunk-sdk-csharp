@@ -112,9 +112,9 @@ namespace Splunk
         /// Gets the enumerator for data returned from Splunk.
         /// </summary>
         /// <returns>A enumerator</returns>
-        public override IEnumerator<Dictionary<string, object>> GetEnumerator()
+        public override IEnumerator<Event> GetEnumerator()
         {
-            Dictionary<string, object> returnData = null;
+            Event returnData = null;
             string name = string.Empty;
 
             if (this.JsonReader == null)
@@ -130,7 +130,7 @@ namespace Splunk
                 {
                     if (returnData == null)
                     {
-                        returnData = new Dictionary<string, object>();
+                        returnData = new Event();
                     }
 
                     if (this.JsonReader.TokenType.Equals(JsonToken.StartObject))
@@ -159,7 +159,7 @@ namespace Splunk
                             }
                         }
 
-                        returnData.Add(name, data.ToArray());
+                        returnData.Add(name, new Event.Field(data.ToArray()));
                     }
                     else if (this
                         .JsonReader
@@ -170,7 +170,7 @@ namespace Splunk
                     }
                     else if (this.JsonReader.TokenType.Equals(JsonToken.String))
                     {
-                        returnData.Add(name, (string)this.JsonReader.Value);
+                        returnData.Add(name, new Event.Field(((string)this.JsonReader.Value)));
                     }
                     else if (this.JsonReader.TokenType.Equals(JsonToken.EndObject))
                     {

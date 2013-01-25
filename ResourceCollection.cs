@@ -54,7 +54,7 @@ namespace Splunk
             : base(service, path) 
         {
             this.itemClass = itemClass;
-            this.Items = new OrderedDictionary();
+            this.Items = new OrderedResourceDictionary();
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace Splunk
             : base(service, path, args) 
         {
             this.itemClass = itemClass;
-            this.Items = new OrderedDictionary();
+            this.Items = new OrderedResourceDictionary();
         }
 
         /// <summary>
@@ -116,9 +116,7 @@ namespace Splunk
         {
             get 
             {
-                List<T> collection = new List<T>();
-                this.Validate();
-                return this.Items.Keys;
+                return this.Validate().Items.Keys;
             }
         }
 
@@ -143,13 +141,10 @@ namespace Splunk
         {
             get 
             {
-                List<T> collection = new List<T>();
-                this.Validate();
-                var keySet = this.Items.Keys;
-                foreach (string key in keySet) 
+                var collection = new List<T>();
+                foreach (var value in this.Validate().Items.Values) 
                 {
-                    List<T> list = this.Items[key];
-                    foreach (T item in list) 
+                    foreach (var item in value) 
                     {
                         collection.Add(item);
                     }
@@ -525,7 +520,7 @@ namespace Splunk
         /// We can't use System.Collections.Specialized.OrderedDictionary
         /// directly since we want a typed interface from IDictionary generics.
         /// </summary>
-        private class OrderedDictionary : Dictionary<string, List<T>>,
+        internal class OrderedResourceDictionary : Dictionary<string, List<T>>,
             IDictionary<string, List<T>>,
             IEnumerable<KeyValuePair<string, List<T>>>,
             IEnumerable,
@@ -539,9 +534,9 @@ namespace Splunk
 
             /// <summary>
             /// Initializes a new instance of the 
-            /// <see cref="OrderedDictionary"/> class.
+            /// <see cref="OrderedResourceDictionary"/> class.
             /// </summary>
-            public OrderedDictionary()
+            public OrderedResourceDictionary()
             {
             }
 
@@ -557,13 +552,19 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Gets Values collection. Not supported.
+            /// Gets ordered Values collection.
             /// </summary>
             ICollection<List<T>> IDictionary<string, List<T>>.Values
             {
                 get
                 {
-                    throw new NotSupportedException("Values property unsupported.");
+                    var collection = new List<List<T>>();
+                    var keySet = this.Keys;
+                    foreach (string key in keySet)
+                    {
+                       collection.Add(this[key]);
+                    }
+                    return collection;
                 }
             }
             
