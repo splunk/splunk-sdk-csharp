@@ -41,7 +41,7 @@ namespace UnitTests
         /// Check that ordering of Add is preserved.
         /// </summary>
         [TestMethod]
-        public void ResourceCollectionOrdering()
+        public void OrderedResourceDictionary()
         {
             var random = new Random();
 

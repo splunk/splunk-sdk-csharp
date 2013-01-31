@@ -36,6 +36,28 @@ namespace Splunk
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether or not the results  in this reader 
+        /// a preview from an unfinished search.
+        /// </summary>
+        public bool IsPreview
+        {
+            get;
+            protected set;
+        }
+
+        /// <summary>
+        /// Gets or sets all the fields that may appear in each result.
+        /// </summary>
+        /// <remarks>
+        /// Note that any given result will contain a subset of these fields.
+        /// </remarks>
+        public IEnumerable<string> Fields
+        {
+            get;
+            protected set;
+        }
+        
+        /// <summary>
         /// Gets or sets the stream handle
         /// </summary>
         protected Stream StreamHandle

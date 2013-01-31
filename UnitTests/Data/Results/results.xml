@@ -28,26 +28,10 @@
 	</result>
 	<result offset='2'>
 		<field k='series'>
-			<value><text>flurry</text></value>
-		</field>
-		<field k='sum(kb)'>
-			<value><text>12576.454102</text></value>
-		</field>
-	</result>
-	<result offset='3'>
-		<field k='series'>
 			<value><text>splunkd_access</text></value>
 		</field>
 		<field k='sum(kb)'>
 			<value><text>5979.036338</text></value>
-		</field>
-	</result>
-	<result offset='4'>
-		<field k='series'>
-			<value><text>splunk_web_access</text></value>
-		</field>
-		<field k='sum(kb)'>
-			<value><text>5838.935649</text></value>
 		</field>
 	</result>
 </results>

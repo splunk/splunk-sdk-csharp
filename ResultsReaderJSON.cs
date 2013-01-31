@@ -66,6 +66,7 @@ namespace Splunk
                             .TokenType
                             .Equals(JsonToken.PropertyName))
                         {
+
                             if (this.JsonReader.Value.Equals("results")) 
                             {
                                 this.JsonReader.Read();

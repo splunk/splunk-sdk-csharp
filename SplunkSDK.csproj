@@ -115,6 +115,7 @@
     <Compile Include="Credential.cs" />
     <Compile Include="CredentialCollection.cs" />
     <Compile Include="ReplaceTimezone.cs" />
+    <Compile Include="ResultsReaderXml.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="RoleArgs.cs" />
     <Compile Include="SavedSearch.cs" />
