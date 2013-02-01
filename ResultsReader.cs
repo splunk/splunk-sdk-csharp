@@ -16,6 +16,7 @@
 
 namespace Splunk
 {
+    using System.Collections;
     using System.Collections.Generic;
     using System.IO;
 
@@ -23,7 +24,7 @@ namespace Splunk
     /// The abstract class results reader to return events from a stream
     /// in key/value pairs.
     /// </summary>
-    public abstract class ResultsReader
+    public abstract class ResultsReader : IEnumerable<Event>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ResultsReader"/> class.
@@ -56,13 +57,18 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Returns the next event in the event stream.
+        /// Returns an enumerator over the events in the event stream.
         /// </summary>
-        /// <returns>The dictionary of key value pairs representing the event
-        /// </returns>
-        public virtual Dictionary<string, object> GetNextEvent() 
+        /// <returns>An enumerator of events</returns>
+        public abstract IEnumerator<Event> GetEnumerator();
+
+        /// <summary>
+        /// Returns an enumerator over the events in the event stream.
+        /// </summary>
+        /// <returns>An enumerator of events</returns>
+        IEnumerator IEnumerable.GetEnumerator()
         {
-            return null;
+            return this.GetEnumerator();
         }
     }
 }
