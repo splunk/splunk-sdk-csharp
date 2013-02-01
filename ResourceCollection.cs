@@ -562,7 +562,7 @@ namespace Splunk
                     var keySet = this.Keys;
                     foreach (string key in keySet)
                     {
-                       collection.Add(this[key]);
+                        collection.Add(this[key]);
                     }
                     return collection;
                 }
@@ -635,7 +635,7 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Clear the collection.
+            /// Clears the collection.
             /// </summary>
             void ICollection<KeyValuePair<string, List<T>>>.Clear()
             {

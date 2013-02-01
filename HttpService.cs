@@ -265,6 +265,7 @@ namespace Splunk
             // code can be changed. This code also may break in the future, as 
             // it reaches into the class's non-public fields and whacks them 
             // with a hammer. 
+            //
             // An alternative is to use 
             // genericUriParserOptions="DontUnescapePathDotsAndSlashes"
             // in app.config. However, that is a global setting, which is owned

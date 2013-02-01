@@ -93,7 +93,7 @@ namespace UnitTests
             string key,
             string value)
         {
-            expected.Add(key, new Event.Field(value));
+            expected.Add(key, new Event.FieldValue(value));
         }
 
   
