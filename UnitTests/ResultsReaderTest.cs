@@ -290,23 +290,15 @@ namespace UnitTests
         /// <param name="myEvent">Event to add the field to</param>
         /// <param name="key">Key of the field</param>
         /// <param name="value">String value of the field</param>
+
         private static void AddToEvent(
             Event myEvent,
             string key,
             string value)
         {
-            myEvent.Add(key, new Event.Field(value));
+            myEvent.Add(key, new Event.FieldValue(value));
         }
 
-        /// <summary>
-        /// Open resource file
-        /// </summary>
-        /// <param name="path">Relative path to the resource</param>
-        /// <returns>Stream of resource content</returns>
-        private Stream OpenResourceFile(string path)
-        {
-            return File.OpenRead(TestDataFolder + @"\" + path);
-        }
 
         /// <summary>
         /// Open resource file from base directory

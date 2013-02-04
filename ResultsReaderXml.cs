@@ -201,7 +201,7 @@ namespace Splunk
                             }
                         }
 
-                        result.Add(key, new Event.Field(values.ToArray()));
+                        result.Add(key, new Event.FieldValue(values.ToArray()));
                     });
 
                 yield return result;

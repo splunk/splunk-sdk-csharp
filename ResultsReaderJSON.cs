@@ -160,7 +160,7 @@ namespace Splunk
                             }
                         }
 
-                        returnData.Add(name, new Event.Field(data.ToArray()));
+                        returnData.Add(name, new Event.FieldValue(data.ToArray()));
                     }
                     else if (this
                         .JsonReader
@@ -171,7 +171,7 @@ namespace Splunk
                     }
                     else if (this.JsonReader.TokenType.Equals(JsonToken.String))
                     {
-                        returnData.Add(name, new Event.Field(((string)this.JsonReader.Value)));
+                        returnData.Add(name, new Event.FieldValue(((string)this.JsonReader.Value)));
                     }
                     else if (this.JsonReader.TokenType.Equals(JsonToken.EndObject))
                     {
