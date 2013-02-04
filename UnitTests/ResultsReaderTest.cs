@@ -18,6 +18,7 @@ namespace UnitTests
 {
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -30,36 +31,72 @@ namespace UnitTests
     public class ResultsReaderTest : TestHelper
     {
         /// <summary>
-        /// Input file for the json test
+        /// Input file for the json test on Splunk Version 5
         /// </summary>
-        private const string JsonInputFilePath = "results5.json";
-        
+        private const string Splunk5JsonInputFilePath = "results5.json";
+
         /// <summary>
-        /// Test json format using an input file (not splunk server)
+        /// Input file for the json test on Splunk Version 4
+        /// </summary>
+        private const string Splunk4JsonInputFilePath = "results4.json";
+
+        /// <summary>
+        /// Test json format using an input file representing 
+        /// Splunk Version 5
         /// </summary>
         [TestMethod]
-        [DeploymentItem(JsonInputFilePath)]
+        [DeploymentItem(Splunk5JsonInputFilePath)]
         public void TestReadJsonOnSplunk5()
         {
-            var input = this.OpenResource(JsonInputFilePath);
-            var reader = new ResultsReaderJson(input);
-            var expected = new Dictionary<string, object>();
-
-            expected.Add("series", "twitter");
-            expected.Add("sum(kb)", "14372242.758775");
-            this.AssertNextEventEquals(expected, reader);
-
-            expected.Add("series", "splunkd");
-            expected.Add("sum(kb)", "267802.333926");
-            this.AssertNextEventEquals(expected, reader);
-
-            expected.Add("series", "splunkd_access");
-            expected.Add("sum(kb)", "5979.036338");
-            this.AssertNextEventEquals(expected, reader);
-
-            Assert.IsNull(reader.GetNextEvent());
+            this.TestReadJson(Splunk5JsonInputFilePath);
         }
 
+        /// <summary>
+        /// Test json format using an input file representing
+        /// Splunk Version 4
+        /// </summary>
+        [TestMethod]
+        [DeploymentItem(Splunk4JsonInputFilePath)]
+        public void TestReadJsonOnSplunk4()
+        {
+            this.TestReadJson(Splunk4JsonInputFilePath);
+        }
+
+        /// <summary>
+        /// Test json format using an input file
+        /// </summary>
+        /// <param name="path">Path to the input file</param>
+        private void TestReadJson(string path)
+        {
+            var input = this.OpenResource(path);
+            var reader = new ResultsReaderJson(input);
+            var expected = new Event();
+
+            AddToEvent(expected, "series", "twitter");
+            AddToEvent(expected, "sum(kb)", "14372242.758775");
+            this.AssertNextEventEquals(expected, reader);
+
+            AddToEvent(expected, "series", "splunkd");
+            AddToEvent(expected, "sum(kb)", "267802.333926");
+            this.AssertNextEventEquals(expected, reader);
+
+            AddToEvent(expected, "series", "splunkd_access");
+            AddToEvent(expected, "sum(kb)", "5979.036338");
+            this.AssertNextEventEquals(expected, reader);
+
+            var iter = reader.GetEnumerator();
+            Assert.IsFalse(iter.MoveNext());
+        }
+
+        private static void AddToEvent(
+            Event expected,
+            string key,
+            string value)
+        {
+            expected.Add(key, new Event.FieldValue(value));
+        }
+
+  
         /// <summary>
         /// Open file resource from network or local disk
         /// </summary>
@@ -77,13 +114,16 @@ namespace UnitTests
         /// <param name="expected">Expected result</param>
         /// <param name="reader">Results reader</param>
         private void AssertNextEventEquals(
-            Dictionary<string, object> expected,
+            Event expected,
             ResultsReader reader)
         {
-            var actual = reader.GetNextEvent();
+            var iter = reader.GetEnumerator();
+            iter.MoveNext();
+            var actual = iter.Current;
+
             CollectionAssert.AreEquivalent(
-                expected, 
-                actual);
+                expected.Select(x => x.Value.ToString()).ToArray(),
+                actual.Select(x => x.Value.ToString()).ToArray());
 
             expected.Clear();
         }

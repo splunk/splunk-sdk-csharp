@@ -78,6 +78,7 @@ AppPackages/
 sql
 [Tt]est[Rr]esult*
 *.Cache
+*.coveragexml
 ClientBin
 [Ss]tyle[Cc]op.*
 ~$*
