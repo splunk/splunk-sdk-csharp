@@ -26,53 +26,79 @@ namespace Splunk
     /// Represents a streaming XML reader for 
     /// Splunk search results.
     /// </summary>
-    public class ResultsReaderXml : ResultsReader
+    public class ResultsReaderXml : ResultsReader<ResultsReaderXml>
     {
         /// <summary>
         /// Underlying reader of the XML stream
         /// </summary>
-        private XmlReader reader;
+        internal XmlReader XmlReader
+        {
+            get;
+            private set;
+        }
 
-        /// <summary>
-        /// Whether or not there are more 'results' element to read.
-        /// </summary>
-        private bool noMoreResults;
+        public ResultsReaderXml()
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ResultsReaderXml" /> 
         /// class for the event stream. You should only
         /// attempt to parse an XML stream with the XML reader. 
-        /// Unpredictable results may occur if you use a non-XML stream.
-         /// </summary>
+        /// </summary>
         /// <param name="stream">The stream to parse.</param>
-        public ResultsReaderXml(Stream stream) : base(stream)
+        public ResultsReaderXml(Stream stream)
+        {
+            Initialize(stream);
+        }
+
+        public override void Initialize(Stream stream)
         {
             var setting = new XmlReaderSettings
             {
                 ConformanceLevel = ConformanceLevel.Fragment,
             };
 
-            this.reader = XmlReader.Create(stream, setting);
+            this.XmlReader = XmlReader.Create(stream, setting);
 
-            this.ReadToNextResultsElement();                  
+            this.ReadIntoNextResultsElement();
+
+            // Fail if there's no 'results' element found
+            this.Validate();
+        }
+
+        internal override void TakeOver(ResultsReaderXml reader)
+        {
+            var resultsXmlReader = reader;
+            this.XmlReader = resultsXmlReader.XmlReader;
+            resultsXmlReader.XmlReader = null;
+            this.ReadIntoNextResultsElement();
+            base.TakeOver(reader);
+        }
+
+        public override void Dispose()
+        {
+            if (this.XmlReader != null)
+            {
+                ((IDisposable) this.XmlReader).Dispose();
+            }
+
+            this.XmlReader = null;
         }
 
         /// <summary>
         /// Read to next 'results' element, parse out 
         /// <see cref="IsPreview"/> and <see cref="Fields"/>,
-        /// and update <see cref="noMoreResults"/> flag.
+        /// and update <see cref="HasResults"/> flag.
         /// </summary>
-        private void ReadToNextResultsElement()
+        private void ReadIntoNextResultsElement()
         {
-            if (this.reader.ReadToFollowing("results"))
+            if (this.XmlReader.ReadToFollowing("results"))
             {
-                this.IsPreview = XmlConvert.ToBoolean(this.reader["preview"]);
-                
+                this.IsPreview = XmlConvert.ToBoolean(this.XmlReader["preview"]);
+
                 this.ReadMetaElement();
-            }
-            else
-            {
-                this.noMoreResults = true;
+                this.HasResults = true;
             }
         }
 
@@ -82,9 +108,9 @@ namespace Splunk
         /// </summary>
         private void ReadMetaElement()
         {
-            if (this.reader.ReadToDescendant("meta"))
+            if (this.XmlReader.ReadToDescendant("meta"))
             {
-                if (this.reader.ReadToDescendant("fieldOrder"))
+                if (this.XmlReader.ReadToDescendant("fieldOrder"))
                 {
                     var fields = new List<string>();
 
@@ -92,15 +118,15 @@ namespace Splunk
                         "field",
                         () =>
                         {
-                            fields.Add(this.reader.ReadElementContentAsString());
+                            fields.Add(this.XmlReader.ReadElementContentAsString());
                         });
 
                     this.Fields = fields;
 
-                    this.reader.Skip();
+                    this.XmlReader.Skip();
                 }
 
-                this.reader.Skip();
+                this.XmlReader.Skip();
             }
         }
 
@@ -116,11 +142,11 @@ namespace Splunk
         /// </param>
         private void ReadEachDescendant(string name, Action readAction)
         {
-            if (this.reader.ReadToDescendant(name))
+            if (this.XmlReader.ReadToDescendant(name))
             {
                 readAction();
 
-                while (this.reader.ReadToNextSibling(name))
+                while (this.XmlReader.ReadToNextSibling(name))
                 {
                     readAction();
                 }
@@ -148,23 +174,30 @@ namespace Splunk
         /// </remarks>
         /// </summary>
         /// <returns>A enumerator</returns>
-        public override IEnumerator<Event> GetEnumerator()
+        public override IEnumerator<Event> GetEnumeratorInner()
         {
-            if (this.noMoreResults)
+            while (true)
             {
-                throw new XmlException(
-                    "No more results found.");
-            }
-            
-            while (this.reader.ReadToNextSibling("result"))
-            {
+                // MultiResultsReader might have transfered
+                // the underlying reader to the next ResultsReader.
+                if (this.XmlReader == null)
+                {
+                    throw new InvalidOperationException(
+                        "The reader is no longer valid.");
+                }
+
+                if (!this.XmlReader.ReadToNextSibling("result"))
+                {
+                    yield break;
+                }
+
                 var result = new Event();
 
                 this.ReadEachDescendant(
                     "field", 
                     () => 
                     {
-                        var key = this.reader["k"];
+                        var key = this.XmlReader["k"];
 
                         if (key == null)
                         {
@@ -174,30 +207,30 @@ namespace Splunk
 
                         var values = new List<string>();
 
-                        var xmlDepthField = this.reader.Depth;
+                        var xmlDepthField = this.XmlReader.Depth;
 
-                        while (this.reader.Read())
+                        while (this.XmlReader.Read())
                         {
-                            if (this.reader.Depth == xmlDepthField)
+                            if (this.XmlReader.Depth == xmlDepthField)
                             {
                                 break;
                             }
 
                             Debug.Assert(
-                                reader.Depth > xmlDepthField,
+                                XmlReader.Depth > xmlDepthField,
                                 "The loop should have exited earlier.");
 
-                            if (this.reader.IsStartElement("value"))
+                            if (this.XmlReader.IsStartElement("value"))
                             {
-                                if (this.reader.ReadToDescendant("text"))
+                                if (this.XmlReader.ReadToDescendant("text"))
                                 {
                                     values.Add(
-                                        this.reader.ReadElementContentAsString());
+                                        this.XmlReader.ReadElementContentAsString());
                                 }
                             }
-                            else if (this.reader.IsStartElement("v"))
+                            else if (this.XmlReader.IsStartElement("v"))
                             {
-                                values.Add(this.reader.ReadInnerXml());
+                                values.Add(this.XmlReader.ReadInnerXml());
                             }
                         }
 
@@ -206,8 +239,26 @@ namespace Splunk
 
                 yield return result;
             }
+        }
 
-            this.ReadToNextResultsElement();
+        private void Validate()
+        {
+            if (this.XmlReader == null)
+            {
+                throw new InvalidOperationException(
+                    "The reader is no longer valid.");
+            }
+
+            EnsureResultsAvailable();
+        }
+
+        private void EnsureResultsAvailable()
+        {
+            if (!this.HasResults)
+            {
+                throw new InvalidOperationException(
+                     "No or no more 'results' element found.");
+            }
         }
     }
 }

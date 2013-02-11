@@ -16,24 +16,42 @@
 
 namespace Splunk
 {
+    using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.IO;
+
+    public interface ISearchResults : IEnumerable<Event>
+    {
+        /// <summary>
+        /// Gets or sets a value indicating whether or not the results  in this reader 
+        /// a preview from an unfinished search.
+        /// </summary>
+        bool IsPreview
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Gets or sets all the fields that may appear in each result.
+        /// </summary>
+        /// <remarks>
+        /// Note that any given result will contain a subset of these fields.
+        /// </remarks>
+        IEnumerable<string> Fields
+        {
+            get;
+        }
+    }
 
     /// <summary>
     /// The abstract class results reader to return events from a stream
     /// in key/value pairs.
     /// </summary>
-    public abstract class ResultsReader : IEnumerable<Event>
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ResultsReader"/> class.
-        /// </summary>
-        /// <param name="inputStream">The stream</param>
-        public ResultsReader(Stream inputStream) 
-        {
-            this.StreamHandle = inputStream;
-        }
+    public abstract class ResultsReader<T> : ISearchResults, IDisposable
+    {        
+        private bool used;
 
         /// <summary>
         /// Gets or sets a value indicating whether or not the results  in this reader 
@@ -43,6 +61,16 @@ namespace Splunk
         {
             get;
             protected set;
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether or not there are results
+        /// to be read.
+        /// </summary>
+        internal bool HasResults
+        {
+            get;
+            set;
         }
 
         /// <summary>
@@ -56,33 +84,39 @@ namespace Splunk
             get;
             protected set;
         }
-        
-        /// <summary>
-        /// Gets or sets the stream handle
-        /// </summary>
-        protected Stream StreamHandle
-        {
-            get;
-            set;
-        }
+
+        public abstract void Initialize(Stream stream);
 
         /// <summary>
-        /// Closes the stream and clears the handle.
+        /// Releasingresetting unmanaged resources.        
         /// </summary>
-        public virtual void Close() 
-        {
-            if (this.StreamHandle != null)
-            {
-                this.StreamHandle.Close();
-            }
-            this.StreamHandle = null;
-        }
-
+        public abstract void Dispose();
+    
         /// <summary>
         /// Returns an enumerator over the events in the event stream.
         /// </summary>
         /// <returns>An enumerator of events</returns>
-        public abstract IEnumerator<Event> GetEnumerator();
+        public IEnumerator<Event> GetEnumerator()
+        {
+            if (used)
+            {
+                throw new InvalidOperationException(
+                    "All results in this reader have already been read. " +
+                    "Use MultiResultsReader to read multiple sets of results " +
+                    "including one or more previews, or final results"); 
+            }
+
+            used = true;
+
+            // Either the public constructor should have failed or
+            // the MultiResultsReader should not have returned
+            // this reader to the caller.
+            Debug.Assert(
+                this.HasResults,
+                "This reader has no results and should not be used.");
+            
+            return this.GetEnumeratorInner();
+        }
 
         /// <summary>
         /// Returns an enumerator over the events in the event stream.
@@ -91,6 +125,13 @@ namespace Splunk
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
+        }
+
+        public abstract IEnumerator<Event> GetEnumeratorInner();
+       
+        internal virtual void TakeOver(T reader)
+        {
+            //reader.Dispose();
         }
     }
 }

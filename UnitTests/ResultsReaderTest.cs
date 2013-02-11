@@ -128,26 +128,42 @@ namespace UnitTests
             var input = this.OpenResourceFileFromDataFolder(
                 SplunkMultipleResultsXmlInputFilePath);
 
-            var reader = new ResultsReaderXml(input);
+            var multiReader = new MultiResultsReaderXml(input);
 
-            // There are two events in the first set,
-            // and it is a preview.
-            Assert.AreEqual(reader.Count(), 1);
-            Assert.IsTrue(reader.IsPreview);
+            var count = 0;
 
-            // There are three events in the second set.
-            Assert.AreEqual(reader.Count(), 3);
-
-            // Skip previews.
-            while (reader.IsPreview)
+            foreach (var reader in multiReader)
             {
-                foreach (var result in reader) 
-                { 
+                if (count == 0)
+                {
+                    // There are two events in the first set,
+                    // and it is a preview.
+                    Assert.AreEqual(reader.Count(), 1);
+                    Assert.IsTrue(reader.IsPreview);
                 }
-            }
+                else if (count == 1)
+                {
+                    // There are three events in the second set.
+                    Assert.AreEqual(reader.Count(), 3);
+                }
+                else if (count == 2)
+                {
+                    foreach (var result in reader)
+                    {
+                        // Make MultiReader to move next
+                        // while the current one is in the middle
+                        // of the iteration.
+                        break;
+                    }
+                }
+                else if (!reader.IsPreview)
+                {
+                    // There are 5 events in the final set.
+                    Assert.AreEqual(reader.Count(), 5);
+                }
 
-            // There are 5 events in the final set.
-            Assert.AreEqual(reader.Count(), 5);
+                count++;
+            }
         }
 
         /// <summary>
@@ -264,23 +280,24 @@ namespace UnitTests
         /// Test result reader
         /// </summary>
         /// <param name="reader">The reader</param>
-        private void TestRead(ResultsReader reader)
+        private void TestRead(IEnumerable<Event> reader)
         {
             var expected = new Event();
 
+            var iter = reader.GetEnumerator();
+
             AddToEvent(expected, "series", "twitter");
             AddToEvent(expected, "sum(kb)", "14372242.758775");
-            this.AssertNextEventEqualsAndReset(expected, reader);
+            this.AssertNextEventEqualsAndReset(expected, iter);
 
             AddToEvent(expected, "series", "splunkd");
             AddToEvent(expected, "sum(kb)", "267802.333926");
-            this.AssertNextEventEqualsAndReset(expected, reader);
+            this.AssertNextEventEqualsAndReset(expected, iter);
 
             AddToEvent(expected, "series", "splunkd_access");
             AddToEvent(expected, "sum(kb)", "5979.036338");
-            this.AssertNextEventEqualsAndReset(expected, reader);
+            this.AssertNextEventEqualsAndReset(expected, iter);
 
-            var iter = reader.GetEnumerator();
             Assert.IsFalse(iter.MoveNext());
         }
 
@@ -318,9 +335,8 @@ namespace UnitTests
         /// <param name="reader">Results reader</param>
         private void AssertNextEventEqualsAndReset(
             Event expected,
-            ResultsReader reader)
+            IEnumerator<Event> iter)
         {
-            var iter = reader.GetEnumerator();
             iter.MoveNext();
             var actual = iter.Current;
 

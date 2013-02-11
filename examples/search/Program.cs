@@ -56,17 +56,22 @@ namespace SplunkSearch
             // hard-code output args to json (use reader) and count is 0.
             Args outArgs = new Args("output_mode", "json");
             outArgs.Add("count", "0");
-            Stream stream = job.Results(outArgs);
-            ResultsReaderJson rr = new ResultsReaderJson(stream);
-            foreach (var map in rr)
+            using (Stream stream = job.Results(outArgs))
             {
-                System.Console.WriteLine("EVENT:");
-                foreach (string key in map.Keys)
+                using (ResultsReaderJson rr = new ResultsReaderJson(stream))
                 {
-                    System.Console.WriteLine("   " + key + " -> " + map[key]);
+                    foreach (var map in rr)
+                    {
+                        System.Console.WriteLine("EVENT:");
+                        foreach (string key in map.Keys)
+                        {
+                            System.Console.WriteLine(
+                                "   " + key + " -> " + map[key]);
+                        }
+                    }
+                    job.Cancel();
                 }
             }
-            job.Cancel();
         }
     }
 }

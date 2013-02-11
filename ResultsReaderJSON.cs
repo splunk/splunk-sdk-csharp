@@ -25,14 +25,14 @@ namespace Splunk
     /// <summary>
     /// Reads a results/event JSOMN stream one event at a time. 
     /// </summary>
-    public class ResultsReaderJson : ResultsReader
+    public class ResultsReaderJson : ResultsReader<ResultsReaderJson>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ResultsReaderJson"/> 
         /// class.
         /// </summary>
         /// <param name="stream">Stream to be parsed</param>
-        public ResultsReaderJson(Stream stream) : base(stream) 
+        public ResultsReaderJson(Stream stream)
         {
             this.JsonReader = new JsonTextReader(new StreamReader(stream));
 
@@ -57,6 +57,8 @@ namespace Splunk
                     {
                         if (!this.JsonReader.Read())
                         {
+                            // TODO: JsonReader needs to be closed.
+                            // TODO: should use HasResults later.
                             this.JsonReader = null;
                             return;
                         }
@@ -70,6 +72,9 @@ namespace Splunk
                             if (this.JsonReader.Value.Equals("results")) 
                             {
                                 this.JsonReader.Read();
+                                // TODO check whether or not reader is null to return
+                                // HasResults.
+                                this.HasResults = true;
                                 return;
                             }
                         }
@@ -78,6 +83,7 @@ namespace Splunk
                 else
                 {
                     // Pre Splunk 5.0
+                    this.HasResults = true;
                 }
             }
             catch (Exception) 
@@ -85,6 +91,11 @@ namespace Splunk
                 this.JsonReader = null;
                 return;
             }
+        }
+
+        public override void Initialize(Stream stream)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -97,9 +108,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Closes the reader
+        /// Release unmanaged resources
         /// </summary>
-        public override void Close()
+        public override void Dispose()
         {
             if (this.JsonReader != null)
             {
@@ -113,18 +124,18 @@ namespace Splunk
         /// Gets the enumerator for data returned from Splunk.
         /// </summary>
         /// <returns>A enumerator</returns>
-        public override IEnumerator<Event> GetEnumerator()
+        public override IEnumerator<Event> GetEnumeratorInner()
         {
-            Event returnData = null;
-            string name = string.Empty;
-
-            if (this.JsonReader == null)
-            {
-                yield break;
-            }
-
             while (true)
             {
+                Event returnData = null;
+                string name = string.Empty;
+
+                if (this.JsonReader == null)
+                {
+                    yield break;
+                }
+
                 // Events are almost flat, so no need for a true general parser 
                 // solution.
                 while (this.JsonReader.Read())

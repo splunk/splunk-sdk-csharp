@@ -89,6 +89,7 @@
     </Content>
     <Content Include="Data\Results\resultsMultiple.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="resultsMV.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -105,6 +105,8 @@
     <Compile Include="MessageCollection.cs" />
     <Compile Include="MonitorInput.cs" />
     <Compile Include="MonitorInputArgs.cs" />
+    <Compile Include="MultiResultsReader.cs" />
+    <Compile Include="MultiResultsReaderXml.cs" />
     <Compile Include="OutputDefault.cs" />
     <Compile Include="OutputGroup.cs" />
     <Compile Include="OutputGroupArgs.cs" />
