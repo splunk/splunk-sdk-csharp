@@ -30,7 +30,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{AD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "authenticate", "examples\authenticate\authenticate.csproj", "{74FFC42D-76D4-48F8-805D-80F134423194}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "list_apps", "..\splunk-sdk-java\examples\list_apps\list_apps.csproj", "{4D090E62-8E8F-45F8-9382-97AFE56578AB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "list_apps", "examples\list_apps\list_apps.csproj", "{4D090E62-8E8F-45F8-9382-97AFE56578AB}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
