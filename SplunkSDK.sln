@@ -22,6 +22,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{BDC54072-754F-4709-92E7-2A4ED502CC68}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "search_oneshot", "examples\search_oneshot\search_oneshot.csproj", "{256ABC68-317A-4E3C-8D62-F2955EF996E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "search_realtime", "examples\search_realtime\search_realtime.csproj", "{D4EDDD16-310E-498E-B37A-800C78791E5D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{AD507CE6-90BA-4067-B4EC-2E0D7AC96AA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "authenticate", "examples\authenticate\authenticate.csproj", "{74FFC42D-76D4-48F8-805D-80F134423194}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = SplunkSDK.vsmdi
@@ -85,8 +93,45 @@ Global
 		{BDC54072-754F-4709-92E7-2A4ED502CC68}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{BDC54072-754F-4709-92E7-2A4ED502CC68}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{BDC54072-754F-4709-92E7-2A4ED502CC68}.Release|x86.ActiveCfg = Release|Any CPU
+		{256ABC68-317A-4E3C-8D62-F2955EF996E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{256ABC68-317A-4E3C-8D62-F2955EF996E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{256ABC68-317A-4E3C-8D62-F2955EF996E6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{256ABC68-317A-4E3C-8D62-F2955EF996E6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{256ABC68-317A-4E3C-8D62-F2955EF996E6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{256ABC68-317A-4E3C-8D62-F2955EF996E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{256ABC68-317A-4E3C-8D62-F2955EF996E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{256ABC68-317A-4E3C-8D62-F2955EF996E6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{256ABC68-317A-4E3C-8D62-F2955EF996E6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{256ABC68-317A-4E3C-8D62-F2955EF996E6}.Release|x86.ActiveCfg = Release|Any CPU
+		{D4EDDD16-310E-498E-B37A-800C78791E5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4EDDD16-310E-498E-B37A-800C78791E5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4EDDD16-310E-498E-B37A-800C78791E5D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D4EDDD16-310E-498E-B37A-800C78791E5D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D4EDDD16-310E-498E-B37A-800C78791E5D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D4EDDD16-310E-498E-B37A-800C78791E5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4EDDD16-310E-498E-B37A-800C78791E5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4EDDD16-310E-498E-B37A-800C78791E5D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D4EDDD16-310E-498E-B37A-800C78791E5D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D4EDDD16-310E-498E-B37A-800C78791E5D}.Release|x86.ActiveCfg = Release|Any CPU
+		{74FFC42D-76D4-48F8-805D-80F134423194}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74FFC42D-76D4-48F8-805D-80F134423194}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74FFC42D-76D4-48F8-805D-80F134423194}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{74FFC42D-76D4-48F8-805D-80F134423194}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{74FFC42D-76D4-48F8-805D-80F134423194}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{74FFC42D-76D4-48F8-805D-80F134423194}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74FFC42D-76D4-48F8-805D-80F134423194}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74FFC42D-76D4-48F8-805D-80F134423194}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{74FFC42D-76D4-48F8-805D-80F134423194}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{74FFC42D-76D4-48F8-805D-80F134423194}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F3692BB4-E692-4ED8-B999-FB7FBCF3126F} = {AD507CE6-90BA-4067-B4EC-2E0D7AC96AA8}
+		{256ABC68-317A-4E3C-8D62-F2955EF996E6} = {AD507CE6-90BA-4067-B4EC-2E0D7AC96AA8}
+		{D4EDDD16-310E-498E-B37A-800C78791E5D} = {AD507CE6-90BA-4067-B4EC-2E0D7AC96AA8}
+		{A585A939-E070-455D-9A99-A68618B54E1F} = {AD507CE6-90BA-4067-B4EC-2E0D7AC96AA8}
+		{74FFC42D-76D4-48F8-805D-80F134423194} = {AD507CE6-90BA-4067-B4EC-2E0D7AC96AA8}
 	EndGlobalSection
 EndGlobal

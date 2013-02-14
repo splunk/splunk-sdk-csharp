@@ -14,36 +14,31 @@
  * under the License.
  */
 
-namespace SplunkSubmit
+namespace SplunkAuthenticate
 {
     using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Threading;
     using Splunk;
     using SplunkSDKHelper;
 
     /// <summary>
-    /// An example program to submit events into splunk
+    /// The search program
     /// </summary>
     public class Program
     {
         /// <summary>
         /// The main program
         /// </summary>
-        /// <param name="argv">The command line arguments</param>
-        public static void Main(string[] argv)
+        public static void Main()
         {
-            Command cli = Command.Splunk("submit");
-            cli.Parse(argv);
+            var cli = Command.Splunk("authenticate");
+
             var service = Service.Connect(cli.Opts);
 
-            var args = new Args 
-            {
-                { "source", "splunk-sdk-tests" },
-                { "sourcetype", "splunk-sdk-test-event" }
-            };
-
-            Receiver receiver = new Receiver(service);
-            receiver.Submit(args, "Hello World.");
-            receiver.Submit(args, "Goodbye world.");
+            System.Console.WriteLine("Token: ");
+            System.Console.WriteLine("    " + service.Token);
         }
     }
 }

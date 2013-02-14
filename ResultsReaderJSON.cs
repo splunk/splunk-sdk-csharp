@@ -113,17 +113,17 @@ namespace Splunk
         /// </summary>
         /// <returns>A enumerator</returns>
         public override IEnumerator<Event> GetEnumerator()
-        {
-            Event returnData = null;
-            string name = string.Empty;
-
-            if (this.JsonReader == null)
-            {
-                yield break;
-            }
-
+        {  
             while (true)
             {
+                Event returnData = null;
+                string name = string.Empty;
+
+                if (this.JsonReader == null)
+                {
+                    yield break;
+                }
+                
                 // Events are almost flat, so no need for a true general parser 
                 // solution.
                 while (this.JsonReader.Read())

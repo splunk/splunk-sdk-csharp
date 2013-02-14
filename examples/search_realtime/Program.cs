@@ -17,7 +17,6 @@
 namespace SplunkSearch
 {
     using System;
-    using System.Threading;
     using Splunk;
     using SplunkSDKHelper;
 
@@ -30,26 +29,33 @@ namespace SplunkSearch
         /// The main program
         /// </summary>
         /// <param name="argv">The command line arguments</param>
-        public static void Main(string[] argv) 
+        public static void Main(string[] argv)
         {
-            var cli = Command.Splunk("search");
+            Command cli = Command.Splunk("search");
             cli.AddRule("search", typeof(string), "search string");
             cli.Parse(argv);
             if (!cli.Opts.ContainsKey("search"))
             {
-                System.Console.WriteLine("Search query string required, use --search=\"query\"");
+                System.Console.WriteLine(
+                    "Search query string required, use --search=\"query\"");
                 Environment.Exit(1);
             }
 
             var service = Service.Connect(cli.Opts);
-            var jobs = service.GetJobs();
-            var job = jobs.Create((string)cli.Opts["search"]);
-            while (!job.IsDone) 
-            {
-                Thread.Sleep(1000);
-            }
 
-            var outArgs = new Args
+            // Realtime window is 5 minutes
+            var queryArgs = new Args 
+            { 
+                { "search_mode", "realtime" }, 
+                { "earliest_time", "rt-5m" }, 
+                { "latest_time", "rt" }
+            };
+
+            var job = service.GetJobs().Create(
+                (string)cli.Opts["search"], 
+                queryArgs);
+
+            var outputArgs = new Args
             {
                 { "output_mode", "json" },
 
@@ -57,19 +63,30 @@ namespace SplunkSearch
                 { "count", "0" }
             };
 
-            using (var stream = job.Results(outArgs))
+            for (var i = 0; i < 5; i++)
             {
-                var rr = new ResultsReaderJson(stream);
-                foreach (var map in rr)
+                System.Console.WriteLine();
+                System.Console.WriteLine();
+                System.Console.WriteLine("Snapshot " + i + ":"); 
+                
+                using (var stream = job.ResultsPreview(outputArgs))
                 {
-                    System.Console.WriteLine("EVENT:");
-                    foreach (string key in map.Keys)
+                    var rr = new ResultsReaderJson(stream);
+
+                    foreach (var map in rr)
                     {
-                        System.Console.WriteLine("   " + key + " -> " + map[key]);
+                        System.Console.WriteLine("EVENT:");
+                        foreach (string key in map.Keys)
+                        {
+                            System.Console.WriteLine(
+                                "   " + key + " -> " + map[key]);
+                        }
                     }
+
+                    rr.Close();
                 }
             }
-            
+
             job.Cancel();
         }
     }
