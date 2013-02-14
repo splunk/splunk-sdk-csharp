@@ -22,7 +22,7 @@ namespace SplunkSearch
     using SplunkSDKHelper;
 
     /// <summary>
-    /// The search program
+    /// An example program to perform a normal search.
     /// </summary>
     public class Program
     {

@@ -24,7 +24,8 @@ namespace SplunkAuthenticate
     using SplunkSDKHelper;
 
     /// <summary>
-    /// The search program
+    /// An example program to authenticate to the server 
+    /// and print the received token.
     /// </summary>
     public class Program
     {

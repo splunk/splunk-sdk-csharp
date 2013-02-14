@@ -21,7 +21,7 @@ namespace SplunkSearch
     using SplunkSDKHelper;
 
     /// <summary>
-    /// The search program
+    /// An example program to perform a real-time search.
     /// </summary>
     public class Program
     {
@@ -31,7 +31,7 @@ namespace SplunkSearch
         /// <param name="argv">The command line arguments</param>
         public static void Main(string[] argv)
         {
-            Command cli = Command.Splunk("search");
+            Command cli = Command.Splunk("search_realtime");
             cli.AddRule("search", typeof(string), "search string");
             cli.Parse(argv);
             if (!cli.Opts.ContainsKey("search"))

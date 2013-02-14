@@ -26,12 +26,12 @@ namespace SplunkSearch
     public class Program
     {
         /// <summary>
-        /// The main program
+        /// An example program to perform a oneshot search.
         /// </summary>
         /// <param name="argv">The command line arguments</param>
         public static void Main(string[] argv)
         {
-            var cli = Command.Splunk("search");
+            var cli = Command.Splunk("search_oneshot");
             cli.AddRule("search", typeof(string), "search string");
             cli.Parse(argv);
             if (!cli.Opts.ContainsKey("search"))

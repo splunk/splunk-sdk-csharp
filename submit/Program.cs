@@ -21,7 +21,7 @@ namespace SplunkSubmit
     using SplunkSDKHelper;
 
     /// <summary>
-    /// An example program to submit events into splunk
+    /// An example program to submit events into splunk.
     /// </summary>
     public class Program
     {
