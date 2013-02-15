@@ -42,7 +42,8 @@ namespace SplunkListApps
             foreach (var app in service.GetApplications().Values)
             {
                 Console.WriteLine(app.Name);
-
+                
+                // Write a seperator between the name and the description of an app.
                 Console.WriteLine(
                     Enumerable.Repeat<char>('-', app.Name.Length).ToArray());
 

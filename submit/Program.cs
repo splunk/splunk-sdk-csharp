@@ -21,7 +21,7 @@ namespace SplunkSubmit
     using SplunkSDKHelper;
 
     /// <summary>
-    /// An example program to submit events into splunk.
+    /// An example program to submit events into Splunk.
     /// </summary>
     public class Program
     {
@@ -42,6 +42,8 @@ namespace SplunkSubmit
             };
 
             Receiver receiver = new Receiver(service);
+
+            // Submit to default index
             receiver.Submit(args, "Hello World.");
             receiver.Submit(args, "Goodbye world.");
         }

@@ -17,11 +17,13 @@
 namespace SplunkSearch
 {
     using System;
+    using System.Threading;
     using Splunk;
     using SplunkSDKHelper;
 
     /// <summary>
     /// An example program to perform a real-time search.
+    /// It gets a number of snapshots, prints them, and then exits.
     /// </summary>
     public class Program
     {
@@ -85,6 +87,8 @@ namespace SplunkSearch
 
                     rr.Close();
                 }
+
+                Thread.Sleep(500);
             }
 
             job.Cancel();
