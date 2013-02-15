@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Splunk
 {
-    public class MultiResultsReader <T> : IEnumerable<ISearchResults>, IDisposable
+    public class MultiResultsReader<T> : IEnumerable<ISearchResults>, IDisposable
         where T : ResultsReader<T>, IDisposable, new()
     {
         private T current;

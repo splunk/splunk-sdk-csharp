@@ -112,7 +112,7 @@ namespace Splunk
         /// that if the local resource collection is dirty, will refresh an
         /// up-to-date copy from the server.
         /// </summary>
-        public IEnumerable<string> Keys 
+        public ICollection<string> Keys 
         {
             get 
             {
@@ -137,7 +137,7 @@ namespace Splunk
         /// that if the local resource collection is dirty, will refresh an 
         /// up-to-date copy from the server.
         /// </summary>
-        public IEnumerable<T> Values 
+        public ICollection<T> Values 
         {
             get 
             {

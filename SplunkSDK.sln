@@ -15,17 +15,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "submit", "submit\submit.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F2B7556F-A802-433C-96C1-BBD6FB2E0967}"
 	ProjectSection(SolutionItems) = preProject
-		Local.testsettings = Local.testsettings
-		SplunkSDK.vsmdi = SplunkSDK.vsmdi
-		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+		Local.runsettings = Local.runsettings
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{BDC54072-754F-4709-92E7-2A4ED502CC68}"
 EndProject
 Global
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = SplunkSDK.vsmdi
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms

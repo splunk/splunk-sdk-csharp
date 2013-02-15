@@ -39,7 +39,7 @@ namespace Splunk
         /// <remarks>
         /// Note that any given result will contain a subset of these fields.
         /// </remarks>
-        IEnumerable<string> Fields
+        ICollection<string> Fields
         {
             get;
         }
@@ -79,7 +79,7 @@ namespace Splunk
         /// <remarks>
         /// Note that any given result will contain a subset of these fields.
         /// </remarks>
-        public IEnumerable<string> Fields
+        public ICollection<string> Fields
         {
             get;
             protected set;
