@@ -189,6 +189,8 @@ namespace SplunkSDKHelper
                 null, "password", true, "Password to login with");
             this.rules.AddOption(null, "app", true, "App/namespace context");
             this.rules.AddOption(null, "owner", true, "Owner/user context");
+            // This is here only for compatibility with the JavaScript SDK's .splunkrc.
+            this.rules.AddOption(null, "version", true, "Version (irrelevant for C#)");
             return this;
         }
 
