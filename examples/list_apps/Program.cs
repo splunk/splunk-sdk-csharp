@@ -14,7 +14,7 @@
  * under the License.
  */
 
-namespace SplunkListApps
+namespace Splunk.Examples.ListApps
 {
     using System;
     using System.Linq;

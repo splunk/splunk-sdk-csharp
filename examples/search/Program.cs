@@ -14,7 +14,7 @@
  * under the License.
  */
 
-namespace SplunkSearch
+namespace Splunk.Examples.Search
 {
     using System;
     using System.Threading;

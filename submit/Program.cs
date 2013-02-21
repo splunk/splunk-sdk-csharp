@@ -14,7 +14,7 @@
  * under the License.
  */
 
-namespace SplunkSubmit
+namespace Splunk.Examples.Submit
 {
     using System;
     using Splunk;

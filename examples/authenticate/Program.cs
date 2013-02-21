@@ -14,7 +14,7 @@
  * under the License.
  */
 
-namespace SplunkAuthenticate
+namespace Splunk.Examples.Authenticate
 {
     using System;
     using System.Collections.Generic;
