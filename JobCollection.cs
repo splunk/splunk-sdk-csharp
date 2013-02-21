@@ -67,7 +67,7 @@ namespace Splunk
         /// use the Service.oneshot method instead. 
         /// </summary>
         /// <param name="query">The search query</param>
-        /// <param name="args">The variable arguments</param>
+        /// <param name="args">Additional arguments for this job.</param>
         /// <returns>The Job</returns>
         public new Job Create(string query, Args args) 
         {
