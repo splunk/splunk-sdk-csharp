@@ -112,16 +112,14 @@ namespace Splunk
             {
                 if (this.XmlReader.ReadToDescendant("fieldOrder"))
                 {
-                    var fields = new List<string>();
+                    this.Fields = new List<string>();
 
                     this.ReadEachDescendant(
                         "field",
                         () =>
                         {
-                            fields.Add(this.XmlReader.ReadElementContentAsString());
+                            this.Fields.Add(this.XmlReader.ReadElementContentAsString());
                         });
-
-                    this.Fields = fields;
 
                     this.XmlReader.Skip();
                 }
