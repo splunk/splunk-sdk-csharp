@@ -29,7 +29,7 @@ namespace SplunkSDKHelper
     public class Command
     {
         /// <summary>
-        /// The Applicaiton Name.
+        /// The Application Name.
         /// </summary>
         private string appName;
 
