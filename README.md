@@ -136,6 +136,7 @@ list_apps       | Lists the apps installed on the server.
 search          | Runs a normal search using a specified search query.
 search_oneshot  | Runs a oneshot search using a specified search query.
 search_realtime | Runs a real-time search, gets a number of snapshots, prints them, and then exits.
+submit          | Submits events into Splunk.
 
 #### Run unit tests
 
@@ -154,11 +155,6 @@ To run the unit tests, on the **TEST** Menu, point to **Run**, and then choose t
 <tr>
 <td><b>/lib</b></td>
 <td>Third-party libraries used by examples and unit tests</td>
-</tr>
-
-<tr>
-<td><b>/Properties</b></td>
-<td>General information about the Splunk SDK</td>
 </tr>
 
 <tr>
