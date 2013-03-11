@@ -71,8 +71,8 @@ the command prompt.
 
 #### Set up the .splunkrc file
 
-To connect to Splunk, many of the SDK examples and unit tests take command-
-prompt arguments that specify values for the host, port, and login credentials 
+To connect to Splunk, many of the SDK examples and unit tests take command-prompt 
+arguments that specify values for the host, port, and login credentials 
 for Splunk. For convenience during development, you can store these arguments 
 as key-value pairs in a text file named **.splunkrc**. Then, when you don't 
 specify these arguments at the command prompt, the SDK examples and unit tests 
