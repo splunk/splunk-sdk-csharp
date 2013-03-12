@@ -16,22 +16,31 @@
 
 namespace Splunk
 {
-    using System.IO;
+    using System.Collections.Generic;
 
     /// <summary>
-    /// Represents a streaming XML reader for
-    /// Splunk search results. This reader supports streams from export searches, 
-    /// which might return one of more previews before returning final results.
+    /// Represents Splunk search results.
     /// </summary>
-    public class MultiResultsReaderXml : MultiResultsReader<ResultsReaderXml>
+    public interface ISearchResults : IEnumerable<Event>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MultiResultsReaderXml" /> class.
+        /// Gets a value indicating whether or not the results are
+        /// a preview from an unfinished search.
         /// </summary>
-        /// <param name="stream">The XML stream to parse.</param>
-        public MultiResultsReaderXml(Stream stream)
-            : base(new ResultsReaderXml(stream, true))
+        bool IsPreview
         {
+            get;
+        }
+
+        /// <summary>
+        /// Gets all the fields that may appear in each result.
+        /// </summary>
+        /// <remarks>
+        /// Note that any given result will contain a subset of these fields.
+        /// </remarks>
+        ICollection<string> Fields
+        {
+            get;
         }
     }
 }

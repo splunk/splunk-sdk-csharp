@@ -20,39 +20,37 @@ namespace Splunk
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
+    using System.Text;
     using System.Xml;
 
     /// <summary>
-    /// Represents a streaming XML reader for 
-    /// Splunk search results.
+     /// Represents a streaming XML reader for
+     /// Splunk search results. When passed a stream from an export endpoint,
+     /// it skips any preview events in the stream. The preview events can be
+     /// accessed using MultiResultsReaderXml.
     /// </summary>
-    public class ResultsReaderXml : ResultsReader<ResultsReaderXml>
+    public class ResultsReaderXml : ResultsReader
     {
-        /// <summary>
-        /// Underlying reader of the XML stream
-        /// </summary>
-        internal XmlReader XmlReader
-        {
-            get;
-            private set;
-        }
-
-        public ResultsReaderXml()
-        {
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ResultsReaderXml" /> 
         /// class for the event stream. You should only
         /// attempt to parse an XML stream with the XML reader. 
         /// </summary>
         /// <param name="stream">The stream to parse.</param>
-        public ResultsReaderXml(Stream stream)
+        public ResultsReaderXml(Stream stream) :
+            this(stream, false)
         {
-            Initialize(stream);
         }
 
-        public override void Initialize(Stream stream)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ResultsReaderXml"/> class.
+        /// </summary>
+        /// <param name="stream">The XML stream to parse.</param>
+        /// <param name="isInMultiReader">
+        /// Whether or not is the underlying reader of a multi reader.
+        /// </param>
+        internal ResultsReaderXml(Stream stream, bool isInMultiReader) :
+            base(stream, isInMultiReader)
         {
             var setting = new XmlReaderSettings
             {
@@ -61,29 +59,35 @@ namespace Splunk
 
             this.XmlReader = XmlReader.Create(stream, setting);
 
-            this.ReadIntoNextResultsElement();
-
-            // Fail if there's no 'results' element found
-            this.Validate();
+            this.FinishInitialization();
         }
 
-        internal override void TakeOver(ResultsReaderXml reader)
+        /// <summary>
+        /// Gets and sets the underlying reader of the XML stream
+        /// </summary>
+        internal XmlReader XmlReader
         {
-            var resultsXmlReader = reader;
-            this.XmlReader = resultsXmlReader.XmlReader;
-            resultsXmlReader.XmlReader = null;
-            this.ReadIntoNextResultsElement();
-            base.TakeOver(reader);
+            get;
+            private set;
+        }
+        
+        /// <summary>
+        /// Advance to the next set, skipping remaining event(s) 
+        /// if any in the current set, read meta data before the 
+        /// first event in the next result set.
+        /// </summary>
+        /// <returns>Return false if the end is reached.</returns>     
+        internal override bool AdvanceStreamToNextSet()
+        {
+            return this.ReadIntoNextResultsElement();
         }
 
+        /// <summary>
+        /// Release unmanaged resources.
+        /// </summary>
         public override void Dispose()
         {
-            if (this.XmlReader != null)
-            {
-                ((IDisposable) this.XmlReader).Dispose();
-            }
-
-            this.XmlReader = null;
+            ((IDisposable)this.XmlReader).Dispose();
         }
 
         /// <summary>
@@ -91,15 +95,17 @@ namespace Splunk
         /// <see cref="IsPreview"/> and <see cref="Fields"/>,
         /// and update <see cref="HasResults"/> flag.
         /// </summary>
-        private void ReadIntoNextResultsElement()
+        /// <returns>Return false if the end is reached.</returns>     
+        private bool ReadIntoNextResultsElement()
         {
             if (this.XmlReader.ReadToFollowing("results"))
             {
                 this.IsPreview = XmlConvert.ToBoolean(this.XmlReader["preview"]);
 
                 this.ReadMetaElement();
-                this.HasResults = true;
+                return true;
             }
+            return false;
         }
 
         /// <summary>
@@ -112,8 +118,6 @@ namespace Splunk
             {
                 if (this.XmlReader.ReadToDescendant("fieldOrder"))
                 {
-                    this.Fields = new List<string>();
-
                     this.ReadEachDescendant(
                         "field",
                         () =>
@@ -172,18 +176,10 @@ namespace Splunk
         /// </remarks>
         /// </summary>
         /// <returns>A enumerator</returns>
-        public override IEnumerator<Event> GetEnumeratorInner()
+        internal override IEnumerable<Event> GetEventsFromCurrentSet()
         {
             while (true)
             {
-                // MultiResultsReader might have transfered
-                // the underlying reader to the next ResultsReader.
-                if (this.XmlReader == null)
-                {
-                    throw new InvalidOperationException(
-                        "The reader is no longer valid.");
-                }
-
                 if (!this.XmlReader.ReadToNextSibling("result"))
                 {
                     yield break;
@@ -228,7 +224,10 @@ namespace Splunk
                             }
                             else if (this.XmlReader.IsStartElement("v"))
                             {
-                                values.Add(this.XmlReader.ReadInnerXml());
+                                result.SegmentedRaw = this.XmlReader.ReadOuterXml();
+                                var value = ReadTextContentFromXml(
+                                    result.SegmentedRaw);                    
+                                values.Add(value);
                             }
                         }
 
@@ -239,24 +238,30 @@ namespace Splunk
             }
         }
 
-        private void Validate()
+        /// <summary>
+        /// Extract and concatenate texts excluding any markups.
+        /// </summary>
+        /// <param name="xml">The xml fragment with markups</param>
+        /// <returns>Extracted and concatenated texts</returns>
+        private static string ReadTextContentFromXml(string xml)
         {
-            if (this.XmlReader == null)
+            var ret = new StringBuilder();
+
+            var stringReader = new StringReader(xml);
+
+            var setting = new XmlReaderSettings
+                {
+                    ConformanceLevel = ConformanceLevel.Fragment,
+                };
+
+            var xmlReader = XmlReader.Create(stringReader, setting);
+
+            while (xmlReader.Read())
             {
-                throw new InvalidOperationException(
-                    "The reader is no longer valid.");
+                ret.Append(xmlReader.ReadString());
             }
 
-            EnsureResultsAvailable();
-        }
-
-        private void EnsureResultsAvailable()
-        {
-            if (!this.HasResults)
-            {
-                throw new InvalidOperationException(
-                     "No or no more 'results' element found.");
-            }
+            return ret.ToString();
         }
     }
 }

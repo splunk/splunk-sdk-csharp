@@ -16,6 +16,7 @@
 
 namespace UnitTests
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -54,8 +55,14 @@ namespace UnitTests
         /// <summary>
         /// Input file for the xml test
         /// </summary>
-        private const string SplunkMultipleResultsXmlInputFilePath = 
-            "resultsMultiple.xml";
+        private const string SplunkExportResultsXmlInputFilePath =
+            "resultsExport.xml";
+
+        /// <summary>
+        /// Input file for the JSON test
+        /// </summary>
+        private const string SplunkExportResultsJsonInputFilePath =
+            "resultsExport.json";
 
         /// <summary>
         /// Input file for the xml test on Splunk Version 4.3.5 preview
@@ -68,7 +75,13 @@ namespace UnitTests
         /// </summary>
         private const string Splunk502XmlInputFilePath
             = @"5.0.2\results.xml";
-        
+
+        /// <summary>
+        /// Input file for the xml test on Splunk Version 5.0.2
+        /// </summary>
+        private const string Splunk502XmlEmptyInputFilePath
+            = @"5.0.2\results-empty.xml";
+
         /// <summary>
         /// Test json format using an input file representing 
         /// Splunk Version 5, with simple data common to all readers.
@@ -77,7 +90,7 @@ namespace UnitTests
         [DeploymentItem(
             Splunk5JsonInputFilePath,
             TestDataFolder)]
-        public void TestReadJsonOnSplunk5()
+        public void TestReaderJsonOnSplunk5()
         {
             this.TestReadJson(Splunk5JsonInputFilePath);
         }
@@ -90,7 +103,7 @@ namespace UnitTests
         [DeploymentItem(
             Splunk4JsonInputFilePath,
             TestDataFolder)]
-        public void TestReadJsonOnSplunk4()
+        public void TestReaderJsonOnSplunk4()
         {
             this.TestReadJson(Splunk4JsonInputFilePath);
         }
@@ -115,54 +128,196 @@ namespace UnitTests
 
         /// <summary>
         /// Test XML format using an input file representing
-        /// Splunk, with multiple 'results' elements.
-        /// Refer to 
+        /// a stream from the export endpoint,
+        /// with multiple 'results' elements.
+        /// Also refer to 
         /// http://splunk-base.splunk.com/answers/34106/invalid-xml-returned-from-rest-api
         /// </summary>
         [TestMethod]
         [DeploymentItem(
-            SplunkMultipleResultsXmlInputFilePath,
+            SplunkExportResultsXmlInputFilePath,
             TestDataFolder)]
-        public void TestReadXmlMultiple()
+        public void TestExportMultiReaderXml()
         {
             var input = this.OpenResourceFileFromDataFolder(
-                SplunkMultipleResultsXmlInputFilePath);
+                SplunkExportResultsXmlInputFilePath);
 
-            var multiReader = new MultiResultsReaderXml(input);
+            this.TestExportMultiReader(
+                new MultiResultsReaderXml(input),
+                expectedCountResultSet: 18);
+        }
 
-            var count = 0;
+        /// <summary>
+        /// Test JSON format using an input file representing
+        /// a stream from the export endpoint,
+        /// with multiple 'results' elements.
+        /// </summary>
+        [TestMethod]
+        [DeploymentItem(
+            SplunkExportResultsJsonInputFilePath,
+            TestDataFolder)]
+        public void TestExportMultiReaderJson()
+        {
+            var input = this.OpenResourceFileFromDataFolder(
+                SplunkExportResultsJsonInputFilePath);
 
-            foreach (var reader in multiReader)
+            this.TestExportMultiReader(
+                new MultiResultsReaderJson(input), 
+                expectedCountResultSet: 15);
+        }
+       
+        /// <summary>
+        /// Test multi reader over an export stream.
+        /// </summary>
+        /// <typeparam name="T">Type of matching single reader</typeparam>
+        /// <param name="multiReader">A multi reader</param>
+        /// <param name="expectedCountResultSet">
+        /// Expected count of result set in the steam
+        /// </param>
+        private void TestExportMultiReader<T>(
+            MultiResultsReader<T> multiReader,
+            int expectedCountResultSet)
+            where T : ResultsReader, System.IDisposable
+        {
+            using (multiReader)
             {
-                if (count == 0)
+                ISearchResults firstResults = null;
+                int indexResultSet = 0;
+  
+                foreach (var results in multiReader)
                 {
-                    // There are two events in the first set,
-                    // and it is a preview.
-                    Assert.AreEqual(reader.Count(), 1);
-                    Assert.IsTrue(reader.IsPreview);
-                }
-                else if (count == 1)
-                {
-                    // There are three events in the second set.
-                    Assert.AreEqual(reader.Count(), 3);
-                }
-                else if (count == 2)
-                {
-                    foreach (var result in reader)
+                    if (firstResults == null)
                     {
-                        // Make MultiReader to move next
-                        // while the current one is in the middle
-                        // of the iteration.
-                        break;
+                        firstResults = results;
                     }
-                }
-                else if (!reader.IsPreview)
-                {
-                    // There are 5 events in the final set.
-                    Assert.AreEqual(reader.Count(), 5);
+
+                    if (indexResultSet == expectedCountResultSet - 1) 
+                    {
+                        Assert.IsFalse(results.IsPreview);
+                    }
+
+                    var indexEvent = 0;
+                    foreach (var ret in results)
+                    {
+                        if (indexResultSet == 1 && indexEvent == 1) 
+                        {
+                            Assert.AreEqual("andy-pc", ret["host"]);
+                            Assert.AreEqual("3", ret["count"]);
+                        }
+
+                        if (indexResultSet == expectedCountResultSet - 2 && indexEvent == 3) 
+                        {
+                            Assert.AreEqual("andy-pc", ret["host"]);
+                            Assert.AreEqual("135", ret["count"]);
+                        }
+
+                        indexEvent++;
+                    }
+
+                    switch (indexResultSet) 
+                    {
+                        case 0:
+                            Assert.AreEqual(indexEvent, 1);
+                            break;
+                        case 1:
+                            Assert.AreEqual(indexEvent, 3);
+                            break;
+                        default:
+                            Assert.AreEqual(indexEvent, 5);
+                            break;
+                    }
+                
+                    indexResultSet++;
                 }
 
-                count++;
+                Assert.AreEqual(indexResultSet, expectedCountResultSet);
+              
+                // firstResults should be empty since the multi-reader has passed it
+                // and there should be no exception.
+                Assert.AreEqual(0, firstResults.Count());
+            }
+        }
+
+        /// <summary>
+        /// Test XML format using an input file representing
+        /// a stream from the export endpoint,
+        /// with multiple 'results' elements.
+        /// Also refer to 
+        /// http://splunk-base.splunk.com/answers/34106/invalid-xml-returned-from-rest-api
+        /// </summary>
+        [TestMethod]
+        [DeploymentItem(
+            SplunkExportResultsXmlInputFilePath,
+            TestDataFolder)]
+        public void TestExportSingleReaderXml()
+        {
+            var stream = this.GetExportResultsStream(
+                SplunkExportResultsXmlInputFilePath);
+
+            this.TestExportSingleReader(
+                new ResultsReaderXml(stream));
+        }
+
+        /// <summary>
+        /// Test JSON format using an input file representing
+        /// a stream from the export endpoint,
+        /// with multiple 'results' elements.
+        /// </summary>
+        [TestMethod]
+        [DeploymentItem(
+            SplunkExportResultsJsonInputFilePath,
+            TestDataFolder)]
+        public void TestExportSingleReaderJson()
+        {
+            var stream = this.GetExportResultsStream(
+                SplunkExportResultsJsonInputFilePath);
+
+            this.TestExportSingleReader(
+                new ResultsReaderJson(stream));
+        }
+
+        /// <summary>
+        /// Get an export stream over a file.
+        /// </summary>
+        /// <param name="fileName">A file name</param>
+        /// <returns>A export stream</returns>
+        private ExportResultsStream GetExportResultsStream(string fileName)
+        {
+            var stream = this.OpenResourceFileFromDataFolder(
+                          fileName);
+
+            return new ExportResultsStream(stream);
+        }
+
+        /// <summary>
+        /// Test a single result reader, used by testing export stream.
+        /// </summary>
+        /// <param name="reader">A single result reader</param>
+        private void TestExportSingleReader(
+            ResultsReader reader)
+        {
+            var indexEvent = 0;
+
+            using (reader)
+            {
+                foreach (var ret in reader)
+                {
+                    if (indexEvent == 0)
+                    {
+                        Assert.AreEqual("172.16.35.130", ret["host"]);
+                        Assert.AreEqual("16", ret["count"]);
+                    }
+
+                    if (indexEvent == 4)
+                    {
+                        Assert.AreEqual("three.four.com", ret["host"]);
+                        Assert.AreEqual("35994", ret["count"]);
+                    }
+
+                    indexEvent++;
+                }
+
+                Assert.AreEqual(5, indexEvent);
             }
         }
 
@@ -204,16 +359,47 @@ namespace UnitTests
 
             var event9 = events[9];
 
-            Assert.IsTrue(event9["_raw"].ToString().Contains(
-                @"<sg h=""1"">search</sg>"));
+            var expectedRawFieldValue =
+                @"12-19-2012 11:50:14.351 -0800 INFO  Metrics - group=search_concurrency, system total, active_hist_searches=0, active_realtime_searches=0";
 
-            Assert.IsFalse(event9["_raw"].ToString().Contains(
-                 @"<v"));
+            var expectedSegmentedRaw =
+                "<v xml:space=\"preserve\" trunc=\"0\">12-19-2012 11:50:14.351 -0800 INFO  Metrics - group=<sg h=\"1\">search</sg>_concurrency, system total, active_hist_searches=0, active_realtime_searches=0</v>";
+            
+            Assert.AreEqual(expectedRawFieldValue, event9["_raw"]);
+
+            Assert.AreEqual(expectedSegmentedRaw, event9.SegmentedRaw);
         }
 
         /// <summary>
         /// Test XML format using an input file representing
-        /// Splunk, covering Splunk Version 5 and '_raw' field.
+        /// Splunk, covering empty results.
+        /// </summary>
+        [TestMethod]
+        [DeploymentItem(
+            Splunk502XmlEmptyInputFilePath,
+            TestDataFolder)]
+        public void TestReadXmlEmpty()
+        {
+            var input = this.OpenResourceFileFromDataFolder(
+                Splunk502XmlEmptyInputFilePath);
+
+            var reader = new ResultsReaderXml(input);
+
+            Assert.IsFalse(reader.IsPreview);
+
+            var fields = reader.Fields.ToArray();
+
+            Assert.AreEqual(0, fields.Length);
+     
+            var events = reader.ToArray();
+
+            Assert.AreEqual(0, events.Length);
+        }
+
+        /// <summary>
+        /// Test XML format using an input file representing
+        /// Splunk, covering Splunk Version 5, '_raw' field
+        /// and XML charactor escaping.
         /// </summary>
         [TestMethod]
         [DeploymentItem(
@@ -241,27 +427,59 @@ namespace UnitTests
 
             Assert.IsFalse(events[2]["_raw"].ToString().Contains(
                  @"<v"));
+
+            // Verify handling of XML charactor escaping. 
+            Assert.AreEqual(
+                @"..._-__[//:::._-]_""_/-///_/.""___""://:/-//?=.&=""_""/",
+                events[1]["punct"]);
         }
 
         /// <summary>
         /// Test XML format with a Oneshot search.
         /// </summary>
         [TestMethod]
-        public void TestOneshotXml()
+        public void TestReaderOneshotXml()
+        {
+            this.TestReaderOneshot(
+                "xml",
+                (input) => new ResultsReaderXml(input));
+        }
+
+        /// <summary>
+        /// Test Json format with a Oneshot search.
+        /// </summary>
+        [TestMethod]
+        public void TestReaderOneshotJson()
+        {
+            this.TestReaderOneshot(
+                "json",
+                (input) => new ResultsReaderJson(input));
+        }
+
+        /// <summary>
+        /// Test a result reader using oneshot search.
+        /// </summary>
+        /// <param name="format">The search output format</param>
+        /// <param name="createReader">
+        /// Create a reader which should the search output format.
+        /// </param>
+        private void TestReaderOneshot(
+            string format, 
+            Func<Stream, ResultsReader> createReader)
         {
             var service = Connect();
 
             var input = service.Oneshot(
                 "search index=_internal | head 1 | stats count",
-                Args.Create("output_mode", "xml"));
+                Args.Create("output_mode", format));
 
-            var reader = new ResultsReaderXml(input);
+            var reader = createReader(input);
 
             var count = (int)reader.ToArray()[0]["count"];
 
             Assert.AreEqual(count, 1);
         }
-      
+
         /// <summary>
         /// Test json format using an input file
         /// </summary>
@@ -307,7 +525,6 @@ namespace UnitTests
         /// <param name="myEvent">Event to add the field to</param>
         /// <param name="key">Key of the field</param>
         /// <param name="value">String value of the field</param>
-
         private static void AddToEvent(
             Event myEvent,
             string key,
@@ -315,7 +532,6 @@ namespace UnitTests
         {
             myEvent.Add(key, new Event.FieldValue(value));
         }
-
 
         /// <summary>
         /// Open resource file from base directory
@@ -332,7 +548,7 @@ namespace UnitTests
         /// The expected event will be cleared when the method return. 
         /// </summary>
         /// <param name="expected">Expected event, which will be cleared when the method returns</param>
-        /// <param name="reader">Results reader</param>
+        /// <param name="iter">Iterator over events</param>
         private void AssertNextEventEqualsAndReset(
             Event expected,
             IEnumerator<Event> iter)

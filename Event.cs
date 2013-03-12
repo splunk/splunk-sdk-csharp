@@ -30,6 +30,28 @@ namespace Splunk
     public class Event : Dictionary<string, Event.FieldValue>
     {
         /// <summary>
+        /// Gets the XML markup for the <code>"_raw"</code> field value. This value
+        /// is only used by the <see cref="ResultsReaderXml"/> class.
+        /// <remarks>
+        /// The return value is different than that of
+        /// the <code>"_raw"</code> field value
+        /// in that this segmented raw value is an XML fragment that includes all 
+        /// markup such as XML tags and escaped characters.
+        /// For example, <code>anEvent["_raw"]</code> field value returns this:
+        /// <code>
+        /// <![CDATA[
+        /// "http://localhost:8000/en-US/app/search/flashtimeline?q=search%20search%20index%3D_internal%20%7C%20head%2010&earliest=rt-1h&latest=rt"
+        /// ]]>
+        /// </code>
+        /// <code>anEvent.SegmentedRaw</code> returns this:
+        /// <code>
+        /// <v xml:space="preserve" trunc="0">"http://localhost:8000/en-US/app/<sg h="1">search</sg>/flashtimeline?q=<sg h="1">search</sg>%20<sg h="1">search</sg>%20index%3D_internal%20%7C%20head%2010&amp;earliest=rt-1h&amp;latest=rt"</v>
+        /// </code>
+        /// </remarks>
+        /// </summary>
+        public string SegmentedRaw { get; internal set; }
+
+        /// <summary>
         /// A field can be accessed as either an array <see cref="Array"/>
         /// or as a delimited string 
         /// (using implicit string converter or <see cref="GetArray"/>).

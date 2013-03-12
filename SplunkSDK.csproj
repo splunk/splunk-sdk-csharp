@@ -82,6 +82,7 @@
     <Compile Include="EntityMetadata.cs" />
     <Compile Include="EventType.cs" />
     <Compile Include="EventTypeCollection.cs" />
+    <Compile Include="ExportResultsStream.cs" />
     <Compile Include="FiredAlert.cs" />
     <Compile Include="FiredAlertGroup.cs" />
     <Compile Include="FiredAlertsGroupCollection.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Input.cs" />
     <Compile Include="InputCollection.cs" />
     <Compile Include="InputKind.cs" />
+    <Compile Include="ISearchResults.cs" />
     <Compile Include="JobArgs.cs" />
     <Compile Include="License.cs" />
     <Compile Include="LicenseGroup.cs" />
@@ -106,6 +108,7 @@
     <Compile Include="MonitorInput.cs" />
     <Compile Include="MonitorInputArgs.cs" />
     <Compile Include="MultiResultsReader.cs" />
+    <Compile Include="MultiResultsReaderJson.cs" />
     <Compile Include="MultiResultsReaderXml.cs" />
     <Compile Include="OutputDefault.cs" />
     <Compile Include="OutputGroup.cs" />
@@ -146,7 +149,7 @@
     <Compile Include="Resource.cs" />
     <Compile Include="JobCollection.cs" />
     <Compile Include="ResourceCollection.cs" />
-    <Compile Include="ResultsReaderJSON.cs" />
+    <Compile Include="ResultsReaderJson.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="ServiceArgs.cs" />
     <Compile Include="RequestMessage.cs" />
