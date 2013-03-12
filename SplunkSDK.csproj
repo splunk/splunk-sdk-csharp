@@ -60,7 +60,6 @@
     <Compile Include="AtomObject.cs" />
     <Compile Include="AtomEntry.cs" />
     <Compile Include="BaseService.cs" />
-    <Compile Include="DistributedConfiguration.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="EventTypeArgs.cs" />
     <Compile Include="ConfCollection.cs" />
