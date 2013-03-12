@@ -98,6 +98,39 @@ namespace Splunk
         /// <returns>Return false if the end is reached.</returns>     
         private bool ReadIntoNextResultsElement()
         {
+            // Below is an example of an input stream, with a single 'results'
+            // element. With a stream from an export point, there can be
+            // multiple ones.
+            //
+            //        <?xml version='1.0' encoding='UTF-8'?>
+            //        <results preview='0'>
+            //        <meta>
+            //        <fieldOrder>
+            //        <field>series</field>
+            //        <field>sum(kb)</field>
+            //        </fieldOrder>
+            //        </meta>
+            //        <messages>
+            //        <msg type='DEBUG'>base lispy: [ AND ]</msg>
+            //        <msg type='DEBUG'>search context: user='admin', app='search', bs-pathname='/some/path'</msg>
+            //        </messages>
+            //        <result offset='0'>
+            //        <field k='series'>
+            //        <value><text>twitter</text></value>
+            //        </field>
+            //        <field k='sum(kb)'>
+            //        <value><text>14372242.758775</text></value>
+            //        </field>
+            //        </result>
+            //        <result offset='1'>
+            //        <field k='series'>
+            //        <value><text>splunkd</text></value>
+            //        </field>
+            //        <field k='sum(kb)'>
+            //        <value><text>267802.333926</text></value>
+            //        </field>
+            //        </result>
+            //        </results>
             if (this.XmlReader.ReadToFollowing("results"))
             {
                 this.IsPreview = XmlConvert.ToBoolean(this.XmlReader["preview"]);

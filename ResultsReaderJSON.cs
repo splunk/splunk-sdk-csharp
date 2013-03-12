@@ -196,6 +196,12 @@ namespace Splunk
                 this.JsonReader.Read();
                 if (this.JsonReader.TokenType.Equals(JsonToken.StartObject))
                 {
+                    /*
+                     * We're on Splunk 5 with a single-reader not from
+                     * an export endpoint
+                     * Below is an example of an input stream.
+                     *     {"preview":false,"init_offset":0,"messages":[{"type":"DEBUG","text":"base lispy: [ AND index::_internal ]"},{"type":"DEBUG","text":"search context: user=\"admin\", app=\"search\", bs-pathname=\"/Users/fross/splunks/splunk-5.0/etc\""}],"results":[{"sum(kb)":"14372242.758775","series":"twitter"},{"sum(kb)":"267802.333926","series":"splunkd"},{"sum(kb)":"5979.036338","series":"splunkd_access"}]}
+                     */
                     while (true)
                     {
                         if (!this.JsonReader.Read())
@@ -224,7 +230,23 @@ namespace Splunk
                 }
                 else
                 {
-                    // Pre Splunk 5.0
+                    /* Pre Splunk 5.0
+                     * Below is an example of an input stream
+                     *   [
+                     *       {
+                     *           "sum(kb)":"14372242.758775",
+                     *               "series":"twitter"
+                     *       },
+                     *       {
+                     *           "sum(kb)":"267802.333926",
+                     *               "series":"splunkd"
+                     *       },
+                     *       {
+                     *           "sum(kb)":"5979.036338",
+                     *               "series":"splunkd_access"
+                     *       }
+                     *   ]
+                     */
                     return true;
                 }
             }
