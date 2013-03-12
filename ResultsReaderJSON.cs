@@ -18,6 +18,7 @@ namespace Splunk
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.Diagnostics;
     using System.IO;
     using Newtonsoft.Json;
@@ -275,7 +276,7 @@ namespace Splunk
                 {
                     yield break;
                 }
-
+                
                 if (this.exportHelper != null)
                 {
                     // If the last row has been passed and 
@@ -412,6 +413,9 @@ namespace Splunk
             public ExportHelper(ResultsReaderJson resultsReader) 
             {
                 this.resultsReader = resultsReader;
+                // Initial value must be true so that 
+                // the first row is treated as the start of a new set.
+                this.LastRow = true;
             }
 
             /// <summary>

@@ -17,38 +17,32 @@
 namespace Splunk.Examples.Search
 {
     using System;
-    using System.Threading;
     using Splunk;
     using SplunkSDKHelper;
 
     /// <summary>
-    /// An example program to perform a normal search.
+    /// The search program
     /// </summary>
     public class Program
     {
         /// <summary>
-        /// The main program
+        /// An example program to perform a oneshot search.
         /// </summary>
         /// <param name="argv">The command line arguments</param>
-        public static void Main(string[] argv) 
+        public static void Main(string[] argv)
         {
-            var cli = Command.Splunk("search");
+            var cli = Command.Splunk("search_oneshot");
             cli.AddRule("search", typeof(string), "search string");
             cli.Parse(argv);
             if (!cli.Opts.ContainsKey("search"))
             {
-                System.Console.WriteLine("Search query string required, use --search=\"query\"");
+                System.Console.WriteLine(
+                    "Search query string required, use --search=\"query\"");
                 Environment.Exit(1);
             }
 
             var service = Service.Connect(cli.Opts);
-            var jobs = service.GetJobs();
-            var job = jobs.Create((string)cli.Opts["search"]);
-            while (!job.IsDone) 
-            {
-                Thread.Sleep(1000);
-            }
-
+       
             var outArgs = new Args
             {
                 { "output_mode", "json" },
@@ -57,7 +51,8 @@ namespace Splunk.Examples.Search
                 { "count", "0" }
             };
 
-            using (var stream = job.Results(outArgs))
+            using (var stream = service.Oneshot(
+                (string)cli.Opts["search"], outArgs))
             {
                 using (var rr = new ResultsReaderJson(stream))
                 {
@@ -66,7 +61,8 @@ namespace Splunk.Examples.Search
                         System.Console.WriteLine("EVENT:");
                         foreach (string key in map.Keys)
                         {
-                            System.Console.WriteLine("   " + key + " -> " + map[key]);
+                            System.Console.WriteLine(
+                                "   " + key + " -> " + map[key]);
                         }
                     }
                 }

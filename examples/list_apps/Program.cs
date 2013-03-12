@@ -14,38 +14,44 @@
  * under the License.
  */
 
-namespace Splunk.Examples.Submit
+namespace Splunk.Examples.ListApps
 {
     using System;
+    using System.Linq;
     using Splunk;
     using SplunkSDKHelper;
 
     /// <summary>
-    /// An example program to submit events into Splunk.
+    /// An example program to list apps installed on the server.
     /// </summary>
     public class Program
     {
         /// <summary>
         /// The main program
         /// </summary>
-        /// <param name="argv">The command line arguments</param>
-        public static void Main(string[] argv)
+        public static void Main()
         {
-            Command cli = Command.Splunk("submit");
-            cli.Parse(argv);
+            Command cli = Command.Splunk("list_apps");
             var service = Service.Connect(cli.Opts);
 
-            var args = new Args 
+            Console.WriteLine("List of Apps:");
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+
+            foreach (var app in service.GetApplications().Values)
             {
-                { "source", "splunk-sdk-tests" },
-                { "sourcetype", "splunk-sdk-test-event" }
-            };
+                Console.WriteLine(app.Name);
+                
+                // Write a seperator between the name and the description of an app.
+                Console.WriteLine(
+                    Enumerable.Repeat<char>('-', app.Name.Length).ToArray());
 
-            Receiver receiver = new Receiver(service);
+                Console.WriteLine(app.Description);
 
-            // Submit to default index
-            receiver.Submit(args, "Hello World.");
-            receiver.Submit(args, "Goodbye world.");
+                Console.WriteLine();
+                Console.WriteLine();
+            }
         }
     }
 }
