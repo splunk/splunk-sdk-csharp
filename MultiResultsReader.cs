@@ -42,7 +42,7 @@ namespace Splunk
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MultiResultsReader{T}" /> class.
-        /// Base contructor not used directly.
+        /// This is a base contructor that should not be used directly.
         /// </summary>
         /// <param name="resultsReader">
         /// The underlying single reader
