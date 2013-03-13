@@ -65,8 +65,8 @@
     <Compile Include="UserTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\sdk-helper\SplunkSDKHelper.csproj">
-      <Project>{4135F018-6041-4269-A76F-B6AAF87E260D}</Project>
+    <ProjectReference Include="..\SplunkSDKHelper\SplunkSDKHelper.csproj">
+      <Project>{4135f018-6041-4269-a76f-b6aaf87e260d}</Project>
       <Name>SplunkSDKHelper</Name>
     </ProjectReference>
     <ProjectReference Include="..\SplunkSDK\SplunkSDK.csproj">

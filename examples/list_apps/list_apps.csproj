@@ -48,7 +48,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\splunk-sdk-csharp\sdk-helper\SplunkSDKHelper.csproj">
+    <ProjectReference Include="..\..\SplunkSDKHelper\SplunkSDKHelper.csproj">
       <Project>{4135f018-6041-4269-a76f-b6aaf87e260d}</Project>
       <Name>SplunkSDKHelper</Name>
     </ProjectReference>
