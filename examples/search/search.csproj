@@ -55,7 +55,7 @@
       <Project>{4135f018-6041-4269-a76f-b6aaf87e260d}</Project>
       <Name>SplunkSDKHelper</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\SplunkSDK.csproj">
+    <ProjectReference Include="..\..\SplunkSDK\SplunkSDK.csproj">
       <Project>{ca4151a1-3ef9-461d-9e03-34627273150d}</Project>
       <Name>SplunkSDK</Name>
     </ProjectReference>
