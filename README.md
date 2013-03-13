@@ -119,19 +119,52 @@ the command line rather than saving them in the .splunkrc file.
 
 #### Run unit tests
 
-[TBD] 
+First, build the whole solution. 
+To run all tests, follow the [instructions on MSDN](http://msdn.microsoft.com/en-us/library/hh270865.aspx#BKMK_Running_tests).
+To run a single test case or all tests within a test class, right click with the cursor on the test method or the test class,
+and invoke the 'Run Tests' context menu item.
+
 
 ## Repository
+<table>
 
-[TBD] 
+<tr>
+<td><b>/SplunkSDKHelper</b></td>
+<td>Utilities shared by examples and unit tests</td>
+</tr>
+
+<tr>
+<td><b>/examples</b></td>
+<td>Examples demonstrating various SDK features</td>
+</tr>
+
+<tr>
+<td><b>/lib</b></td>
+<td>Third-party libraries used by the SDK</td>
+</tr>
+
+<tr>
+<td><b>/SplunkSDK</b></td>
+<td>Source for the SDK</td>
+</tr>
+
+<tr>
+<td><b>/UnitTests</b></td>
+<td>Source for unit tests</td>
+</tr>
+</table> 
 
 ### Changelog
 
-[TBD] 
+The **CHANGELOG.md** file in the root of the repository contains a description
+of changes for each version of the SDK. You can also find it online at
+[https://github.com/splunk/splunk-sdk-csharp/blob/master/CHANGELOG.md](https://github.com/splunk/splunk-sdk-csharp/blob/master/CHANGELOG.md). 
 
 ### Branches
 
-[TBD] 
+The **master** branch always represents a stable and released version of the SDK.
+You can read more about our branching model on our Wiki at 
+[https://github.com/splunk/splunk-sdk-java/wiki/Branching-Model](https://github.com/splunk/splunk-sdk-java/wiki/Branching-Model).
 
 ## Resources
 
