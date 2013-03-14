@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2012 Splunk, Inc.
+ * Copyright 2013 Splunk, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"): you may
  * not use this file except in compliance with the License. You may obtain
@@ -17,7 +17,9 @@
 namespace Splunk
 {
     /// <summary>
-    /// Extends Args for WindowsWmiInput creation setters
+    /// The <see cref="WindowsWmiInputArgs"/> class extends the 
+    /// <see cref="Args"/> class for <see cref="WindowsWmiInput"/> creation 
+    /// setters.
     /// </summary>
     public class WindowsWmiInputArgs : Args
     {
@@ -33,7 +35,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value indicating whether this collection is disabled. 
+        /// Sets a value that indicates whether this collection is disabled. 
         /// </summary>
         public bool Disabled
         {
@@ -102,8 +104,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a comma-separated list of additinal servers that you want to 
-        /// gather data from. 
+        /// Sets a comma-separated list of additional servers from which you 
+        /// want to gather data. 
         /// </summary>
         public string Server
         {

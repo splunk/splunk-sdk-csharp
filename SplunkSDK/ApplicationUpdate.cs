@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2012 Splunk, Inc.
+ * Copyright 2013 Splunk, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"): you may
  * not use this file except in compliance with the License. You may obtain
@@ -22,7 +22,8 @@ namespace Splunk
     using System.Text;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// The <see cref="ApplicationUpdate"/> class represents information for 
+    /// an update to a locally-installed Splunk app.
     /// </summary>
     public class ApplicationUpdate : Entity
     {
@@ -82,7 +83,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the app's name
+        /// Gets the app's name.
         /// </summary>
         public string UpdateName
         {

@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2012 Splunk, Inc.
+ * Copyright 2013 Splunk, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"): you may
  * not use this file except in compliance with the License. You may obtain
@@ -17,7 +17,8 @@
 namespace Splunk
 {
     /// <summary>
-    /// This represents the ApplicationArchive class
+    /// The <see cref="ApplicationArchive"/> class represents an archive of a 
+    /// Splunk app.
     /// </summary>
     public class ApplicationArchive : Entity
     {
@@ -25,8 +26,8 @@ namespace Splunk
         /// Initializes a new instance of the <see cref="ApplicationArchive"/> 
         /// class.
         /// </summary>
-        /// <param name="service">The connected service</param>
-        /// <param name="path">The path</param>
+        /// <param name="service">The connected service.</param>
+        /// <param name="path">The path.</param>
         public ApplicationArchive(Service service, string path)
             : base(service, path + "/package")
         {
@@ -44,8 +45,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the path indicating where the app archive file is stored on the
-        /// server, for direct file access.
+        /// Gets the path that indicates where the app archive file is stored 
+        /// on the server, for direct file access.
         /// </summary>
         public string FilePath
         {
@@ -56,8 +57,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value indicating whether to reload the objects contained in 
-        /// the locally-installed app.
+        /// Gets a value that indicates whether to reload the objects contained  
+        /// in the locally-installed app.
         /// </summary>
         public bool Refreshes
         {

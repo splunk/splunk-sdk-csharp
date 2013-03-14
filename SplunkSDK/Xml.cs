@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2012 Splunk, Inc.
+ * Copyright 2013 Splunk, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"): you may
  * not use this file except in compliance with the License. You may obtain
@@ -21,7 +21,7 @@ namespace Splunk
     using System.Xml;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// The <see cref="Xml"/> class represents a collection of XML utilities.
     /// </summary>
     public class Xml
     {
@@ -30,7 +30,7 @@ namespace Splunk
         /// object model (DOM).
         /// </summary>
         /// <param name="input">The Stream</param>
-        /// <returns>The XML document</returns>
+        /// <returns>The XML document.</returns>
         public static XmlDocument Parse(Stream input) 
         {
             XmlDocument xmlDoc = new XmlDocument();

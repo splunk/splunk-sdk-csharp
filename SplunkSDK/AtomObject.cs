@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2012 Splunk, Inc.
+ * Copyright 2013 Splunk, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"): you may
  * not use this file except in compliance with the License. You may obtain
@@ -20,7 +20,7 @@ namespace Splunk
     using System.Xml;
 
     /// <summary>
-    /// Represents an Atom object.
+    /// The <see cref="AtomObject"/> class represents an Atom object.
     /// </summary>
     public class AtomObject
     {
@@ -43,7 +43,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the value of the Atom title element
+        /// Gets or sets the value of the Atom title element.
         /// </summary>
         public string Title 
         {
@@ -64,7 +64,7 @@ namespace Splunk
         /// Initializes a particular property of the current instance based
         /// on the given XML.
         /// </summary>
-        /// <param name="element">The XML element</param>
+        /// <param name="element">The XML element.</param>
         public virtual void Init(XmlElement element) 
         {
             string name = element.Name;
@@ -100,7 +100,7 @@ namespace Splunk
         /// Initializes the current AtomObect instance from the given XML 
         /// element by invoking init() on each child of the XML element.
         /// </summary>
-        /// <param name="element">The XML element</param>
+        /// <param name="element">The XML element.</param>
         public void Load(XmlElement element) 
         {
             foreach (XmlNode child in element.ChildNodes) 

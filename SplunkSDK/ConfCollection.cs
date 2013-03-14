@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2012 Splunk, Inc.
+ * Copyright 2013 Splunk, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"): you may
  * not use this file except in compliance with the License. You may obtain
@@ -17,7 +17,8 @@
 namespace Splunk
 {
     /// <summary>
-    /// Represents the collection of configuration collections.
+    /// The <see cref="ConfCollection"/> class represents the collection of 
+    /// configuration collections.
     /// </summary>
     public class ConfCollection : ResourceCollection<EntityCollection<Entity>>
     {
@@ -25,7 +26,7 @@ namespace Splunk
         /// Initializes a new instance of the <see cref="ConfCollection"/> 
         /// class.
         /// </summary>
-        /// <param name="service">The connected service</param>
+        /// <param name="service">The connected service.</param>
         public ConfCollection(Service service)
             : base(service, "properties", typeof(EntityCollection<Entity>))
         {
@@ -35,8 +36,8 @@ namespace Splunk
         /// Initializes a new instance of the <see cref="ConfCollection"/> 
         /// class.
         /// </summary>
-        /// <param name="service">The connected service</param>
-        /// <param name="args">The arguments</param>
+        /// <param name="service">The connected service.</param>
+        /// <param name="args">The arguments.</param>
         public ConfCollection(Service service, Args args)
            : base(service, "properties", args, typeof(EntityCollection<Entity>))
         {
@@ -45,8 +46,8 @@ namespace Splunk
         /// <summary>
         /// Creates a new stanza in the current configuration file.
         /// </summary>
-        /// <param name="name">The stanza name</param>
-        /// <returns>The stanza</returns>
+        /// <param name="name">The stanza name.</param>
+        /// <returns>The stanza.</returns>
         public EntityCollection<Entity> Create(string name)
         {
             return this.Create(name, (Args)null);
@@ -56,9 +57,9 @@ namespace Splunk
         /// Creates a new stanza in the current configuration file with 
         /// attributes.
         /// </summary>
-        /// <param name="name">The stanza name</param>
-        /// <param name="args">The arguments</param>
-        /// <returns>The stanza</returns>
+        /// <param name="name">The stanza name.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns>The stanza.</returns>
         public EntityCollection<Entity> Create(string name, Args args)
         {
             args = Args.Create(args);
@@ -71,8 +72,8 @@ namespace Splunk
         /// <summary>
         /// Returns the endpoint path for this configuration stanza.
         /// </summary>
-        /// <param name="entry">The Atom entry</param>
-        /// <returns>The item path</returns>
+        /// <param name="entry">The Atom entry.</param>
+        /// <returns>The item path.</returns>
         protected override string ItemPath(AtomEntry entry)
         {
             return string.Format("configs/conf-{0}", entry.Title);

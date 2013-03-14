@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2012 Splunk, Inc.
+ * Copyright 2013 Splunk, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"): you may
  * not use this file except in compliance with the License. You may obtain
@@ -19,7 +19,8 @@ namespace Splunk
     using System;
 
     /// <summary>
-    /// This represents the ApplicationSetup class.
+    /// The <see cref="ApplicationSetup"/> class represents the setup 
+    /// information for a Splunk app.
     /// </summary>
     public class ApplicationSetup : Entity 
     {
