@@ -441,6 +441,7 @@ namespace UnitTests
         public void TestReaderEndToEndOneshotXml()
         {
             this.TestReaderEndToEnd(
+                this.Connect(),
                 "xml", 
                 (service, query, args) => service.Oneshot(query, args),
                 (input) => new ResultsReaderXml(input));
@@ -453,6 +454,7 @@ namespace UnitTests
         public void TestReaderEndToEndOneshotJson()
         {
             this.TestReaderEndToEnd(
+                this.Connect(),
                 "json",
                 (service, query, args) => service.Oneshot(query, args),
                 (input) => new ResultsReaderJson(input));
@@ -465,6 +467,7 @@ namespace UnitTests
         public void TestReaderEndToEndExportXml()
         {
             this.TestReaderEndToEnd(
+                this.Connect(),
                 "xml",
                 (service, query, args) => service.Export(query, args),
                 (input) => new ResultsReaderXml(input));
@@ -476,20 +479,23 @@ namespace UnitTests
         [TestMethod]
         public void TestReaderEndToEndExportJson()
         {
-            if (Connect().VersionCompare("5.0") < 0)
+            var service = this.Connect();
+            if (service.VersionCompare("5.0") < 0)
             {
                 return;
             }
 
             this.TestReaderEndToEnd(
+                service,
                 "json",
-                (service, query, args) => service.Export(query, args),
+                (service2, query, args) => service2.Export(query, args),
                 (input) => new ResultsReaderJson(input));
         }
-        
+
         /// <summary>
         /// Test a result reader by running a search on Splunk.
         /// </summary>
+        /// <param name="service">The service object to run the search.</param>
         /// <param name="format">The search output format</param>
         /// <param name="runSearch">
         /// Run a type of search using the supplied service object,
@@ -499,12 +505,11 @@ namespace UnitTests
         /// Create a reader matching the search output format.
         /// </param>
         private void TestReaderEndToEnd(
+            Service service,
             string format, 
             Func<Service, string, Args, Stream> runSearch,
             Func<Stream, ResultsReader> createReader)
         {
-            var service = Connect();
-
             var input = runSearch(
                 service,
                 "search index=_internal | head 1 | stats count",
