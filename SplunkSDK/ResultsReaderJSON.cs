@@ -119,6 +119,15 @@ namespace Splunk
         }
 
         /// <summary>
+        /// Gets a value indicating whether or not the reader has been
+        /// disposed.
+        /// </summary>
+        private bool IsDisposed
+        {
+            get { return this.StreamReader == null; }
+        }
+
+        /// <summary>
         /// Advance to the next set, skipping remaining event(s) 
         /// if any in the current set.
         /// </summary>
@@ -137,7 +146,7 @@ namespace Splunk
         internal bool AdvanceIntoNextSetBeforeEvent()
         {
             // If the end of stream has been reached, don't continue.
-            if (this.StreamReader == null)
+            if (this.IsDisposed)
             {
                 return false;
             }
@@ -261,29 +270,24 @@ namespace Splunk
                 }
 
                 throw;
-                //this.JsonReader = null;
-                //return false;
             }
         }
-        
+
         /// <summary>
         /// Release unmanaged resources
         /// </summary>
         public override void Dispose()
         {
-            if (this.JsonReader != null)
+            if (this.IsDisposed)
             {
-                this.JsonReader.Close();
+                return;
             }
 
-            this.JsonReader = null;
-
-            if (this.StreamReader != null)
-            {
-                this.StreamReader.Close();
-            }
-
-            this.StreamReader = null;      
+            this.JsonReader.Close();
+            this.StreamReader.Close();
+          
+            // Marking this reader as disposed.
+            this.StreamReader = null;
         }
 
         /// <summary>
@@ -294,7 +298,7 @@ namespace Splunk
         {
             while (true)
             {
-                if (this.JsonReader == null)
+                if (this.IsDisposed)
                 {
                     yield break;
                 }
