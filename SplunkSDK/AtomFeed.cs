@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2012 Splunk, Inc.
+ * Copyright 2013 Splunk, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"): you may
  * not use this file except in compliance with the License. You may obtain
@@ -22,13 +22,13 @@ namespace Splunk
     using System.Xml;
 
     /// <summary>
-    /// Represents the Atom Feed data.
+    /// The <see cref="AtomFeed"/> class represents the Atom feed data.
     /// </summary>
     public class AtomFeed : AtomObject
     {
         /// <summary>
-        /// Gets or sets the list of Atom entries contained in this AtomFeed 
-        /// object.
+        /// Gets or sets the list of Atom entries contained in this  
+        /// <see cref="AtomFeed"/> object.
         /// </summary>
         public List<AtomEntry> Entries 
         {
@@ -37,7 +37,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the AtomFeed's itemsPerPage element value.
+        /// Gets or sets the <see cref="AtomFeed"/>'s itemsPerPage element 
+        /// value.
         /// </summary>
         public string ItemsPerPage 
         {
@@ -46,7 +47,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the AtomFeed's startIndex element value.
+        /// Gets or sets the <see cref="AtomFeed"/>'s startIndex element value.
         /// </summary>
         public string StartIndex 
         {
@@ -55,7 +56,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the AtomFeed's totalResults element value.
+        /// Gets or sets the <see cref="AtomFeed"/>'s totalResults element 
+        /// value.
         /// </summary>
         public string TotalResults 
         {
@@ -64,7 +66,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Creates a new AtomFeed instance.
+        /// Creates a new <see cref="AtomFeed"/> instance.
         /// </summary>
         /// <returns>An empty AtomFeed object</returns>
         public static AtomFeed Create() 
@@ -76,10 +78,11 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Creates a new AtomFeed instance based on the given stream
+        /// Creates a new <see cref="AtomFeed"/> instance based on the given 
+        /// stream.
         /// </summary>
-        /// <param name="input">The input stream</param>
-        /// <returns>The AtomFeed</returns>
+        /// <param name="input">The input stream.</param>
+        /// <returns>The <see cref="AtomFeed"/>.</returns>
         public static AtomFeed Parse(Stream input) 
         {
             XmlElement root = Xml.Parse(input).DocumentElement;
@@ -93,10 +96,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Creates a new AtomFeed based on a given XML element
+        /// Creates a new <see cref="AtomFeed"/> based on a given XML element.
         /// </summary>
-        /// <param name="element">The XML element</param>
-        /// <returns>The AtomFeed</returns>
+        /// <param name="element">The XML element.</param>
+        /// <returns>The <see cref="AtomFeed"/>.</returns>
         private static AtomFeed Parse(XmlElement element) 
         {
             AtomFeed feed = AtomFeed.Create();
@@ -105,9 +108,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Initializes the current AtomFeed instance from a given XML element.
+        /// Initializes the current <see cref="AtomFeed"/> instance from a 
+        /// given XML element.
         /// </summary>
-        /// <param name="element">The XML element</param>
+        /// <param name="element">The XML element.</param>
         public override void Init(XmlElement element) 
         {
             string name = element.Name;

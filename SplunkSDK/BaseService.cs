@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2012 Splunk, Inc.
+ * Copyright 2013 Splunk, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"): you may
  * not use this file except in compliance with the License. You may obtain
@@ -17,14 +17,14 @@
 namespace Splunk
 {
     /// <summary>
-    /// Contains functionality common to Splunk Enterprise and Splunk Storm.
-    /// This class is an implementation detail and should not be extended 
-    /// outside of the SDK.
+    /// The <see cref="BaseService"/> class contains functionality common to 
+    /// Splunk Enterprise and Splunk Storm. This class is an implementation 
+    /// detail and should not be extended outside of the SDK.
     /// </summary>
     public abstract class BaseService : HttpService
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="BaseService"/> class
+        /// Initializes a new instance of the <see cref="BaseService"/> class.
         /// </summary>
         public BaseService()
             : base()
@@ -32,9 +32,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BaseService"/> class
+        /// Initializes a new instance of the <see cref="BaseService"/> class.
         /// </summary>
-        /// <param name="host">The hostname</param>
+        /// <param name="host">The hostname.</param>
         public BaseService(string host)
             : base(host)
         {
@@ -44,8 +44,8 @@ namespace Splunk
         /// Initializes a new instance of the <see cref="BaseService"/> class,
         /// with host and port.
         /// </summary>
-        /// <param name="host">The hostname</param>
-        /// <param name="port">The port</param>
+        /// <param name="host">The hostname.</param>
+        /// <param name="port">The port.</param>
         public BaseService(string host, int port)
             : base(host, port)
         {
@@ -53,11 +53,11 @@ namespace Splunk
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseService"/> class,
-        /// with host, port and scheme.
+        /// with host, port, and scheme.
         /// </summary>
-        /// <param name="host">The hostname</param>
-        /// <param name="port">The port</param>
-        /// <param name="scheme">The scheme, http or https</param>
+        /// <param name="host">The hostname.</param>
+        /// <param name="port">The port.</param>
+        /// <param name="scheme">The scheme, http or https.</param>
         public BaseService(string host, int port, string scheme)
             : base(host, port, scheme)
         {

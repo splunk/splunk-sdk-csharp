@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2012 Splunk, Inc.
+ * Copyright 2013 Splunk, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"): you may
  * not use this file except in compliance with the License. You may obtain
@@ -22,8 +22,8 @@ namespace Splunk
     using System.Text;
 
     /// <summary>
-    /// Represents the Input subclass Windows WMI
-    /// Input.
+    /// The <see cref="WindowsWmiInput"/> class represents the 
+    /// <see cref="Input"/> subclass Windows WMI Input.
     /// </summary>
     public class WindowsWmiInput : Input
     {
@@ -31,8 +31,8 @@ namespace Splunk
         /// Initializes a new instance of the <see cref="WindowsWmiInput"/> 
         /// class.
         /// </summary>
-        /// <param name="service">The connected service</param>
-        /// <param name="path">The path</param>
+        /// <param name="service">The connected service.</param>
+        /// <param name="path">The path.</param>
         public WindowsWmiInput(Service service, string path)
             : base(service, path)
         {
@@ -55,7 +55,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value indicating whether this input is disabled.
+        /// Sets a value that indicates whether this input is disabled.
         /// </summary>
         public bool Disabled
         {
@@ -83,7 +83,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the index name of this Windows Registry input
+        /// Gets or sets the index name of this Windows Registry input.
         /// </summary>
         public string Index
         {
@@ -133,7 +133,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the Input type of this object,  Windows WMI input.
+        /// Gets the Input type of this object, Windows WMI input.
         /// </summary>
         public InputKind Kind
         {
@@ -207,7 +207,7 @@ namespace Splunk
         /// specified arguments take precedent over the values that were set
         /// using the setter methods.
         /// </summary>
-        /// <param name="args">The key/value pairs to update</param>
+        /// <param name="args">The key/value pairs to update.</param>
         public override void Update(Dictionary<string, object> args)
         {
             // If not present in the update keys, add required attributes
@@ -239,7 +239,7 @@ namespace Splunk
         public override void Update()
         {
             // If not present in the update keys, add required attributes as 
-            // long as one pre-existing update pair exists
+            // long as one pre-existing update pair exists.
             if (toUpdate.Count > 0 && !toUpdate.ContainsKey("classes"))
             {
                 this.SetCacheValue("classes", this.Classes);
