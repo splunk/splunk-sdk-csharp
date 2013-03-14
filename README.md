@@ -168,6 +168,14 @@ the unit tests. These are the same tests that we used to validate the core SDK
 library. The unit tests are located in the **\splunk-sdk-csharp\UnitTests** 
 directory. When you build the SDK, the unit tests are built as well.
 
+Before you run the unit tests, you must specify the test settings file to use:
+
+1. On the **TEST** menu, point to **Test Settings**, and then click **Select Test
+Settings File**
+2. In the **Open Settings File** dialog box, navigate to the root folder of the 
+Splunk SDK for C#. 
+3. Select the file named "Local.runsettings", and then click **Open**.
+
 To run the unit tests in Visual Studio:
 
 * On the **TEST** menu, point to **Run**, and then choose the option you want.
