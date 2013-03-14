@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2012 Splunk, Inc.
+ * Copyright 2013 Splunk, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"): you may
  * not use this file except in compliance with the License. You may obtain
@@ -17,15 +17,16 @@
 namespace Splunk
 {
     /// <summary>
-    /// This represents the Application class
+    /// The <see cref="Application"/> class represents a locally-installed 
+    /// Splunk app.
     /// </summary>
     public class Application : Entity
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Application"/> class.
         /// </summary>
-        /// <param name="service">The connected service</param>
-        /// <param name="path">The path</param>
+        /// <param name="service">The connected service.</param>
+        /// <param name="path">The path.</param>
         public Application(Service service, string path)
             : base(service, path)
         {
@@ -50,8 +51,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether Splunk checks Splunkbase for
-        /// updates.
+        /// Gets or sets a value that indicates whether Splunk checks 
+        /// Splunkbase for updates.
         /// </summary>
         public bool CheckForUpdates
         {
@@ -83,7 +84,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the app's label (its name)
+        /// Gets or sets the app's label (its name).
         /// </summary>
         /// <returns></returns>
         public string Label
@@ -100,8 +101,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value indicating whether to reload objects contained in the 
-        /// locally-installed app.
+        /// Gets a value that indicates whether to reload objects contained
+        /// in the locally-installed app.
         /// </summary>
         public bool Refreshes
         {
@@ -128,9 +129,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the app's custom setup has 
-        /// been performed. This field is available in Splunk version 4.2.4 and 
-        /// later.
+        /// Gets or sets a value that indicates whether the app's custom setup 
+        /// has been performed. This field is available in Splunk version 4.2.4
+        /// and later.
         /// </summary>
         public bool IsConfigured
         {
@@ -146,8 +147,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the app can be managed by 
-        /// Splunk Manager. Note: this is deprecated in Splunk 5.0.
+        /// Gets or sets a value that indicates whether the app can be managed 
+        /// by Splunk Manager. Note: This method is deprecated in Splunk 5.0.
         /// </summary>
         public bool IsManageable
         {
@@ -163,7 +164,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the app is visible and 
+        /// Gets or sets a value that indicates whether the app is visible and 
         /// navigable from Splunk Web.
         /// </summary>
         public bool IsVisible
@@ -180,8 +181,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value indicating whether a state change requires the app to 
-        /// be restarted.
+        /// Gets a value that indicates whether a state change requires the app 
+        /// to be restarted.
         /// </summary>
         public bool StateChangeRequiresRestart
         {
@@ -194,7 +195,7 @@ namespace Splunk
         /// <summary>
         /// Returns any update information that is available for the app.
         /// </summary>
-        /// <returns>The update information</returns>
+        /// <returns>The update information.</returns>
         public ApplicationUpdate AppUpdate()
         {
             return new ApplicationUpdate(this.Service, this.Path);
@@ -203,7 +204,7 @@ namespace Splunk
         /// <summary>
         /// Archives the app on the server file system. 
         /// </summary>
-        /// <returns>The archive information</returns>
+        /// <returns>The archive information.</returns>
         public ApplicationArchive Archive()
         {
             return new ApplicationArchive(this.Service, this.Path);
@@ -212,7 +213,7 @@ namespace Splunk
         /// <summary>
         /// Returns the app's setup information.
         /// </summary>
-        /// <returns>The setup information</returns>
+        /// <returns>The setup information.</returns>
         public ApplicationSetup Setup()
         {
             return new ApplicationSetup(this.Service, this.Path);
