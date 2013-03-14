@@ -160,12 +160,13 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Releasingresetting unmanaged resources.        
+        /// Releasing unmanaged resources.        
         /// </summary>
         public abstract void Dispose();
     
         /// <summary>
         /// Returns an enumerator over the events in the event stream.
+        /// It will concatenates results across sets when necessary.
         /// </summary>
         /// <returns>An enumerator of events</returns>
         public IEnumerator<Event> GetEnumerator()
@@ -182,9 +183,14 @@ namespace Splunk
                 // partial data from a reporting search
                 // (for example "count by host"). So if this is a preview,
                 // break. Null return indicating the end of the set.
-                // Note that we can't use IsPreview property since it will throw
-                // if not set, rather we want to end the enumeration.
-                if (this.isPreview)
+                // Note that isPreview member is used, rather than IsPreview property.
+                // We can't use IsPreview property since it will throw
+                // if that flag is not available in the result stream 
+                // (for example in JSON result stream from Splunk 4.x),
+                // rather we want to end the enumeration. isPreview member is
+                // default to be false, which means we don't concatenate. It is 
+                // the right behavior for JSON result stream from Splunk 4.3.
+                if (this.isPreview) 
                 {
                     break;
                 }
