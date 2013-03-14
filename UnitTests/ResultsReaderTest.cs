@@ -438,10 +438,11 @@ namespace UnitTests
         /// Test XML format with a Oneshot search.
         /// </summary>
         [TestMethod]
-        public void TestReaderOneshotXml()
+        public void TestReaderEndToEndOneshotXml()
         {
-            this.TestReaderOneshot(
-                "xml",
+            this.TestReaderEndToEnd(
+                "xml", 
+                (service, query, args) => service.Oneshot(query, args),
                 (input) => new ResultsReaderXml(input));
         }
 
@@ -449,27 +450,63 @@ namespace UnitTests
         /// Test Json format with a Oneshot search.
         /// </summary>
         [TestMethod]
-        public void TestReaderOneshotJson()
+        public void TestReaderEndToEndOneshotJson()
         {
-            this.TestReaderOneshot(
+            this.TestReaderEndToEnd(
                 "json",
+                (service, query, args) => service.Oneshot(query, args),
                 (input) => new ResultsReaderJson(input));
         }
 
         /// <summary>
-        /// Test a result reader using oneshot search.
+        /// Test XML format with an Export search.
+        /// </summary>
+        [TestMethod]
+        public void TestReaderEndToEndExportXml()
+        {
+            this.TestReaderEndToEnd(
+                "xml",
+                (service, query, args) => service.Export(query, args),
+                (input) => new ResultsReaderXml(input));
+        }
+
+        /// <summary>
+        /// Test Json format with an Export search.
+        /// </summary>
+        [TestMethod]
+        public void TestReaderEndToEndExportJson()
+        {
+            if (Connect().VersionCompare("5.0") < 0)
+            {
+                return;
+            }
+
+            this.TestReaderEndToEnd(
+                "json",
+                (service, query, args) => service.Export(query, args),
+                (input) => new ResultsReaderJson(input));
+        }
+        
+        /// <summary>
+        /// Test a result reader by running a search on Splunk.
         /// </summary>
         /// <param name="format">The search output format</param>
-        /// <param name="createReader">
-        /// Create a reader which should the search output format.
+        /// <param name="runSearch">
+        /// Run a type of search using the supplied service object,
+        /// search string, and arguments.
         /// </param>
-        private void TestReaderOneshot(
+        /// <param name="createReader">
+        /// Create a reader matching the search output format.
+        /// </param>
+        private void TestReaderEndToEnd(
             string format, 
+            Func<Service, string, Args, Stream> runSearch,
             Func<Stream, ResultsReader> createReader)
         {
             var service = Connect();
 
-            var input = service.Oneshot(
+            var input = runSearch(
+                service,
                 "search index=_internal | head 1 | stats count",
                 Args.Create("output_mode", format));
 

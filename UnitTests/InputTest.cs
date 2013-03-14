@@ -334,7 +334,16 @@ namespace UnitTests
             {
                 Assert.AreEqual("admin", scriptInput.PassAuth, assertRoot + "#15");
             }
-            Assert.AreEqual("source", scriptInput.Source, assertRoot + "#16");
+
+            if (service.VersionCompare("5.0") >= 0)
+            {
+                Assert.AreEqual("source", scriptInput.Source, assertRoot + "#16");
+            }
+            else
+            {
+                Assert.AreEqual("renamedSource", scriptInput.Source, assertRoot + "#16");
+            }
+
             Assert.AreEqual("script", scriptInput.SourceType, assertRoot + "#17");
 
             scriptInput.Remove();
