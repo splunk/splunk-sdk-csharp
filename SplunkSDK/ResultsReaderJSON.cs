@@ -111,6 +111,8 @@ namespace Splunk
         /// </summary>
         public override ICollection<string> Fields
         {
+            // Unlike XML and CSV, results in JSON format do not contain 
+            // field name list. 
             get
             {
                 throw new InvalidOperationException(
@@ -472,10 +474,12 @@ namespace Splunk
                     return true;
                 }
 
-                //if (this.jsonReader.TokenType == JsonToken.end doc)
-                //    return false;
                 this.InRow = true;
 
+                // Each row is an JSON object. Multiple such rows together are not 
+                // valid JSON format. JsonTestReader will fail on those. The JSON output format
+                // is designed to use line breaks to seperate the rows. Below
+                // we take one row and give it to a seperate JSON reader.
                 var line = this.resultsReader.StreamReader.ReadLine();
 
                 if (line == null)

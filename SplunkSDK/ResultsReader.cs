@@ -182,7 +182,7 @@ namespace Splunk
                 // might be a snapshot at a given time or a summary result with
                 // partial data from a reporting search
                 // (for example "count by host"). So if this is a preview,
-                // break. Null return indicating the end of the set.
+                // break to end the iteration.
                 // Note that isPreview member is used, rather than IsPreview property.
                 // We can't use IsPreview property since it will throw
                 // if that flag is not available in the result stream 
@@ -196,7 +196,7 @@ namespace Splunk
                 }
 
                 // If we did not advance to next set, i.e. the end of stream is
-                // reached, break. Null return indicating the end of the set.
+                // reached, break to end the iteration.
                 if (!this.AdvanceStreamToNextSet())
                 {
                     break;
