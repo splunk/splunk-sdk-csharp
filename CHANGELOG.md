@@ -4,7 +4,7 @@
 
 ### New APIs
 
-New classes have been added for reading search results,  `ResultsReaderXml` to read search results streams with XML output format. `MultiResultsReaderXml` and `MultiResultsReaderJson`, 
+New classes have been added for reading search results,  `ResultsReaderXml` to read search results streams in XML output format. `MultiResultsReaderXml` and `MultiResultsReaderJson`, 
   to read search results streams with multiple result sets from `Service.Export` methods, and `Event` to support type conversions of event field values.
 
 ### Minor updates

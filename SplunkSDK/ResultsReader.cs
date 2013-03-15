@@ -113,17 +113,6 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether or not there are results
-        /// to be read.
-        /// REMOVE
-        /// </summary>
-        internal bool HasResults
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
         /// This method is used by constructors of result readers to do
         /// the following for single reader:
         /// 1. Obtain the preview flag and the field list.
