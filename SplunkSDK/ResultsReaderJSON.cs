@@ -111,8 +111,8 @@ namespace Splunk
         /// </summary>
         public override ICollection<string> Fields
         {
-            // Unlike XML and CSV, results in JSON format do not contain 
-            // field name list. 
+            // Unlike XML and CSV, JSON result streams do not provide field name
+            // list before events.
             get
             {
                 throw new InvalidOperationException(
@@ -162,20 +162,20 @@ namespace Splunk
             // at top level, we step into it until we find the right key,
             // then leave it in that state to iterate over.
             //
-            // Json single-reader depends on 'isExport' flag to function.
+            // JSON single-reader depends on 'isExport' flag to function.
             // It does not support a stream from a file saved from
             // a stream from an export endpoint.
-            // Json multi-reader assumes export format thus does not support
+            // JSON multi-reader assumes export format thus does not support
             // a stream from none export endpoints.
             if (this.exportHelper != null)
             {
                 /*
-                    * We're on Splunk 5 with a single-reader not from
-                    * an export endpoint
-                    * Below is an example of an input stream.
-                    *      {"preview":true,"offset":0,"lastrow":true,"result":{"host":"Andy-PC","count":"62"}}
-                    *      {"preview":true,"offset":0,"result":{"host":"Andy-PC","count":"1682"}}
-                    */
+                 * We're on Splunk 5 with a single-reader not from
+                 * an export endpoint
+                 * Below is an example of an input stream.
+                 *      {"preview":true,"offset":0,"lastrow":true,"result":{"host":"Andy-PC","count":"62"}}
+                 *      {"preview":true,"offset":0,"result":{"host":"Andy-PC","count":"1682"}}
+                 */
 
                 // Read into first result object of the cachedElement set.
                 while (true)
@@ -196,7 +196,8 @@ namespace Splunk
 
             // Introduced in Splunk 5.0, the format of the JSON object 
             // changed. Prior to 5.0, the array of events were a top level 
-            // JSON element. In 5.0, the results are ain an array under the
+            // JSON element. In 5.0 (not from Export), 
+            // the results are an array under the
             // key "results".
             // Note: reading causes the side effect of setting the JSON node
             // information. 
@@ -205,11 +206,11 @@ namespace Splunk
             if (this.JsonReader.TokenType.Equals(JsonToken.StartObject))
             {
                 /*
-                    * We're on Splunk 5 with a single-reader not from
-                    * an export endpoint
-                    * Below is an example of an input stream.
-                    *     {"preview":false,"init_offset":0,"messages":[{"type":"DEBUG","text":"base lispy: [ AND index::_internal ]"},{"type":"DEBUG","text":"search context: user=\"admin\", app=\"search\", bs-pathname=\"/Users/fross/splunks/splunk-5.0/etc\""}],"results":[{"sum(kb)":"14372242.758775","series":"twitter"},{"sum(kb)":"267802.333926","series":"splunkd"},{"sum(kb)":"5979.036338","series":"splunkd_access"}]}
-                    */
+                 * We're on Splunk 5 with a single-reader not from
+                 * an export endpoint
+                 * Below is an example of an input stream.
+                 *     {"preview":false,"init_offset":0,"messages":[{"type":"DEBUG","text":"base lispy: [ AND index::_internal ]"},{"type":"DEBUG","text":"search context: user=\"admin\", app=\"search\", bs-pathname=\"/Users/fross/splunks/splunk-5.0/etc\""}],"results":[{"sum(kb)":"14372242.758775","series":"twitter"},{"sum(kb)":"267802.333926","series":"splunkd"},{"sum(kb)":"5979.036338","series":"splunkd_access"}]}
+                 */
                 while (true)
                 {
                     if (!this.JsonReader.Read())
@@ -239,22 +240,22 @@ namespace Splunk
             else
             {
                 /* Pre Splunk 5.0
-                    * Below is an example of an input stream
-                    *   [
-                    *       {
-                    *           "sum(kb)":"14372242.758775",
-                    *               "series":"twitter"
-                    *       },
-                    *       {
-                    *           "sum(kb)":"267802.333926",
-                    *               "series":"splunkd"
-                    *       },
-                    *       {
-                    *           "sum(kb)":"5979.036338",
-                    *               "series":"splunkd_access"
-                    *       }
-                    *   ]
-                    */
+                 * Below is an example of an input stream
+                 *   [
+                 *       {
+                 *           "sum(kb)":"14372242.758775",
+                 *               "series":"twitter"
+                 *       },
+                 *       {
+                 *           "sum(kb)":"267802.333926",
+                 *               "series":"splunkd"
+                 *       },
+                 *       {
+                 *           "sum(kb)":"5979.036338",
+                 *               "series":"splunkd_access"
+                 *       }
+                 *   ]
+                 */
                 return true;
             }
         }
@@ -269,7 +270,7 @@ namespace Splunk
                 return;
             }
 
-            // The Json reader is created after
+            // The JSON reader is created after
             // constructor so the property could be
             // null.
             if (this.JsonReader != null)

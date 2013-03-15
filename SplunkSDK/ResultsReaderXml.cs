@@ -24,10 +24,10 @@ namespace Splunk
     using System.Xml;
 
     /// <summary>
-     /// Represents a streaming XML reader for
-     /// Splunk search results. When passed a stream from an export endpoint,
-     /// it skips any preview events in the stream. The preview events can be
-     /// accessed using MultiResultsReaderXml.
+    /// Represents a streaming XML reader for
+    /// Splunk search results. When passed a stream from an export endpoint,
+    /// it skips any preview events in the stream. The preview events can be
+    /// accessed using MultiResultsReaderXml.
     /// </summary>
     public class ResultsReaderXml : ResultsReader
     {
