@@ -476,7 +476,7 @@ namespace Splunk
 
                 this.InRow = true;
 
-                // Each row is an JSON object. Multiple such rows together are not 
+                // Each row is a JSON object. Multiple such rows together is not 
                 // valid JSON format. JsonTestReader will fail on those. The JSON output format
                 // is designed to use line breaks to seperate the rows. Below
                 // we take one row and give it to a seperate JSON reader.
