@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2012 Splunk, Inc.
+ * Copyright 2013 Splunk, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"): you may
  * not use this file except in compliance with the License. You may obtain
@@ -73,19 +73,18 @@ namespace Splunk.Examples.Search
                 
                 using (var stream = job.ResultsPreview(outputArgs))
                 {
-                    var rr = new ResultsReaderJson(stream);
-
-                    foreach (var map in rr)
+                    using(var rr = new ResultsReaderJson(stream))
                     {
-                        System.Console.WriteLine("EVENT:");
-                        foreach (string key in map.Keys)
+                        foreach (var map in rr)
                         {
-                            System.Console.WriteLine(
-                                "   " + key + " -> " + map[key]);
+                            System.Console.WriteLine("EVENT:");
+                            foreach (string key in map.Keys)
+                            {
+                                System.Console.WriteLine(
+                                    "   " + key + " -> " + map[key]);
+                            }
                         }
                     }
-
-                    rr.Close();
                 }
 
                 Thread.Sleep(500);
