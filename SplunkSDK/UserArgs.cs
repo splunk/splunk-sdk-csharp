@@ -17,7 +17,8 @@
 namespace Splunk
 {
     /// <summary>
-    /// Extends Args for User creation setters
+    /// The <see cref="UserArgs"/> class extends <see cref="Args"/> for 
+    /// user creation setters.
     /// </summary>
     public class UserArgs : Args
     {
@@ -35,7 +36,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets  a default app for this user. The default app specified here 
+        /// Sets a default app for this user. The default app specified here 
         /// overrides the default app inherited from the user's roles.
         /// </summary>
         public string DefaultApp
@@ -58,7 +59,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the password for the user. Ths parameter is required.
+        /// Sets the password for the user. This parameter is required.
         /// </summary>
         public string Pssword
         {
@@ -80,9 +81,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value indicating whether to restart background search jobs 
-        /// when Splunk restarts. If true, a background search job for this user
-        /// that has not completed is restarted when Splunk restarts.
+        /// Sets a value that indicates whether to restart background search 
+        /// jobs when Splunk restarts. If true, a background search job for 
+        /// this user that has not completed is restarted when Splunk restarts.
         /// </summary>
         public bool RestartBackgroundJobs
         {
@@ -95,7 +96,7 @@ namespace Splunk
         /// <summary>
         /// Sets the roles to assign this user. At least one role is required.
         /// If this parameter is not set, you must create a role with the 
-        /// CreateRole parameter.
+        /// <see cref="CreateRole"/> parameter.
         /// </summary>
         public string[] Roles
         {
@@ -106,8 +107,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the timezone display modifier for this user. This parameter is
-        /// only available in Splunk version 4.3+.
+        /// Sets the time zone display modifier for this user. This parameter is
+        /// only available in Splunk 4.3 and later.
         /// </summary>
         public string Timezone
         {

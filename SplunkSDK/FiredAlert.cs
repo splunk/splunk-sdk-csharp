@@ -19,7 +19,7 @@ namespace Splunk
     using System;
 
     /// <summary>
-    /// The FiredAlert class represents a Fired Alert.
+    /// The <see cref="FiredAlert"/> class represents a fired alert.
     /// </summary>
     public class FiredAlert : Entity
     {
@@ -58,7 +58,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the rendered expiration time for this alert. This is 
+        /// Gets the rendered expiration time for this alert. This was 
         /// introduced in Splunk 4.3.
         /// </summary>
         public string ExpirationTimeRendered
@@ -70,8 +70,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value indicating whether the result is a set of events 
-        /// (digest) or a single event (per result). This is introduced in 
+        /// Gets a value that indicates whether the result is a set of events 
+        /// (digest) or a single event (per result). This was introduced in 
         /// Splunk 4.3.
         /// </summary>
         public bool IsDigestMode
@@ -106,7 +106,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets this alert's search ID (SID)
+        /// Gets this alert's search ID (SID).
         /// </summary>
         public string Sid
         {
@@ -117,7 +117,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the count of triggered alerts. This is available in Splunk 4.3.
+        /// Gets the count of triggered alerts. This was introduced in Splunk
+        /// 4.3.
         /// </summary>
         public int TriggeredAlertCount
         {

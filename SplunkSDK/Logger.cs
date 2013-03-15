@@ -19,7 +19,7 @@ namespace Splunk
     using System;
 
     /// <summary>
-    /// The Logger class represents the Logger Entity.
+    /// The <see cref="Logger"/> class represents the Logger Entity.
     /// </summary>
     public class Logger : Entity
     {
@@ -36,7 +36,7 @@ namespace Splunk
         /// <summary>
         /// Gets or sets the logging level of this logger. Valid values are:
         /// FATAL, CRIT, WARN, INFO, and DEBUG. The value of CRIT is only 
-        /// availble in pre-Splunk 4.3.4.
+        /// availble in versions of Splunk prior to version 4.3.4.
         /// </summary>
         public string Level
         {

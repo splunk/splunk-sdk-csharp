@@ -17,7 +17,8 @@
 namespace Splunk
 {
     /// <summary>
-    /// Represents the Input subclass Windows Performance Monitor Input.
+    /// The <see cref="WindowsPerfmonInput"/> class represents the 
+    /// <see cref="Input"/> subclass Windows Performance Monitor Input.
     /// </summary>
     public class WindowsPerfmonInput : Input
     {
@@ -34,7 +35,7 @@ namespace Splunk
 
         /// <summary>
         /// Gets or sets a list of monitored counters for this Windows Perfmon 
-        /// input. An asterisk (*) is equivalent to all counters.
+        /// input. An asterisk ("*") is equivalent to all counters.
         /// </summary>
         public string[] Counters
         {
@@ -50,8 +51,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value indicating whether this input is disabled. Note: this
-        /// attribute is only available in splunk 4.3 or earlier.
+        /// Sets a value that indicates whether this input is disabled. 
+        /// Note: This attribute is only available in Splunk 4.3 or earlier.
         /// </summary>
         public bool Disabled
         {
@@ -62,7 +63,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the index name of this Windows Perfmon input
+        /// Gets or sets the index name of this Windows Perfmon input.
         /// </summary>
         public string Index
         {
@@ -79,7 +80,7 @@ namespace Splunk
 
         /// <summary>
         /// Gets or sets the counter instances of this Windows Perfmon input. 
-        /// An asterisk (*) is equivalent to all instances.
+        /// An asterisk ("*") is equivalent to all instances.
         /// </summary>
         public string[] Instances
         {
@@ -112,7 +113,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the Input type of this object,  Windows Perfmon input.
+        /// Gets the input type of this object, Windows Perfmon input.
         /// </summary>
         public InputKind Kind
         {
@@ -142,7 +143,7 @@ namespace Splunk
         /// <summary>
         /// Gets or sets the source value to populate in he source field for 
         /// events from this data input. The same source should not be used for 
-        /// multiple events. This is introduced in Splunk 5.0. 
+        /// multiple events. This was introduced in Splunk 5.0. 
         /// </summary>
         public string Source
         {
@@ -159,7 +160,7 @@ namespace Splunk
 
         /// <summary>
         /// Gets or sets the sourcetype value to populate in the sourcetype 
-        /// field for incoming events. This is introduced in Splunk 5.0. 
+        /// field for incoming events. This was introduced in Splunk 5.0. 
         /// </summary>
         public string SourceType
         {

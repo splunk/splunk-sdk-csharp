@@ -17,7 +17,8 @@
 namespace Splunk
 {
     /// <summary>
-    /// Represents the UDP connections, related to Inputs.
+    /// The <see cref="UdpConnections"/> class represents the UDP connections, 
+    /// related to Inputs.
     /// </summary>
     public class UdpConnections : Entity
     {
@@ -25,8 +26,8 @@ namespace Splunk
         /// Initializes a new instance of the <see cref="UdpConnections"/> 
         /// class.
         /// </summary>
-        /// <param name="service">The connected service</param>
-        /// <param name="path">The path</param>
+        /// <param name="service">The connected service.</param>
+        /// <param name="path">The path.</param>
         public UdpConnections(Service service, string path)
             : base(service, path)
         {

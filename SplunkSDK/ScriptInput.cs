@@ -19,15 +19,16 @@ namespace Splunk
     using System;
 
     /// <summary>
-    /// Represents the Input subclass Script Input
+    /// The <see cref="ScriptInput"/> class represents the <see cref="Input"/> 
+    /// subclass Script Input.
     /// </summary>
     public class ScriptInput : Input
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ScriptInput"/> class.
         /// </summary>
-        /// <param name="service">The connected service</param>
-        /// <param name="path">The path</param>
+        /// <param name="service">The connected service.</param>
+        /// <param name="path">The path.</param>
         public ScriptInput(Service service, string path)
             : base(service, path)
         {
@@ -104,7 +105,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the Input type of this object, Script.
+        /// Gets the input type of this object, Script.
         /// </summary>
         public InputKind Kind
         {
@@ -174,7 +175,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value indicating whether the scripted input is enabled or 
+        /// Sets a value that indicates whether the scripted input is enabled or 
         /// disabled.
         /// </summary>
         public bool Disabled

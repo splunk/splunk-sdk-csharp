@@ -22,16 +22,16 @@ namespace Splunk
     using System.Text;
 
     /// <summary>
-    /// The code User class represents a Splunk user who is registered on the
-    /// current Splunk server.
+    /// The <see cref="User"/> class represents a Splunk user who is 
+    /// registered on the current Splunk server.
     /// </summary>
     public class User : Entity
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="User"/> class.
         /// </summary>
-        /// <param name="service">The service</param>
-        /// <param name="path">The path</param>
+        /// <param name="service">The service.</param>
+        /// <param name="path">The path.</param>
         public User(Service service, string path) 
             : base(service, path)
         {
@@ -54,7 +54,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value indicating whether the user's default app was set 
+        /// Gets a value that indicates whether the user's default app was set 
         /// specifically by the user.
         /// </summary>
         public bool DefaultAppIsUserOverride
@@ -126,9 +126,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value indicating whether to restart background search jobs 
-        /// when Splunk restarts. When true, a background search job for this 
-        /// user that has not completed is restarted when Splunk restarts. 
+        /// Sets a value that indicates whether to restart background search 
+        /// jobs when Splunk restarts. When true, a background search job for 
+        /// this user that has not completed is restarted when Splunk restarts. 
         /// </summary>
         public bool RestartBackgroundJobs
         {

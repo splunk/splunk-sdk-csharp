@@ -17,14 +17,15 @@
 namespace Splunk
 {
     /// <summary>
-    /// Extends Args for Index creation specific setters
+    /// The <see cref="IndexArgs"/> class extends <see cref="Args"/> for Index
+    /// creation specific setters.
     /// </summary>
     public class IndexArgs : Args
     {
         /// <summary>
-        /// Sets a value indicating whether or not all data retrieved 
+        /// Sets a value that indicates whether or not all data retrieved 
         /// from the index is proper UTF8. Note: when enabled indexing 
-        /// performance will degrade. The default is False.
+        /// performance will degrade. The default value is false.
         /// </summary>
         public bool AssureUTF8
         {
@@ -48,12 +49,12 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the suggestion Splunk bucket rebuild process for the size of 
+        /// Sets the suggested Splunk bucket rebuild process for the size of 
         /// the time-series (tsidx) file to make.
         /// Caution: This is an advanced parameter. Inappropriate use of this 
         /// parameter causes splunkd to not start if rebuild is required. Do not
         /// set this parameter unless instructed by Splunk Support.
-        /// The default is "auto". This is introduced in Splunk 5.0. 
+        /// The default is "auto". This was introduced in Splunk 5.0. 
         /// </summary>
         public string BucketRebuildMemoryHint
         {
@@ -82,6 +83,8 @@ namespace Splunk
         /// Sets the destination filesystem path, local to the server, for the 
         /// frozen archive. Use as an alternative to a coldToFrozenScript. 
         /// Splunk automatically puts frozen buckets in this directory.
+        /// </summary>
+        /// <remarks>
         /// Bucket freezing policy is as follows:
         /// New style buckets (4.2 and on): removes all files but the rawdata
         /// To thaw, run splunk rebuild "bucket dir" on the bucket, then move to 
@@ -90,7 +93,7 @@ namespace Splunk
         /// the bucket into the thawed directory Note: If both coldToFrozenDir 
         /// and coldToFrozenScript are specified, coldToFrozenDir 
         /// takes precedence
-        /// </summary>
+        /// </remarks>
         public string ColdToFrozenDir
         {
             set
@@ -101,7 +104,10 @@ namespace Splunk
 
         /// <summary>
         /// Sets the filesystem path, local to the server, that is the archiving
-        /// script. By default, the example script has two possible behaviors 
+        /// script. 
+        /// </summary>
+        /// <remarks>
+        /// By default, the example script has two possible behaviors 
         /// when archiving: For buckets created from version 4.2 and on, it 
         /// removes all files except for raw data. To thaw: cd to the frozen 
         /// bucket and type splunk rebuild, then copy the bucket to thawed for 
@@ -110,7 +116,7 @@ namespace Splunk
         /// For older-style buckets, we simply gzip all the .tsidx files. To 
         /// thaw: cd to the frozen bucket and unzip the tsidx files, then copy 
         /// the bucket to thawed for that index.
-        /// </summary>
+        /// </remarks>
         public string ColdToFrozenScript
         {
             set
@@ -120,10 +126,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value indicating whether asynchronous (online fsck) bucket 
+        /// Sets a value that indicates whether asynchronous (online fsck) bucket 
         /// repair is enabled. When enabled, bucket repair runs concurrently 
         /// with splunk. Note: a slight performance degradation may be 
-        /// noticeable when enabled. The default is enabled.
+        /// noticeable when enabled. The default value is enabled.
         /// </summary>
         public bool EnableOnlineBucketRepair
         {
@@ -190,7 +196,10 @@ namespace Splunk
         /// <summary>
         /// Sets the maximum size in MB for a hot DB to reach before a roll to 
         /// warm is triggered. Note that acceptable values are also "auto" or 
-        /// "auto_high_volume". The default is "auto". A "high volume index" 
+        /// "auto_high_volume". The default value is "auto". 
+        /// </summary>
+        /// <remarks>        
+        /// A "high volume index" 
         /// would typically be considered one that gets over 10GB of data per 
         /// day. "auto" sets the size to 750MB. "auto_high_volume" sets the size
         /// to 10GB on 64-bit, and 1GB on 32-bit systems. Although the maximum 
@@ -201,7 +210,7 @@ namespace Splunk
         /// will be auto tuned. Note: The precise size of your warm buckets may 
         /// vary from maxDataSize, due to post-processing and timing issues with
         /// the rolling policy.
-        /// </summary>
+        /// </remarks>
         public string MaxDataSize
         {
             set
@@ -276,18 +285,21 @@ namespace Splunk
 
         /// <summary>
         /// Sets the  maximum number of unique lines in .data files in a bucket,
-        /// which may help to reduce memory consumption. Default is 1000000 If 
-        /// set to 0, this setting is ignored (it is treated as infinite). If 
-        /// exceeded, a hot bucket is rolled to prevent further increase. 
-        /// If your buckets are rolling  due to Strings.data hitting this limit, 
-        /// the culprit may be the punct field in your data. If you don't use 
-        /// punct, it may be best to simply disable this 
-        /// (see props.conf.spec in $SPLUNK_HOME/etc/system/README).
+        /// which may help to reduce memory consumption. The default value is
+        /// 1000000.
+        /// </summary>
+        /// <remarks>
+        /// If set to 0, this setting is ignored (it is treated as
+        /// infinite). If exceeded, a hot bucket is rolled to prevent further
+        /// increase. If your buckets are rolling due to Strings.data hitting
+        /// this limit, the culprit may be the punct field in your data. If you
+        /// don't use punct, it may be best to simply disable this (see
+        /// props.conf.spec in $SPLUNK_HOME/etc/system/README).
         /// There is a small time delta between when maximum is exceeded and 
         /// bucket is rolled. This means a bucket may end up with epsilon more 
         /// lines than specified, but this is not a major concern unless excess 
         /// is significant.
-        /// </summary>
+        /// </remarks>
         public int MaxMetaEntries
         {
             set
@@ -297,9 +309,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the  maximum size of an index, in MB. If an index grows larger 
-        /// than the maximum size, the oldest data is frozen. The default is 
-        /// 500000.
+        /// Sets the maximum size of an index, in MB. If an index grows larger 
+        /// than the maximum size, the oldest data is frozen. The default value  
+        /// is 500000.
         /// </summary>
         public int MaxTotalDataSizeMB
         {
@@ -312,13 +324,16 @@ namespace Splunk
         /// <summary>
         /// Sets the Upper limit, in seconds, on how long an event can sit in 
         /// raw slice. Applies only if replication is enabled for this index,
-        /// otherwise is ignored. If there are any acknowledged events sharing 
+        /// otherwise is ignored. 
+        /// </summary>
+        /// <remarks>
+        /// If there are any acknowledged events sharing 
         /// this raw slice, this paramater does not apply. In this case,
         /// maxTimeUnreplicatedWithAcks applies. Highest legal value is 
         /// 2147483647. To disable this parameter, set to 0.
         /// Note: this is an advanced parameter. Understand the consequences 
         /// before changing. This is introduced in Splunk 5.0. 
-        /// </summary>
+        /// </remarks>
         public int MaxTimeUnreplicatedNoAcks
         {
             set
@@ -330,7 +345,7 @@ namespace Splunk
         /// <summary>
         /// Sets the  maximum number of warm buckets. If this number is 
         /// exceeded, the warm bucket/s with the lowest value for their latest 
-        /// times will be moved to cold. The default is 300.
+        /// times will be moved to cold. The default value is 300.
         /// </summary>
         public int MaxWarmDBCount
         {
@@ -341,18 +356,20 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets how frequently  splunkd forces a filesystem sync while 
+        /// Sets how frequently splunkd forces a filesystem sync while 
         /// compressing journal slices. During this interval, uncompressed 
         /// slices are left on disk even after they are compressed. Then splunkd
         /// forces a filesystem sync of the compressed journal and removes the 
         /// accumulated uncompressed files.
+        /// </summary>
+        /// <remarks>
         /// If 0 is specified, splunkd forces a filesystem sync after every 
         /// slice completes compressing. Specifying "disable" disables syncing 
         /// entirely: uncompressed slices are removed as soon as compression is 
         /// complete. Note: Some filesystems are very inefficient at performing 
         /// sync operations, so only enable this if you are sure it is needed.
-        /// The default is "disable".
-        /// </summary>
+        /// The default value is "disable".
+        /// </remarks>
         public string MinRawFileSyncSecs
         {
             set
@@ -365,7 +382,7 @@ namespace Splunk
         /// Sets the metadata synchronization period, in seconds, but only for 
         /// for records where the sync can be done efficiently in-place, without 
         /// requiring a full re-write of the metadata file. Records that require
-        /// full re-write are be sync'ed at serviceMetaPeriod. The default
+        /// full re-write are be sync'ed at serviceMetaPeriod. The default value
         /// is 0. Zero means that this feature is turned off and 
         /// serviceMetaPeriod is the only time when metadata sync happens.
         /// Note: If the value of partialServiceMetaPeriod is greater than 
@@ -406,7 +423,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets  the uncompressed target size in bytes for individual raw slice
+        /// Sets the uncompressed target size in bytes for individual raw slice
         /// in the rawdata journal of the index. The Default is 131072 (128KB). 
         /// If 0 is specified, rawChunkSizeBytes is set to the systemwide 
         /// default value. Note: rawChunkSizeBytes only specifies a target chunk
@@ -465,7 +482,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value indicating whether a sync operation is performed 
+        /// Sets a value that indicates whether a sync operation is performed 
         /// before file descriptor is closed on  metadata file updates. This 
         /// functionality improves integrity of metadata files, especially in 
         /// regards to operating system crashes/machine failures. The default is

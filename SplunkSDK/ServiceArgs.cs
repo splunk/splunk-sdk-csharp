@@ -17,13 +17,13 @@
 namespace Splunk
 {
     /// <summary>
-    /// The Service Arguments data structure that defines the context
-    /// of the Splunk service.
+    /// The <see cref="ServiceArgs"/> class represents a Service Arguments data
+    /// structure that defines the context of the Splunk service.
     /// </summary>
     public class ServiceArgs
     {
         /// <summary>
-        ///  Gets or sets the application context of the service.
+        /// Gets or sets the application context of the service.
         /// </summary>
         public string App 
         { 
@@ -31,7 +31,7 @@ namespace Splunk
         }
 
         /// <summary>
-        ///  Gets or sets the host name of the service.
+        /// Gets or sets the host name of the service.
         /// </summary>
         public string Host 
         { 
@@ -39,7 +39,7 @@ namespace Splunk
         }
 
         /// <summary>
-        ///  Gets or sets the owner context of the service.
+        /// Gets or sets the owner context of the service.
         /// </summary>
         public string Owner 
         { 
@@ -47,7 +47,7 @@ namespace Splunk
         }
 
         /// <summary>
-        ///  Gets or sets the port number of the service.
+        /// Gets or sets the port number of the service.
         /// </summary>
         public int Port 
         { 
@@ -55,7 +55,7 @@ namespace Splunk
         }
 
         /// <summary>
-        ///  Gets or sets the scheme to use for accessing the service.
+        /// Gets or sets the scheme to use for accessing the service.
         /// </summary>
         public string Scheme 
         { 

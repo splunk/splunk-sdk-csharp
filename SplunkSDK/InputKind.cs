@@ -20,12 +20,13 @@ namespace Splunk
     using System.Collections.Generic;
 
     /// <summary>
-    /// Represents the set of specific Splunk input kinds.
+    /// The <see cref="InputKind"/> class represents the set of specific Splunk
+    /// input kinds.
     /// </summary>
     public class InputKind
     {
         /// <summary>
-        /// The map of known inputs, aka relative paths.
+        /// The map of known inputs, also known as relative paths.
         /// </summary>
         private static Dictionary<string, InputKind> knownRelativePaths = 
             new Dictionary<string, InputKind>();
@@ -52,62 +53,62 @@ namespace Splunk
             new InputKind("Unknown", typeof(Input));
 
         /// <summary>
-        /// The Monitor Input
+        /// The Monitor Input.
         /// </summary>
         public static readonly InputKind Monitor = 
             new InputKind("monitor", typeof(MonitorInput));
 
         /// <summary>
-        /// The Script Input
+        /// The Script Input.
         /// </summary>
         public static readonly InputKind Script = 
             new InputKind("script", typeof(ScriptInput));
 
         /// <summary>
-        /// The Raw TCP Input
+        /// The Raw TCP Input.
         /// </summary>
         public static readonly InputKind Tcp = 
             new InputKind("tcp/raw", typeof(TcpInput));
 
         /// <summary>
-        /// The Cooked TCP Input
+        /// The Cooked TCP Input.
         /// </summary>
         public static readonly InputKind TcpSplunk = 
             new InputKind("tcp/cooked", typeof(TcpSplunkInput));
 
         /// <summary>
-        /// The UDP Input
+        /// The UDP Input.
         /// </summary>
         public static readonly InputKind Udp = 
             new InputKind("udp", typeof(UdpInput));
 
         /// <summary>
-        /// The Windows Active Directory Input
+        /// The Windows Active Directory Input.
         /// </summary>
         public static readonly InputKind WindowsActiveDirectory = 
             new InputKind("ad", typeof(WindowsActiveDirectoryInput));
 
         /// <summary>
-        /// The Windows Event Log Input
+        /// The Windows Event Log Input.
         /// </summary>
         public static readonly InputKind WindowsEventLog = 
             new InputKind(
                 "win-event-log-collections", typeof(WindowsEventLogInput));
 
         /// <summary>
-        /// The Windows Performance Monitor Input
+        /// The Windows Performance Monitor Input.
         /// </summary>
         public static readonly InputKind WindowsPerfmon = 
             new InputKind("win-perfmon", typeof(WindowsPerfmonInput));
 
         /// <summary>
-        /// The Windows Registry Input
+        /// The Windows Registry Input.
         /// </summary>
         public static readonly InputKind WindowsRegistry =
             new InputKind("registry", typeof(WindowsRegistryInput));
 
         /// <summary>
-        /// The Windows WMI Input
+        /// The Windows WMI Input.
         /// </summary>
         public static readonly InputKind WindowsWmi = 
             new InputKind("win-wmi-collections", typeof(WindowsWmiInput));
@@ -115,8 +116,8 @@ namespace Splunk
         /// <summary>
         /// Initializes a new instance of the <see cref="InputKind"/> class. 
         /// </summary>
-        /// <param name="relpath">The relative input path</param>
-        /// <param name="inputClass">The input class</param>
+        /// <param name="relpath">The relative input path.</param>
+        /// <param name="inputClass">The input class.</param>
         public InputKind(string relpath, Type inputClass)
         {
             this.kind = relpath;
@@ -129,9 +130,9 @@ namespace Splunk
         /// <summary>
         /// Initializes a new instance of the <see cref="InputKind"/> class. 
         /// </summary>
-        /// <param name="relpath">The relative input path</param>
-        /// <param name="inputClass">The input class</param>
-        /// <param name="kind">The kind</param>
+        /// <param name="relpath">The relative input path.</param>
+        /// <param name="inputClass">The input class.</param>
+        /// <param name="kind">The kind.</param>
         public InputKind(string relpath, Type inputClass, string kind)
         {
             this.kind = kind;
@@ -142,7 +143,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the IEnumerable list of Inputs
+        /// Gets the IEnumerable list of Inputs.
         /// </summary>
         public static IEnumerable<InputKind> Values
         {
@@ -163,7 +164,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the kind of this input
+        /// Gets the kind of this input.
         /// </summary>
         public string Kind
         {
@@ -174,7 +175,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the relative path of this input
+        /// Gets the relative path of this input.
         /// </summary>
         public string RelPath
         {
@@ -185,7 +186,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the class type of this input
+        /// Gets the class type of this input.
         /// </summary>
         public Type InputClass
         {
@@ -198,8 +199,8 @@ namespace Splunk
         /// <summary>
         /// Creates an input.
         /// </summary>
-        /// <param name="relPath">The relative path</param>
-        /// <returns>The input kind</returns>
+        /// <param name="relPath">The relative path.</param>
+        /// <returns>The input kind.</returns>
         public static InputKind Create(string relPath)
         {
             if (knownRelativePaths.ContainsKey(relPath))

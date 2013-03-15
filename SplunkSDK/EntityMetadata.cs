@@ -17,14 +17,14 @@
 namespace Splunk
 {
     /// <summary>
-    /// The EntityMetadata class provides access to the metadata properties
-    /// of a corresponding entity. Use Entity.getMetadata to obtain an 
-    /// instance of this class.
+    /// The <see cref="EntityMetadata"/> class provides access to the metadata
+    /// properties of a corresponding entity. Use Entity.getMetadata to obtain
+    /// an instance of this class.
     /// </summary>
     public class EntityMetadata
     {
         /// <summary>
-        /// The entity
+        /// The entity.
         /// </summary>
         private Entity entity;
 
@@ -32,14 +32,14 @@ namespace Splunk
         /// Initializes a new instance of the <see cref="EntityMetadata"/> 
         /// class.
         /// </summary>
-        /// <param name="entity">The entity</param>
+        /// <param name="entity">The entity.</param>
         public EntityMetadata(Entity entity)
         {
             this.entity = entity;
         }
 
         /// <summary>
-        /// Gets a value indicating whether this entity's permission can be 
+        /// Gets a value that indicates whether this entity's permission can be 
         /// changed.
         /// </summary>
         public bool CanChangePermissions
@@ -51,8 +51,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value indicating whether this resource can be shared via an 
-        /// app.
+        /// Gets a value that indicates whether this resource can be shared via 
+        /// an app.
         /// </summary>
         public bool CanShareApp
         {
@@ -63,7 +63,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value indicating whether the resource can be shared globally.
+        /// Gets a value that indicates whether the resource can be shared
+        /// globally.
         /// </summary>
         public bool CanShareGlobal
         {
@@ -74,7 +75,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value indicating whether the resource can be shared to a 
+        /// Gets a value that indicates whether the resource can be shared to a 
         /// specific user.
         /// </summary>
         public bool CanShareUser
@@ -86,7 +87,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value indicating whether his entity can be modified.
+        /// Gets a value that indicates whether his entity can be modified.
         /// </summary>
         public bool CanWrite
         {
@@ -142,7 +143,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value indicating whether this entity can be modified.
+        /// Gets a value that indicates whether this entity can be modified.
         /// </summary>
         public bool IsModifiable
         {

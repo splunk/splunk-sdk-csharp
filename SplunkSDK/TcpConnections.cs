@@ -17,7 +17,8 @@
 namespace Splunk
 {
     /// <summary>
-    /// Represents the TCP connections, related to Inputs.
+    /// The <see cref="TcpConnections"/> class represents the TCP connections, 
+    /// related to Inputs.
     /// </summary>
     public class TcpConnections : Entity
     {
@@ -33,7 +34,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the connection
+        /// Gets the connection.
         /// </summary>
         public string Connection
         {
@@ -44,7 +45,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the server name
+        /// Gets the server name.
         /// </summary>
         public string Servername
         {

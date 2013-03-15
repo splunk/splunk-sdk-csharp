@@ -23,7 +23,7 @@ namespace Splunk
     using System.Threading;
 
     /// <summary>
-    /// The Index class represents the Splunk DB/Index object.
+    /// The <see cref="Index"/> class represents the Splunk DB/Index object.
     /// </summary>
     public class Index : Entity
     {
@@ -38,9 +38,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the data retrieved from this
-        /// index has been UTF8-encoded. Indexing performance degrades when this
-        /// parameter is set to true.
+        /// Gets or sets a value that indicates whether the data retrieved from
+        /// this index has been UTF8-encoded. Indexing performance degrades
+        /// when this parameter is set to true.
         /// </summary>
         public bool AssureUTF8
         {
@@ -98,12 +98,14 @@ namespace Splunk
         /// <summary>
         /// Gets or sets the suggestion Splunk bucket rebuild process for the 
         /// size of the time-series (tsidx) file to make.
+        /// </summary>
+        /// <remarks>
         /// Caution: This is an advanced parameter. Inappropriate use of this 
         /// parameter causes splunkd to not start if rebuild is required. Do not
         /// set this parameter unless instructed by Splunk Support.
         /// This is introduced in Splunk 5.0. The default is 
         /// "auto".
-        /// </summary>
+        /// </remarks>
         public string BucketRebuildMemoryHint
         {
             get
@@ -174,7 +176,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value indicating whether the raw data is compressed.
+        /// Gets a value that indicates whether the raw data is compressed.
         /// </summary>
         public bool CompressRawdata
         {
@@ -207,10 +209,11 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether asnychronous "online fsck" 
-        /// bucket repair is enabled. When this feature is enabled, you don't 
-        /// have to wait for buckets to be repaired before starting Splunk, but 
-        /// one might notice a slight degradation in performance as a result.
+        /// Gets or sets a value that indicates whether asnychronous "online
+        /// fsck" bucket repair is enabled. When this feature is enabled, you
+        /// don't have to wait for buckets to be repaired before starting
+        /// Splunk, but one might notice a slight degradation in performance as
+        /// a result.
         /// </summary>
         public bool EnableOnlineBucketRepair
         {
@@ -226,8 +229,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value indicating whether real-time search is enabled for this
-        /// index.
+        /// Gets a value that indicates whether real-time search is enabled for
+        /// this index.
         /// </summary>
         public bool EnableRealtimeSearch
         {
@@ -470,13 +473,15 @@ namespace Splunk
         /// <summary>
         /// Gets or sets the Upper limit, in seconds, on how long an event can 
         /// sit in raw slice. Applies only if replication is enabled for this 
-        /// index, otherwise is ignored. If there are any acknowledged events 
-        /// sharing this raw slice, this paramater does not apply. In this case,
+        /// index, otherwise is ignored. 
+        /// </summary>
+        /// <remarks>
+        /// If there are any acknowledged events sharing this raw slice, this paramater does not apply. In this case,
         /// maxTimeUnreplicatedWithAcks applies. Highest legal value is 
         /// 2147483647. To disable this parameter, set to 0.
         /// Note: this is an advanced parameter. Understand the consequences 
         /// before changing. This is introduced in Splunk 5.0.
-        /// </summary>
+        /// </remarks>
         public int MaxTimeUnreplicatedNoAcks
         {
             get
@@ -754,7 +759,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the sync operation is 
+        /// Gets or sets a value that indicates whether the sync operation is 
         /// invoked before the file descriptor is closed on metadata updates. 
         /// WARNING:This is an advanced parameter. Only change it if you are 
         /// instructed to do so by Splunk Support.
@@ -824,7 +829,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value indicating whether this index is an internal index.
+        /// Gets a value that indicates whether this index is an internal index.
         /// </summary>
         public bool IsInternal
         {

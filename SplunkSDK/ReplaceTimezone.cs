@@ -22,14 +22,14 @@ namespace Splunk
     using System.Text;
 
     /// <summary>
-    /// Parse timeszone strings.
+    /// The <see cref="ReplaceTimezone"/> class parses time zone strings.
     /// </summary>
     public static class ReplaceTimezone
     {
         /// <summary>
-        /// A list of timezone information, including nickname, UTC and full text.
-        /// This list distilled from various places on the web. Military timezones
-        /// are not represented.
+        /// A list of time zone information, including nickname, UTC and full
+        /// text. This list is distilled from various places on the web.
+        /// Military time zones are not represented.
         /// </summary>
         private static string[][] timeZones = new string[][] 
         {
@@ -123,11 +123,11 @@ namespace Splunk
         };
 
         /// <summary>
-        /// Returns the date with the textual timezone replaced with 
+        /// Returns the date with the time zone text replaced with 
         /// the UTC equivalent, if found.
         /// </summary>
-        /// <param name="date">The date</param>
-        /// <returns>The date with timezone string</returns>
+        /// <param name="date">The date.</param>
+        /// <returns>The date with timezone string.</returns>
         public static string ReplaceTimeZone(string date)
         {
             foreach (string[] timezone in timeZones)

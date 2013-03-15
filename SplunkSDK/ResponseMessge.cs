@@ -22,22 +22,23 @@ namespace Splunk
     using System.Net;
 
     /// <summary>
-    /// The basic HTTP response object
+    /// The <see cref="ResponseMessage"/> class represents the basic HTTP
+    /// response object.
     /// </summary>
     public class ResponseMessage
     {   
         /// <summary>
-        /// The status
+        /// The status.
         /// </summary>
         private int status;
 
         /// <summary>
-        /// The header
+        /// The header.
         /// </summary>
         private Dictionary<string, string> header = null;
 
         /// <summary>
-        /// The content, a stream
+        /// The content, a stream.
         /// </summary>
         private Stream content;
 
@@ -48,7 +49,7 @@ namespace Splunk
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ResponseMessage"/> 
-        /// class
+        /// class.
         /// </summary>
         public ResponseMessage() 
         { 
@@ -56,8 +57,7 @@ namespace Splunk
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ResponseMessage"/> 
-        /// class.
-        /// with an initial status.
+        /// class with an initial status.
         /// </summary>
         /// <param name="status">The status</param>
         public ResponseMessage(int status) 
@@ -67,8 +67,7 @@ namespace Splunk
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ResponseMessage"/> 
-        /// class.
-        /// with an initial status and stream.
+        /// class with an initial status and stream.
         /// </summary>
         /// <param name="status">The status</param>
         /// <param name="content">The content stream</param>
@@ -103,7 +102,7 @@ namespace Splunk
         /// <summary>
         /// Gets the body content stream.
         /// </summary>
-        /// <returns>The stream</returns>
+        /// <returns>The stream.</returns>
         public Stream Content 
         {
             get 
@@ -115,7 +114,7 @@ namespace Splunk
         /// <summary>
         /// Gets the dictionary of the response headers.
         /// </summary>
-        /// <returns>The response headers</returns>
+        /// <returns>The response headers.</returns>
         public Dictionary<string, string> Header
         {
             get 
@@ -131,7 +130,7 @@ namespace Splunk
         /// <summary>
         /// Gets the response HTTP status code.
         /// </summary>
-        /// <returns>The status</returns>
+        /// <returns>The status.</returns>
         public int Status 
         {
             get 

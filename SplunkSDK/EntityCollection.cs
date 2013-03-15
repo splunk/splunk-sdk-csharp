@@ -20,18 +20,20 @@ namespace Splunk
     using System.Collections.Generic;
 
     /// <summary>
-    /// Represents the Entity Collection class. 
+    /// The <see cref="EntityCollection"/> class represents a collection of
+    /// <see cref="Entity"/>s.
     /// </summary>
-    /// <typeparam name="T">The Generic parameter that matches The Entity class,
-    /// or any class derived from Entity.</typeparam>
+    /// <typeparam name="T">The Generic parameter that matches the
+    /// <see cref="Entity"/> class, or any class derived from 
+    /// <see cref="Entity"/>.</typeparam>
     public class EntityCollection<T> : ResourceCollection<T> where T : Entity
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="EntityCollection"/> 
         /// class.
         /// </summary>
-        /// <param name="service">The service</param>
-        /// <param name="path">The endpoint for this collection</param>
+        /// <param name="service">The service.</param>
+        /// <param name="path">The endpoint for this collection.</param>
         public EntityCollection(Service service, string path) 
             : base(service, path, typeof(Entity)) 
         {
@@ -41,9 +43,9 @@ namespace Splunk
         /// Initializes a new instance of the <see cref="EntityCollection"/> 
         /// class.
         /// </summary>
-        /// <param name="service">The service</param>
-        /// <param name="path">The endpoint for this collection</param>
-        /// <param name="args">The variable argument list</param>
+        /// <param name="service">The service.</param>
+        /// <param name="path">The endpoint for this collection.</param>
+        /// <param name="args">The variable argument list.</param>
         public EntityCollection(Service service, string path, Args args) 
             : base(service, path, args, typeof(Entity)) 
         {
@@ -53,9 +55,9 @@ namespace Splunk
         /// Initializes a new instance of the <see cref="EntityCollection"/> 
         /// class.
         /// </summary>
-        /// <param name="service">The service</param>
-        /// <param name="path">The endpoint for this collection</param>
-        /// <param name="itemClass">The type of this Entity</param>
+        /// <param name="service">The service.</param>
+        /// <param name="path">The endpoint for this collection.</param>
+        /// <param name="itemClass">The type of this Entity.</param>
         public EntityCollection(Service service, string path, Type itemClass) 
             : base(service, path, itemClass) 
         {
@@ -65,10 +67,10 @@ namespace Splunk
         /// Initializes a new instance of the <see cref="EntityCollection"/> 
         /// class.
         /// </summary>
-        /// <param name="service">The service</param>
-        /// <param name="path">The endpoint for this collection</param>
-        /// <param name="args">The variable argument list</param>
-        /// <param name="itemClass">The type of this Entity</param>
+        /// <param name="service">The service.</param>
+        /// <param name="path">The endpoint for this collection.</param>
+        /// <param name="args">The variable argument list.</param>
+        /// <param name="itemClass">The type of this Entity.</param>
         public EntityCollection(
                 Service service, string path, Args args, Type itemClass) 
             : base(service, path, args, itemClass) 
@@ -76,21 +78,21 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Creates an Entity in this collection.
+        /// Creates an <see cref="Entity"/> in this collection.
         /// </summary>
-        /// <param name="name">The name of this Entity</param>
-        /// <returns>The Entity</returns>
+        /// <param name="name">The name of this Entity.</param>
+        /// <returns>The Entity.</returns>
         public virtual T Create(string name) 
         {
             return this.Create(name, (Args)null);
         }
 
         /// <summary>
-        /// Creates an Entity in this collection.
+        /// Creates an <see cref="Entity"/> in this collection.
         /// </summary>
-        /// <param name="name">The name of this Entity</param>
-        /// <param name="args">The variable argument list</param>
-        /// <returns>The Entity</returns>
+        /// <param name="name">The name of this <see cref="Entity"/>.</param>
+        /// <param name="args">The variable argument list.</param>
+        /// <returns>The Entity.</returns>
         public virtual T Create(string name, Args args) 
         {
             args = Args.Create(args);
@@ -101,14 +103,15 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Removes an entity from this collection. Note that this method can 
-        /// throw the SplunkException "AMBIGUOUS" if the collection contains 
-        /// more than one entity with the specified key. Disambiguation is done 
-        /// through the similar method Remove(object key, Dictionary namespace)
-        /// which uses the namespace to perform the disambiguation.
+        /// Removes an <see cref="Entity"/> from this collection. Note that this
+        /// method can throw the SplunkException "AMBIGUOUS" if the collection
+        /// contains more than one entity with the specified key.
+        /// Disambiguation is done through the similar method Remove(object
+        /// key, Dictionary namespace), which uses the namespace to perform
+        /// the disambiguation.
         /// </summary>
-        /// <param name="key">The name of this Entity</param>
-        /// <returns>The removed Entity</returns>
+        /// <param name="key">The name of this <see cref="Entity"/>.</param>
+        /// <returns>The removed <see cref="Entity"/>.</returns>
         public virtual T Remove(string key) 
         {
             this.Validate();
@@ -137,9 +140,9 @@ namespace Splunk
         /// Removes an entity from this collection, with a namespace 
         /// restriction.
         /// </summary>
-        /// <param name="key">The name of this Entity</param>
-        /// <param name="splunkNamespace">The namespace</param>
-        /// <returns>The removed Entity</returns>
+        /// <param name="key">The name of this <see cref="Entity"/>.</param>
+        /// <param name="splunkNamespace">The namespace.</param>
+        /// <returns>The removed <see cref="Entity"/>.</returns>
         public virtual T Remove(string key, Args splunkNamespace) 
         {
             this.Validate();

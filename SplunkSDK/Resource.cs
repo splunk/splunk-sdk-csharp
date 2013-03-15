@@ -19,12 +19,13 @@ namespace Splunk
     using System.Collections.Generic;
 
     /// <summary>
-    /// Represents the base of all splunk entity and entity collection classes.
+    /// The <see cref="Resource"/> class represents the base of all Splunk
+    /// entity and entity collection classes.
     /// </summary>
     public abstract class Resource
     {
         /// <summary>
-        /// The dictionary of actions allowed on this resource
+        /// The dictionary of actions allowed on this resource.
         /// </summary>
         private Dictionary<string, string> actions;
         
@@ -36,7 +37,7 @@ namespace Splunk
         /// <summary>
         /// Initializes a new instance of the <see cref="Resource"/> class.
         /// </summary>
-        /// <param name="service">The service</param>
+        /// <param name="service">The service.</param>
         /// <param name="path">The path of the resource.</param>
         public Resource(Service service, string path) 
         {
@@ -52,9 +53,9 @@ namespace Splunk
         /// adding optional arguments for namespace and other endpoint 
         /// arguments.
         /// </summary>
-        /// <param name="service">The service</param>
-        /// <param name="path">The path of this resource</param>
-        /// <param name="args">The variable arguments</param>
+        /// <param name="service">The service.</param>
+        /// <param name="path">The path of this resource.</param>
+        /// <param name="args">The variable arguments.</param>
         public Resource(Service service, string path, Args args) 
         {
             this.Service = service;
@@ -91,7 +92,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets full path of this resource.
+        /// Gets or sets the full path of this resource.
         /// </summary>
         public string Path 
         {
@@ -127,8 +128,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this resource is clean or 
-        /// dirty. When dirty, we refresh the resource before returning 
+        /// Gets or sets a value that indicates whether this resource is clean
+        /// or dirty. When dirty, we refresh the resource before returning 
         /// any data contained therein.
         /// </summary>
         public bool MaybeValid 
@@ -140,7 +141,7 @@ namespace Splunk
         /// <summary>
         /// Gets an up-to-date list of actions available for this resource.
         /// </summary>
-        /// <returns>Available actions on this endpoint</returns>
+        /// <returns>Available actions on this endpoint.</returns>
         public Dictionary<string, string> Actions() 
         {
             return this.Validate().actions;
@@ -178,7 +179,7 @@ namespace Splunk
         /// <summary>
         /// Marks the local state of this resource as no longer current.
         /// </summary>
-        /// <returns>The resource</returns>
+        /// <returns>The resource.</returns>
         public Resource Invalidate() 
         {
             this.MaybeValid = false;
@@ -188,8 +189,8 @@ namespace Splunk
         /// <summary>
         /// Loads the state of this resource from a given Atom object.
         /// </summary>
-        /// <param name="value">The AtomObject to load</param>
-        /// <returns>The Resource</returns>
+        /// <param name="value">The AtomObject to load.</param>
+        /// <returns>The <see cref="Resource"/>.</returns>
         public Resource Load(AtomObject value) 
         {
             if (value == null) 
@@ -208,14 +209,14 @@ namespace Splunk
         /// <summary>
         /// Refreshes the local state of this resource.
         /// </summary>
-        /// <returns>The Resource</returns>
+        /// <returns>The <see cref="Resource"/>.</returns>
         public abstract Resource Refresh();
 
         /// <summary>
         /// Ensures that the local state of the resource is current,
-        /// calling object specific Refresh method if necessary.
+        /// calling object-specific <see cref="Refresh"/> method if necessary.
         /// </summary>
-        /// <returns>The Resource</returns>
+        /// <returns>The <see cref="Resource"/>.</returns>
         public virtual Resource Validate() 
         {
             if (!this.MaybeValid) 

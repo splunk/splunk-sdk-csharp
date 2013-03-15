@@ -17,7 +17,8 @@
 namespace Splunk
 {
     /// <summary>
-    /// The base class upon which all specific inputs are derived from.
+    /// The <see cref="Input"/> class is the base class upon which all specific
+    /// inputs are derived from.
     /// </summary>
     public class Input : Entity
     {

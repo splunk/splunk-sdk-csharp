@@ -24,17 +24,17 @@ namespace Splunk
     using System.Xml;
 
     /// <summary>
-     /// Represents a streaming XML reader for
-     /// Splunk search results. When passed a stream from an export endpoint,
-     /// it skips any preview events in the stream. The preview events can be
-     /// accessed using MultiResultsReaderXml.
+    /// The <see cref="ResultsReaderXml" /> class represents a streaming XML 
+    /// reader for Splunk search results. When passed a stream from an export 
+    /// endpoint, it skips any preview events in the stream. The preview events 
+    /// can be accessed using <see cref="MultiResultsReaderXml"/>.
     /// </summary>
     public class ResultsReaderXml : ResultsReader
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ResultsReaderXml" /> 
-        /// class for the event stream. You should only
-        /// attempt to parse an XML stream with the XML reader. 
+        /// Initializes a new instance of the <see cref="ResultsReaderXml"/> 
+        /// class for the event stream. You should only attempt to parse an XML
+        /// stream with the XML reader. 
         /// </summary>
         /// <param name="stream">The stream to parse.</param>
         public ResultsReaderXml(Stream stream) :
@@ -43,11 +43,13 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ResultsReaderXml"/> class.
+        /// Initializes a new instance of the <see cref="ResultsReaderXml"/>
+        /// class.
         /// </summary>
         /// <param name="stream">The XML stream to parse.</param>
         /// <param name="isInMultiReader">
-        /// Whether or not is the underlying reader of a multi reader.
+        /// Whether or not the reader is the underlying reader of a multi
+        /// reader.
         /// </param>
         internal ResultsReaderXml(Stream stream, bool isInMultiReader) :
             base(stream, isInMultiReader)
@@ -63,7 +65,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets and sets the underlying reader of the XML stream
+        /// Gets and sets the underlying reader of the XML stream.
         /// </summary>
         internal XmlReader XmlReader
         {
@@ -72,18 +74,18 @@ namespace Splunk
         }
         
         /// <summary>
-        /// Advance to the next set, skipping remaining event(s) 
-        /// if any in the current set, read meta data before the 
-        /// first event in the next result set.
+        /// Advances to the next set, skipping any remaining event(s) 
+        /// in the current set. Reads metadata before the first event in the
+        /// next result set.
         /// </summary>
-        /// <returns>Return false if the end is reached.</returns>     
+        /// <returns>Returns false if the end is reached.</returns>     
         internal override bool AdvanceStreamToNextSet()
         {
             return this.ReadIntoNextResultsElement();
         }
 
         /// <summary>
-        /// Release unmanaged resources.
+        /// Releases unmanaged resources.
         /// </summary>
         public override void Dispose()
         {
@@ -91,11 +93,11 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Read to next 'results' element, parse out 
+        /// Reads to next 'results' element, parses out 
         /// <see cref="IsPreview"/> and <see cref="Fields"/>,
-        /// and update <see cref="HasResults"/> flag.
+        /// and updates <see cref="HasResults"/> flag.
         /// </summary>
-        /// <returns>Return false if the end is reached.</returns>     
+        /// <returns>Returns false if the end is reached.</returns>     
         private bool ReadIntoNextResultsElement()
         {
             // Below is an example of an input stream, with a single 'results'
@@ -142,8 +144,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Read 'meta' element to populate Fields property, 
-        /// and move to its end tag.
+        /// Reads the 'meta' element to populate the <see cref="Fields"/>
+        /// property, and moves to its end tag.
         /// </summary>
         private void ReadMetaElement()
         {
@@ -166,13 +168,13 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Read each descendant found, and position the reader on the end
+        /// Reads each descendant found, and positions the reader on the end
         /// tag of the current node.
         /// </summary>
-        /// <param name="name">Name of the descendant</param>
+        /// <param name="name">Name of the descendant.</param>
         /// <param name="readAction">
         /// The action that reads each descendant found, and 
-        /// position the reader at the decendant's element depth
+        /// positions the reader at the decendant's element depth
         /// (i.e. end tag or start tag).
         /// </param>
         private void ReadEachDescendant(string name, Action readAction)
@@ -191,15 +193,16 @@ namespace Splunk
         /// <summary>
         /// Returns an enumerator over a set of the events 
         /// in the event stream, and get ready for the next set.
+        /// </summary>
         /// <remarks>
         /// <para>
         /// When using 'search/jobs/export endpoint', search results
-        /// will be streamed back as they become available. It is possble
-        /// for one or more previews to be received, before the final one.
+        /// will be streamed back as they become available. It is possible
+        /// for one or more previews to be received before the final one.
         /// The enumerator returned will be over a single preview or 
         /// the final results. Each time this method is called, 
-        /// the next preview or the final results will be enumerated if it is 
-        /// available, otherwise, and an exception will be thrown.
+        /// the next preview or the final results are enumerated if they are
+        /// available; otherwise, an exception is thrown.
         /// </para>
         /// <para>
         /// After all events in the set is enumerated, the metadata of the 
@@ -207,8 +210,7 @@ namespace Splunk
         /// and <see cref="Fields"/> being set accordingly.
         /// </para>
         /// </remarks>
-        /// </summary>
-        /// <returns>A enumerator</returns>
+        /// <returns>A enumerator.</returns>
         internal override IEnumerable<Event> GetEventsFromCurrentSet()
         {
             while (true)
@@ -272,10 +274,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Extract and concatenate texts excluding any markups.
+        /// Extract and concatenate text excluding any markup.
         /// </summary>
-        /// <param name="xml">The xml fragment with markups</param>
-        /// <returns>Extracted and concatenated texts</returns>
+        /// <param name="xml">The XML fragment with markup.</param>
+        /// <returns>Extracted and concatenated text.</returns>
         private static string ReadTextContentFromXml(string xml)
         {
             var ret = new StringBuilder();

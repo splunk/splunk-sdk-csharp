@@ -22,8 +22,8 @@ namespace Splunk
     using System.Text;
 
     /// <summary>
-    /// The Settings class represents configuration information for an
-    /// instance of Splunk.
+    /// The <see cref="Settings"/> class represents configuration information 
+    /// for an instance of Splunk.
     /// </summary>
     public class Settings : Entity
     {
@@ -65,8 +65,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether SSL is enabled on the Splunk
-        /// management port.
+        /// Gets or sets a value that indicates whether SSL is enabled on the
+        /// Splunk management port.
         /// </summary>
         public bool EnableSplunkWebSSL
         {
@@ -99,11 +99,13 @@ namespace Splunk
 
         /// <summary>
         /// Gets or sets the port on which Splunk Web is listening for this 
-        /// instance of Splunk. The port number defaults to 8000. Note
-        /// The port must be present for Splunk Web to start. If this 
-        /// value is omitted or set to 0, the server will not start an 
-        /// HTTP listener.
+        /// instance of Splunk. The port number defaults to 8000. 
         /// </summary>
+        /// <remarks>
+        /// Be aware that the port must be present for Splunk Web to start. If 
+        /// this value is omitted or set to 0, the server will not start an 
+        /// HTTP listener.
+        /// </remarks>
         public int HttpPort
         {
             get
@@ -204,8 +206,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the instance is configured 
-        /// to start Splunk Web.
+        /// Gets or sets a value that indicates whether the instance is 
+        /// configured to start Splunk Web.
         /// </summary>
         public bool StartWebServer
         {
@@ -242,7 +244,7 @@ namespace Splunk
         /// arguments take precedent over the values that were set using the 
         /// setter methods. The post message is sent to a non-normal endpoint.
         /// </summary>
-        /// <param name="args">The key/value pairs to update</param>
+        /// <param name="args">The key/value pairs to update.</param>
         public override void Update(Dictionary<string, object> args)
         {
             // Merge cached setters and live args together before updating; live

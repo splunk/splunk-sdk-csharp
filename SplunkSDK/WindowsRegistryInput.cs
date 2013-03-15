@@ -19,7 +19,8 @@ namespace Splunk
     using System.Collections.Generic;
 
     /// <summary>
-    /// Represents the Input subclass Windows Registry Input.
+    /// The <see cref="WindowsRegistryInput"/> class represents the 
+    /// <see cref="Input"/> subclass Windows Registry Input.
     /// </summary>
     public class WindowsRegistryInput : Input
     {
@@ -27,16 +28,16 @@ namespace Splunk
         /// Initializes a new instance of the <see cref="WindowsRegistryInput"/>
         /// class.
         /// </summary>
-        /// <param name="service">The connected service</param>
-        /// <param name="path">The path</param>
+        /// <param name="service">The connected service.</param>
+        /// <param name="path">The path.</param>
         public WindowsRegistryInput(Service service, string path)
             : base(service, path)
         {
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this Windows Registry input 
-        /// has an established baseline.
+        /// Gets or sets a value that indicates whether this Windows Registry 
+        /// input has an established baseline.
         /// </summary>
         public bool Baseline
         {
@@ -52,7 +53,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value indicating whether this input is disabled.
+        /// Sets a value that indicates whether this input is disabled.
         /// </summary>
         public bool Disabled
         {
@@ -96,7 +97,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the Input type of this object,  Windows Registry input.
+        /// Gets the <see cref="Input"/> type of this object, Windows Registry
+        /// input.
         /// </summary>
         public InputKind Kind
         {
@@ -107,8 +109,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this Windows Registry input 
-        /// monitors all sub-nodes under a given hive.
+        /// Gets or sets a value that indicates whether this Windows Registry 
+        /// input monitors all sub-nodes under a given hive.
         /// </summary>
         public bool MonitorSubnodes
         {
@@ -163,9 +165,9 @@ namespace Splunk
 
             set
             {
-                // Take string array and build into a single string separating 
-                // the terms with a | symbol (expected by the endpoint) for 
-                // updating.
+                // Take string array and build into a single string, separating 
+                // the terms with a pipe ("|") symbol (expected by the endpoint) 
+                // for updating.
                 string composite = string.Empty;
                 for (int i = 0; i < value.Length; i++)
                 {
@@ -185,7 +187,7 @@ namespace Splunk
         /// specified arguments take precedent over the values that were set 
         /// using the setter methods.
         /// </summary>
-        /// <param name="args">The key/value pairs to update</param>
+        /// <param name="args">The key/value pairs to update.</param>
         public override void Update(Dictionary<string, object> args)
         {
             // Add required arguments if not already present
@@ -223,7 +225,7 @@ namespace Splunk
         public override void Update()
         {
             // If not present in the update keys, add required attributes as 
-            // long as one pre-existing update pair exists
+            // long as one pre-existing update pair exists.
             if (toUpdate.Count > 0 && !toUpdate.ContainsKey("baseline"))
             {
                 this.SetCacheValue("baseline", this.Baseline);

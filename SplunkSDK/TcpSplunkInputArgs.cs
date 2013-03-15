@@ -17,12 +17,13 @@
 namespace Splunk
 {
     /// <summary>
-    /// Extends Args for cooked TcpInput creation setters
+    /// The <see cref="TcpSplunkInputArgs"/> class extends <see cref="Args"/> 
+    /// for cooked TcpInput creation setters.
     /// </summary>
     public class TcpSplunkInputArgs : Args
     {
         /// <summary>
-        /// Sets a value indicating whether SSL is used.
+        /// Sets a value that indicates whether SSL is used.
         /// </summary>
         public bool Ssl
         {
@@ -34,12 +35,15 @@ namespace Splunk
 
         /// <summary>
         /// Sets the host of the remote server that sends data. Valid 
-        /// values are ip, dns or none. The default is ip.
-        /// ip sets the host to the IP address of the remote server sending 
-        /// data. dns sets the host to the reverse DNS entry for the IP address 
-        /// of the remote server sending data. none leaves the host as specified
-        /// in inputs.conf, which is typically the Splunk system hostname.
+        /// values are "ip", "dns", or "none". The default value is "ip".
         /// </summary>
+        /// <remarks>
+        /// A value of "ip" sets the host to the IP address of the remote 
+        /// server sending data. <br/>A value of "dns" sets the host to the 
+        /// reverse DNS entry for the IP address of the remote server sending 
+        /// data. <br/>A value of "none" leaves the host as specified in 
+        /// inputs.conf, which is typically the Splunk system hostname.
+        /// </remarks>
         public string ConnectionHost
         {
             set
@@ -49,7 +53,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value indicating whether this input is disabled.
+        /// Sets a value that indicates whether this input is disabled.
         /// </summary>
         public bool Disabled
         {

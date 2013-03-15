@@ -20,7 +20,7 @@ namespace Splunk
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// Represents a splunk exception
+    /// The <see cref="SplunkException"/> class represents a Splunk exception.
     /// </summary>
     public class SplunkException : Exception, ISerializable
     {

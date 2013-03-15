@@ -19,22 +19,22 @@ namespace Splunk
     using System.Collections.Generic;
 
     /// <summary>
-    /// This represents the EventType class
+    /// The <see cref="EventType"/> class represents an event type.
     /// </summary>
     public class EventType : Entity
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="EventType"/> class.
         /// </summary>
-        /// <param name="service">The connected service</param>
-        /// <param name="path">The path</param>
+        /// <param name="service">The connected service.</param>
+        /// <param name="path">The path.</param>
         public EventType(Service service, string path)
             : base(service, path)
         {
         }
 
         /// <summary>
-        /// Gets or sets the description of this event type
+        /// Gets or sets the description of this event type.
         /// </summary>
         public string Description
         {
@@ -83,8 +83,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value indicating whether the event type is disabled.
-        /// Note that changing the setting does not take effect until splunk is
+        /// Sets a value that indicates whether the event type is disabled.
+        /// Note that changing the setting does not take effect until Splunk is
         /// restarted.
         /// </summary>
         public bool Disabled
@@ -101,7 +101,7 @@ namespace Splunk
         /// specified arguments take precedent over the values that were set 
         /// using the setter methods.
         /// </summary>
-        /// <param name="args">The arguments</param>
+        /// <param name="args">The arguments.</param>
         public override void Update(Dictionary<string, object> args)
         {
             // Add required arguments if not already present

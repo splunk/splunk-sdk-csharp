@@ -17,7 +17,8 @@
 namespace Splunk
 {
     /// <summary>
-    /// Extends Args for WindowsPerfmonInput creation setters
+    /// The <see cref="WindowsPerfmonInputArgs"/> class extends 
+    /// <see cref="Args"/> for WindowsPerfmonInput creation setters.
     /// </summary>
     public class WindowsPerfmonInputArgs : Args
     {
@@ -34,7 +35,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value indicating whether a specific stanza is monitored. 
+        /// Sets a value that indicates whether a specific stanza is monitored. 
         /// </summary>
         public bool Disabled
         {
@@ -56,7 +57,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the counter instances to monitor. Note: a "*" is equivalent
+        /// Sets the counter instances to monitor. A "*" is equivalent
         /// to all instances.
         /// </summary>
         public string[] Instances

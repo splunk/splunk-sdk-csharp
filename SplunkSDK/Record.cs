@@ -22,27 +22,28 @@ namespace Splunk
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// Represents the basic data representation, extending the basic 
-    /// Dictionary with some basic get methods.
+    /// The <see class="Record"/> class represents the basic data
+    /// representation, extending the basic Dictionary with some basic get
+    /// methods.
     /// </summary>
     public class Record : Dictionary<string, object>, ISerializable
     {
         /// <summary>
-        /// Returns the boolean value associated with the given key.
+        /// Returns the Boolean value associated with the given key.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <returns>The value</returns>
+        /// <param name="key">The key.</param>
+        /// <returns>The value.</returns>
         public bool GetBoolean(string key)
         {
             return Value.ToBoolean(this.GetString(key));
         }
 
         /// <summary>
-        /// Returns the boolean value associated with the given key, adding
+        /// Returns the Boolean value associated with the given key, adding
         /// a default value if the key is not present in the dictionary.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <param name="defaultValue">The default value</param>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The default value.</param>
         /// <returns>The value</returns>
         public bool GetBoolean(string key, bool defaultValue)
         {
@@ -56,8 +57,8 @@ namespace Splunk
         /// <summary>
         /// Returns the long byte count value associated with the given key.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <returns>The value</returns>
+        /// <param name="key">The key.</param>
+        /// <returns>The value.</returns>
         public long GetByteCount(string key)
         {
             return Value.ToByteCount(this.GetString(key));
@@ -67,8 +68,8 @@ namespace Splunk
         /// Returns the long byte count value associated with the given key, 
         /// adding a default value if the key is not present in the dictionary.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <param name="defaultValue">The default value</param>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The default value.</param>
         /// <returns>The value</returns>
         public long GetByteCount(string key, long defaultValue)
         {
@@ -82,8 +83,8 @@ namespace Splunk
         /// <summary>
         /// Returns the DateTime value associated with the given key.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <returns>The DateTime structure</returns>
+        /// <param name="key">The key.</param>
+        /// <returns>The DateTime structure.</returns>
         public DateTime GetDate(string key)
         {
             return Value.ToDate(this.GetString(key));
@@ -93,8 +94,8 @@ namespace Splunk
         /// Returns the DateTime value associated with the given key. adding
         /// a default value if the key is not present in the dictionary.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <param name="defaultValue">The default value</param>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The default value.</param>
         /// <returns>The value</returns>
         public DateTime GetDate(string key, DateTime defaultValue)
         {
@@ -109,8 +110,8 @@ namespace Splunk
         /// <summary>
         /// Returns the double value associated with the given key.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <returns>The value</returns>
+        /// <param name="key">The key.</param>
+        /// <returns>The value.</returns>
         public double GetFloat(string key)
         {
             return Value.ToFloat(this.GetString(key));
@@ -119,9 +120,9 @@ namespace Splunk
         /// <summary>
         /// Returns the double value associated with the given key.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <param name="defaultValue">The default value</param>
-        /// <returns>The value</returns>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <returns>The value.</returns>
         public double GetFloat(string key, double defaultValue)
         {
             if (!this.ContainsKey(key))
@@ -135,8 +136,8 @@ namespace Splunk
         /// <summary>
         /// Returns the int value associated with the given key.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <returns>The value</returns>
+        /// <param name="key">The key.</param>
+        /// <returns>The value.</returns>
         public int GetInteger(string key)
         {
             return Value.ToInteger(this.GetString(key));
@@ -146,9 +147,9 @@ namespace Splunk
         /// Returns the int value associated with the given key, adding
         /// a default value if the key is not present in the dictionary.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <param name="defaultValue">The default value</param>
-        /// <returns>The value</returns>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <returns>The value.</returns>
         public int GetInteger(string key, int defaultValue)
         {
             if (!this.ContainsKey(key))
@@ -161,20 +162,20 @@ namespace Splunk
         /// <summary>
         /// Returns the long value associated with the given key.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <returns>The value</returns>
+        /// <param name="key">The key.</param>
+        /// <returns>The value.</returns>
         public long GetLong(string key)
         {
             return Value.ToLong(this.GetString(key));
         }
 
         /// <summary>
-        /// Returns the int value associated with the given key, adding
+        /// Returns the integer value associated with the given key, adding
         /// a default value if the key is not present in the dictionary.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <param name="defaultValue">The default value</param>
-        /// <returns>The value</returns>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <returns>The value.</returns>
         public long GetLong(string key, int defaultValue)
         {
             if (!this.ContainsKey(key))
@@ -187,8 +188,8 @@ namespace Splunk
         /// <summary>
         /// Returns the string value associated with the given key.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <returns>The value</returns>
+        /// <param name="key">The key.</param>
+        /// <returns>The value.</returns>
         public string GetString(string key)
         {
             object returnValue = null;
@@ -200,9 +201,9 @@ namespace Splunk
         /// Returns the string value associated with the given key, adding
         /// a default value if the key is not present in the dictionary.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <param name="defaultValue">The default</param>
-        /// <returns>The value</returns>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The default.</param>
+        /// <returns>The value.</returns>
         public string GetString(string key, string defaultValue)
         {
             if (!this.ContainsKey(key))
@@ -217,8 +218,8 @@ namespace Splunk
         /// <summary>
         /// Returns the string[] value associated with the given key.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <returns>The value</returns>
+        /// <param name="key">The key.</param>
+        /// <returns>The value.</returns>
         public string[] GetStringArray(string key)
         {
             if (!this.ContainsKey(key))
@@ -235,9 +236,9 @@ namespace Splunk
         /// Returns the string[] value associated with the given key, adding
         /// a default value if the key is not present in the dictionary.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <param name="defaultValue">The default value</param>
-        /// <returns>The value</returns>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <returns>The value.</returns>
         public string[] GetStringArray(string key, string[] defaultValue)
         {
             if (!this.ContainsKey(key))
@@ -250,8 +251,8 @@ namespace Splunk
         /// <summary>
         /// Returns the value associated with the given key.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <returns>The value</returns>
+        /// <param name="key">The key.</param>
+        /// <returns>The value.</returns>
         public object GetValue(string key)
         {
             return this[key];
@@ -259,11 +260,11 @@ namespace Splunk
 
         /// <summary>
         /// Returns the value associated with the given key, or the defaultValue
-        /// if the key does not exist
+        /// if the key does not exist.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <param name="defaultValue">The default value</param>
-        /// <returns>The value</returns>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <returns>The value.</returns>
         public object GetValue(string key, object defaultValue)
         {
             if (!this.ContainsKey(key))

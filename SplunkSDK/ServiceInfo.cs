@@ -17,7 +17,7 @@
 namespace Splunk
 {
     /// <summary>
-    /// The Service Info class. This class contains the basic service
+    /// The <see cref="ServiceInfo"/> class contains the basic service
     /// information.
     /// </summary>
     public class ServiceInfo : Entity
@@ -185,7 +185,7 @@ namespace Splunk
         }
 
         /// <summary>
-        ///  Gets a value indicating whether this Splunk instance is running 
+        ///  Gets a value that indicates whether this Splunk instance is running 
         ///  under a free license.
         /// </summary>
         public bool IsFree 
@@ -197,8 +197,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value indicating whether real-time search is enabled for the
-        /// service.
+        /// Gets a value that indicates whether real-time search is enabled 
+        /// for the service.
         /// </summary>
         public bool IsRtSearchEnabled 
         {
@@ -209,7 +209,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value indicating whether this Splunk instance is running 
+        /// Gets a value that indicates whether this Splunk instance is running 
         /// under a trial license.
         /// </summary>
         public bool IsTrial 

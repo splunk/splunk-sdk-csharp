@@ -17,7 +17,8 @@
 namespace Splunk
 {
     /// <summary>
-    /// Represents the Input subclass Tcp (cooked) Input
+    /// The <see cref="TcpSplunkInput"/> class represents the 
+    /// <see cref="Input"/> subclass Tcp (cooked) Input.
     /// </summary>
     public class TcpSplunkInput : Input
     {
@@ -49,7 +50,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value indicating whether this input is disabled.
+        /// Sets a value that indicates whether this input is disabled.
         /// </summary>
         public bool Disabled
         {
@@ -104,7 +105,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the Input type of this object, Tcp (cooked).
+        /// Gets the input type of this object, Tcp (cooked).
         /// </summary>
         public InputKind Kind
         {
@@ -197,7 +198,7 @@ namespace Splunk
         /// <summary>
         /// Returns an object that contains the inbound raw TCP connections.
         /// </summary>
-        /// <returns>The connections</returns>
+        /// <returns>The connections.</returns>
         public TcpConnections Connections()
         {
             return new TcpConnections(this.Service, this.Path + "/connections");

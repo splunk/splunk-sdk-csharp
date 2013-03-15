@@ -22,14 +22,14 @@ namespace Splunk
     using System.Text;
 
     /// <summary>
-    /// The Role class represents a Splunk role, which is a collection of
-    /// permissions and capabilities. The user's role determines what the user 
-    /// can see and interact with in Splunk.
+    /// The <see cref="Role"/> class represents a Splunk role, which is a 
+    /// collection of permissions and capabilities. The user's role determines 
+    /// what the user can see and interact with in Splunk.
     /// </summary>
     public class Role : Entity
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Role" /> class.
+        /// Initializes a new instance of the <see cref="Role"/> class.
         /// </summary>
         /// <param name="service">The service</param>
         /// <param name="path">The endpoint path</param>
@@ -115,7 +115,7 @@ namespace Splunk
         /// Gets a search string that restricts the scope of searches run by 
         /// this role. Only those events that also match this search string are
         /// shown to the user. If a user has multiple roles with different 
-        /// search filters, they are combined with an "OR"
+        /// search filters, they are combined with an "OR".
         /// </summary>
         public string ImportedSearchFilter
         {
@@ -179,7 +179,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the  maximum disk space that can be used for search 
+        /// Gets or sets the maximum disk space that can be used for search 
         /// jobs by a user with this role.
         /// </summary>
         public int SearchDiskQuota
@@ -199,7 +199,7 @@ namespace Splunk
         /// Gets or sets a search string that restricts the scope of searches 
         /// run by this role. Only those events that also match this search 
         /// string are shown to the user. If a user has multiple roles with 
-        /// different search filters, they are combined with an OR.
+        /// different search filters, they are combined with an "OR".
         /// </summary>
         public string SearchFilter
         {

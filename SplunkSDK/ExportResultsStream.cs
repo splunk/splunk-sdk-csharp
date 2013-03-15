@@ -20,7 +20,8 @@ namespace Splunk
     using System.IO;
 
     /// <summary>
-    /// Represents a stream constructed by Service.Export.
+    /// The <see cref="ExportResultsStream"/> class represents a stream
+    /// constructed by Service.Export.
     /// Everything is redirected to the original stream.
     /// </summary>
     [SuppressMessage(

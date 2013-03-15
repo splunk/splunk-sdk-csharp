@@ -22,7 +22,8 @@ namespace Splunk
     using System.Text;
 
     /// <summary>
-    /// The Upload class represents an active file uploading to Splunk.
+    /// The <see cref="Upload"/> class represents an active file uploading to 
+    /// Splunk.
     /// </summary>
     public class Upload : Entity
     {
@@ -48,7 +49,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the current offset
+        /// Gets the current offset.
         /// </summary>
         public int Offset
         {

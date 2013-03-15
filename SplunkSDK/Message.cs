@@ -17,7 +17,7 @@
 namespace Splunk
 {
     /// <summary>
-    /// The Message class represents a Splunk message
+    /// The <see cref="Message"/> class represents a Splunk message.
     /// </summary>
     public class Message : Entity
     {

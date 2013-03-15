@@ -26,17 +26,18 @@ namespace Splunk
     using System.Web;
 
     /// <summary>
-    /// A generic HTTP/S layer that facilitates HTTP/S access to Splunk 
+    /// The <see cref="HttpService" class represents a generic HTTP/S layer
+    /// that facilitates HTTP/S access to Splunk.
     /// </summary>
     public class HttpService
     {
         /// <summary>
-        /// Gets or sets the host name of the service
+        /// Gets or sets the host name of the service.
         /// </summary>
         private string host;
 
         /// <summary>
-        /// Gets or sets the port number of the service
+        /// Gets or sets the port number of the service.
         /// </summary>
         private int port;
 
@@ -46,22 +47,22 @@ namespace Splunk
         private string prefix;
 
         /// <summary>
-        /// Gets or sets the scheme used to access the service
+        /// Gets or sets the scheme used to access the service.
         /// </summary>
         private string scheme;
 
         /// <summary>
-        /// Constant for http scheme
+        /// Constant for http scheme.
         /// </summary>
         public const string SchemeHttp = "http";
 
         /// <summary>
-        /// Constant for https scheme
+        /// Constant for https scheme.
         /// </summary>
         public const string SchemeHttps = "https";
 
         /// <summary>
-        /// Constant for default scheme
+        /// Constant for default scheme.
         /// </summary>
         public const string DefaultScheme = SchemeHttps;
         
@@ -78,7 +79,7 @@ namespace Splunk
         /// Initializes a new instance of the <see cref="HttpService"/> class,
         /// adding the host.
         /// </summary>
-        /// <param name="host">The host name</param>
+        /// <param name="host">The host name.</param>
         public HttpService(string host) 
         {
             this.InitProperties();
@@ -90,8 +91,8 @@ namespace Splunk
         /// Initializes a new instance of the <see cref="HttpService"/> class,
         /// adding the host and the port. 
         /// </summary>
-        /// <param name="host">The hostname</param>
-        /// <param name="port">The port</param>
+        /// <param name="host">The hostname.</param>
+        /// <param name="port">The port.</param>
         public HttpService(string host, int port) 
         {
             this.InitProperties();
@@ -104,9 +105,9 @@ namespace Splunk
         /// Initializes a new instance of the <see cref="HttpService"/> class,
         /// adding the host, port and scheme.
         /// </summary>
-        /// <param name="host">The hostname</param>
-        /// <param name="port">The port</param>
-        /// <param name="scheme">The scheme, either http, or https</param>
+        /// <param name="host">The hostname.</param>
+        /// <param name="port">The port.</param>
+        /// <param name="scheme">The scheme, either http, or https.</param>
         public HttpService(string host, int port, string scheme) 
         {
             this.InitProperties();
@@ -126,9 +127,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the hostname of this service
+        /// Gets or sets the hostname of this service.
         /// </summary>
-        /// <returns>The hostname</returns>
+        /// <returns>The hostname.</returns>
         public string Host
         {
             get
@@ -143,9 +144,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the port of this service
+        /// Gets or sets the port of this service.
         /// </summary>
-        /// <returns>The port</returns>
+        /// <returns>The port.</returns>
         public int Port
         {
             get
@@ -161,9 +162,9 @@ namespace Splunk
 
         /// <summary>
         /// Gets or sets the URL prefix of this service, consisting of
-        /// scheme://host:port
+        /// scheme://host:port.
         /// </summary>
-        /// <returns>The URL prefix</returns>
+        /// <returns>The URL prefix.</returns>
         public string Prefix
         {
             get
@@ -185,7 +186,7 @@ namespace Splunk
         /// <summary>
         /// Gets or sets the scheme used by this service.
         /// </summary>
-        /// <returns>The scheme</returns>
+        /// <returns>The scheme.</returns>
         public string Scheme
         {
             get
@@ -211,10 +212,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Returns the count of arguments in the given dictionary
+        /// Returns the count of arguments in the given dictionary.
         /// </summary>
-        /// <param name="args">The dictionary</param>
-        /// <returns>The number of elements in the dictionary</returns>
+        /// <param name="args">The dictionary.</param>
+        /// <returns>The number of elements in the dictionary.</returns>
         private static int Count(Dictionary<string, object> args) 
         {
             if (args == null) 
@@ -227,8 +228,8 @@ namespace Splunk
         /// <summary>
         /// Issues an HTTP GET request against the service using a given path.
         /// </summary>
-        /// <param name="path">The path</param>
-        /// <returns>The responseMessage</returns>
+        /// <param name="path">The path.</param>
+        /// <returns>The responseMessage.</returns>
         public ResponseMessage Get(string path) 
         {
             return this.Send(path, new RequestMessage("GET"));
@@ -236,11 +237,11 @@ namespace Splunk
 
         /// <summary>
         /// Issues an HTTP GET request against the service using a given path
-        /// and arguments
+        /// and arguments.
         /// </summary>
-        /// <param name="path">The path</param>
-        /// <param name="args">The arguments</param>
-        /// <returns>The ResponseMessage</returns>
+        /// <param name="path">The path.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns>The ResponseMessage.</returns>
         public ResponseMessage Get(string path, Dictionary<string, object> args) 
         {
             if (Count(args) > 0) 
@@ -252,10 +253,11 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Constructs a fully qualified URL for this service using a given path.
+        /// Constructs a fully qualified URL for this service using a given
+        /// path.
         /// </summary>
-        /// <param name="path">The path</param>
-        /// <returns>The fully qualified URL</returns>
+        /// <param name="path">The path.</param>
+        /// <returns>The fully qualified URL.</returns>
         public Uri GetUrl(string path) 
         {
             // Taken from http://stackoverflow.com/questions/781205/getting-a-url-with-an-url-encoded-slash
@@ -286,8 +288,8 @@ namespace Splunk
         /// <summary>
         /// Issues a POST request against the service using a given path.
         /// </summary>
-        /// <param name="path">The path</param>
-        /// <returns>The <see cref="repsonseMessage"/></returns>
+        /// <param name="path">The path.</param>
+        /// <returns>The <see cref="responseMessage"/>.</returns>
         public ResponseMessage Post(string path) 
         {
             return this.Post(path, null);
@@ -297,9 +299,9 @@ namespace Splunk
         /// Issues a POST request against the service using a given path and 
         /// arguments.
         /// </summary>
-        /// <param name="path">The path</param>
-        /// <param name="args">The arguments</param>
-        /// <returns>The <see cref="repsonseMessage"/></returns>
+        /// <param name="path">The path.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns>The <see cref="responseMessage"/>.</returns>
         public ResponseMessage 
             Post(string path, Dictionary<string, object> args) 
         {
@@ -314,8 +316,8 @@ namespace Splunk
         /// <summary>
         /// Issues a DELETE request against the service using a given path.
         /// </summary>
-        /// <param name="path">The path</param>
-        /// <returns>The <see cref="repsonseMessage"/></returns>
+        /// <param name="path">The path.</param>
+        /// <returns>The <see cref="responseMessage"/>.</returns>
         public ResponseMessage Delete(string path) 
         {
             RequestMessage request = new RequestMessage("DELETE");
@@ -326,9 +328,9 @@ namespace Splunk
         /// Issues a DELETE request against the service using a given path and 
         /// arguments.
         /// </summary>
-        /// <param name="path">The path</param>
-        /// <param name="args">The arguments</param>
-        /// <returns>The <see cref="repsonseMessage"/></returns>
+        /// <param name="path">The path.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns>The <see cref="responseMessage"/>.</returns>
         public ResponseMessage 
             Delete(string path, Dictionary<string, object> args) 
         {
@@ -341,9 +343,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Open a TcpClient connected to the service
+        /// Open a TcpClient connected to the service.
         /// </summary>
-        /// <returns>The TcpClient object</returns>
+        /// <returns>The TcpClient object.</returns>
         public TcpClient Open() 
         {
             this.SetTrustPolicy();
@@ -356,9 +358,9 @@ namespace Splunk
         /// The main HTTP send method. Sends any of the supported HTTP/S 
         /// methods to the service.
         /// </summary>
-        /// <param name="path">The path</param>
-        /// <param name="request">The requestMessage</param>
-        /// <returns>The responseMessage</returns>
+        /// <param name="path">The path.</param>
+        /// <param name="request">The requestMessage.</param>
+        /// <returns>The responseMessage.</returns>
         public virtual ResponseMessage Send(string path, RequestMessage request) 
         {
             // Construct a full URL to the resource

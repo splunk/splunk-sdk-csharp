@@ -17,7 +17,8 @@
 namespace Splunk
 {
     /// <summary>
-    /// Represents the Input subclass Tcp (raw) Input
+    /// The <see cref="TcpInput"/> class represents the <see cref="Input"/> 
+    /// subclass Tcp (raw) Input.
     /// </summary>
     public class TcpInput : Input
     {
@@ -49,7 +50,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value indicating whether this input is disabled.
+        /// Sets a value that indicates whether this input is disabled.
         /// </summary>
         public bool Disabled
         {
@@ -104,7 +105,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the Input type of this object, Tcp (raw).
+        /// Gets the input type of this object, Tcp (raw).
         /// </summary>
         public InputKind Kind
         {
@@ -115,7 +116,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the  queue for this TCP input. Valid values are:
+        /// Gets or sets the queue for this TCP input. Valid values are
         /// "parsingQueue" and "indexQueue".
         /// </summary>
         public string Queue
@@ -177,7 +178,7 @@ namespace Splunk
         }
         
         /// <summary>
-        /// Gets or sets a value indicating whether this TCP input is using 
+        /// Gets or sets a value that indicates whether this TCP input is using 
         /// secure socket layer (SSL).
         /// </summary>
         /// <returns></returns>
@@ -195,10 +196,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the timeout value for adding a Done key. 
+        /// Sets the timeout value for adding a "Done" key. 
         /// If a connection over the input port specified by name remains 
         /// idle after receiving data for this specified number of seconds, it 
-        /// adds a Done key, implying that the last event has been completely 
+        /// adds a "Done" key, implying that the last event has been completely 
         /// received.
         /// </summary>
         public int RawTcpDoneTimeout
@@ -212,7 +213,7 @@ namespace Splunk
         /// <summary>
         /// Returns an object that contains the inbound raw TCP connections.
         /// </summary>
-        /// <returns>The connections</returns>
+        /// <returns>The connections.</returns>
         public TcpConnections Connections()
         {
             return new TcpConnections(this.Service, this.Path + "/connections");

@@ -27,8 +27,8 @@ namespace Splunk
     using System.Text;
 
     /// <summary>
-    /// The receiver class. This class exposes methods to send events to splunk
-    /// via the simple or streaming receiver endpoint.
+    /// The <see cref="Receiver"/> class exposes methods to send events to
+    /// Splunk via the simple or streaming receiver endpoint.
     /// </summary>
     public class Receiver
     {        
@@ -50,8 +50,8 @@ namespace Splunk
         /// Gets or sets the RemoteCertificateValidationCallback delegate 
         /// responsible for validating the certificate supplied by the Splunk 
         /// server if SSL (i.e. https) is used. 
-        /// If none is set (which is the default), 
-        /// no validation will be performed.
+        /// If none is set (which is the default), no validation will be
+        /// performed.
         /// </summary>
         public RemoteCertificateValidationCallback 
             SSLRemoteCertificateValidationCallback 
@@ -63,8 +63,7 @@ namespace Splunk
         /// Gets or sets the LocalCertificateSelectionCallback delegate 
         /// responsible for selecting the certificate used for authentication 
         /// with the Splunk server if SSL (i.e. https) is used. 
-        /// If none is set (which is the default), 
-        /// no local certificate is used.
+        /// If none is set (which is the default), no local certificate is used.
         /// </summary>
         public LocalCertificateSelectionCallback 
             SSLLocalCertificateValidationCallback 
@@ -82,7 +81,7 @@ namespace Splunk
         }
         
         /// <summary>
-        /// Creates a socket to the splunk server using the default index, and 
+        /// Creates a socket to the Splunk server using the default index, and 
         /// default port.
         /// </summary>
         /// <returns>The Stream</returns>
@@ -92,7 +91,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Creates a socket to the splunk server using the named index, and 
+        /// Creates a socket to the Splunk server using the named index, and 
         /// default port.
         /// </summary>
         /// <param name="indexName">The index to write to</param>
@@ -103,7 +102,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Creates a socket to the splunk server using the default index and 
+        /// Creates a socket to the Splunk server using the default index and 
         /// variable arguments.
         /// </summary>
         /// <param name="args">The variable arguments</param>
@@ -114,12 +113,12 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Creates a socket to the splunk server using the named index and 
+        /// Creates a socket to the Splunk server using the named index and 
         /// variable arguments.
         /// </summary>
-        /// <param name="indexName">The index name</param>
-        /// <param name="args">The variable arguments</param>
-        /// <returns>The Socket</returns>
+        /// <param name="indexName">The index name.</param>
+        /// <param name="args">The variable arguments.</param>
+        /// <returns>The Socket.</returns>
         public Stream Attach(string indexName, Args args) 
         {
             Stream stream;
@@ -168,7 +167,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Submits the data using HTTP post, to the default index
+        /// Submits the data using HTTP post, to the default index.
         /// </summary>
         /// <param name="data">The data</param>
         public void Submit(string data) 
@@ -177,10 +176,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Submits the data using HTTP post, to the named index
+        /// Submits the data using HTTP post, to the named index.
         /// </summary>
-        /// <param name="indexName">The index name</param>
-        /// <param name="data">The data</param>
+        /// <param name="indexName">The index name./param>
+        /// <param name="data">The data.</param>
         public void Submit(string indexName, string data) 
         {
             this.Submit(indexName, null, data);
@@ -190,8 +189,8 @@ namespace Splunk
         /// Submits the data using HTTP post, using variable arguments to the 
         /// default index.
         /// </summary>
-        /// <param name="args">The variable arguments</param>
-        /// <param name="data">The data</param>
+        /// <param name="args">The variable arguments.</param>
+        /// <param name="data">The data.</param>
         public void Submit(Args args, string data) 
         {
             this.Submit(null, args, data);
@@ -200,9 +199,9 @@ namespace Splunk
         /// <summary>
         /// Submits the data to the named index using variable arguments.
         /// </summary>
-        /// <param name="indexName">The named index</param>
-        /// <param name="args">The variable arguments</param>
-        /// <param name="data">The data</param>
+        /// <param name="indexName">The named index.</param>
+        /// <param name="args">The variable arguments.</param>
+        /// <param name="data">The data.</param>
         public void Submit(string indexName, Args args, string data) 
         {
             string sendString = string.Empty;
@@ -223,9 +222,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Alias for submit()
+        /// Alias for submit().
         /// </summary>
-        /// <param name="data">The data</param>
+        /// <param name="data">The data.</param>
         public void Log(string data) 
         {
             this.Submit(data);
@@ -242,7 +241,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Alias for submit()
+        /// Alias for submit().
         /// </summary>
         /// <param name="args">The arguments</param>
         /// <param name="data">The data</param>
@@ -252,7 +251,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Alias for submit()
+        /// Alias for submit().
         /// </summary>
         /// <param name="indexName">The index name</param>
         /// <param name="args">The arguments</param>
@@ -264,7 +263,7 @@ namespace Splunk
 
         /// <summary>
         /// Wrapper class of SslStream for closing TCP connection 
-        /// when closing the stream
+        /// when closing the stream.
         /// </summary>
         private class SSLStreamWrapper : SslStream
         {

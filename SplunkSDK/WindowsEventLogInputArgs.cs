@@ -17,7 +17,8 @@
 namespace Splunk
 {
     /// <summary>
-    /// Extends Args for WindowsEventLogInput creation setters
+    /// The <see cref="WindowsEventLogInputArgs"/> class extends 
+    /// <see cref="Args"/> for WindowsEventLogInput creation setters.
     /// </summary>
     public class WindowsEventLogInputArgs : Args
     {
@@ -48,7 +49,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the  index in which to store the gathered data.
+        /// Sets the index in which to store the gathered data.
         /// </summary>
         public string Index
         {

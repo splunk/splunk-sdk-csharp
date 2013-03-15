@@ -24,16 +24,16 @@ namespace Splunk
     using System.Xml;
 
     /// <summary>
-    /// The JobCollection class represents a collection of jobs. A job
-    /// is an individual instance of a running or completed search or report, 
-    /// along with its related output.
+    /// The <see cref="JobCollection"/> class represents a collection of jobs.
+    /// A job is an individual instance of a running or completed search or
+    /// report, along with its related output.
     /// </summary>
     public class JobCollection : EntityCollection<Job>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="JobCollection"/> class.
         /// </summary>
-        /// <param name="service">The service</param>
+        /// <param name="service">The service.</param>
         public JobCollection(Service service)
             : base(service, "search/jobs", typeof(Job)) 
         {
@@ -42,8 +42,8 @@ namespace Splunk
         /// <summary>
         /// Initializes a new instance of the <see cref="JobCollection"/> class.
         /// </summary>
-        /// <param name="service">The service</param>
-        /// <param name="args">The variable arguments</param>
+        /// <param name="service">The service.</param>
+        /// <param name="args">The variable arguments.</param>
         public JobCollection(Service service, Args args) 
             : base(service, "search/jobs", args, typeof(Job)) 
         {
@@ -54,8 +54,8 @@ namespace Splunk
         /// A 'oneshot' request is invalid. To create a oneshot search,
         /// use the Service.oneshot method instead.
         /// </summary>
-        /// <param name="query">The search query</param>
-        /// <returns>The Job</returns>
+        /// <param name="query">The search query.</param>
+        /// <returns>The Job.</returns>
         public new Job Create(string query) 
         {
             return this.Create(query, (Args)null);
@@ -66,9 +66,9 @@ namespace Splunk
         /// A 'oneshot' request is invalid. To create a oneshot search,
         /// use the Service.oneshot method instead. 
         /// </summary>
-        /// <param name="query">The search query</param>
+        /// <param name="query">The search query.</param>
         /// <param name="args">Additional arguments for this job.</param>
-        /// <returns>The Job</returns>
+        /// <returns>The Job.</returns>
         public new Job Create(string query, Args args) 
         {
             if (args != null && args.ContainsKey("exec_mode")) 
@@ -111,8 +111,8 @@ namespace Splunk
         /// Returns the job's unique search identifier (SID), which is used as 
         /// this item's key.
         /// </summary>
-        /// <param name="entry">The Atom Entry</param>
-        /// <returns>The SID</returns>
+        /// <param name="entry">The Atom Entry.</param>
+        /// <returns>The SID.</returns>
         protected override string ItemKey(AtomEntry entry) 
         {
             return (string)entry.Content["sid"];

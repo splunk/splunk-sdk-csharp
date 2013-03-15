@@ -17,8 +17,8 @@
 namespace Splunk
 {
     /// <summary>
-    /// The FiredAlertsGroupCollection represents a collection of alert groups
-    /// of fired alerts.
+    /// The <see cref="FiredAlertsGroupCollection"/> represents a collection
+    /// of alert groups of fired alerts.
     /// </summary>
     public class FiredAlertsGroupCollection : EntityCollection<FiredAlertGroup>
     {
@@ -26,7 +26,7 @@ namespace Splunk
         /// Initializes a new instance of the 
         /// <see cref="FiredAlertsGroupCollection"/> class.
         /// </summary>
-        /// <param name="service">The connected service</param>
+        /// <param name="service">The connected service.</param>
         public FiredAlertsGroupCollection(Service service) 
             : base(
                 service, 
@@ -39,8 +39,8 @@ namespace Splunk
         /// Initializes a new instance of the 
         /// <see cref="FiredAlertsGroupCollection"/> class.
         /// </summary>
-        /// <param name="service">The connected service</param>
-        /// <param name="args">The arguments</param>
+        /// <param name="service">The connected service.</param>
+        /// <param name="args">The arguments.</param>
         public FiredAlertsGroupCollection(Service service, Args args)
             : base(
                 service,

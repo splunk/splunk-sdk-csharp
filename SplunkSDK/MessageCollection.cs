@@ -22,7 +22,7 @@ namespace Splunk
     using System.Text;
 
     /// <summary>
-    /// The Message Collection class represents a collection of
+    /// The <see cref="MessageCollection"/> class represents a collection of
     /// Messages.
     /// </summary>
     public class MessageCollection : EntityCollection<Message>

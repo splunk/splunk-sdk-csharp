@@ -21,11 +21,12 @@ namespace Splunk
     using System.Collections.Generic;
 
     /// <summary>
-    /// Base class for multi result readers
+    /// The <see cref="MultiResultsReader{T}"/> class is the base class for
+    /// multi result readers.
     /// </summary>
     /// <typeparam name="T">
-    /// Matching type of a single reader which will be passed 
-    /// into the constructor.
+    /// Matching type of a single reader which will be passed into the
+    /// constructor.
     /// </typeparam>
     public class MultiResultsReader<T> : 
         IEnumerable<ISearchResults>, 
@@ -41,11 +42,12 @@ namespace Splunk
         private readonly T resultsReader;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MultiResultsReader{T}" /> class.
+        /// Initializes a new instance of the 
+        /// <see cref="MultiResultsReader{T}"/> class.
         /// This is a base contructor that should not be used directly.
         /// </summary>
         /// <param name="resultsReader">
-        /// The underlying single reader
+        /// The underlying single reader.
         /// </param>
         internal MultiResultsReader(T resultsReader) 
         {
@@ -55,7 +57,7 @@ namespace Splunk
         /// <summary>
         /// Returns an enumerator over the sets of results from this reader.
         /// </summary>
-        /// <returns>An enumerator of events</returns>
+        /// <returns>An enumerator of events.</returns>
         public IEnumerator<ISearchResults> GetEnumerator()
         {
             while (this.resultsReader.AdvanceStreamToNextSet())

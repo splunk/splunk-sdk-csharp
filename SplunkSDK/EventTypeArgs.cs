@@ -17,12 +17,13 @@
 namespace Splunk
 {
     /// <summary>
-    /// Extends Args for EventType creation setters
+    /// The <see cref="EventTypeArgs"/> class extends <see cref="Args"/> for
+    /// <see cref="EventType"/> creation setters.
     /// </summary>
     public class EventTypeArgs : Args
     {
         /// <summary>
-        /// Sets the description of this event type
+        /// Sets the description of this event type.
         /// </summary>
         public string Description
         {
@@ -33,7 +34,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value indicating whether the event type is disabled.
+        /// Sets a value that indicates whether the event type is disabled.
         /// Note that changing the setting does not take effect until splunk is
         /// restarted.
         /// </summary>

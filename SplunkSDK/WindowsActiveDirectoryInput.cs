@@ -19,7 +19,8 @@ namespace Splunk
     using System.Collections.Generic;
 
     /// <summary>
-    /// Represents the Input subclass Windows Active Directory Input.
+    /// The <see cref="WindowsActiveDirectoryInput"/> class represents the 
+    /// <see cref="Input"/> subclass Windows Active Directory Input.
     /// </summary>
     public class WindowsActiveDirectoryInput : Input
     {
@@ -27,15 +28,15 @@ namespace Splunk
         /// Initializes a new instance of the 
         /// <see cref="WindowsActiveDirectoryInput"/> class.
         /// </summary>
-        /// <param name="service">The connected service</param>
-        /// <param name="path">The path</param>
+        /// <param name="service">The connected service.</param>
+        /// <param name="path">The path.</param>
         public WindowsActiveDirectoryInput(Service service, string path)
             : base(service, path)
         {
         }
 
         /// <summary>
-        /// Sets a value indicating whether this input is disabled.
+        /// Sets a value that indicates whether this input is disabled.
         /// </summary>
         public bool Disabled
         {
@@ -62,7 +63,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the Input type of this object, Windows Active Directory.
+        /// Gets the input type of this object, Windows Active Directory.
         /// </summary>
         public InputKind Kind
         {
@@ -73,8 +74,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the directory path subtree
-        /// is being monitored for this Windows Active Directory input.
+        /// Gets or sets a value that indicates whether the directory path 
+        /// subtree is being monitored for this Windows Active Directory input.
         /// </summary>
         public bool MonitorSubtree
         {
@@ -131,7 +132,7 @@ namespace Splunk
         /// specified arguments take precedent over the values that were set 
         /// using the setter methods.
         /// </summary>
-        /// <param name="args">The key/value pairs to update</param>
+        /// <param name="args">The key/value pairs to update.</param>
         public override void Update(Dictionary<string, object> args)
         {
             // Add required arguments if not already present

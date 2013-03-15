@@ -21,12 +21,13 @@ namespace Splunk
     using System.Linq;
 
     /// <summary>
-    /// Represents the base class for all Splunk Entity resources
+    /// The <see cref="Entity"/> class represents the base class for all Splunk
+    /// Entity resources.
     /// </summary>
     public class Entity : Resource
     {
         /// <summary>
-        /// The content that makes up the Entity.
+        /// The content that makes up the <see cref="Entity"/>.
         /// </summary>
         private Record content;
 
@@ -48,7 +49,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value indicating whether or not the content is empty. Note
+        /// Gets a value that indicates whether or not the content is empty. Note
         /// that if dirty, this has the side effect of retrieving refreshed
         /// data from the server.
         /// </summary>
@@ -61,9 +62,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value indicating whether this entity is disabled. This method
-        /// is available on almost every endpoint. Note that if dirty, this has
-        /// the side effect of retrieving refreshed data from the server.
+        /// Gets a value that indicates whether this entity is disabled. This
+        /// method is available on almost every endpoint. Note that if dirty,
+        /// this has the side effect of retrieving refreshed data from the
+        /// server.
         /// </summary>
         public bool IsDisabled 
         {
@@ -74,9 +76,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the keys of the content. Note
-        /// that if dirty, this has the side effect of retrieving refreshed
-        /// data from the server.
+        /// Gets the keys of the content. Note that if dirty, this has the side
+        /// effect of retrieving refreshed data from the server.
         /// </summary>
         /// <returns>The keys</returns>
         public ICollection<string> KeySet 
@@ -88,9 +89,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the number of elements in the content. Note
-        /// that if dirty, this has the side effect of retrieving refreshed
-        /// data from the server.
+        /// Gets the number of elements in the content. Note that if dirty,
+        /// this has the side effect of retrieving refreshed data from the
+        /// server.
         /// </summary>
         public int Size 
         {
@@ -103,8 +104,8 @@ namespace Splunk
         /// <summary>
         /// Returns the path that corresponds to the requested action.
         /// </summary>
-        /// <param name="action">The action</param>
-        /// <returns>The path for the desired action</returns>
+        /// <param name="action">The action.</param>
+        /// <returns>The path for the desired action.</returns>
         protected virtual string ActionPath(string action) 
         {
             if (action.Equals("disable")) 
@@ -133,7 +134,7 @@ namespace Splunk
         /// <summary>
         /// Determines whether the key exists in the content data.
         /// </summary>
-        /// <param name="key">The key</param>
+        /// <param name="key">The key.</param>
         /// <returns>True or False.</returns>
         public bool ContainsKey(object key) 
         {
@@ -143,7 +144,7 @@ namespace Splunk
         /// <summary>
         /// Determines whether the value exists in the content data.
         /// </summary>
-        /// <param name="value">The value</param>
+        /// <param name="value">The value.</param>
         /// <returns>True or False.</returns>
         public bool ContainsValue(object value) 
         {
@@ -174,8 +175,8 @@ namespace Splunk
         /// Gets the value associated with the key out of the content of 
         /// this resource.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <returns>The value</returns>
+        /// <param name="key">The key.</param>
+        /// <returns>The value.</returns>
         public object Get(object key) 
         {
             if (this.toUpdate.ContainsKey((string)key)) 
@@ -189,8 +190,8 @@ namespace Splunk
         /// Returns the Boolean value associated with the specified key. Values
         /// can be converted from: 0, 1, true, false.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <returns>True or False</returns>
+        /// <param name="key">The key.</param>
+        /// <returns>True or False.</returns>
         public bool GetBoolean(string key) 
         {
             if (this.toUpdate.ContainsKey(key)) 
@@ -205,9 +206,10 @@ namespace Splunk
         /// default value if the key does not exist. Boolean values can be 
         /// converted from: 0, 1, true, false.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <param name="defaultValue">The default value if key not found</param>
-        /// <returns>The value</returns>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The default value if key not
+        /// found.</param>
+        /// <returns>The value.</returns>
         public bool GetBoolean(string key, bool defaultValue) 
         {
             if (this.toUpdate.ContainsKey(key)) 
@@ -221,8 +223,8 @@ namespace Splunk
         /// Returns the long value associated with the specified key. Long 
         /// values can be converted from: number, numberMB, numberGB.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <returns>The value</returns>
+        /// <param name="key">The key.</param>
+        /// <returns>The value.</returns>
         public long GetByteCount(string key) 
         {
             if (this.toUpdate.ContainsKey(key)) 
@@ -237,9 +239,10 @@ namespace Splunk
         /// default value if the key does not exist. Long values can be 
         /// converted from: number, numberMB, numberGB.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <param name="defaultValue">The value if the key is not found</param>
-        /// <returns>The value</returns>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The value if the key is not
+        /// found.</param>
+        /// <returns>The value.</returns>
         public long GetByteCount(string key, long defaultValue) 
         {
             if (this.toUpdate.ContainsKey(key)) 
@@ -252,7 +255,7 @@ namespace Splunk
         /// <summary>
         /// Returns the validated (e.g. refreshed if dirty) content.
         /// </summary>
-        /// <returns>The content</returns>
+        /// <returns>The content.</returns>
         private Record GetContent() 
         {
             return this.Validate().content;
@@ -262,8 +265,8 @@ namespace Splunk
         /// Returns a date value associated with the specified key. Date values 
         /// can be converted from standard UTC time formats.
         /// </summary>
-        /// <param name="key">The date string</param>
-        /// <returns>The date</returns>
+        /// <param name="key">The date string.</param>
+        /// <returns>The date.</returns>
         public DateTime GetDate(string key)
         {
             if (this.toUpdate.ContainsKey(key))
@@ -277,9 +280,9 @@ namespace Splunk
         /// Returns a date value associated with the specified key, or the 
         /// default value if the key does not exist.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <param name="defaultValue">The default time value</param>
-        /// <returns>The DateTime structure</returns>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The default time value.</param>
+        /// <returns>The DateTime structure.</returns>
         public DateTime GetDate(string key, DateTime defaultValue)
         {
             if (this.toUpdate.ContainsKey(key))
@@ -294,8 +297,8 @@ namespace Splunk
         /// Returns the double-floating point value associated with the 
         /// specified key.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <returns>The value</returns>
+        /// <param name="key">The key.</param>
+        /// <returns>The value.</returns>
         public double GetFloat(string key) 
         {
             if (this.toUpdate.ContainsKey(key)) 
@@ -315,9 +318,9 @@ namespace Splunk
         /// Returns the double-floating point value associated with the 
         /// specified key. Or the default value if the key does not exist.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <param name="defaultValue">The default value</param>
-        /// <returns>The value</returns>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <returns>The value.</returns>
         public double GetFloat(string key, double defaultValue)
         {
             if (this.toUpdate.ContainsKey(key))
@@ -336,8 +339,8 @@ namespace Splunk
         /// <summary>
         /// Returns the integer point value associated with the specified key.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <returns>The value</returns>
+        /// <param name="key">The key.</param>
+        /// <returns>The value.</returns>
         public int GetInteger(string key) 
         {
             if (this.toUpdate.ContainsKey(key)) 
@@ -357,9 +360,9 @@ namespace Splunk
         /// Returns the integer value associated with the specified key or the 
         /// default value if the key does not exist.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <param name="defaultValue">The value if key not present</param>
-        /// <returns>The value</returns>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The value if key not present.</param>
+        /// <returns>The value.</returns>
         public int GetInteger(string key, int defaultValue) 
         {
             if (this.toUpdate.ContainsKey(key)) 
@@ -376,10 +379,10 @@ namespace Splunk
         }
 
         /// <summary>
-        ///  Returns the long value associated with the specified key.
+        /// Returns the long value associated with the specified key.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <returns>The value</returns>
+        /// <param name="key">The key.</param>
+        /// <returns>The value.</returns>
         public long GetLong(string key) 
         {
             if (this.toUpdate.ContainsKey(key)) 
@@ -393,9 +396,9 @@ namespace Splunk
         /// Returns the long value associated with the specified key or the 
         /// default value if the key does not exist.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <param name="defaultValue">The value of key is not present</param>
-        /// <returns>The value</returns>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The value of key is not present.</param>
+        /// <returns>The value.</returns>
         public long GetLong(string key, int defaultValue) 
         {
             if (this.toUpdate.ContainsKey(key)) 
@@ -410,11 +413,11 @@ namespace Splunk
         /// permissions for accessing the resource, and values that indicate 
         /// which resource fields are wildcards, required, and optional.
         /// </summary>
-        /// <returns>The metadata</returns>
+        /// <returns>The metadata.</returns>
          public EntityMetadata GetMetadata() 
          {
-             // CONSIDER: For entities that don't have an eai:acl field, which is
-             // uncommon but does happen at least in the case of a 
+             // CONSIDER: For entities that don't have an eai:acl field, which
+             // is uncommon but does happen at least in the case of a 
              // DeploymentClient that is not enabled, we return null. A slightly
              // friendlier option would be to return a metadata instance that 
              // defaults all values?
@@ -429,8 +432,8 @@ namespace Splunk
         /// <summary>
         /// Returns the string value associated with the specified key.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <returns>The value</returns>
+        /// <param name="key">The key.</param>
+        /// <returns>The value.</returns>
         public string GetString(string key) 
         {
             if (this.toUpdate.ContainsKey(key)) 
@@ -444,9 +447,9 @@ namespace Splunk
         /// Returns the string value associated with the specified key, or the
         /// default value if the key is not found.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <param name="defaultValue">The value if the key is not found</param>
-        /// <returns>The value</returns>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The value if the key is not found.</param>
+        /// <returns>The value.</returns>
         public string GetString(string key, string defaultValue) 
         {
             if (this.toUpdate.ContainsKey(key)) 
@@ -459,8 +462,8 @@ namespace Splunk
         /// <summary>
         ///  Returns the string array value associated with the specified key.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <returns>The value</returns>
+        /// <param name="key">The key.</param>
+        /// <returns>The value.</returns>
         public string[] GetStringArray(string key) 
         {
             if (this.toUpdate.ContainsKey(key)) 
@@ -474,9 +477,9 @@ namespace Splunk
         /// Returns the string array value associated with the specified key, 
         /// or the default value if the key does not exist.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <param name="defaultValue">The value if key is not found</param>
-        /// <returns>The value</returns>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The value if key is not found.</param>
+        /// <returns>The value.</returns>
         public string[] GetStringArray(string key, string[] defaultValue) 
         {
             if (this.toUpdate.ContainsKey(key)) 
@@ -489,8 +492,8 @@ namespace Splunk
         /// <summary>
         /// Loads the Entity with the AtomObject data.
         /// </summary>
-        /// <param name="value">The AtomObject</param>
-        /// <returns>The filled Entity</returns>
+        /// <param name="value">The AtomObject.</param>
+        /// <returns>The filled Entity.</returns>
         public new Entity Load(AtomObject value) 
         {
             base.Load(value);
@@ -507,9 +510,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Refresh the Entity by calling the servers GET method on the endpoint.
+        /// Refresh the Entity by calling the servers GET method on the
+        /// endpoint.
         /// </summary>
-        /// <returns>The refreshed resource</returns>
+        /// <returns>The refreshed resource.</returns>
         public override Resource Refresh() 
         {
             // Update any attribute values set by a setter method that has not
@@ -534,10 +538,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Removes an element from the content of this entity. Not supported.
+        /// Not supported. Removes an element from the content of this entity. 
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <returns>Always throws an exception</returns>
+        /// <param name="key">The key.</param>
+        /// <returns>Always throws an exception.</returns>
         public object Remove(object key) 
         {
             throw new NotSupportedException("Remove unsupported");
@@ -547,8 +551,8 @@ namespace Splunk
         /// Sets the local cache update value. Writing to the server is deferred
         /// until the Update() method is called.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <param name="value">The value</param>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
         public void SetCacheValue(string key, object value) 
         {
             this.toUpdate[key] = value;
@@ -568,7 +572,7 @@ namespace Splunk
         /// specified arguments take precedent over the values that were set 
         /// using the setter methods.
         /// </summary>
-        /// <param name="args">The key/value pairs to update</param>
+        /// <param name="args">The key/value pairs to update.</param>
         public virtual void Update(Dictionary<string, object> args)
         {
             // Merge cached setters and live args together before updating; live
@@ -618,7 +622,7 @@ namespace Splunk
         /// <summary>
         /// Returns all the values from the content of this Entity.
         /// </summary>
-        /// <returns>The values</returns>
+        /// <returns>The values.</returns>
         public Dictionary<string, object>.ValueCollection Values() 
         {
             return this.GetContent().Values;

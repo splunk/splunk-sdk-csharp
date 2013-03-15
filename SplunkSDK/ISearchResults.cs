@@ -19,12 +19,13 @@ namespace Splunk
     using System.Collections.Generic;
 
     /// <summary>
-    /// Represents Splunk search results.
+    /// The <see cref="ISearchResults"/> interface represents Splunk search
+    /// results.
     /// </summary>
     public interface ISearchResults : IEnumerable<Event>
     {
         /// <summary>
-        /// Gets a value indicating whether or not the results are
+        /// Gets a value that indicates whether or not the results are
         /// a preview from an unfinished search.
         /// </summary>
         bool IsPreview

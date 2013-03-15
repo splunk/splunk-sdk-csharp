@@ -22,16 +22,17 @@ namespace Splunk
     using System.Text;
     
     /// <summary>
-    /// Wraps an individual event or result that was returned
-    /// by the <see cref="ResultsReader"/> class.
+    /// The <see cref="Event"/> class wraps an individual event or result that
+    /// was returned by the <see cref="ResultsReader"/> class.
     /// An event maps each field name to an instance of
-    /// <see cref="Event.FieldValue"/> class, which is a list of zero of more values.
+    /// <see cref="Event.FieldValue"/> class, which is a list of zero of more
+    /// values.
     /// </summary>
     public class Event : Dictionary<string, Event.FieldValue>
     {
         /// <summary>
-        /// Gets the XML markup for the <code>"_raw"</code> field value. This value
-        /// is only used by the <see cref="ResultsReaderXml"/> class.
+        /// Gets the XML markup for the <code>"_raw"</code> field value. This
+        /// value is only used by the <see cref="ResultsReaderXml"/> class.
         /// <remarks>
         /// The return value is different than that of
         /// the <code>"_raw"</code> field value
@@ -53,9 +54,9 @@ namespace Splunk
 
         /// <summary>
         /// A field can be accessed as either an array <see cref="Array"/>
-        /// or as a delimited string 
-        /// (using implicit string converter or <see cref="GetArray"/>).
-        /// We recommend accessing values as an array when possible.
+        /// or as a delimited string (using implicit string converter or <see
+        /// cref="GetArray"/>). We recommend accessing values as an array when
+        /// possible.
         /// <para>
         /// The delimiter for field values depends on the underlying 
         /// result format. If the underlying format does not specify 
@@ -160,15 +161,15 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Returns the single value or delimited set of values 
-            /// for the field.
+            /// Returns the single value or delimited set of values for the
+            /// field.
             /// <para>
-            /// When getting a multi-valued field, use the <see cref="GetArray"/> 
-            /// methods instead.
+            /// When getting a multi-valued field, use the
+            /// <see cref="GetArray"/> methods instead.
             /// </para>
             /// </summary>
             /// <returns>The single value or set of values delimited by 
-            /// <see cref="DefaultDelimiter"/>
+            /// <see cref="DefaultDelimiter"/>.
             /// </returns>
             public override string ToString()
             {
@@ -181,13 +182,13 @@ namespace Splunk
             /// Convert to a <c>string</c>.
             /// Same as <see cref="ToString"/>
             /// <para>
-            /// When getting a multi-valued field, use the <see cref="GetArray"/> 
-            /// methods instead.
+            /// When getting a multi-valued field, use the
+            /// <see cref="GetArray"/> methods instead.
             /// </para>
             /// </summary>
             /// <param name="value">Field value</param>
             /// <returns>The single value or set of values delimited by 
-            /// <see cref="DefaultDelimiter"/>
+            /// <see cref="DefaultDelimiter"/>.
             /// </returns>
             public static implicit operator string(FieldValue value)
             {
@@ -197,8 +198,8 @@ namespace Splunk
             /// <summary>
             /// Convert to a <c>double</c>.
             /// </summary>
-            /// <param name="value">The field value</param>
-            /// <returns>The converted value</returns>
+            /// <param name="value">The field value.</param>
+            /// <returns>The converted value.</returns>
             public static explicit operator double(Event.FieldValue value)
             {
                 return Convert.ToDouble(value.ToString());
@@ -207,8 +208,8 @@ namespace Splunk
             /// <summary>
             /// Convert to a <c>float</c>.
             /// </summary>
-            /// <param name="value">The field value</param>
-            /// <returns>The converted value</returns>
+            /// <param name="value">The field value.</param>
+            /// <returns>The converted value.</returns>
             public static explicit operator float(Event.FieldValue value)
             {
                 return Convert.ToSingle(value.ToString());
@@ -217,8 +218,8 @@ namespace Splunk
             /// <summary>
             /// Convert to a <c>byte</c>.
             /// </summary>
-            /// <param name="value">The field value</param>
-            /// <returns>The converted value</returns>
+            /// <param name="value">The field value.</param>
+            /// <returns>The converted value.</returns>
             public static explicit operator byte(Event.FieldValue value)
             {
                 return Convert.ToByte(value.ToString());
@@ -227,8 +228,8 @@ namespace Splunk
             /// <summary>
             /// Convert to a <c>ushort</c>.
             /// </summary>
-            /// <param name="value">The field value</param>
-            /// <returns>The converted value</returns>
+            /// <param name="value">The field value.</param>
+            /// <returns>The converted value.</returns>
             public static explicit operator ushort(Event.FieldValue value)
             {
                 return Convert.ToUInt16(value.ToString());
@@ -237,8 +238,8 @@ namespace Splunk
             /// <summary>
             /// Convert to a <c>uint</c>.
             /// </summary>
-            /// <param name="value">The field value</param>
-            /// <returns>The converted value</returns>
+            /// <param name="value">The field value.</param>
+            /// <returns>The converted value.</returns>
             public static explicit operator uint(Event.FieldValue value)
             {
                 return Convert.ToUInt32(value.ToString());
@@ -247,8 +248,8 @@ namespace Splunk
             /// <summary>
             /// Convert to a <c>ulong</c>.
             /// </summary>
-            /// <param name="value">The field value</param>
-            /// <returns>The converted value</returns>
+            /// <param name="value">The field value.</param>
+            /// <returns>The converted value.</returns>
             public static explicit operator ulong(Event.FieldValue value)
             {
                 return Convert.ToUInt64(value.ToString());
@@ -257,8 +258,8 @@ namespace Splunk
             /// <summary>
             /// Convert to a <c>sbyte</c>.
             /// </summary>
-            /// <param name="value">The field value</param>
-            /// <returns>The converted value</returns>
+            /// <param name="value">The field value.</param>
+            /// <returns>The converted value.</returns>
             public static explicit operator sbyte(Event.FieldValue value)
             {
                 return Convert.ToSByte(value.ToString());
@@ -267,8 +268,8 @@ namespace Splunk
             /// <summary>
             /// Convert to a <c>short</c>/.
             /// </summary>
-            /// <param name="value">The field value</param>
-            /// <returns>The converted value</returns>
+            /// <param name="value">The field value.</param>
+            /// <returns>The converted value.</returns>
             public static explicit operator short(Event.FieldValue value)
             {
                 return Convert.ToInt16(value.ToString());
@@ -277,8 +278,8 @@ namespace Splunk
             /// <summary>
             /// Convert to a <c>int</c>.
             /// </summary>
-            /// <param name="value">The field value</param>
-            /// <returns>The converted value</returns>
+            /// <param name="value">The field value.</param>
+            /// <returns>The converted value.</returns>
             public static explicit operator int(Event.FieldValue value)
             {
                 return Convert.ToInt32(value.ToString());
@@ -287,8 +288,8 @@ namespace Splunk
             /// <summary>
             /// Convert to a <c>ulong</c>.
             /// </summary>
-            /// <param name="value">The field value</param>
-            /// <returns>The converted value</returns>
+            /// <param name="value">The field value.</param>
+            /// <returns>The converted value.</returns>
             public static explicit operator long(Event.FieldValue value)
             {
                 return Convert.ToInt64(value.ToString());
@@ -297,7 +298,7 @@ namespace Splunk
             /// <summary>
             /// Convert to a <c>byte</c>.
             /// </summary>
-            /// <returns>The converted value</returns>
+            /// <returns>The converted value.</returns>
             public byte ToByte()
             {
                 return Convert.ToByte(this.ToString());
@@ -306,7 +307,7 @@ namespace Splunk
             /// <summary>
             /// Convert to a <c>ushort</c>.
             /// </summary>
-            /// <returns>The converted value</returns>
+            /// <returns>The converted value.</returns>
             public ushort ToUInt16()
             {
                 return Convert.ToUInt16(this.ToString());
@@ -315,7 +316,7 @@ namespace Splunk
             /// <summary>
             /// Convert to a <c>uint</c>.
             /// </summary>
-            /// <returns>The converted value</returns>
+            /// <returns>The converted value.</returns>
             public uint ToUInt32()
             {
                 return Convert.ToUInt32(this.ToString());
@@ -333,7 +334,7 @@ namespace Splunk
             /// <summary>
             /// Convert to a <c>sbyte</c>.
             /// </summary>
-            /// <returns>The converted value</returns>
+            /// <returns>The converted value.</returns>
             public sbyte ToSByte()
             {
                 return Convert.ToSByte(this.ToString());
@@ -342,7 +343,7 @@ namespace Splunk
             /// <summary>
             /// Convert to a <c>short</c>/.
             /// </summary>
-            /// <returns>The converted value</returns>
+            /// <returns>The converted value.</returns>
             public short ToInt16()
             {
                 return Convert.ToInt16(this.ToString());
@@ -360,7 +361,7 @@ namespace Splunk
             /// <summary>
             /// Convert to a <c>ulong</c>.
             /// </summary>
-            /// <returns>The converted value</returns>
+            /// <returns>The converted value.</returns>
             public long ToInt64()
             {
                 return Convert.ToInt64(this.ToString());

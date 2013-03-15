@@ -19,16 +19,17 @@ namespace Splunk
     using System.Collections.Generic;
 
     /// <summary>
-    /// Represents the Input subclass Windows Event Log Input.
+    /// The <see cref="WindowsEventLogInput"/> class represents the 
+    /// <see cref="Input"/> subclass Windows Event Log Input.
     /// </summary>
     public class WindowsEventLogInput : Input
     {
         /// <summary>
-        /// Initializes a new instance of the 
-        /// <see cref="WindowsEventLogInput"/> class.
+        /// Initializes a new instance of the <see cref="WindowsEventLogInput"/> 
+        /// class.
         /// </summary>
-        /// <param name="service">The connected service</param>
-        /// <param name="path">The path</param>
+        /// <param name="service">The connected service.</param>
+        /// <param name="path">The path.</param>
         public WindowsEventLogInput(Service service, string path)
             : base(service, path)
         {
@@ -68,7 +69,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the Input type of this object,  Windows Event Log input.
+        /// Gets the Input type of this object, Windows Event Log input.
         /// </summary>
         public InputKind Kind
         {
@@ -132,7 +133,7 @@ namespace Splunk
         /// specified arguments take precedent over the values that were set 
         /// using the setter methods.
         /// </summary>
-        /// <param name="args">The key/value pairs to update</param>
+        /// <param name="args">The key/value pairs to update.</param>
         public override void Update(Dictionary<string, object> args)
         {
             // Add required arguments if not already present
@@ -152,7 +153,7 @@ namespace Splunk
         public override void Update()
         {
             // If not present in the update keys, add required attribute as long
-            // as one pre-existing update pair exists
+            // as one pre-existing update pair exists.
             if (toUpdate.Count > 0 && !toUpdate.ContainsKey("lookup_host"))
             {
                 this.SetCacheValue("lookup_host", this.LookupHost);

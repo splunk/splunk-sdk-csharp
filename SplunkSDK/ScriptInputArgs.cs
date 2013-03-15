@@ -17,12 +17,13 @@
 namespace Splunk
 {
     /// <summary>
-    /// Extends Args for EventType creation setters
+    /// The <see cref="ScriptInputArgs"/> class extends <see cref="Args"/> for 
+    /// <see cref="EventType"/> creation setters.
     /// </summary>
     public class ScriptInputArgs : Args
     {
         /// <summary>
-        /// Sets a value indicating whether the input script is disabled.
+        /// Sets a value that indicates whether the input script is disabled.
         /// </summary>
         public bool Disabled
         {
@@ -33,8 +34,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the host for events from this input. The default is whatever
-        /// host sent the event.
+        /// Sets the host for events from this input. The default value is 
+        /// whatever host sent the event.
         /// </summary>
         public string Host
         {
@@ -45,7 +46,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the index for events from this input. The defaults is the
+        /// Sets the index for events from this input. The default value is the
         /// main index.
         /// </summary>
         public string Index
@@ -59,8 +60,8 @@ namespace Splunk
         /// <summary>
         /// Sets the frequency of script execution. Valid values are either an 
         /// integer, in seconds, or a cron schedule. If a cron schedule is
-        /// specified, the script is not executed on start-up. The default is 
-        /// 60 seconds.
+        /// specified, the script is not executed on start-up. The default 
+        /// value is 60 seconds.
         /// </summary>
         public string Interval
         {
@@ -101,12 +102,14 @@ namespace Splunk
         /// field during indexing. It is also the source field used at search 
         /// time. As a convenience, the chosen string is prepended with 
         /// 'source::'.
+        /// </summary>
+        /// <remarks>
         /// Note: Overriding the source key is generally not recommended. 
         /// Typically, the input layer provides a more accurate string to aid 
         /// in problem analysis and investigation, accurately recording the file
-        /// from which the data was retreived. Consider use of source types, 
+        /// from which the data was retrieved. Consider use of source types, 
         /// tagging, and search wildcards before overriding this value.
-        /// </summary>
+        /// </remarks>
         public string Source
         {
             set
@@ -119,15 +122,17 @@ namespace Splunk
         /// Sets the sourcetype key/field for events from this input. If unset, 
         /// Splunk picks a source type based on various aspects of the data. As 
         /// a convenience, the chosen string is prepended with 'sourcetype::'. 
-        /// There is no default. Sets the sourcetype key's initial value. The 
-        /// key is used during parsing/indexing, in particular to set the source
-        /// type field during indexing. It is also the source type field used at
-        /// search time. Primarily used to explicitly declare the source type 
-        /// for this data, as opposed to allowing it to be determined via 
+        /// There is no default value. Sets the sourcetype key's initial value. 
+        /// </summary>
+        /// <remarks>
+        /// The key is used during parsing/indexing, in particular to set the 
+        /// source type field during indexing. It is also the source type field 
+        /// used at search time. Primarily used to explicitly declare the source 
+        /// type for this data, as opposed to allowing it to be determined via 
         /// automated methods. This is typically important both for 
         /// searchability and for applying the relevant configuration for this 
         /// type of data during parsing and indexing.
-        /// </summary>
+        /// </remarks>
         public string SourceType
         {
             set

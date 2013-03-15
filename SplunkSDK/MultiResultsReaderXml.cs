@@ -19,14 +19,16 @@ namespace Splunk
     using System.IO;
 
     /// <summary>
-    /// Represents a streaming XML reader for
-    /// Splunk search results. This reader supports streams from export searches, 
-    /// which might return one of more previews before returning final results.
+    /// The <see cref="MultiResultsReaderXml" /> class represents a streaming
+    /// XML reader for Splunk search results. This reader supports streams from
+    /// export searches, which might return one of more previews before
+    /// returning final results.
     /// </summary>
     public class MultiResultsReaderXml : MultiResultsReader<ResultsReaderXml>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MultiResultsReaderXml" /> class.
+        /// Initializes a new instance of the
+        /// <see cref="MultiResultsReaderXml"/> class.
         /// </summary>
         /// <param name="stream">The XML stream to parse.</param>
         public MultiResultsReaderXml(Stream stream)

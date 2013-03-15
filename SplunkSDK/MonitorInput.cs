@@ -17,15 +17,16 @@
 namespace Splunk
 {
     /// <summary>
-    /// Represents the Input subclass Monitor Input
+    /// The <see cref="MonitorInput"/> class represents the
+    /// <see cref="Input"/> subclass Monitor Input.
     /// </summary>
     public class MonitorInput : Input
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MonitorInput"/> class.
         /// </summary>
-        /// <param name="service">The connected service</param>
-        /// <param name="path">The path</param>
+        /// <param name="service">The connected service.</param>
+        /// <param name="path">The path.</param>
         public MonitorInput(Service service, string path)
             : base(service, path)
         {
@@ -49,8 +50,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether input monitoring is
-        /// disabled. This is introduced in Splunk 5.0. 
+        /// Gets or sets a value that indicates whether input monitoring is
+        /// disabled. This was introduced in Splunk 5.0. 
         /// </summary>
         public bool Disabled
         {
@@ -83,8 +84,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value indicating whether the index value is checked to ensure
-        /// that it is the  name of a valid index.
+        /// Sets a value that indicates whether the index value is checked to
+        /// ensure that it is the name of a valid index.
         /// </summary>
         public bool CheckIndex
         {
@@ -95,8 +96,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value indicating whether the name value is checked to ensure 
-        /// that it exists.
+        /// Sets a value that indicates whether the name value is checked to
+        /// ensure that it exists.
         /// </summary>
         public bool CheckPath
         {
@@ -118,8 +119,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether files that are seen for the 
-        /// first time will be read from the end.
+        /// Gets or sets a value that indicates whether files that are seen for
+        /// the first time will be read from the end.
         /// </summary>
         public bool FollowTail
         {
@@ -152,11 +153,14 @@ namespace Splunk
 
         /// <summary>
         /// Gets or sets the regular expression for a file path to determine the
-        /// host. If the path for a file matches this regular expression, the 
+        /// host.
+        /// </summary>
+        /// <remarks>
+        /// If the path for a file matches this regular expression, the 
         /// captured value is used to populate the <b>host</b> field for events 
         /// from this monitor input. The regular expression must have one 
         /// capture group.
-        /// </summary>
+        /// </remarks>
         public string HostRegex
         {
             get
@@ -172,10 +176,13 @@ namespace Splunk
 
         /// <summary>
         /// Gets or sets a time value that defines a rolling time window for 
-        /// monitoring files. If the modification time of a file being monitored
+        /// monitoring files.
+        /// </summary>
+        /// <remarks>
+        /// If the modification time of a file being monitored
         /// falls outside of this rolling time window, the file is no longer 
         /// being monitored.
-        /// </summary>
+        /// </remarks>
         public string IgnoreOlderThan
         {
             get
@@ -207,7 +214,7 @@ namespace Splunk
         }
         
         /// <summary>
-        /// Gets or sets a value indicating whether  sub-directories are 
+        /// Gets or sets a value that indicates whether sub-directories are 
         /// monitored within this monitor input.
         /// </summary>
         public bool IsRecursive

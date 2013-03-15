@@ -22,9 +22,11 @@ namespace Splunk
     using System.Net;
 
     /// <summary>
-    /// Represents the Input Collection class. 
+    /// The <see cref="InputCollection"/> class represents the Input
+    /// Collection class. 
     /// </summary>
-    /// <typeparam name="Input">The Input class and its derived classes</typeparam>
+    /// <typeparam name="Input">The Input class and its derived
+    /// classes.</typeparam>
     public class InputCollection : EntityCollection<Input> 
     {
         /// <summary>
@@ -37,7 +39,7 @@ namespace Splunk
         /// Initializes a new instance of the <see cref="InputCollection"/> 
         /// class.
         /// </summary>
-        /// <param name="service">The connected service</param>
+        /// <param name="service">The connected service.</param>
         public InputCollection(Service service)
             : base(service, "data/inputs")
         {
@@ -47,8 +49,8 @@ namespace Splunk
         /// Initializes a new instance of the <see cref="InputCollection"/> 
         /// class.
         /// </summary>
-        /// <param name="service">The connected service</param>
-        /// <param name="args">The parameters</param>
+        /// <param name="service">The connected service.</param>
+        /// <param name="args">The parameters.</param>
         public InputCollection(Service service, Args args)
             : base(service, "data/inputs", args)
         {
@@ -57,8 +59,8 @@ namespace Splunk
         /// <summary>
         /// Assembles the input kind list by refreshing from the server.
         /// </summary>
-        /// <param name="subPath">The sub path</param>
-        /// <returns>The list of input kinds</returns>
+        /// <param name="subPath">The sub path.</param>
+        /// <returns>The list of input kinds.</returns>
         private List<InputKind> AssembleInputKindList(ArrayList subPath)
         {
             List<InputKind> kinds = new List<InputKind>();
@@ -96,11 +98,11 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Returns a value whether or not this key in in the current list of 
-        /// Inputs.
+        /// Returns a value that indicates whether this key is in the current
+        /// list of Inputs.
         /// </summary>
-        /// <param name="key">The name</param>
-        /// <returns>True or false</returns>
+        /// <param name="key">The name.</param>
+        /// <returns>True or false.</returns>
         public override bool ContainsKey(object key)
         {
             Input input = this.RetrieveInput((string)key);
@@ -108,21 +110,21 @@ namespace Splunk
         }
         
         /// <summary>
-        /// A stub for create -- which cannot be done this way.
+        /// Not supported. A stub for create.
         /// </summary>
-        /// <param name="name">The name</param>
-        /// <returns>Will not return, but throw an exception</returns>
+        /// <param name="name">The name.</param>
+        /// <returns>Will not return, but throw an exception.</returns>
         public override Input Create(string name)
         {
             throw new Exception("can't create an input here");
         }
 
         /// <summary>
-        /// A stub for create -- which cannot be done this way.
+        /// Not supported. A stub for create.
         /// </summary>
-        /// <param name="name">The name</param>
-        /// <param name="args">The args</param>
-        /// <returns>Will not return, but throw an exception</returns>
+        /// <param name="name">The name.</param>
+        /// <param name="args">The args.</param>
+        /// <returns>Will not return, but throw an exception.</returns>
         public override Input Create(string name, Args args)
         {
             throw new Exception("can't create an input here");
@@ -131,9 +133,9 @@ namespace Splunk
         /// <summary>
         /// Creates a specific kind of Input.
         /// </summary>
-        /// <param name="name">The Input name</param>
-        /// <param name="kind">The kind of Input to create</param>
-        /// <returns>The new Input object</returns>
+        /// <param name="name">The Input name.</param>
+        /// <param name="kind">The kind of Input to create.</param>
+        /// <returns>The new Input object.</returns>
         public Input Create(string name, InputKind kind)
         {
             return this.Create(name, kind, (Dictionary<string, object>)null);
@@ -142,10 +144,10 @@ namespace Splunk
         /// <summary>
         /// Creates a specific kind of Input.
         /// </summary>
-        /// <param name="name">The Input name</param>
-        /// <param name="kind">The kind of Input to create</param>
-        /// <param name="args">The new Input object</param>
-        /// <returns>The input</returns>
+        /// <param name="name">The Input name.</param>
+        /// <param name="kind">The kind of Input to create.</param>
+        /// <param name="args">The new Input object.</param>
+        /// <returns>The input.</returns>
         public Input 
             Create(string name, InputKind kind, Dictionary<string, object> args)
         {
@@ -160,8 +162,8 @@ namespace Splunk
         /// <summary>
         /// Creates an Input resource item.
         /// </summary>
-        /// <param name="entry">The Atom data representing the object</param>
-        /// <returns>The Input object</returns>
+        /// <param name="entry">The Atom data representing the object.</param>
+        /// <returns>The Input object.</returns>
         protected override Input CreateItem(AtomEntry entry)
         {
             string path = this.ItemPath(entry);
@@ -184,9 +186,9 @@ namespace Splunk
         /// Returns a scoped, namespace-constrained Input from the current list
         /// of inputs.
         /// </summary>
-        /// <param name="key">The name</param>
-        /// <param name="splunkNamespace">The namespace</param>
-        /// <returns>The input</returns>
+        /// <param name="key">The name.</param>
+        /// <param name="splunkNamespace">The namespace.</param>
+        /// <returns>The input.</returns>
         public override Input Get(object key, Args splunkNamespace)
         {
             Util.EnsureNamespaceIsExact(splunkNamespace);
@@ -196,8 +198,8 @@ namespace Splunk
         /// <summary>
         /// Returns the path's InputKind value.
         /// </summary>
-        /// <param name="path">The path</param>
-        /// <returns>The input kind</returns>
+        /// <param name="path">The path.</param>
+        /// <returns>The input kind.</returns>
         protected InputKind ItemKind(string path)
         {
             string relpathWithInputName = 
@@ -215,10 +217,10 @@ namespace Splunk
         /// <summary>
         /// Performs a comparison of input kinds. 
         /// </summary>
-        /// <param name="kind">The input kind</param>
-        /// <param name="searchFor">What to search for</param>
-        /// <param name="searchIn">The path to search</param>
-        /// <returns>Whether the match succeeded or failed</returns>
+        /// <param name="kind">The input kind.</param>
+        /// <param name="searchFor">What to search for.</param>
+        /// <param name="searchIn">The path to search.</param>
+        /// <returns>Whether the match succeeded or failed.</returns>
         private static bool 
             MatchesInputName(InputKind kind, string searchFor, string searchIn)
         {
@@ -232,9 +234,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Refreshes this input collection
+        /// Refreshes this input collection.
         /// </summary>
-        /// <returns>The input collection</returns>
+        /// <returns>The input collection.</returns>
         public override Resource Refresh()
         {
             this.RefreshInputKinds();
@@ -290,10 +292,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Removes an Input from the collection
+        /// Removes an Input from the collection.
         /// </summary>
-        /// <param name="key">The name of the input</param>
-        /// <returns>The input that was removed</returns>
+        /// <param name="key">The name of the input.</param>
+        /// <returns>The input that was removed.</returns>
         public override Input Remove(string key)
         {
             Input input = this.RetrieveInput(key);
@@ -305,11 +307,11 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Removes a scoped, namespace-constrained Input from the collection
+        /// Removes a scoped, namespace-constrained Input from the collection.
         /// </summary>
-        /// <param name="key">The name of the input</param>
-        /// <param name="splunkNamespace">The namespace</param>
-        /// <returns>The input</returns>
+        /// <param name="key">The name of the input.</param>
+        /// <param name="splunkNamespace">The namespace.</param>
+        /// <returns>The input.</returns>
         public override Input Remove(string key, Args splunkNamespace)
         {
             Util.EnsureNamespaceIsExact(splunkNamespace);
@@ -325,8 +327,8 @@ namespace Splunk
         /// Retrieves the named input from the list, or null if it
         /// does not exist.
         /// </summary>
-        /// <param name="key">The name of the input</param>
-        /// <returns>The input</returns>
+        /// <param name="key">The name of the input.</param>
+        /// <returns>The input.</returns>
         private Input RetrieveInput(string key)
         {
             this.Validate();
@@ -353,12 +355,12 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Retrieves the named, scoped and namespace-constrained input from the
-        /// list, or null if it does not exist.
+        /// Retrieves the named, scoped, and namespace-constrained input from
+        /// the list, or null if it does not exist.
         /// </summary>
-        /// <param name="key">The name of the input</param>
-        /// <param name="splunkNamespace">The namespace</param>
-        /// <returns>The input</returns>
+        /// <param name="key">The name of the input.</param>
+        /// <param name="splunkNamespace">The namespace.</param>
+        /// <returns>The input.</returns>
         private Input RetrieveInput(string key, Args splunkNamespace)
         {
             Util.EnsureNamespaceIsExact(splunkNamespace);

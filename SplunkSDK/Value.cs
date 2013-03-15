@@ -19,12 +19,13 @@ namespace Splunk
     using System;
 
     /// <summary>
-    /// Represents a class to convert values easily
+    /// The <see cref="Value"/> class represents a class to convert values 
+    /// easily.
     /// </summary>
     public class Value
     {
         /// <summary>
-        /// The parseable date formats 
+        /// The parseable date formats.
         /// </summary>
         private static string[] dateFormats = 
         {
@@ -35,10 +36,10 @@ namespace Splunk
         };
 
         /// <summary>
-        /// Converts a string of either 0/1 or true/false to a boolean value.
+        /// Converts a string of either 0/1 or true/false to a Boolean value.
         /// </summary>
-        /// <param name="value">The string value</param>
-        /// <returns>The boolean value</returns>
+        /// <param name="value">The string value.</param>
+        /// <returns>The boolean value.</returns>
         public static bool ToBoolean(string value) 
         {
             if (value == null) 
@@ -68,8 +69,8 @@ namespace Splunk
         /// Converts a string to numeric byte count. The input can be a number
         /// or a number followed by KB, MB, GB.
         /// </summary>
-        /// <param name="value">The string value</param>
-        /// <returns>The long value</returns>
+        /// <param name="value">The string value.</param>
+        /// <returns>The long value.</returns>
         public static long ToByteCount(string value) 
         {
             long multiplier = 1;
@@ -100,8 +101,8 @@ namespace Splunk
         /// <summary>
         /// Converts a date string to a DateTime structure.
         /// </summary>
-        /// <param name="value">The date string</param>
-        /// <returns>The DateTime structure</returns>
+        /// <param name="value">The date string.</param>
+        /// <returns>The DateTime structure.</returns>
         public static DateTime ToDate(string value)
         {
             try
@@ -110,8 +111,8 @@ namespace Splunk
             }
             catch (Exception)
             {
-                // try our best to replace a textual timezone
-                // format with a UTC timezone. 
+                // Try to replace a textual time zone
+                // format with a UTC time zone. 
                 value = ReplaceTimezone.ReplaceTimeZone(value);
                 try
                 {
@@ -122,7 +123,7 @@ namespace Splunk
                 }
             }
 
-            // If all else failes, try epoch time
+            // If all else fails, try epoch time.
             try
             {
                 return new DateTime(Convert.ToInt64(value) * 1000);
@@ -136,18 +137,18 @@ namespace Splunk
         /// <summary>
         /// Converts a string to a double value.
         /// </summary>
-        /// <param name="value">The string value</param>
-        /// <returns>The double value</returns>
+        /// <param name="value">The string value.</param>
+        /// <returns>The double value.</returns>
         public static double ToFloat(string value) 
         {
             return Convert.ToDouble(value);
         }
 
         /// <summary>
-        /// Converts a string to an int value.
+        /// Converts a string to an integer value.
         /// </summary>
-        /// <param name="value">The string value</param>
-        /// <returns>The int value</returns>
+        /// <param name="value">The string value.</param>
+        /// <returns>The integer value.</returns>
         public static int ToInteger(string value) 
         {
             return Convert.ToInt32(value);
@@ -156,8 +157,8 @@ namespace Splunk
         /// <summary>
         /// Converts a string to a long value.
         /// </summary>
-        /// <param name="value">The string value</param>
-        /// <returns>The long value</returns>
+        /// <param name="value">The string value.</param>
+        /// <returns>The long value.</returns>
         public static long ToLong(string value) 
         {
             return Convert.ToInt64(value);

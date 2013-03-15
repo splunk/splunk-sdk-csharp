@@ -43,13 +43,13 @@ namespace Splunk
     using System.IO;
 
     /// <summary>
-    /// The abstract class results reader to return events from a stream
-    /// in key/value pairs.
+    /// The <see cref="ResultsReader"/> abstract class represents the results
+    /// reader that returns events from a stream in key/value pairs.
     /// </summary>
     public abstract class ResultsReader : ISearchResults, IDisposable
     {
         /// <summary>
-        /// Field name list
+        /// Field name list.
         /// </summary>
         private readonly List<string> fields = new List<string>();
 
@@ -59,7 +59,8 @@ namespace Splunk
         private readonly bool isInMultiReader;
         
         /// <summary>
-        /// Default should be false which will result in no result set skipping.
+        /// Whether the results in this reader are a preview. The default value
+        /// is false, which results in no result set skipping.
         /// </summary>
         private bool isPreview;
         
@@ -77,7 +78,7 @@ namespace Splunk
         }
      
         /// <summary>
-        /// Gets a value indicating whether or not the stream is 
+        /// Gets a value that indicates whether or not the stream is 
         /// from the export endpoint.
         /// </summary>
         internal bool IsExportStream { get; private set; }
@@ -94,10 +95,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether or not the results  in this reader 
-        /// a preview from an unfinished search.
-        /// Default should be false which will result in no result set skipping
-        /// or concatenation.
+        /// Gets or sets a value that indicates whether the results in this
+        /// reader are a preview from an unfinished search.
+        /// The default value is "false", which results in no results set
+        /// skipping or concatenation.
         /// </summary>
         public virtual bool IsPreview
         {
@@ -113,7 +114,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether or not there are results
+        /// Gets or sets a value that indicates whether or not there are results
         /// to be read.
         /// REMOVE
         /// </summary>
@@ -124,8 +125,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// This method is used by constructors of result readers to do
-        /// the following for single reader:
+        /// Used by constructors of results readers to do the following for a
+        /// single reader:
         /// 1. Obtain the preview flag and the field list.
         /// 2. Skip any previews for export.
         /// </summary>
@@ -160,7 +161,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Releasingresetting unmanaged resources.        
+        /// Releases and resets unmanaged resources.        
         /// </summary>
         public abstract void Dispose();
     
@@ -177,11 +178,11 @@ namespace Splunk
                     yield return ret;
                 }
 
-                // We don't concatenate across previews across sets, since each set
-                // might be a snapshot at a given time or a summary result with
-                // partial data from a reporting search
-                // (for example "count by host"). So if this is a preview,
-                // break. Null return indicating the end of the set.
+                // We don't concatenate across previews across sets, since each
+                // set might be a snapshot at a given time or a summary result
+                // with partial data from a reporting search (for example,
+                // "count by host"). So if this is a preview, break. Null
+                // return that indicates the end of the set.
                 // Note that we can't use IsPreview property since it will throw
                 // if not set, rather we want to end the enumeration.
                 if (this.isPreview)
@@ -190,7 +191,7 @@ namespace Splunk
                 }
 
                 // If we did not advance to next set, i.e. the end of stream is
-                // reached, break. Null return indicating the end of the set.
+                // reached, break. Null return that indicates the end of the set.
                 if (!this.AdvanceStreamToNextSet())
                 {
                     break;
@@ -216,16 +217,16 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Get the current set.
+        /// Gets the current set.
         /// </summary>
-        /// <returns>Iterator of events</returns>
+        /// <returns>Iterator of events.</returns>
         internal abstract IEnumerable<Event> GetEventsFromCurrentSet();
 
         /// <summary>
-        /// Advance to the next set, skipping remaining event(s) 
+        /// Advances to the next set, skipping remaining event(s) 
         /// if any in the current set.
         /// </summary>
-        /// <returns>Return false if the end is reached.</returns>
+        /// <returns>Returns false if the end is reached.</returns>
         internal abstract bool AdvanceStreamToNextSet();
     }
 }

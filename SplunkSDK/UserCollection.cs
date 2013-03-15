@@ -20,7 +20,8 @@ namespace Splunk
     using System.Collections.Generic;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// The <see cref="UserCollection"/> class represents a collection of 
+    /// Splunk users who are registered on the current Splunk server.
     /// </summary>
     public class UserCollection : EntityCollection<User>
     {
@@ -50,10 +51,10 @@ namespace Splunk
         /// Usernames must be unique on the system, and are used by the user to 
         /// log in to Splunk.
         /// </summary>
-        /// <param name="name">The username for the new user</param>
-        /// <param name="password">The password for this new user</param>
-        /// <param name="role">A roles to assign this new user</param>
-        /// <returns>The new user entity</returns>
+        /// <param name="name">The username for the new user.</param>
+        /// <param name="password">The password for this new user.</param>
+        /// <param name="role">A roles to assign this new user.</param>
+        /// <returns>The new user entity.</returns>
         public User Create(string name, string password, string role)
         {
             return this.Create(name, password, role, null);
@@ -64,10 +65,10 @@ namespace Splunk
         /// Usernames must be unique on the system, and are used by the user to 
         /// log in to Splunk.
         /// </summary>
-        /// <param name="name">The username for the new user</param>
-        /// <param name="password">The asswird fir this new user</param>
-        /// <param name="roles">A list of roles to assign this new user</param>
-        /// <returns>The new user entity</returns>
+        /// <param name="name">The username for the new user.</param>
+        /// <param name="password">The asswird fir this new user.</param>
+        /// <param name="roles">A list of roles to assign this new user.</param>
+        /// <returns>The new user entity.</returns>
         public User Create(string name, string password, string[] roles)
         {
             return this.Create(name, password, roles, null);
@@ -78,11 +79,11 @@ namespace Splunk
         /// Usernames must be unique on the system, and are used by the user to 
         /// log in to Splunk.
         /// </summary>
-        /// <param name="name">The username for the new user</param>
-        /// <param name="password">The password for this new user</param>
-        /// <param name="role">A role to assign this new user</param>
-        /// <param name="args">The optional args</param>
-        /// <returns>The new user entity</returns>
+        /// <param name="name">The username for the new user.</param>
+        /// <param name="password">The password for this new user.</param>
+        /// <param name="role">A role to assign this new user.</param>
+        /// <param name="args">The optional args.</param>
+        /// <returns>The new user entity.</returns>
         public User Create(string name, string password, string role, Args args)
         {
             args = Args.Create(args);
@@ -96,11 +97,11 @@ namespace Splunk
         /// Usernames must be unique on the system, and are used by the user to
         /// log in to Splunk.
         /// </summary>
-        /// <param name="name">The username for the new user</param>
-        /// <param name="password">The asswird fir this new user</param>
-        /// <param name="roles">A list of roles to assign this new user</param>
-        /// <param name="args">The optional args</param>
-        /// <returns>The new user entity</returns>
+        /// <param name="name">The username for the new user.</param>
+        /// <param name="password">The asswird fir this new user.</param>
+        /// <param name="roles">A list of roles to assign this new user.</param>
+        /// <param name="args">The optional args.</param>
+        /// <returns>The new user entity.</returns>
         public User
         Create(string name, string password, string[] roles, Args args)
         {

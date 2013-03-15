@@ -19,7 +19,7 @@ namespace Splunk
     using System;
 
     /// <summary>
-    /// The Password class represents a credential.
+    /// The <see cref="Credential"/> class represents a password.
     /// </summary>
     public class Credential : Entity
     {
@@ -45,8 +45,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the encrypted password, as it is stored. This is always 
-        /// stored as "********".
+        /// Gets the encrypted password, as it is stored. The encrypted password 
+        /// is always stored as "********".
         /// </summary>
         public string EncryptedPassword
         {
@@ -57,8 +57,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the username, which we overload name, when building the 
-        /// collection.
+        /// Overloaded. Gets the username when building the collection.
         /// </summary>
         public override string Name
         {

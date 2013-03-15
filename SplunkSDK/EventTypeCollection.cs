@@ -17,7 +17,8 @@
 namespace Splunk
 {
     /// <summary>
-    /// Represents the collection of EventTypes.
+    /// The <see cref="EventTypeCollection"/> class represents the collection
+    /// of <see cref="EventType"/>s.
     /// </summary>
     public class EventTypeCollection : EntityCollection<EventType>
     {
@@ -35,8 +36,8 @@ namespace Splunk
         /// Initializes a new instance of the <see cref="EventTypeCollection"/> 
         /// class.
         /// </summary>
-        /// <param name="service">The connected service</param>
-        /// <param name="args">The arguments</param>
+        /// <param name="service">The connected service.</param>
+        /// <param name="args">The arguments.</param>
         public EventTypeCollection(Service service, Args args)
             : base(service, "saved/eventtypes", args, typeof(EventType))
         {
@@ -45,9 +46,9 @@ namespace Splunk
         /// <summary>
         /// Creates an event type.
         /// </summary>
-        /// <param name="name">The name of the event</param>
-        /// <param name="search">The search string</param>
-        /// <returns>The EventType</returns>
+        /// <param name="name">The name of the event.</param>
+        /// <param name="search">The search string.</param>
+        /// <returns>The EventType.</returns>
         public EventType Create(string name, string search)
         {
             return this.Create(name, search, null);
@@ -56,10 +57,10 @@ namespace Splunk
         /// <summary>
         /// Creates an event type.
         /// </summary>
-        /// <param name="name">The name of the event</param>
-        /// <param name="search">The search string</param>
-        /// <param name="args">The arguments</param>
-        /// <returns>The EventType</returns>
+        /// <param name="name">The name of the event.</param>
+        /// <param name="search">The search string.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns>The EventType.</returns>
         public EventType Create(string name, string search, Args args)
         {
             args = Args.Create(args);

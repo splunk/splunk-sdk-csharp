@@ -22,7 +22,8 @@ namespace Splunk
     using System.Text;
 
     /// <summary>
-    /// Represents the Input subclass Udp Input
+    /// The <see cref="UdpInput"/> class represents the <see cref="Input"/> 
+    /// subclass Udp Input.
     /// </summary>
     public class UdpInput : Input
     {
@@ -98,7 +99,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the Input type of this object, Udp.
+        /// Gets the input type of this object, Udp.
         /// </summary>
         public InputKind Kind
         {
@@ -109,8 +110,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether Splunk prepends a timestamp 
-        /// and hostname to incoming events.
+        /// Gets or sets a value that indicates whether Splunk prepends a 
+        /// timestamp and hostname to incoming events.
         /// </summary>
         public bool NoAppendingTimeStamp
         {
@@ -126,8 +127,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether Splunk removes the priority 
-        /// field from incoming events. 
+        /// Gets or sets a value that indicates whether Splunk removes the 
+        /// priority field from incoming events. 
         /// </summary>
         public bool NoPriorityStripping
         {

@@ -17,12 +17,13 @@
 namespace Splunk
 {
     /// <summary>
-    /// Extends Args for WindowsActiveDirectoryInput creation setters
+    /// The <see cref="WindowsActiveDirectoryInputArgs"/> class extends 
+    /// <see cref="Args"/> for WindowsActiveDirectoryInput creation setters.
     /// </summary>
     public class WindowsActiveDirectoryInputArgs : Args
     {
         /// <summary>
-        /// Sets a value indicating whether monitoring is disabled.
+        /// Sets a value that indicates whether monitoring is disabled.
         /// </summary>
         public bool Disabled
         {
@@ -33,7 +34,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the  index in which to store the gathered data.
+        /// Sets the index in which to store the gathered data.
         /// </summary>
         public string Index
         {
@@ -44,8 +45,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value indicating whether to monitor the subtree(s) of a 
-        /// given directory tree path. The default is true.
+        /// Sets a value that indicates whether to monitor the subtree(s) of a 
+        /// given directory tree path. The default value is "true".
         /// </summary>
         public bool MonitorSubtree
         {

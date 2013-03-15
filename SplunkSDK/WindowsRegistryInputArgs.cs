@@ -17,12 +17,14 @@
 namespace Splunk
 {
     /// <summary>
-    /// Extends Args for WindowsRegistryInput creation setters
+    /// The <see cref="WindowsRegistryInputArgs"/> class extends 
+    /// <see cref="Args"/> for <see cref="WindowsRegistryInput"/> 
+    /// creation setters.
     /// </summary>
     public class WindowsRegistryInputArgs : Args
     {
         /// <summary>
-        /// Sets a value indicating whether this Windows Registry input 
+        /// Sets a value that indicates whether this Windows Registry input 
         /// has an established baseline. This parameter is required.
         /// </summary>
         public bool Baseline
@@ -34,7 +36,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value indicating whether a specific stanza is monitored. 
+        /// Sets a value that indicates whether a specific stanza is monitored. 
         /// </summary>
         public bool Disabled
         {
@@ -68,7 +70,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value indicating whether to monitor the subnodes of a 
+        /// Sets a value that indicates whether to monitor the subnodes of a 
         /// given registry hive.
         /// </summary>
         public bool MonitorSubnodes
@@ -100,8 +102,8 @@ namespace Splunk
             set
             {
                 // Take string array and build into a single string separating 
-                // the terms with a | symbol (expected by the endpoint) for 
-                // updating.
+                // the terms with a pipe ("|") symbol (expected by the endpoint) 
+                // for updating.
                 string composite = string.Empty;
                 for (int i = 0; i < value.Length; i++)
                 {

@@ -17,7 +17,8 @@
 namespace Splunk
 {
     /// <summary>
-    /// Extends Args for Role creation setters
+    /// The <see cref="RoleArgs"/> class extends <see cref="Args"/> for Role
+    /// creation setters.
     /// </summary>
     public class RoleArgs : Args
     {
@@ -34,7 +35,7 @@ namespace Splunk
 
         /// <summary>
         /// Sets the name of the app to use as the default app for 
-        /// the role.A user-specific default app will override this.
+        /// the role. A user-specific default app will override this.
         /// The name you specify is the name of the folder containing the app.
         /// </summary>
         public string DefaultApp
@@ -46,8 +47,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a role to import attributes from, as a list.
-        /// The default is a role imports no other roles.
+        /// Sets a role from which to import attributes, as a list.
+        /// The default value is a role that imports no other roles.
         /// </summary>
         public string[] ImportedRoles
         {
@@ -59,7 +60,7 @@ namespace Splunk
 
         /// <summary>
         /// Sets the maximum number of concurrent real time search jobs for this
-        /// role. This count is ford not effect the normal search jobs limit.
+        /// role. This count does not affect the normal search jobs limit.
         /// </summary>
         public int RtSrchJobsQuota
         {
@@ -83,16 +84,19 @@ namespace Splunk
 
         /// <summary>
         /// Sets a search string that restricts the scope of searches run by 
-        /// this role. Search results for this role only show events that also 
+        /// this role. 
+        /// </summary>
+        /// <remarks>
+        /// Search results for this role only show events that also 
         /// match the search string you specify. In the case that a user has 
         /// multiple roles with different search filters, they are combined with
         /// an OR. The search string can include source, host, index, eventtype,
-        /// sourcetype, search fields, *, OR and, AND.
+        /// sourcetype, search fields, *, OR, and AND.
         /// Example: 
         /// <example>"host=web* OR source=/var/log/*"</example>
         /// Note: You can also use the srchIndexesAllowed and srchIndexesDefault 
         /// parameters to limit the search on indexes.
-        /// </summary>
+        /// </remarks>
         public string SrchFilter
         {
             set
@@ -141,10 +145,12 @@ namespace Splunk
 
         /// <summary>
         /// Sets the maximum time span of a search, in seconds.
+        /// </summary>
+        /// <remarks>
         /// By default, searches are not limited to any specific time window. 
         /// To override any search time windows from imported roles, set 
         /// srchTimeWin to '0', as the 'admin' role does.
-        /// </summary>
+        /// </remarks>
         public int SrchTimeWin
         {
             set

@@ -24,13 +24,14 @@ namespace Splunk
     using Newtonsoft.Json;
 
     /// <summary>
-    /// Reads a results/event JSOMN stream one event at a time. 
+    /// The <see cref="ResultsReaderJson"/> class reads a results/event JSON
+    /// stream one event at a time. 
     /// </summary>
     public class ResultsReaderJson : ResultsReader
     {
         /// <summary>
-        /// Helper object which will only be constructed if the reader is handling
-        /// json format used by export.
+        /// Helper object that will only be constructed if the reader is 
+        /// handling JSON format used by export.
         /// </summary>
         private ExportHelper exportHelper;
 
@@ -40,21 +41,23 @@ namespace Splunk
         private bool previewFlagRead;
   
         /// <summary>
-        /// Initializes a new instance of the <see cref="ResultsReaderJson"/> class.
+        /// Initializes a new instance of the <see cref="ResultsReaderJson"/>
         /// class.
         /// </summary>
-        /// <param name="stream">Json stream to be parsed</param>
+        /// <param name="stream">JSON stream to be parsed.</param>
         public ResultsReaderJson(Stream stream) :
              this(stream, false)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ResultsReaderJson"/> class.
+        /// Initializes a new instance of the <see cref="ResultsReaderJson"/>
+        /// class.
         /// </summary>
         /// <param name="stream">The JSON stream to parse.</param>
         /// <param name="isInMultiReader">
-        /// Whether or not is the underlying reader of a multi reader.
+        /// Whether or not the reader is the underlying reader of a multi
+        /// reader.
         /// </param>
         internal ResultsReaderJson(Stream stream, bool isInMultiReader) :
             base(stream, isInMultiReader)
@@ -73,7 +76,7 @@ namespace Splunk
         internal StreamReader StreamReader { get; private set; }
      
         /// <summary>
-        /// Gets or sets the json reader
+        /// Gets or sets the JSON reader.
         /// </summary>
         private JsonTextReader JsonReader
         {
@@ -82,7 +85,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value indicating whether or not the results are
+        /// Gets a value that indicates whether or not the results are
         /// a preview from an unfinished search.
         /// </summary>
         public override bool IsPreview
@@ -107,7 +110,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// This method is not support.
+        /// This method is not supported.
         /// </summary>
         public override ICollection<string> Fields
         {
@@ -119,18 +122,18 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Advance to the next set, skipping remaining event(s) 
+        /// Advances to the next set, skipping remaining event(s), 
         /// if any in the current set.
         /// </summary>
-        /// <returns>Return false if the end is reached.</returns>
+        /// <returns>Return "false" if the end is reached.</returns>
         internal override bool AdvanceStreamToNextSet()
         {
             return this.AdvanceIntoNextSetBeforeEvent();
         }
 
         /// <summary>
-        /// Advance to the next set, skipping remaining event(s) 
-        /// if any in the current set, read meta data before the 
+        /// Advances to the next set, skipping remaining event(s), 
+        /// if any, in the current set, and reads meta data before the 
         /// first event in the next result set.
         /// </summary>
         /// <returns>Return false if the end is reached.</returns>       
@@ -154,7 +157,7 @@ namespace Splunk
                 // at top level, we step into it until we find the right key,
                 // then leave it in that state to iterate over.
                 //
-                // Json single-reader depends on 'isExport' flag to function.
+                // JSON single-reader depends on 'isExport' flag to function.
                 // It does not support a stream from a file saved from
                 // a stream from an export endpoint.
                 // Json multi-reader assumes export format thus does not support
@@ -190,7 +193,7 @@ namespace Splunk
                 // changed. Prior to 5.0, the array of events were a top level 
                 // JSON element. In 5.0, the results are ain an array under the
                 // key "results".
-                // Note: reading causes the side effect of setting the json node
+                // Note: Reading causes the side effect of setting the JSON node
                 // information. 
                 this.JsonReader = new JsonTextReader(StreamReader);
                 this.JsonReader.Read();
@@ -267,7 +270,7 @@ namespace Splunk
         }
         
         /// <summary>
-        /// Release unmanaged resources
+        /// Release. unmanaged resources.
         /// </summary>
         public override void Dispose()
         {
@@ -330,10 +333,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Read an event from the json reader.
+        /// Reads an event from the JSON reader.
         /// </summary>
         /// <returns>
-        /// The event. Null indicatiing end of stream, 
+        /// The event. Null indicating end of stream, 
         /// which is used by none --export cases.
         /// </returns>
         private Event ReadEvent()
@@ -404,7 +407,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Pead the preview flag value from the stream.
+        /// Reads the preview flag value from the stream.
         /// </summary>
         private void ReadPreviewFlag()
         {
@@ -451,13 +454,13 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Gets a value indicating whether or not the row 
+            /// Gets a value that indicates whether or not the row 
             /// is the last in the current set.
             /// </summary>
             internal bool LastRow { get; private set; }
 
             /// <summary>
-            /// Gets a value indicating whether or not the reader is in the middle or a row.
+            /// Gets a value that indicates whether or not the reader is in the middle or a row.
             /// </summary>
             public bool InRow { get; private set; }
 

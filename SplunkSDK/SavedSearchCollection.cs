@@ -19,7 +19,8 @@ namespace Splunk
     using System;
 
     /// <summary>
-    /// Represents the Collection of SavedSearches
+    /// The <see cref="SavedSearchCollection"/> class represents the 
+    /// collection of SavedSearches.
     /// </summary>
     public class SavedSearchCollection : EntityCollection<SavedSearch>
     {
@@ -27,7 +28,7 @@ namespace Splunk
         /// Initializes a new instance of the 
         /// <see cref="SavedSearchCollection"/> class.
         /// </summary>
-        /// <param name="service">The connected service</param>
+        /// <param name="service">The connected service.</param>
         public SavedSearchCollection(Service service)
             : base(service, "saved/searches", typeof(SavedSearch))
         {
@@ -37,18 +38,19 @@ namespace Splunk
         /// Initializes a new instance of the 
         /// <see cref="SavedSearchCollection"/> class.
         /// </summary>
-        /// <param name="service">The connected service</param>
-        /// <param name="args">The arguments</param>
+        /// <param name="service">The connected service.</param>
+        /// <param name="args">The arguments.</param>
         public SavedSearchCollection(Service service, Args args)
             : base(service, "saved/searches", args, typeof(SavedSearch))
         {
         }
 
         /// <summary>
-        /// Creates a saved search without a search string -- is unsupported
+        /// Unsupported. Do not use. Creates a saved search without a search 
+        /// string.
         /// </summary>
-        /// <param name="name">Search name</param>
-        /// <returns>NA: throws an exception</returns>
+        /// <param name="name">Search name.</param>
+        /// <returns>N/A. Throws an exception.</returns>
         public override SavedSearch Create(string name)
         {
             throw new Exception("Create unsuported");
@@ -57,9 +59,9 @@ namespace Splunk
         /// <summary>
         /// Creates a saved search from a name and search expression.
         /// </summary>
-        /// <param name="name">The name of the search</param>
-        /// <param name="search">The search string</param>
-        /// <returns>The saved search</returns>
+        /// <param name="name">The name of the search.</param>
+        /// <param name="search">The search string.</param>
+        /// <returns>The saved search.</returns>
         public SavedSearch Create(string name, string search)
         {
             Args args = new Args("search", search);
@@ -70,10 +72,10 @@ namespace Splunk
         /// Creates a saved search from a name, search expression, and
         /// additional arguments.
         /// /// </summary>
-        /// <param name="name">The name of the saved search</param>
-        /// <param name="search">The searchstring</param>
-        /// <param name="args">The arguments</param>
-        /// <returns>The saved search</returns>
+        /// <param name="name">The name of the saved search.</param>
+        /// <param name="search">The search string.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns>The saved search.</returns>
         public SavedSearch Create(string name, string search, Args args)
         {
             args = Args.Create(args);

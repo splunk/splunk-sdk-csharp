@@ -20,7 +20,8 @@ namespace Splunk
     using System.Collections.Generic;
 
     /// <summary>
-    /// The request Message is an abstraction of the HTTP/S web request message
+    /// The <see cref="RequestMessage"/> class is an abstraction of the
+    /// HTTP/S web request message.
     /// </summary>
     public class RequestMessage
     {
@@ -30,12 +31,12 @@ namespace Splunk
         private string method = "GET";  // "GET" | "PUT" | "POST" | "DELETE"
 
         /// <summary>
-        /// The header
+        /// The header.
         /// </summary>
         private Dictionary<string, string> header = null;
 
         /// <summary>
-        /// The content
+        /// The content.
         /// </summary>
         private object content = null;
 
@@ -61,7 +62,7 @@ namespace Splunk
         /// <summary>
         /// Gets the header dictionary.
         /// </summary>
-        /// <returns>The header</returns>
+        /// <returns>The header.</returns>
         public Dictionary<string, string> Header
         {
             get
@@ -77,7 +78,7 @@ namespace Splunk
         /// <summary>
         /// Gets or sets the HTTP/S method.
         /// </summary>
-        /// <returns>The method</returns>
+        /// <returns>The method.</returns>
         public string Method
         {
             get
@@ -99,7 +100,7 @@ namespace Splunk
         /// <summary>
         /// Gets or sets the content.
         /// </summary>
-        /// <returns>The content</returns>
+        /// <returns>The content.</returns>
         public object Content
         {
             get
@@ -116,8 +117,8 @@ namespace Splunk
         /// <summary>
         /// Checks if the method is supported.
         /// </summary>
-        /// <param name="value">The method name</param>
-        /// <returns>Whether or not the method is supported</returns>
+        /// <param name="value">The method name.</param>
+        /// <returns>Whether or not the method is supported.</returns>
         private bool CheckMethod(string value) 
         {
             return

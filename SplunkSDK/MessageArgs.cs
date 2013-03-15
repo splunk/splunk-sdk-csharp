@@ -17,12 +17,13 @@
 namespace Splunk
 {
     /// <summary>
-    /// Extends Args for Message creation setters
+    /// The <see cref="MessageArgs"/> class extends <see cref="Args"/> for
+    /// Message creation setters.
     /// </summary>
     public class MessageArgs : Args
     {
         /// <summary>
-        /// Sets the value of the message
+        /// Sets the value of the message.
         /// </summary>
         public string Value
         {

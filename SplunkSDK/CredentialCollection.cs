@@ -17,7 +17,8 @@
 namespace Splunk
 {
     /// <summary>
-    /// Represents the collection of Credentials.
+    /// The <see cref="CredentialCollection"/> class represents the 
+    /// collection of <see cref="Credential"/>s.
     /// </summary>
     public class CredentialCollection : EntityCollection<Credential>
     {
@@ -25,7 +26,7 @@ namespace Splunk
         /// Initializes a new instance of the <see cref="CredentialCollection"/> 
         /// class.
         /// </summary>
-        /// <param name="service">The connected service</param>
+        /// <param name="service">The connected service.</param>
         public CredentialCollection(Service service)
             : base(service, service.PasswordEndPoint, typeof(Credential))
         {
@@ -35,8 +36,8 @@ namespace Splunk
         /// Initializes a new instance of the <see cref="CredentialCollection"/> 
         /// class.
         /// </summary>
-        /// <param name="service">The connected service</param>
-        /// <param name="args">The arguments</param>
+        /// <param name="service">The connected service.</param>
+        /// <param name="args">The arguments.</param>
         public CredentialCollection(Service service, Args args)
             : base(service, "service.PasswordEndPoint", args, typeof(Credential))
         {
@@ -45,9 +46,9 @@ namespace Splunk
         /// <summary>
         /// Creates a credential.
         /// </summary>
-        /// <param name="name">The username</param>
-        /// <param name="password">The password</param>
-        /// <returns>The Password credentials</returns>
+        /// <param name="name">The username.</param>
+        /// <param name="password">The password.</param>
+        /// <returns>The Password credentials.</returns>
         public Credential Create(string name, string password)
         {
             return this.Create(name, password, null);
@@ -56,10 +57,10 @@ namespace Splunk
         /// <summary>
         /// Creates a credential.
         /// </summary>
-        /// <param name="name">The username</param>
-        /// <param name="password">The password</param>
-        /// <param name="realm">The realm</param>
-        /// <returns>The Password credentials</returns>
+        /// <param name="name">The username.</param>
+        /// <param name="password">The password.</param>
+        /// <param name="realm">The realm.</param>
+        /// <returns>The Password credentials.</returns>
         public Credential Create(string name, string password, string realm)
         {
             Args args = new Args();

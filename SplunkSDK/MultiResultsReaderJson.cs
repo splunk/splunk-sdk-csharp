@@ -19,16 +19,18 @@ namespace Splunk
     using System.IO;
 
     /// <summary>
-    /// Represents a streaming JSON reader for
-    /// Splunk search results. This reader supports streams from export searches, 
-    /// which might return one of more previews before returning final results.
+    /// The <see cref="MultiResultsReaderJson" /> class represents a streaming
+    /// JSON reader for Splunk search results. This reader supports streams
+    /// from export searches, which might return one of more previews before
+    /// returning final results.
     /// </summary>
     public class MultiResultsReaderJson : MultiResultsReader<ResultsReaderJson>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MultiResultsReaderJson" /> class.
+        /// Initializes a new instance of the
+        /// <see cref="MultiResultsReaderJson"/> class.
         /// </summary>
-        /// <param name="stream">The json stream to parse.</param>
+        /// <param name="stream">The JSON stream to parse.</param>
         public MultiResultsReaderJson(Stream stream)
             : base(new ResultsReaderJson(stream, true))
         {
