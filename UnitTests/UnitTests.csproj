@@ -38,6 +38,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
@@ -52,6 +53,7 @@
     <Compile Include="InputTest.cs" />
     <Compile Include="MessageTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResourceCollectionTest.cs" />
     <Compile Include="ResultsReaderTest.cs" />
     <Compile Include="RoleTest.cs" />
     <Compile Include="SavedSearchTest.cs" />
@@ -63,17 +65,43 @@
     <Compile Include="UserTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\sdk-helper\SplunkSDKHelper.csproj">
-      <Project>{4135F018-6041-4269-A76F-B6AAF87E260D}</Project>
+    <ProjectReference Include="..\SplunkSDKHelper\SplunkSDKHelper.csproj">
+      <Project>{4135f018-6041-4269-a76f-b6aaf87e260d}</Project>
       <Name>SplunkSDKHelper</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SplunkSDK.csproj">
-      <Project>{CA4151A1-3EF9-461D-9E03-34627273150D}</Project>
+    <ProjectReference Include="..\SplunkSDK\SplunkSDK.csproj">
+      <Project>{ca4151a1-3ef9-461d-9e03-34627273150d}</Project>
       <Name>SplunkSDK</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="results5.json">
+    <Content Include="Data\Results\4.3.5\results-preview.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Results\5.0.2\results-empty.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Results\5.0.2\results.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Results\results.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Results\results5.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Results\resultsExport.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\Results\results4.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\Results\resultsExport.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

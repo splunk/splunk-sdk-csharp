@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CA4151A1-3EF9-461D-9E03-34627273150D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Splunk</RootNamespace>
+    <AssemblyName>SplunkSDK</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Application.cs" />
+    <Compile Include="ApplicationArchive.cs" />
+    <Compile Include="ApplicationArgs.cs" />
+    <Compile Include="ApplicationSetup.cs" />
+    <Compile Include="ApplicationUpdate.cs" />
+    <Compile Include="AtomFeed.cs" />
+    <Compile Include="AtomObject.cs" />
+    <Compile Include="AtomEntry.cs" />
+    <Compile Include="BaseService.cs" />
+    <Compile Include="Event.cs" />
+    <Compile Include="EventTypeArgs.cs" />
+    <Compile Include="ConfCollection.cs" />
+    <Compile Include="EntityMetadata.cs" />
+    <Compile Include="EventType.cs" />
+    <Compile Include="EventTypeCollection.cs" />
+    <Compile Include="ExportResultsStream.cs" />
+    <Compile Include="FiredAlert.cs" />
+    <Compile Include="FiredAlertGroup.cs" />
+    <Compile Include="FiredAlertsGroupCollection.cs" />
+    <Compile Include="Index.cs" />
+    <Compile Include="IndexArgs.cs" />
+    <Compile Include="Input.cs" />
+    <Compile Include="InputCollection.cs" />
+    <Compile Include="InputKind.cs" />
+    <Compile Include="ISearchResults.cs" />
+    <Compile Include="JobArgs.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="Message.cs" />
+    <Compile Include="MessageArgs.cs" />
+    <Compile Include="MessageCollection.cs" />
+    <Compile Include="MonitorInput.cs" />
+    <Compile Include="MonitorInputArgs.cs" />
+    <Compile Include="MultiResultsReader.cs" />
+    <Compile Include="MultiResultsReaderJson.cs" />
+    <Compile Include="MultiResultsReaderXml.cs" />
+    <Compile Include="Credential.cs" />
+    <Compile Include="CredentialCollection.cs" />
+    <Compile Include="ReplaceTimezone.cs" />
+    <Compile Include="ResultsReaderXml.cs" />
+    <Compile Include="Role.cs" />
+    <Compile Include="RoleArgs.cs" />
+    <Compile Include="SavedSearch.cs" />
+    <Compile Include="SavedSearchArgs.cs" />
+    <Compile Include="SavedSearchCollection.cs" />
+    <Compile Include="ScriptInput.cs" />
+    <Compile Include="ScriptInputArgs.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="TcpConnections.cs" />
+    <Compile Include="TcpInput.cs" />
+    <Compile Include="TcpInputArgs.cs" />
+    <Compile Include="TcpSplunkInput.cs" />
+    <Compile Include="TcpSplunkInputArgs.cs" />
+    <Compile Include="UdpConnections.cs" />
+    <Compile Include="UdpInput.cs" />
+    <Compile Include="UdpInputArgs.cs" />
+    <Compile Include="Upload.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="ServiceInfo.cs" />
+    <Compile Include="Receiver.cs" />
+    <Compile Include="ResultsReader.cs" />
+    <Compile Include="Entity.cs" />
+    <Compile Include="EntityCollection.cs" />
+    <Compile Include="Job.cs" />
+    <Compile Include="Record.cs" />
+    <Compile Include="Resource.cs" />
+    <Compile Include="JobCollection.cs" />
+    <Compile Include="ResourceCollection.cs" />
+    <Compile Include="ResultsReaderJson.cs" />
+    <Compile Include="Service.cs" />
+    <Compile Include="ServiceArgs.cs" />
+    <Compile Include="RequestMessage.cs" />
+    <Compile Include="ResponseMessge.cs" />
+    <Compile Include="HttpService.cs" />
+    <Compile Include="Args.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SplunkException.cs" />
+    <Compile Include="UserArgs.cs" />
+    <Compile Include="UserCollection.cs" />
+    <Compile Include="Util.cs" />
+    <Compile Include="Value.cs" />
+    <Compile Include="WindowsActiveDirectoryInput.cs" />
+    <Compile Include="WindowsActiveDirectoryInputArgs.cs" />
+    <Compile Include="WindowsEventLogInput.cs" />
+    <Compile Include="WindowsEventLogInputArgs.cs" />
+    <Compile Include="WindowsPerfmonInput.cs" />
+    <Compile Include="WindowsPerfmonInputArgs.cs" />
+    <Compile Include="WindowsRegistryInput.cs" />
+    <Compile Include="WindowsRegistryInputArgs.cs" />
+    <Compile Include="WindowsWmiInput.cs" />
+    <Compile Include="WindowsWmiInputArgs.cs" />
+    <Compile Include="Xml.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

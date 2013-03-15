@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2012 Splunk, Inc.
+ * Copyright 2013 Splunk, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"): you may
  * not use this file except in compliance with the License. You may obtain
@@ -14,17 +14,15 @@
  * under the License.
  */
 
-namespace SplunkSearch
+namespace Splunk.Examples.Search
 {
     using System;
-    using System.Collections.Generic;
-    using System.IO;
     using System.Threading;
     using Splunk;
     using SplunkSDKHelper;
 
     /// <summary>
-    /// The search program
+    /// An example program to perform a normal search.
     /// </summary>
     public class Program
     {
@@ -34,9 +32,7 @@ namespace SplunkSearch
         /// <param name="argv">The command line arguments</param>
         public static void Main(string[] argv) 
         {
-            Service service;
-            Args args = new Args();
-            Command cli = Command.Splunk("search");
+            var cli = Command.Splunk("search");
             cli.AddRule("search", typeof(string), "search string");
             cli.Parse(argv);
             if (!cli.Opts.ContainsKey("search"))
@@ -45,29 +41,36 @@ namespace SplunkSearch
                 Environment.Exit(1);
             }
 
-            service = Service.Connect(cli.Opts);
-            JobCollection jobs = service.GetJobs();
-            Job job = jobs.Create((string)cli.Opts["search"]);
+            var service = Service.Connect(cli.Opts);
+            var jobs = service.GetJobs();
+            var job = jobs.Create((string)cli.Opts["search"]);
             while (!job.IsDone) 
             {
                 Thread.Sleep(1000);
             }
 
-            // hard-code output args to json (use reader) and count is 0.
-            Args outArgs = new Args("output_mode", "json");
-            outArgs.Add("count", "0");
-            Stream stream = job.Results(outArgs);
-            ResultsReaderJson rr = new ResultsReaderJson(stream);
-            Dictionary<string, object> map;
-            while ((map = rr.GetNextEvent()) != null)
+            var outArgs = new Args
             {
-                System.Console.WriteLine("EVENT:");
-                foreach (string key in map.Keys)
+                { "output_mode", "json" },
+
+                // Return all entries.
+                { "count", "0" }
+            };
+
+            using (var stream = job.Results(outArgs))
+            {
+                using (var rr = new ResultsReaderJson(stream))
                 {
-                    System.Console.WriteLine("   " + key + " -> " + map[key]);
+                    foreach (var map in rr)
+                    {
+                        System.Console.WriteLine("EVENT:");
+                        foreach (string key in map.Keys)
+                        {
+                            System.Console.WriteLine("   " + key + " -> " + map[key]);
+                        }
+                    }
                 }
             }
-            job.Cancel();
         }
     }
 }
