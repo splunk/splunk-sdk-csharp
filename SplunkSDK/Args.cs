@@ -22,8 +22,8 @@ namespace Splunk
     using System.Web;
 
     /// <summary>
-    /// A UTF-8 safe, web argument encoding extension for 
-    /// standard the Dictionary type
+    /// The <see cref="Args"/> class represents a UTF-8 safe, web argument 
+    /// encoding extension for the standard Dictionary type.
     /// </summary>
     public class Args : Dictionary<string, object>, ISerializable
     {
@@ -38,8 +38,8 @@ namespace Splunk
         /// Initializes a new instance of the <see cref="Args"/> class,
         /// with a single key/value pair.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <param name="value">The value</param>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
         public Args(string key, object value) 
         {
             base[key] = value;
@@ -49,7 +49,7 @@ namespace Splunk
         /// Initializes a new instance of the <see cref="Args"/> class, 
         /// with an existing dictionary. 
         /// </summary>
-        /// <param name="values">The existing dictionary</param>
+        /// <param name="values">The existing dictionary.</param>
         public Args(Dictionary<string, object> values) 
         {
             foreach (KeyValuePair<string, object> entry in values) 
@@ -59,11 +59,11 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Adds a key/value pair to an Args.
+        /// Adds a key/value pair to an <see cref="Args"/>.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <param name="value">The value</param>
-        /// <returns>The Args</returns>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="Args"/>.</returns>
         public Args AlternateAdd(string key, object value) 
         {
             base[key] = value;
@@ -71,32 +71,32 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Creates a new, empty Args
+        /// Creates a new, empty <see cref="Args"/>.
         /// </summary>
-        /// <returns>The new, empty Args</returns>
+        /// <returns>The new, empty <see cref="Args"/>.</returns>
         public static Args Create() 
         {
             return new Args();
         }
 
         /// <summary>
-        /// Creates a new Args instance and initializes it with a single 
-        /// key/value pair.
+        /// Creates a new <see cref="Args"/> instance and initializes it with a 
+        /// single key/value pair.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <param name="value">The value</param>
-        /// <returns>The new initialized Args</returns>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>The new initialized <see cref="Args"/>.</returns>
         public static Args Create(string key, object value) 
         {
             return new Args(key, value);
         }
         
         /// <summary>
-        /// Creates a new Args instance and initializes it with a pre-existing 
-        /// dictionary.
+        /// Creates a new <see cref="Args"/> instance and initializes it with a
+        /// pre-existing dictionary.
         /// </summary>
-        /// <param name="values">The existing dictionary</param>
-        /// <returns>The new initialized Args</returns>
+        /// <param name="values">The existing dictionary.</param>
+        /// <returns>The new initialized <see cref="Args"/>.</returns>
         public static Args Create(Dictionary<string, object> values) 
         {
             return values == null ? new Args() : new Args(values);
@@ -105,8 +105,8 @@ namespace Splunk
         /// <summary>
         /// Encodes a single string with UTF-8 encoding.
         /// </summary>
-        /// <param name="value">The string</param>
-        /// <returns>The UTF-8 encoded string</returns>
+        /// <param name="value">The string.</param>
+        /// <returns>The UTF-8 encoded string.</returns>
         public static string Encode(string value) 
         {
             if (value == null) 
@@ -120,19 +120,19 @@ namespace Splunk
         /// Encodes a hash map of string or string[] into a single UTF8-encoded 
         /// string.
         /// </summary>
-        /// <param name="args">The string or string array</param>
-        /// <returns>The UTF-8 encoded string</returns>
+        /// <param name="args">The string or string array.</param>
+        /// <returns>The UTF-8 encoded string.</returns>
         public static string Encode(Dictionary<string, object> args) 
         {
             return Args.Create(args).Encode();
         }
 
         /// <summary>
-        /// Encodes an argument with a list-valued argument
+        /// Encodes an argument with a list-valued argument.
         /// </summary>
-        /// <param name="builder">The string builder</param>
-        /// <param name="key">The key</param>
-        /// <param name="values">The string array</param>
+        /// <param name="builder">The string builder.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="values">The string array.</param>
         private void 
             EncodeValues(StringBuilder builder, string key, string[] values) 
         {
@@ -151,9 +151,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Encode an Args instance into a UTF-8 encoded string
+        /// Encodes an <see cref="Args"/> instance into a UTF-8 encoded string.
         /// </summary>
-        /// <returns>The UTF-8 encoded string</returns>
+        /// <returns>The UTF-8 encoded string.</returns>
         public string Encode() 
         {
             StringBuilder builder = new StringBuilder();
@@ -184,11 +184,11 @@ namespace Splunk
         /// Returns the dictionary value of a specific key, or the default 
         /// value if the key is not found.
         /// </summary>
-        /// <param name="args">The dictionary</param>
-        /// <param name="key">The key</param>
-        /// <param name="defaultValue">The default value</param>
+        /// <param name="args">The dictionary.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The default value.</param>
         /// <returns>The key's value in the dictionary, or the default value if
-        /// not found</returns>
+        /// not found.</returns>
         public static string 
            Get(Dictionary<string, object> args, string key, string defaultValue) 
         {

@@ -20,7 +20,7 @@ namespace Splunk
     using System.Collections.Generic;
 
     /// <summary>
-    /// The <see cref="EntityCollection"/> class represents a collection of
+    /// The <see cref="EntityCollection{T}"/> class represents a collection of
     /// <see cref="Entity"/>s.
     /// </summary>
     /// <typeparam name="T">The Generic parameter that matches the
@@ -29,7 +29,7 @@ namespace Splunk
     public class EntityCollection<T> : ResourceCollection<T> where T : Entity
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EntityCollection"/> 
+        /// Initializes a new instance of the <see cref="EntityCollection{T}"/> 
         /// class.
         /// </summary>
         /// <param name="service">The service.</param>
@@ -40,7 +40,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EntityCollection"/> 
+        /// Initializes a new instance of the <see cref="EntityCollection{T}"/> 
         /// class.
         /// </summary>
         /// <param name="service">The service.</param>
@@ -52,7 +52,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EntityCollection"/> 
+        /// Initializes a new instance of the <see cref="EntityCollection{T}"/> 
         /// class.
         /// </summary>
         /// <param name="service">The service.</param>
@@ -64,7 +64,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EntityCollection"/> 
+        /// Initializes a new instance of the <see cref="EntityCollection{T}"/> 
         /// class.
         /// </summary>
         /// <param name="service">The service.</param>

@@ -23,7 +23,7 @@ namespace Splunk
     using System.Xml;
 
     /// <summary>
-    /// Represents the Atom Entry data.
+    /// The <see cref="AtomEntry"/> class represents the Atom Entry data.
     /// </summary>
     public class AtomEntry : AtomObject
     {
@@ -48,7 +48,7 @@ namespace Splunk
         /// <summary>
         /// Creates a new instance of the <see cref="AtomEntry"/> class.
         /// </summary>
-        /// <returns>An AtomEntry</returns>
+        /// <returns>An <see cref="AtomEntry"/>.</returns>
         private static AtomEntry Create() 
         {
             AtomEntry atomEntry = new AtomEntry();
@@ -57,12 +57,13 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Creates a new AtomEntry instance based on a given stream.
+        /// Creates a new <see cref="AtomEntry"/> instance based on a given 
+        /// stream.
         /// A few endpoints, such as search/jobs/{sid}
         /// return an Atom entry element as the root of the response.
         /// </summary>
-        /// <param name="input">The IO stream</param>
-        /// <returns>An AtomEntry</returns>
+        /// <param name="input">The IO stream.</param>
+        /// <returns>An <see cref="AtomEntry"/>.</returns>
         public static AtomEntry Parse(Stream input) 
         {
             XmlElement root = Xml.Parse(input).DocumentElement;
@@ -77,10 +78,11 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Creates a new AtomEntry instance based on a given XML element.
+        /// Creates a new <see cref="AtomEntry"/> instance based on a given XML
+        /// element.
         /// </summary>
-        /// <param name="element">The XML element</param>
-        /// <returns>An AtomEntry</returns>
+        /// <param name="element">The XML element.</param>
+        /// <returns>An <see cref="AtomEntry"/>.</returns>
         public static AtomEntry Parse(XmlElement element) 
         {
             AtomEntry entry = AtomEntry.Create();
@@ -89,9 +91,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Initializes the current AtomEntry instance with a given XML element.
+        /// Initializes the current <see cref="AtomEntry"/> instance with a
+        /// given XML element.
         /// </summary>
-        /// <param name="element">The XML element</param>
+        /// <param name="element">The XML element.</param>
         public override void Init(XmlElement element) 
         {
             string name = element.Name;
@@ -114,8 +117,8 @@ namespace Splunk
         /// function makes it easier to retrieve only the element children
         /// of a given XML element.
         /// </summary>
-        /// <param name="element">The XML element</param>
-        /// <returns>XML element list</returns>
+        /// <param name="element">The XML element.</param>
+        /// <returns>XML element list.</returns>
         public static List<XmlElement> GetChildElements(XmlElement element) 
         {
             List<XmlElement> result = new List<XmlElement>();
@@ -132,8 +135,8 @@ namespace Splunk
         /// <summary>
         /// Parses the content element of an Atom entry.
         /// </summary>
-        /// <param name="element">The XML element</param>
-        /// <returns>The content Record</returns>
+        /// <param name="element">The XML element.</param>
+        /// <returns>The content Record.</returns>
         public Record ParseContent(XmlElement element) 
         {
             Trace.Assert(element.LocalName.Equals("content"));
@@ -158,8 +161,8 @@ namespace Splunk
         /// Parses a dictinary content element and returns a Record
         /// object containing the parsed values.
         /// </summary>
-        /// <param name="element">An XML element</param>
-        /// <returns>The Record</returns>
+        /// <param name="element">An XML element.</param>
+        /// <returns>The Record.</returns>
         public Record ParseDict(XmlElement element) 
         {
             Trace.Assert(element.Name.Equals("s:dict"));
@@ -194,8 +197,8 @@ namespace Splunk
         /// Parses a list element and return a List object
         /// containing the parsed values.
         /// </summary>
-        /// <param name="element">An XML element</param>
-        /// <returns>The list of parsed values</returns>
+        /// <param name="element">An XML element.</param>
+        /// <returns>The list of parsed values.</returns>
         public List<object> ParseList(XmlElement element) 
         {
             Trace.Assert(element.Name.Equals("s:list"));
@@ -229,8 +232,8 @@ namespace Splunk
         /// Parses the value content of a dictionary/key or a list/item element.
         /// The value is either text, a dictionary element, or a list element.
         /// </summary>
-        /// <param name="element">The XML element</param>
-        /// <returns>Either the dictionary or list of values</returns>
+        /// <param name="element">The XML element.</param>
+        /// <returns>Either the dictionary or list of values.</returns>
         public object ParseValue(XmlElement element) 
         {
             string name = element.Name;

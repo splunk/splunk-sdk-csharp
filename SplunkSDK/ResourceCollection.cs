@@ -270,7 +270,7 @@ namespace Splunk
         /// </summary>
         /// <remarks>
         /// This base implementation uses the class object that was
-        /// passed in when the generic <see cref="ResourceCollection"/> was
+        /// passed in when the generic <see cref="ResourceCollection{T}"/> was
         /// created. Subclasses may override this method to provide alternative
         /// means of instantiating collection items.
         /// </remarks>
