@@ -448,7 +448,7 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// Test Json format with a Oneshot search.
+        /// Test JSON format with a Oneshot search.
         /// </summary>
         [TestMethod]
         public void TestReaderEndToEndOneshotJson()
@@ -474,7 +474,7 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// Test Json format with an Export search.
+        /// Test JSON format with an Export search.
         /// </summary>
         [TestMethod]
         public void TestReaderEndToEndExportJson()
