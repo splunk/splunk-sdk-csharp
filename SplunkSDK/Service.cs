@@ -256,7 +256,7 @@ namespace Splunk
         {
             args = Args.Create(args).AlternateAdd("search", search);
             ResponseMessage response = Get("search/jobs/export", args);
-            return response.Content;
+            return new ExportResultsStream(response.Content);
         }
 
         /// <summary>
@@ -856,13 +856,13 @@ namespace Splunk
                 }
                 // Left side smaller?
                 if (Convert.ToInt32(leftDigits[i]) < 
-                    Convert.ToInt32(leftDigits[1])) 
+                    Convert.ToInt32(rightDigits[i])) 
                 {
                     return -1;
                 }
                 // Left side bigger?
                 if (Convert.ToInt32(leftDigits[i]) > 
-                    Convert.ToInt32(leftDigits[1])) 
+                    Convert.ToInt32(rightDigits[i])) 
                 {
                     return 1;
                 }

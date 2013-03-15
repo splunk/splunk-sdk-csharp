@@ -114,11 +114,22 @@ namespace Splunk
         /// </summary>
         public override ICollection<string> Fields
         {
+            // Unlike XML and CSV, JSON result streams do not provide field name
+            // list before events.
             get
             {
                 throw new InvalidOperationException(
                     "Fields is not supported by this subclass.");
             }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether or not the reader has been
+        /// disposed.
+        /// </summary>
+        private bool IsDisposed
+        {
+            get { return this.StreamReader == null; }
         }
 
         /// <summary>
@@ -140,153 +151,145 @@ namespace Splunk
         internal bool AdvanceIntoNextSetBeforeEvent()
         {
             // If the end of stream has been reached, don't continue.
-            if (this.StreamReader == null)
+            if (this.IsDisposed)
             {
                 return false;
             }
 
-            // if stream is empty, return a null reader.
-            try
+            // In Splunk 5.0 from the export endpoint,
+            // each result is in its own top level object.
+            // In Splunk 5.0 not from the export endpoint, the results are
+            // an array at that object's key "results".
+            // In Splunk 4.3, the
+            // array was the top level returned. So if we find an object
+            // at top level, we step into it until we find the right key,
+            // then leave it in that state to iterate over.
+            //
+            // JSON single-reader depends on 'isExportStream' flag to function.
+            // It does not support a stream from a file saved from
+            // a stream from an export endpoint.
+            // JSON multi-reader assumes export format thus does not support
+            // a stream from none export endpoints.
+            if (this.exportHelper != null)
             {
-                // In Splunk 5.0 from the export endpoint,
-                // each result is in its own top level object.
-                // In Splunk 5.0 not from the export endpoint, the results are
-                // an array at that object's key "results".
-                // In Splunk 4.3, the
-                // array was the top level returned. So if we find an object
-                // at top level, we step into it until we find the right key,
-                // then leave it in that state to iterate over.
-                //
-                // JSON single-reader depends on 'isExport' flag to function.
-                // It does not support a stream from a file saved from
-                // a stream from an export endpoint.
-                // Json multi-reader assumes export format thus does not support
-                // a stream from none export endpoints.
-                if (this.exportHelper != null)
-                {
-                    /*
-                     * We're on Splunk 5 with a single-reader not from
-                     * an export endpoint
-                     * Below is an example of an input stream.
-                     *      {"preview":true,"offset":0,"lastrow":true,"result":{"host":"Andy-PC","count":"62"}}
-                     *      {"preview":true,"offset":0,"result":{"host":"Andy-PC","count":"1682"}}
-                     */
+                /*
+                 * We're on Splunk 5 with a single-reader not from
+                 * an export endpoint
+                 * Below is an example of an input stream.
+                 *      {"preview":true,"offset":0,"lastrow":true,"result":{"host":"Andy-PC","count":"62"}}
+                 *      {"preview":true,"offset":0,"result":{"host":"Andy-PC","count":"1682"}}
+                 */
 
-                    // Read into first result object of the cachedElement set.
-                    while (true)
+                // Read into first result object of the cachedElement set.
+                while (true)
+                {
+                    bool endPassed = this.exportHelper.LastRow;
+                    this.exportHelper.SkipRestOfRow();
+                    if (!this.exportHelper.ReadIntoRow())
                     {
-                        bool endPassed = this.exportHelper.LastRow;
-                        this.exportHelper.SkipRestOfRow();
-                        if (!this.exportHelper.ReadIntoRow())
-                        {
-                            return false;
-                        }
-                        if (endPassed)
-                        {
-                            break;
-                        }
+                        return false;
                     }
-                    return true;
-                }
-
-                // Introduced in Splunk 5.0, the format of the JSON object 
-                // changed. Prior to 5.0, the array of events were a top level 
-                // JSON element. In 5.0, the results are ain an array under the
-                // key "results".
-                // Note: Reading causes the side effect of setting the JSON node
-                // information. 
-                this.JsonReader = new JsonTextReader(StreamReader);
-                this.JsonReader.Read();
-                if (this.JsonReader.TokenType.Equals(JsonToken.StartObject))
-                {
-                    /*
-                     * We're on Splunk 5 with a single-reader not from
-                     * an export endpoint
-                     * Below is an example of an input stream.
-                     *     {"preview":false,"init_offset":0,"messages":[{"type":"DEBUG","text":"base lispy: [ AND index::_internal ]"},{"type":"DEBUG","text":"search context: user=\"admin\", app=\"search\", bs-pathname=\"/Users/fross/splunks/splunk-5.0/etc\""}],"results":[{"sum(kb)":"14372242.758775","series":"twitter"},{"sum(kb)":"267802.333926","series":"splunkd"},{"sum(kb)":"5979.036338","series":"splunkd_access"}]}
-                     */
-                    while (true)
+                    if (endPassed)
                     {
-                        if (!this.JsonReader.Read())
-                        {
-                            this.Dispose();
-                            return false;
-                        }
-
-                        if (this
-                            .JsonReader
-                            .TokenType
-                            .Equals(JsonToken.PropertyName))
-                        {
-                            if (this.JsonReader.Value.Equals("preview"))
-                            {
-                                this.ReadPreviewFlag();
-                            }
-
-                            if (this.JsonReader.Value.Equals("results"))
-                            {
-                                this.JsonReader.Read();
-                                return true;
-                            }
-                        }
+                        break;
                     }
                 }
-                else
+                return true;
+            }
+
+            // Introduced in Splunk 5.0, the format of the JSON object 
+            // changed. Prior to 5.0, the array of events were a top level 
+            // JSON element. In 5.0 (not from Export), 
+            // the results are an array under the
+            // key "results".
+            // Note: Reading causes the side effect of setting the JSON node
+            // information. 
+            this.JsonReader = new JsonTextReader(StreamReader);
+            this.JsonReader.Read();
+            if (this.JsonReader.TokenType.Equals(JsonToken.StartObject))
+            {
+                /*
+                 * We're on Splunk 5 with a single-reader not from
+                 * an export endpoint
+                 * Below is an example of an input stream.
+                 *     {"preview":false,"init_offset":0,"messages":[{"type":"DEBUG","text":"base lispy: [ AND index::_internal ]"},{"type":"DEBUG","text":"search context: user=\"admin\", app=\"search\", bs-pathname=\"/Users/fross/splunks/splunk-5.0/etc\""}],"results":[{"sum(kb)":"14372242.758775","series":"twitter"},{"sum(kb)":"267802.333926","series":"splunkd"},{"sum(kb)":"5979.036338","series":"splunkd_access"}]}
+                 */
+                while (true)
                 {
-                    /* Pre Splunk 5.0
-                     * Below is an example of an input stream
-                     *   [
-                     *       {
-                     *           "sum(kb)":"14372242.758775",
-                     *               "series":"twitter"
-                     *       },
-                     *       {
-                     *           "sum(kb)":"267802.333926",
-                     *               "series":"splunkd"
-                     *       },
-                     *       {
-                     *           "sum(kb)":"5979.036338",
-                     *               "series":"splunkd_access"
-                     *       }
-                     *   ]
-                     */
-                    return true;
+                    if (!this.JsonReader.Read())
+                    {
+                        this.Dispose();
+                        return false;
+                    }
+
+                    if (this
+                        .JsonReader
+                        .TokenType
+                        .Equals(JsonToken.PropertyName))
+                    {
+                        if (this.JsonReader.Value.Equals("preview"))
+                        {
+                            this.ReadPreviewFlag();
+                        }
+
+                        if (this.JsonReader.Value.Equals("results"))
+                        {
+                            this.JsonReader.Read();
+                            return true;
+                        }
+                    }
                 }
             }
-            catch (Newtonsoft.Json.JsonReaderException e)
+            else
             {
-                // at Newtonsoft.Json.JsonTextReader.ReadInternal()
-                if (e.Message.Contains(
-                    "Additional text encountered after finished reading JSON content"))
-                {
-                    this.JsonReader = new JsonTextReader(this.StreamReader);
-                    return true;
-                }
-
-                throw;
-                //this.JsonReader = null;
-                //return false;
+                /* Pre Splunk 5.0
+                 * Below is an example of an input stream
+                 *   [
+                 *       {
+                 *           "sum(kb)":"14372242.758775",
+                 *               "series":"twitter"
+                 *       },
+                 *       {
+                 *           "sum(kb)":"267802.333926",
+                 *               "series":"splunkd"
+                 *       },
+                 *       {
+                 *           "sum(kb)":"5979.036338",
+                 *               "series":"splunkd_access"
+                 *       }
+                 *   ]
+                 */
+                return true;
             }
         }
-        
+
         /// <summary>
         /// Release. unmanaged resources.
         /// </summary>
         public override void Dispose()
         {
+            if (this.IsDisposed)
+            {
+                return;
+            }
+
+            // The JSON reader is created after
+            // constructor so the property could be
+            // null.
             if (this.JsonReader != null)
             {
-                this.JsonReader.Close();
+                ((IDisposable)this.JsonReader).Dispose();              
             }
 
-            this.JsonReader = null;
-
-            if (this.StreamReader != null)
+            if (this.exportHelper != null)
             {
-                this.StreamReader.Close();
+                this.exportHelper.Dispose();
             }
 
-            this.StreamReader = null;      
+            this.StreamReader.Close();
+          
+            // Marking this reader as disposed.
+            this.StreamReader = null;
         }
 
         /// <summary>
@@ -297,7 +300,7 @@ namespace Splunk
         {
             while (true)
             {
-                if (this.JsonReader == null)
+                if (this.IsDisposed)
                 {
                     yield break;
                 }
@@ -419,10 +422,10 @@ namespace Splunk
         /// <summary>
         /// Contains code only used for streams from the export endpoint.
         /// </summary>
-        private class ExportHelper
+        private class ExportHelper : IDisposable
         {
             /// <summary>
-            /// The json reader
+            /// The JSON reader
             /// </summary>
             private readonly ResultsReaderJson resultsReader;
 
@@ -444,7 +447,7 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Gets or sets the json reader which is also used by
+            /// Gets or sets the JSON reader which is also used by
             /// the result reader itself.
             /// </summary>
             private JsonTextReader JsonReader
@@ -475,10 +478,12 @@ namespace Splunk
                     return true;
                 }
 
-                //if (this.jsonReader.TokenType == JsonToken.end doc)
-                //    return false;
                 this.InRow = true;
 
+                // Each row is a JSON object. Multiple such rows together is not 
+                // valid JSON format. JsonTestReader will fail on those. The JSON output format
+                // is designed to use line breaks to seperate the rows. Below
+                // we take one row and give it to a seperate JSON reader.
                 var line = this.resultsReader.StreamReader.ReadLine();
 
                 if (line == null)
@@ -546,8 +551,17 @@ namespace Splunk
                     return;
                 }
                 this.InRow = false;
-                this.JsonReader.Close();
-                this.currentRow.Close();
+                ((IDisposable)this.JsonReader).Dispose();
+                this.currentRow.Dispose();
+            }
+
+            /// <summary>
+            /// Release resources including unmanaged ones.
+            ///  </summary>
+            public void Dispose()
+            {
+                ((IDisposable)this.JsonReader).Dispose();
+                this.currentRow.Dispose();
             }
         }
     }
