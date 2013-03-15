@@ -28,7 +28,7 @@ namespace Splunk
         /// <summary>
         /// Initializes a new instance of the <see cref="MultiResultsReaderJson" /> class.
         /// </summary>
-        /// <param name="stream">The json stream to parse.</param>
+        /// <param name="stream">The JSON stream to parse.</param>
         public MultiResultsReaderJson(Stream stream)
             : base(new ResultsReaderJson(stream, true))
         {

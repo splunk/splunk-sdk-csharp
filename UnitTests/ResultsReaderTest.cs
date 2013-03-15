@@ -38,12 +38,12 @@ namespace UnitTests
         private const string TestDataFolder = @"Data\Results";
 
         /// <summary>
-        /// Input file for the json test on Splunk Version 5
+        /// Input file for the JSON test on Splunk Version 5
         /// </summary>
         private const string Splunk5JsonInputFilePath = "results5.json";
 
         /// <summary>
-        /// Input file for the json test on Splunk Version 4
+        /// Input file for the JSON test on Splunk Version 4
         /// </summary>
         private const string Splunk4JsonInputFilePath = "results4.json";
 
@@ -83,7 +83,7 @@ namespace UnitTests
             = @"5.0.2\results-empty.xml";
 
         /// <summary>
-        /// Test json format using an input file representing 
+        /// Test JSON format using an input file representing 
         /// Splunk Version 5, with simple data common to all readers.
         /// </summary>
         [TestMethod]
@@ -96,7 +96,7 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// Test json format using an input file representing
+        /// Test JSON format using an input file representing
         /// Splunk Version 4, with simple data common to all readers.
         /// </summary>
         [TestMethod]
@@ -523,7 +523,7 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// Test json format using an input file
+        /// Test JSON format using an input file
         /// </summary>
         /// <param name="path">Path to the input file</param>
         private void TestReadJson(string path)

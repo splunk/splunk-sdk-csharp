@@ -24,13 +24,13 @@ namespace Splunk
     using Newtonsoft.Json;
 
     /// <summary>
-    /// Reads a results/event JSOMN stream one event at a time. 
+    /// Reads a results/event JSON stream one event at a time. 
     /// </summary>
     public class ResultsReaderJson : ResultsReader
     {
         /// <summary>
         /// Helper object which will only be constructed if the reader is handling
-        /// json format used by export.
+        /// JSON format used by export.
         /// </summary>
         private ExportHelper exportHelper;
 
@@ -73,7 +73,7 @@ namespace Splunk
         internal StreamReader StreamReader { get; private set; }
      
         /// <summary>
-        /// Gets or sets the json reader
+        /// Gets or sets the JSON reader
         /// </summary>
         private JsonTextReader JsonReader
         {
@@ -199,7 +199,7 @@ namespace Splunk
                 // changed. Prior to 5.0, the array of events were a top level 
                 // JSON element. In 5.0, the results are ain an array under the
                 // key "results".
-                // Note: reading causes the side effect of setting the json node
+                // Note: reading causes the side effect of setting the JSON node
                 // information. 
                 this.JsonReader = new JsonTextReader(StreamReader);
                 this.JsonReader.Read();
@@ -334,7 +334,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Read an event from the json reader.
+        /// Read an event from the JSON reader.
         /// </summary>
         /// <returns>
         /// The event. Null indicatiing end of stream, 
@@ -423,7 +423,7 @@ namespace Splunk
         private class ExportHelper
         {
             /// <summary>
-            /// The json reader
+            /// The JSON reader
             /// </summary>
             private readonly ResultsReaderJson resultsReader;
 
@@ -445,7 +445,7 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Gets or sets the json reader which is also used by
+            /// Gets or sets the JSON reader which is also used by
             /// the result reader itself.
             /// </summary>
             private JsonTextReader JsonReader
