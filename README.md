@@ -195,27 +195,27 @@ on the Microsoft Developer Network (MSDN).
 <table>
 
 <tr>
-<td><b>/SplunkSDKHelper</b></td>
+<td><b>\SplunkSDKHelper</b></td>
 <td>Utilities shared by examples and unit tests</td>
 </tr>
 
 <tr>
-<td><b>/examples</b></td>
+<td><b>\examples</b></td>
 <td>Examples demonstrating various SDK features</td>
 </tr>
 
 <tr>
-<td><b>/lib</b></td>
+<td><b>\lib</b></td>
 <td>Third-party libraries used by the SDK</td>
 </tr>
 
 <tr>
-<td><b>/SplunkSDK</b></td>
+<td><b>\SplunkSDK</b></td>
 <td>Source for the SDK</td>
 </tr>
 
 <tr>
-<td><b>/UnitTests</b></td>
+<td><b>\UnitTests</b></td>
 <td>Source for unit tests</td>
 </tr>
 </table> 
