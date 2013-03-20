@@ -386,7 +386,7 @@ namespace Splunk
         /// of the search that is sent to remote providers if reporting commands 
         /// are used. The original search should be the eventSearch + 
         /// reportSearch. 
-        /// <seealso cref="eventSearch" />
+        /// <seealso cref="EventSearch" />
         /// </summary>
         /// <returns>The report search.</returns>
         public string ReportSearch
