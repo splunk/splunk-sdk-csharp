@@ -343,18 +343,6 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Open a TcpClient connected to the service.
-        /// </summary>
-        /// <returns>The TcpClient object.</returns>
-        public TcpClient Open() 
-        {
-            this.SetTrustPolicy();
-            TcpClient sock = new TcpClient();
-            sock.Connect(this.Host, this.Port);
-            return sock.Connected ? sock : null;
-        }
-
-        /// <summary>
         /// The main HTTP send method. Sends any of the supported HTTP/S 
         /// methods to the service.
         /// </summary>
