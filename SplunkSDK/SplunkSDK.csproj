@@ -81,6 +81,10 @@
     <Compile Include="Message.cs" />
     <Compile Include="MessageArgs.cs" />
     <Compile Include="MessageCollection.cs" />
+    <Compile Include="ModularInputs\Argument.cs" />
+    <Compile Include="ModularInputs\InputDefinition.cs" />
+    <Compile Include="ModularInputs\Logging.cs" />
+    <Compile Include="ModularInputs\Scheme.cs" />
     <Compile Include="MonitorInput.cs" />
     <Compile Include="MonitorInputArgs.cs" />
     <Compile Include="MultiResultsReader.cs" />
