@@ -51,7 +51,7 @@ namespace Splunk.Examples.Search
 
             var outArgs = new Args
             {
-                { "output_mode", "json" },
+                { "output_mode", "xml" },
 
                 // Return all entries.
                 { "count", "0" }
@@ -59,14 +59,14 @@ namespace Splunk.Examples.Search
 
             using (var stream = job.Results(outArgs))
             {
-                using (var rr = new ResultsReaderJson(stream))
+                using (var rr = new ResultsReaderXml(stream))
                 {
-                    foreach (var map in rr)
+                    foreach (var @event in rr)
                     {
                         System.Console.WriteLine("EVENT:");
-                        foreach (string key in map.Keys)
+                        foreach (string key in @event.Keys)
                         {
-                            System.Console.WriteLine("   " + key + " -> " + map[key]);
+                            System.Console.WriteLine("   " + key + " -> " + @event[key]);
                         }
                     }
                 }
