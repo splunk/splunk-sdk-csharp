@@ -295,7 +295,7 @@ namespace Splunk
         /// Issues a POST request against the service using a given path.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns>The <see cref="responseMessage"/>.</returns>
+        /// <returns>The <see cref="ResponseMessage"/>.</returns>
         public ResponseMessage Post(string path) 
         {
             return this.Post(path, null);
@@ -307,7 +307,7 @@ namespace Splunk
         /// </summary>
         /// <param name="path">The path.</param>
         /// <param name="args">The arguments.</param>
-        /// <returns>The <see cref="responseMessage"/>.</returns>
+        /// <returns>The <see cref="ResponseMessage"/>.</returns>
         public ResponseMessage 
             Post(string path, Dictionary<string, object> args) 
         {
@@ -323,7 +323,7 @@ namespace Splunk
         /// Issues a DELETE request against the service using a given path.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns>The <see cref="responseMessage"/>.</returns>
+        /// <returns>The <see cref="ResponseMessage"/>.</returns>
         public ResponseMessage Delete(string path) 
         {
             RequestMessage request = new RequestMessage("DELETE");
@@ -336,7 +336,7 @@ namespace Splunk
         /// </summary>
         /// <param name="path">The path.</param>
         /// <param name="args">The arguments.</param>
-        /// <returns>The <see cref="responseMessage"/>.</returns>
+        /// <returns>The <see cref="ResponseMessage"/>.</returns>
         public ResponseMessage 
             Delete(string path, Dictionary<string, object> args) 
         {
