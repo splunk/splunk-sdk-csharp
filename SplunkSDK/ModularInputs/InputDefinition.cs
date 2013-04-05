@@ -85,10 +85,10 @@ namespace Splunk.ModularInputs
         }
 
         /// <summary>
-        ///     Serializes this object to XML output
+        ///     Serializes this object to XML output. Used by unit tests.
         /// </summary>
         /// <returns>The XML String</returns>
-        public string Serialize()
+        internal string Serialize()
         {
             var x = new XmlSerializer(typeof(InputDefinition));
             var sw = new StringWriter();
@@ -109,7 +109,6 @@ namespace Splunk.ModularInputs
 
             /// <summary>
             ///     Initializes a new instance of the <see cref="Stanza" /> class,
-            ///     
             /// </summary>
             internal Stanza()
             {

@@ -18,7 +18,6 @@ namespace UnitTests
 {
     using System.Collections.Generic;
     using System.IO;
-    using System.Xml.Serialization;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Splunk.ModularInputs;
 
@@ -44,38 +43,26 @@ namespace UnitTests
         private const string SchemeFilePath = "Scheme.xml";
  
         /// <summary>
-        /// Test initialization and serialization of InputDefinition object.
+        /// Test parsing of InputDefinition XML.
         /// </summary>
         [TestMethod]
-        public void ConstructInputDefinition()
+        [DeploymentItem(
+                InputDefinitionFilePath,
+                TestDataFolder)]
+        public void ParseInputDefinition()
         {
-            var id = new InputDefinition
-                {
-                    ServerHost = "splunk-1",
-                    ServerUri = "https://127.0.0.1:8089/",
-                    SessionKey = "12345",
-                    CheckpointDirectory = "C:\\Temp"
-                };
-            var ss = new InputDefinition.Stanza { Name = "myScheme://aaa" };
-            ss.Parameters.Add(new InputDefinition.Parameter { Name = "f1", Value = "v1" });
-            ss.Parameters.Add(new InputDefinition.Parameter { Name = "f2", Value = "v2" });
-            ss.Parameters.Add(new InputDefinition.Parameter { Name = "f3", Value = "v3" });
-            id.Stanzas.Add(ss);
+            var reader = ReadFileFromDataFolderAsReaser(InputDefinitionFilePath);
+            var inputDefinition = InputDefinition.ReadInputDefinition(
+                reader);
 
-            var id2 = InputDefinition.ReadInputDefinition(
-                new StringReader(id.Serialize()));
+            var original = ReadFileFromDataFolderAsString(InputDefinitionFilePath);
+            var reconstructed = inputDefinition.Serialize();
 
-            Assert.AreEqual(id.ServerHost, id2.ServerHost);
-            Assert.AreEqual(id.ServerUri, id2.ServerUri);
-            Assert.AreEqual(id.SessionKey, id2.SessionKey);
-            Assert.AreEqual(id.CheckpointDirectory, id2.CheckpointDirectory);
-            Assert.AreEqual(id.Stanzas.Count, id2.Stanzas.Count);
-            Assert.AreEqual(id.Stanzas[0].Name, id2.Stanzas[0].Name);
-            Assert.AreEqual(id.Stanzas[0].Parameters.Count, id2.Stanzas[0].Parameters.Count);
+            Assert.AreEqual(original, reconstructed);
         }
-        
+
         /// <summary>
-        /// Test initialization and serialization of Scheme object.
+        /// Test serialization of Scheme object.
         /// </summary>
         [TestMethod]
         [DeploymentItem(
@@ -87,7 +74,7 @@ namespace UnitTests
                 {
                     Title = "Test Example",
                     Description = "This is a test modular input that handles all the appropriate functionality",
-                    StreamingMode = Scheme.StreamingModeEnum.Xml,
+                    StreamingMode = StreamingMode.Xml,
                     Endpoint =
                         {
                             Arguments = new List<Argument>
@@ -96,7 +83,7 @@ namespace UnitTests
                                         {
                                             Name = "interval",
                                             Description = "Polling Interval",
-                                            DataType = Argument.DataTypeEnum.Number,
+                                            DataType = DataType.Number,
                                             Validation = "is_pos_int('interval')"
                                         },
 
@@ -104,7 +91,7 @@ namespace UnitTests
                                         {
                                             Name = "username",
                                             Description = "Admin Username",
-                                            DataType = Argument.DataTypeEnum.String,
+                                            DataType = DataType.String,
                                             RequiredOnCreate = false
                                         },
 
@@ -112,7 +99,7 @@ namespace UnitTests
                                         {
                                             Name = "password",
                                             Description = "Admin Password",
-                                            DataType = Argument.DataTypeEnum.String,
+                                            DataType = DataType.String,
                                             RequiredOnEdit = true
                                         }
                                 }
@@ -122,19 +109,54 @@ namespace UnitTests
             using (var reader = new StringReader(s.Serialize()))
             {
                 var actual = reader.ReadToEnd();
-                var expected = ReadFileFromDataFolder(SchemeFilePath);
+                var expected = ReadFileFromDataFolderAsString(SchemeFilePath);
                 Assert.AreEqual(expected, actual);
             }
         }
 
         /// <summary>
-        /// Read file from data directory
+        /// Test logging into Splunk diagnostics
+        /// </summary>
+        [TestMethod]
+        public void SystemLogger()
+        {
+            var msg = "Test";
+            var header = "FATAL ";
+            var line = Splunk.ModularInputs.SystemLogger.Format(LogLevel.Fatal, msg);
+            Assert.AreEqual(header + msg, line);
+
+            // Test end to end without checking the result.
+            Splunk.ModularInputs.SystemLogger.Write(msg);
+        }
+
+        /// <summary>
+        /// Read file from data directory as a string
         /// </summary>
         /// <param name="relativePath">Relative path to the resource</param>
         /// <returns>Resource content</returns>
-        private static string ReadFileFromDataFolder(string relativePath)
+        private static string ReadFileFromDataFolderAsString(string relativePath)
         {
-            return File.ReadAllText(TestDataFolder + @"\" + relativePath);
+            return File.ReadAllText(GetDataFilePath(relativePath));
+        }
+
+        /// <summary>
+        /// Read file from data directory as a test reader
+        /// </summary>
+        /// <param name="relativePath">Relative path to the resource</param>
+        /// <returns>Resource content</returns>
+        private static TextReader ReadFileFromDataFolderAsReaser(string relativePath)
+        {
+            return File.OpenText(GetDataFilePath(relativePath));
+        }
+
+        /// <summary>
+        /// Get full path to the data file.
+        /// </summary>
+        /// <param name="relativePath">Relative path to the data folder.</param>
+        /// <returns>A full path</returns>
+        private static string GetDataFilePath(string relativePath)
+        {
+            return TestDataFolder + @"\" + relativePath;
         }
     }
 }

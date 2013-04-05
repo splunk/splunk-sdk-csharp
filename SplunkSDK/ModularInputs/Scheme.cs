@@ -22,6 +22,24 @@ namespace Splunk.ModularInputs
     using System.Xml.Serialization;
 
     /// <summary>
+    ///     Enumeration of the valid values for the Scheme Streaming Mode
+    /// </summary>
+    public enum StreamingMode
+    {
+        /// <summary>
+        ///     A plain-text modular input
+        /// </summary>
+        [XmlEnum(Name = "simple")]
+        Simple,
+
+        /// <summary>
+        ///     Data is streamed to splunk with XML objects
+        /// </summary>
+        [XmlEnum(Name = "xml")]
+        Xml
+    }
+    
+    /// <summary>
     ///     The Scheme class represents the XML output when a Modular Input is called
     ///     with the --scheme argument.
     /// </summary>
@@ -37,24 +55,6 @@ namespace Splunk.ModularInputs
             this.UseExternalValidation = false;
             this.UseSingleInstance = false;
             this.Endpoint = new EndpointElement();
-        }
-
-        /// <summary>
-        ///     Enumeration of the valid values for the Scheme Streaming Mode
-        /// </summary>
-        public enum StreamingModeEnum
-        {
-            /// <summary>
-            ///     A plain-text modular input
-            /// </summary>
-            [XmlEnum(Name = "simple")]
-            Simple,
-
-            /// <summary>
-            ///     Data is streamed to splunk with XML objects
-            /// </summary>
-            [XmlEnum(Name = "xml")]
-            Xml
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace Splunk.ModularInputs
         ///     Gets or sets Streaming Mode for this Modular Input (SIMPLE or XML)
         /// </summary>
         [XmlElement("streaming_mode")]
-        public StreamingModeEnum StreamingMode { get; set; }
+        public StreamingMode StreamingMode { get; set; }
 
         /// <summary>
         ///     Gets or sets the endpoint description for this modular input

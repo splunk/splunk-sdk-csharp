@@ -24,6 +24,30 @@ namespace Splunk.ModularInputs
     using System.Xml.Serialization;
 
     /// <summary>
+    ///     Enumeration of the valid values for the Endpoint Argument data type.
+    /// </summary>
+    public enum DataType
+    {
+        /// <summary>
+        ///     A boolean value - true or false
+        /// </summary>
+        [XmlEnum(Name = "boolean")]
+        Boolean,
+
+        /// <summary>
+        ///     A numeric value - regexp = [0-9\.]+
+        /// </summary>
+        [XmlEnum(Name = "number")]
+        Number,
+
+        /// <summary>
+        ///     A string - virtually everything else
+        /// </summary>
+        [XmlEnum(Name = "string")]
+        String
+    }
+    
+    /// <summary>
     ///     The Argument is the XML entity that describes the arguments
     ///     that can be placed in to the inputs.conf stanza for this modular
     ///     input.
@@ -37,33 +61,9 @@ namespace Splunk.ModularInputs
         /// </summary>
         public Argument()
         {
-            this.DataType = DataTypeEnum.String;
+            this.DataType = ModularInputs.DataType.String;
             this.RequiredOnEdit = false;
             this.RequiredOnCreate = true;
-        }
-
-        /// <summary>
-        ///     Enumeration of the valid values for the Endpoint Argument data type.
-        /// </summary>
-        public enum DataTypeEnum
-        {
-            /// <summary>
-            ///     A boolean value - true or false
-            /// </summary>
-            [XmlEnum(Name = "boolean")]
-            Boolean,
-
-            /// <summary>
-            ///     A numeric value - regexp = [0-9\.]+
-            /// </summary>
-            [XmlEnum(Name = "number")]
-            Number,
-
-            /// <summary>
-            ///     A string - virtually everything else
-            /// </summary>
-            [XmlEnum(Name = "string")]
-            String
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace Splunk.ModularInputs
         ///     data type of the parameter.  Default data type is string.
         /// </summary>
         [XmlElement("data_type")]
-        public DataTypeEnum DataType { get; set; }
+        public DataType DataType { get; set; }
 
         /// <summary>
         ///     Gets or sets a value indicating whether the parameter is required for edit.  Default behavior
