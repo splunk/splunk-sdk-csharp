@@ -18,6 +18,7 @@ namespace Splunk
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.IO;
     using System.Net;
     using System.Net.Sockets;
@@ -50,6 +51,11 @@ namespace Splunk
         /// Gets or sets the scheme used to access the service.
         /// </summary>
         private string scheme;
+
+        /// <summary>
+        /// Cached user agent string
+        /// </summary>
+        private static string userAgent;
 
         /// <summary>
         /// Constant for http scheme.
@@ -343,18 +349,6 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Open a TcpClient connected to the service.
-        /// </summary>
-        /// <returns>The TcpClient object.</returns>
-        public TcpClient Open() 
-        {
-            this.SetTrustPolicy();
-            TcpClient sock = new TcpClient();
-            sock.Connect(this.Host, this.Port);
-            return sock.Connected ? sock : null;
-        }
-
-        /// <summary>
         /// The main HTTP send method. Sends any of the supported HTTP/S 
         /// methods to the service.
         /// </summary>
@@ -378,7 +372,18 @@ namespace Splunk
                 webRequest.Headers.Add(entry.Key, entry.Value);
             }
 
-            webRequest.UserAgent = "splunk-sdk-csharp/0.1";
+            // Reflection can be expensive, thus cache userAgent value.
+            if (userAgent == null)
+            {
+                var assembly = Assembly.GetExecutingAssembly();
+                // Use file version since it is common for it to change without
+                // an assembly version change.
+                var fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+                var version = fvi.FileVersion;
+                userAgent = "splunk-sdk-csharp/" + version;
+            }
+            webRequest.UserAgent = userAgent;
+
             webRequest.Accept = "*/*";
             if (request.Method.Equals("POST")) 
             {

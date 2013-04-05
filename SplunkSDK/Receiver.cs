@@ -47,40 +47,6 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the RemoteCertificateValidationCallback delegate 
-        /// responsible for validating the certificate supplied by the Splunk 
-        /// server if SSL (i.e. https) is used. 
-        /// If none is set (which is the default), no validation will be
-        /// performed.
-        /// </summary>
-        public RemoteCertificateValidationCallback 
-            SSLRemoteCertificateValidationCallback 
-        { 
-            get; set; 
-        }
-
-        /// <summary>
-        /// Gets or sets the LocalCertificateSelectionCallback delegate 
-        /// responsible for selecting the certificate used for authentication 
-        /// with the Splunk server if SSL (i.e. https) is used. 
-        /// If none is set (which is the default), no local certificate is used.
-        /// </summary>
-        public LocalCertificateSelectionCallback 
-            SSLLocalCertificateValidationCallback 
-        { 
-            get; set; 
-        }
-
-        /// <summary>
-        /// Gets or sets the EncryptionPolicy to use with the Splunk server 
-        /// if SSL (i.e. https) is used. 
-        /// </summary>
-        public EncryptionPolicy SSLEncryptionPolicy 
-        { 
-            get; set; 
-        }
-        
-        /// <summary>
         /// Creates a socket to the Splunk server using the default index, and 
         /// default port.
         /// </summary>

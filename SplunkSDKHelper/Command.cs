@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2012 Splunk, Inc.
+ * Copyright 2013 Splunk, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"): you may
  * not use this file except in compliance with the License. You may obtain
@@ -29,7 +29,7 @@ namespace SplunkSDKHelper
     public class Command
     {
         /// <summary>
-        /// The Applicaiton Name.
+        /// The Application Name.
         /// </summary>
         private string appName;
 

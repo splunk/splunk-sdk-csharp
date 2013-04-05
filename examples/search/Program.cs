@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2012 Splunk, Inc.
+ * Copyright 2013 Splunk, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"): you may
  * not use this file except in compliance with the License. You may obtain
@@ -51,7 +51,7 @@ namespace Splunk.Examples.Search
 
             var outArgs = new Args
             {
-                { "output_mode", "json" },
+                { "output_mode", "xml" },
 
                 // Return all entries.
                 { "count", "0" }
@@ -59,14 +59,14 @@ namespace Splunk.Examples.Search
 
             using (var stream = job.Results(outArgs))
             {
-                using (var rr = new ResultsReaderJson(stream))
+                using (var rr = new ResultsReaderXml(stream))
                 {
-                    foreach (var map in rr)
+                    foreach (var @event in rr)
                     {
                         System.Console.WriteLine("EVENT:");
-                        foreach (string key in map.Keys)
+                        foreach (string key in @event.Keys)
                         {
-                            System.Console.WriteLine("   " + key + " -> " + map[key]);
+                            System.Console.WriteLine("   " + key + " -> " + @event[key]);
                         }
                     }
                 }
