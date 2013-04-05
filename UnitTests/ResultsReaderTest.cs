@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2012 Splunk, Inc.
+ * Copyright 2013 Splunk, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"): you may
  * not use this file except in compliance with the License. You may obtain
@@ -38,12 +38,12 @@ namespace UnitTests
         private const string TestDataFolder = @"Data\Results";
 
         /// <summary>
-        /// Input file for the json test on Splunk Version 5
+        /// Input file for the JSON test on Splunk Version 5
         /// </summary>
         private const string Splunk5JsonInputFilePath = "results5.json";
 
         /// <summary>
-        /// Input file for the json test on Splunk Version 4
+        /// Input file for the JSON test on Splunk Version 4
         /// </summary>
         private const string Splunk4JsonInputFilePath = "results4.json";
 
@@ -83,7 +83,7 @@ namespace UnitTests
             = @"5.0.2\results-empty.xml";
 
         /// <summary>
-        /// Test json format using an input file representing 
+        /// Test JSON format using an input file representing 
         /// Splunk Version 5, with simple data common to all readers.
         /// </summary>
         [TestMethod]
@@ -96,7 +96,7 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// Test json format using an input file representing
+        /// Test JSON format using an input file representing
         /// Splunk Version 4, with simple data common to all readers.
         /// </summary>
         [TestMethod]
@@ -438,38 +438,80 @@ namespace UnitTests
         /// Test XML format with a Oneshot search.
         /// </summary>
         [TestMethod]
-        public void TestReaderOneshotXml()
+        public void TestReaderEndToEndOneshotXml()
         {
-            this.TestReaderOneshot(
-                "xml",
+            this.TestReaderEndToEnd(
+                this.Connect(),
+                "xml", 
+                (service, query, args) => service.Oneshot(query, args),
                 (input) => new ResultsReaderXml(input));
         }
 
         /// <summary>
-        /// Test Json format with a Oneshot search.
+        /// Test JSON format with a Oneshot search.
         /// </summary>
         [TestMethod]
-        public void TestReaderOneshotJson()
+        public void TestReaderEndToEndOneshotJson()
         {
-            this.TestReaderOneshot(
+            this.TestReaderEndToEnd(
+                this.Connect(),
                 "json",
+                (service, query, args) => service.Oneshot(query, args),
                 (input) => new ResultsReaderJson(input));
         }
 
         /// <summary>
-        /// Test a result reader using oneshot search.
+        /// Test XML format with an Export search.
         /// </summary>
+        [TestMethod]
+        public void TestReaderEndToEndExportXml()
+        {
+            this.TestReaderEndToEnd(
+                this.Connect(),
+                "xml",
+                (service, query, args) => service.Export(query, args),
+                (input) => new ResultsReaderXml(input));
+        }
+
+        /// <summary>
+        /// Test JSON format with an Export search.
+        /// </summary>
+        [TestMethod]
+        public void TestReaderEndToEndExportJson()
+        {
+            var service = this.Connect();
+            if (service.VersionCompare("5.0") < 0)
+            {
+                return;
+            }
+
+            this.TestReaderEndToEnd(
+                service,
+                "json",
+                (service2, query, args) => service2.Export(query, args),
+                (input) => new ResultsReaderJson(input));
+        }
+
+        /// <summary>
+        /// Test a result reader by running a search on Splunk.
+        /// </summary>
+        /// <param name="service">The service object to run the search.</param>
         /// <param name="format">The search output format</param>
-        /// <param name="createReader">
-        /// Create a reader which should the search output format.
+        /// <param name="runSearch">
+        /// Run a type of search using the supplied service object,
+        /// search string, and arguments.
         /// </param>
-        private void TestReaderOneshot(
+        /// <param name="createReader">
+        /// Create a reader matching the search output format.
+        /// </param>
+        private void TestReaderEndToEnd(
+            Service service,
             string format, 
+            Func<Service, string, Args, Stream> runSearch,
             Func<Stream, ResultsReader> createReader)
         {
-            var service = Connect();
-
-            var input = service.Oneshot(
+            var input = runSearch(
+                service,
                 "search index=_internal | head 1 | stats count",
                 Args.Create("output_mode", format));
 
@@ -481,7 +523,7 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// Test json format using an input file
+        /// Test JSON format using an input file
         /// </summary>
         /// <param name="path">Path to the input file</param>
         private void TestReadJson(string path)

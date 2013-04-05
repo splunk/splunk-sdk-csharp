@@ -61,7 +61,7 @@ namespace Splunk
         /// <summary>
         /// Sets the password for the user. This parameter is required.
         /// </summary>
-        public string Pssword
+        public string Password
         {
             set
             {

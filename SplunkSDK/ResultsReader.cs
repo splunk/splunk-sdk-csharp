@@ -112,18 +112,6 @@ namespace Splunk
                 this.isPreview = value;
             }
         }
-
-        /// <summary>
-        /// Gets or sets a value that indicates whether or not there are results
-        /// to be read.
-        /// REMOVE
-        /// </summary>
-        internal bool HasResults
-        {
-            get;
-            set;
-        }
-
         /// <summary>
         /// Used by constructors of results readers to do the following for a
         /// single reader:
@@ -161,12 +149,13 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Releases and resets unmanaged resources.        
+        /// Releases unmanaged resources.        
         /// </summary>
         public abstract void Dispose();
     
         /// <summary>
         /// Returns an enumerator over the events in the event stream.
+        /// It will concatenates results across sets when necessary.
         /// </summary>
         /// <returns>An enumerator of events</returns>
         public IEnumerator<Event> GetEnumerator()
@@ -181,17 +170,22 @@ namespace Splunk
                 // We don't concatenate across previews across sets, since each
                 // set might be a snapshot at a given time or a summary result
                 // with partial data from a reporting search (for example,
-                // "count by host"). So if this is a preview, break. Null
-                // return that indicates the end of the set.
-                // Note that we can't use IsPreview property since it will throw
-                // if not set, rather we want to end the enumeration.
-                if (this.isPreview)
+                // "count by host"). So if this is a preview,
+                // break to end the iteration.
+                // Note that isPreview member is used, rather than IsPreview property.
+                // We can't use IsPreview property since it will throw
+                // if that flag is not available in the result stream 
+                // (for example in JSON result stream from Splunk 4.x),
+                // rather we want to end the enumeration. isPreview member is
+                // default to be false, which means we don't concatenate. It is 
+                // the right behavior for JSON result stream from Splunk 4.3.
+                if (this.isPreview) 
                 {
                     break;
                 }
 
                 // If we did not advance to next set, i.e. the end of stream is
-                // reached, break. Null return that indicates the end of the set.
+                // reached, break to end the iteration.
                 if (!this.AdvanceStreamToNextSet())
                 {
                     break;
