@@ -151,7 +151,7 @@ namespace Splunk
         /// Gets or sets the default password endpoint, which can change over 
         /// Splunk versions.
         /// </summary>
-        public string PasswordEndPoint 
+        internal string PasswordEndPoint 
         {
             get; set;
         }
@@ -159,7 +159,7 @@ namespace Splunk
         /// <summary>
         /// Gets or sets the default simple receiver endpoint.
         /// </summary>
-        public string SimpleReceiverEndPoint 
+        internal string SimpleReceiverEndPoint 
         {
             get; set;
         }
@@ -182,11 +182,11 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the version of this Splunk instance, once logged in.
+        /// Gets the version of this Splunk instance, once logged in.
         /// </summary>
         public string Version 
         {
-            get; set;
+            get; private set;
         }
 
         /// <summary>
