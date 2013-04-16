@@ -28,7 +28,7 @@ namespace Splunk.ModularInputs
         ///     Gets or sets TBD
         /// </summary>
         [XmlElement("item")]
-        public List<ConfigurationItem> Items { get; set; }
+        public ConfigurationItem Item { get; set; }
 
         /// <summary>
         ///     Read the input stream specified and return the parsed XML input.
