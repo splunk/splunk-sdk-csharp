@@ -33,88 +33,83 @@ namespace Splunk.Examples.ModularInputs
     /// default configuration, such as default host name and default index,
     /// by adding an inputs.conf file into $SPLUNK_HOME\etc\apps\<app_name>\default\
     /// </summary>
-    internal class Program
+    internal class Program : Module
     {
         /// <summary>
         /// The main program
         /// </summary>
         /// <param name="args">Command line arguments</param>
-        private static void Main(string[] args)
+        private static int Main(string[] args)
         {
-            if (args.Length > 0 && args[0].ToLower().Equals("--scheme"))
+            var module = new Program();
+
+            // Create the Modular Input Scheme
+            var scheme = new Scheme
             {
-                // Create the Modular Input Scheme
-                SystemLogger.Write(LogLevel.Info, "Creating new Scheme object");
-
-                var s = new Scheme
+                Title = "C# SDK Example",
+                Description = "This is a modular input example built using the C# SDK.",
+                StreamingMode = StreamingMode.Xml,
+                Endpoint =
                 {
-                    Title = "C# SDK Example",
-                    Description = "This is a modular input example built using the C# SDK.",
-                    StreamingMode = StreamingMode.Xml,
-                    Endpoint =
-                    {
-                        Arguments = new List<Argument>
-                                {
-                                    new Argument
-                                        {
-                                            Name = "duration",
-                                            Description = "Duration in seconds",
-                                            DataType = DataType.Number,
-                                            // Must be a positive integer.
-                                            Validation = "is_pos_int('interval')",
-                                            RequiredOnCreate = false
-                                        },
+                    Arguments = new List<Argument>
+                            {
+                                new Argument
+                                    {
+                                        Name = "duration",
+                                        Description = "Duration in seconds",
+                                        DataType = DataType.Number,
+                                        // Must be a positive integer.
+                                        Validation = "is_pos_int('duration')",
+                                        RequiredOnCreate = false
+                                    },
 
-                                    new Argument
-                                        {
-                                            Name = "username",
-                                            DataType = DataType.String,
-                                            RequiredOnEdit = true
-                                        },
+                                new Argument
+                                    {
+                                        Name = "username",
+                                        DataType = DataType.String,
+                                        RequiredOnEdit = true
+                                    },
 
-                                    new Argument
-                                        {
-                                            Name = "password",
-                                            DataType = DataType.String,
-                                            RequiredOnEdit = true
-                                        }
-                                }
-                    }
-                };
-
-                // Write out the XML
-                SystemLogger.Write(LogLevel.Info, "Dumping Scheme object to STDOUT");
-                Console.WriteLine(s.Serialize());
-                Environment.Exit(0);
-            }
-            else
-            {
-                SystemLogger.Write("Reading InputDefinition File");
-                var id = InputDefinition.ReadInputDefinition(Console.In);
-
-                SystemLogger.Write(string.Format("Server Host: {0}", id.ServerHost));
-                SystemLogger.Write(string.Format("Server URI : {0}", id.ServerUri));
-                SystemLogger.Write(string.Format("Session Key: {0}", id.SessionKey));
-                SystemLogger.Write(string.Format("Check  Dir : {0}", id.CheckpointDirectory));
-                SystemLogger.Write(string.Format("Stanzas: {0}", id.Stanzas.Count));
-                for (var i = 0; i < id.Stanzas.Count; i++)
-                {
-                    SystemLogger.Write(string.Format("--- Stanza#{0}: {1} ---", i, id.Stanzas[i].Name));
-                    foreach (var t in id.Stanzas[i].Parameters)
-                    {
-                        SystemLogger.Write(string.Format(
-                            "Param {0}={1}",
-                            t.Name,
-                            t.Value));
-                    }
+                                new Argument
+                                    {
+                                        Name = "password",
+                                        DataType = DataType.String,
+                                        RequiredOnEdit = true
+                                    }
+                            }
                 }
-                SystemLogger.Write("End of Stanzas Dump");
+            };
 
-                // Write event to Splunk.
-                Console.WriteLine("SDK Modular Input example.");
+            SystemLogger.Write("Calling Module.Dispatch");
+            return module.Dispatch(args, scheme);
+        }
 
-                Environment.Exit(0);
+        public override void StreamEvents(InputConfiguration inputConfiguration)
+        {
+            SystemLogger.Write(string.Format("Server Host: {0}", inputConfiguration.ServerHost));
+            SystemLogger.Write(string.Format("Server URI : {0}", inputConfiguration.ServerUri));
+            SystemLogger.Write(string.Format("Session Key: {0}", inputConfiguration.SessionKey));
+            SystemLogger.Write(string.Format("Check  Dir : {0}", inputConfiguration.CheckpointDirectory));
+            SystemLogger.Write(string.Format("Stanzas: {0}", inputConfiguration.Stanzas.Count));
+            for (var i = 0; i < inputConfiguration.Stanzas.Count; i++)
+            {
+                SystemLogger.Write(string.Format(
+                    "--- Stanza#{0}: {1} ---",
+                    i,
+                    inputConfiguration.Stanzas[i].Name));
+
+                foreach (var t in inputConfiguration.Stanzas[i].Parameters)
+                {
+                    SystemLogger.Write(string.Format(
+                        "Param {0}={1}",
+                        t.Name,
+                        t.Value));
+                }
             }
+            SystemLogger.Write("End of Stanzas Dump");
+
+            // Write event to Splunk.
+            Console.WriteLine("SDK Modular Input example.");
         }
     }
 }

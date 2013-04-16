@@ -40,6 +40,11 @@ namespace UnitTests
         /// <summary>
         /// Input file for the JSON test on Splunk Version 5
         /// </summary>
+        private const string ValidationItemsFilePath = "ValidationItems.xml";
+
+        /// <summary>
+        /// Input file for the JSON test on Splunk Version 5
+        /// </summary>
         private const string SchemeFilePath = "Scheme.xml";
  
         /// <summary>
@@ -52,11 +57,30 @@ namespace UnitTests
         public void ParseInputDefinition()
         {
             var reader = ReadFileFromDataFolderAsReaser(InputDefinitionFilePath);
-            var inputDefinition = InputDefinition.ReadInputDefinition(
+            var inputDefinition = InputConfiguration.Read(
                 reader);
 
             var original = ReadFileFromDataFolderAsString(InputDefinitionFilePath);
             var reconstructed = inputDefinition.Serialize();
+
+            Assert.AreEqual(original, reconstructed);
+        }
+
+        /// <summary>
+        /// Test parsing of InputDefinition XML.
+        /// </summary>
+        [TestMethod]
+        [DeploymentItem(
+                ValidationItemsFilePath,
+                TestDataFolder)]
+        public void ParseValidationItems()
+        {
+            var reader = ReadFileFromDataFolderAsReaser(ValidationItemsFilePath);
+            var validationItems = ValidationItems.Read(
+                reader);
+
+            var original = ReadFileFromDataFolderAsString(ValidationItemsFilePath);
+            var reconstructed = validationItems.Serialize();
 
             Assert.AreEqual(original, reconstructed);
         }
