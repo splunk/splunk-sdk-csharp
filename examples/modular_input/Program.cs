@@ -19,7 +19,7 @@ namespace Splunk.Examples.ModularInputs
     using System;
     using System.Collections.Generic;
     using Splunk.ModularInputs;
-    
+
     /// <summary>
     /// A Splunk modular input executable.
     /// To install it, do the following:
@@ -33,25 +33,16 @@ namespace Splunk.Examples.ModularInputs
     /// default configuration, such as default host name and default index,
     /// by adding an inputs.conf file into $SPLUNK_HOME\etc\apps\<app_name>\default\
     /// </summary>
-    internal class Program : Module
+    internal class Program : Script
     {
-        /// <summary>
-        /// The main program
-        /// </summary>
-        /// <param name="args">Command line arguments</param>
-        private static int Main(string[] args)
+        private static Scheme scheme = new Scheme
         {
-            var module = new Program();
-
-            // Create the Modular Input Scheme
-            var scheme = new Scheme
+            Title = "C# SDK Example",
+            Description = "This is a modular input example built using the C# SDK.",
+            StreamingMode = StreamingMode.Xml,
+            Endpoint =
             {
-                Title = "C# SDK Example",
-                Description = "This is a modular input example built using the C# SDK.",
-                StreamingMode = StreamingMode.Xml,
-                Endpoint =
-                {
-                    Arguments = new List<Argument>
+                Arguments = new List<Argument>
                             {
                                 new Argument
                                     {
@@ -77,11 +68,20 @@ namespace Splunk.Examples.ModularInputs
                                         RequiredOnEdit = true
                                     }
                             }
-                }
-            };
+            }
+        };
 
-            SystemLogger.Write("Calling Module.Dispatch");
-            return module.Dispatch(args, scheme);
+        /// <summary>
+        /// The main program
+        /// </summary>
+        public static int Main(string[] args)
+        {
+            return Launcher<Program>.Run(args);
+        }
+        
+        public override Scheme Scheme
+        {
+            get { return scheme; }
         }
 
         public override void StreamEvents(InputConfiguration inputConfiguration)
@@ -108,7 +108,7 @@ namespace Splunk.Examples.ModularInputs
             }
             SystemLogger.Write("End of Stanzas Dump");
 
-            // Write event to Splunk.
+            // Write event to Splunk, letting it to parse the input and setting default fields.
             Console.WriteLine("SDK Modular Input example.");
         }
     }

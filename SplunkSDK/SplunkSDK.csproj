@@ -84,9 +84,11 @@
     <Compile Include="MessageCollection.cs" />
     <Compile Include="ModularInputs\Argument.cs" />
     <Compile Include="ModularInputs\ConfigurationItem.cs" />
+    <Compile Include="ModularInputs\Event.cs" />
+    <Compile Include="ModularInputs\EventStreamWriter.cs" />
     <Compile Include="ModularInputs\InputConfiguration.cs" />
     <Compile Include="ModularInputs\InputConfigurationBase.cs" />
-    <Compile Include="ModularInputs\Module.cs" />
+    <Compile Include="ModularInputs\Script.cs" />
     <Compile Include="ModularInputs\MultiParameter.cs" />
     <Compile Include="ModularInputs\MultiValueParameter.cs" />
     <Compile Include="ModularInputs\Parameter.cs" />
