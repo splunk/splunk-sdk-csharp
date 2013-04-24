@@ -136,7 +136,7 @@ namespace Splunk.Examples.ModularInputs
                 if (varValue != lastVarValue)
                 {
                     writer.Write(
-                        new Splunk.ModularInputs.EventElement
+                        new EventElement
                             {
                                 Source = varName,
                                 Data = varValue,
