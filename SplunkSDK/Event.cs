@@ -118,7 +118,7 @@ namespace Splunk
             /// require a delimiter. Therefore, this method should only be 
             /// used for results that are returned by 
             /// <see cref="ResultsReaderXml"/>. For other readers, use the 
-            /// <see cref="GetArray(String, String)"/> method instead.
+            /// <see cref="GetArray(String)"/> method instead.
             /// If the underlying  <see cref="ResultsReader"/> object has 
             /// no delimiter, the original array of values is returned. 
             /// If the object does have a delimiter, the single/delimited value
