@@ -14,16 +14,17 @@
  * under the License.
  */
 
+using System.IO;
+using System.Xml.Serialization;
+
 namespace Splunk.ModularInputs
 {
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Xml.Serialization;
-
+    /// <summary>
+    /// Input configuration for validation.
+    /// </summary>
     [XmlRoot("items")]
     public class ValidationItems : InputConfigurationBase
     {
-
         /// <summary>
         ///     Gets or sets TBD
         /// </summary>
@@ -38,7 +39,7 @@ namespace Splunk.ModularInputs
         public static ValidationItems Read(TextReader input)
         {
             var x = new XmlSerializer(typeof(ValidationItems));
-            var id = (ValidationItems)x.Deserialize(input);
+            var id = (ValidationItems) x.Deserialize(input);
             return id;
         }
 

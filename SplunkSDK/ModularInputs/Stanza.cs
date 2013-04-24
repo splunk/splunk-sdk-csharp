@@ -14,14 +14,12 @@
  * under the License.
  */
 
+using System.Xml.Serialization;
+
 namespace Splunk.ModularInputs
 {
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Xml.Serialization;
-
     /// <summary>
-    ///     Each stanza in the inputs.conf has a set of parameters that are stored in a KV pair store.
+    ///     Represent a Stanza element in input configuration.
     /// </summary>
     [XmlRoot("stanza")]
     public class Stanza : ConfigurationItemBase

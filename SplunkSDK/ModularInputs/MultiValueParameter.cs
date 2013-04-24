@@ -14,41 +14,149 @@
  * under the License.
  */
 
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Xml.Serialization;
+
 namespace Splunk.ModularInputs
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Xml.Serialization;
-
     /// <summary>
-    ///     Definition of a key-value pair in the context of an XML object
+    ///     Represents a parameter that contains a multivalue.
     /// </summary>
-    [XmlRoot("param")]
-    public class MultiValueParameter
+    [XmlRoot("param_list")]
+    public class MultiValueParameter : ParameterBase
     {
         /// <summary>
-        /// Gets or sets the name of the parameter
+        ///     Gets or sets the value of the parameter
         /// </summary>
-        [XmlAttribute("name")]
-        public string Name { get; set; }
+        [XmlElement("value")]
+        public MultiValue ValueXmlElements { get; set; }
 
         /// <summary>
-        /// Gets or sets the value of the parameter
+        ///     Gets the value of the parameter
         /// </summary>
-        [XmlText]
-        public string Value { get; set; }
-
-        /// <summary>
-        ///     Serializes this object to XML output
-        /// </summary>
-        /// <returns>The XML String</returns>
-        public string Serialize()
+        internal override ValueBase ValueAsBaseType
         {
-            var x = new XmlSerializer(typeof(Parameter));
-            var sw = new StringWriter();
-            x.Serialize(sw, this);
-            return sw.ToString();
+            get { return ValueXmlElements; }
+        }
+
+        /// <summary>
+        /// Represents a multivalue.
+        /// </summary>
+        [SuppressMessage(
+            "Microsoft.StyleCop.CSharp.DocumentationRules",
+            "SA1600:ElementsMustBeDocumented",
+            Justification =
+                "Internal class. Pure passthrough")]
+        public class MultiValue : ValueBase, IList<string>
+        {
+            private readonly List<string> value = new List<string>();
+
+            public int Count
+            {
+                get { return value.Count; }
+            }
+
+            public bool IsReadOnly
+            {
+                get { return ((ICollection<string>)value).IsReadOnly; }
+            }
+            
+            public string this[int index]
+            {
+                get { return value[index]; }
+                set { this.value[index] = value; }
+            }
+            
+            public int IndexOf(string item)
+            {
+                return value.IndexOf(item);
+            }
+
+            public void Insert(int index, string item)
+            {
+                value.Insert(index, item);
+            }
+
+            public void RemoveAt(int index)
+            {
+                value.RemoveAt(index);
+            }
+
+            public void Add(string item)
+            {
+                value.Add(item);
+            }
+
+            public void Clear()
+            {
+                value.Clear();
+            }
+
+            public bool Contains(string item)
+            {
+                return value.Contains(item);
+            }
+
+            public void CopyTo(string[] array, int arrayIndex)
+            {
+                value.CopyTo(array, arrayIndex);
+            }
+
+            public bool Remove(string item)
+            {
+                return value.Remove(item);
+            }
+
+            public IEnumerator<string> GetEnumerator()
+            {
+                return value.GetEnumerator();
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return GetEnumerator();
+            }
+        }
+
+        /// <summary>
+        /// Used for serialize and deseriallize the value XML element 
+        /// for a multivalue parameter.
+        /// </summary>
+        [XmlRoot("value")]
+        public class ValueXmlElement
+        {
+            /// <summary>
+            ///     Gets or sets the value of the parameter
+            /// </summary>
+            [XmlText]
+            public string Text { get; set; }
+
+            /// <summary>
+            ///     Returns the string value
+            /// </summary>
+            /// <returns>
+            ///     The string value
+            /// </returns>
+            public override string ToString()
+            {
+                return Text;
+            }
+
+            /// <summary>
+            ///     Convert to a <c>string</c>.
+            ///     Same as <see cref="ToString" />
+            /// </summary>
+            /// <param name="value">Field value</param>
+            /// <returns>
+            ///     The string value
+            ///     <see cref="DefaultDelimiter" />.
+            /// </returns>
+            public static implicit operator string(ValueXmlElement value)
+            {
+                return value.ToString();
+            }
         }
     }
 }

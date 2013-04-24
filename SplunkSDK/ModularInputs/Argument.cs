@@ -14,15 +14,10 @@
  * under the License.
  */
 
+using System.Xml.Serialization;
+
 namespace Splunk.ModularInputs
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Xml.Serialization;
-
     /// <summary>
     ///     Enumeration of the valid values for the Endpoint Argument data type.
     /// </summary>
@@ -31,22 +26,19 @@ namespace Splunk.ModularInputs
         /// <summary>
         ///     A boolean value - true or false
         /// </summary>
-        [XmlEnum(Name = "boolean")]
-        Boolean,
+        [XmlEnum(Name = "boolean")] Boolean,
 
         /// <summary>
         ///     A numeric value - regexp = [0-9\.]+
         /// </summary>
-        [XmlEnum(Name = "number")]
-        Number,
+        [XmlEnum(Name = "number")] Number,
 
         /// <summary>
         ///     A string - virtually everything else
         /// </summary>
-        [XmlEnum(Name = "string")]
-        String
+        [XmlEnum(Name = "string")] String
     }
-    
+
     /// <summary>
     ///     The Argument is the XML entity that describes the arguments
     ///     that can be placed in to the inputs.conf stanza for this modular
@@ -54,14 +46,14 @@ namespace Splunk.ModularInputs
     /// </summary>
     [XmlRoot("arg")]
     public class Argument
-    {   
+    {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Argument" /> class,
-        /// which is empty.
+        ///     Initializes a new instance of the <see cref="Argument" /> class,
+        ///     which is empty.
         /// </summary>
         public Argument()
         {
-            this.DataType = ModularInputs.DataType.String;
+            this.DataType = DataType.String;
             this.RequiredOnEdit = false;
             this.RequiredOnCreate = true;
         }
@@ -113,17 +105,5 @@ namespace Splunk.ModularInputs
         /// </summary>
         [XmlElement("required_on_create")]
         public bool RequiredOnCreate { get; set; }
-
-        /// <summary>
-        ///     Serializes this object to XML output
-        /// </summary>
-        /// <returns>The XML String</returns>
-        public string Serialize()
-        {
-            var x = new XmlSerializer(typeof(Argument));
-            var sw = new StringWriter();
-            x.Serialize(sw, this);
-            return sw.ToString();
-        }
     }
 }

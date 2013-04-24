@@ -52,7 +52,8 @@ namespace Splunk.ModularInputs
         /// </summary>
         public Scheme()
         {
-            this.UseExternalValidation = false;
+            // Default to true so that ... TBD
+            this.UseExternalValidation = true;
             this.UseSingleInstance = false;
             this.Endpoint = new EndpointElement();
         }
@@ -72,7 +73,10 @@ namespace Splunk.ModularInputs
         /// <summary>
         ///     Gets or sets a value indicating whether external validation 
         ///     is enabled for this Modular Input.
-        ///     Default is false.
+        ///     Default is true.
+        /// <para>
+        /// Override <see cref="Script.Validate"/> to perform the validation.
+        /// </para>
         /// </summary>
         [XmlElement("use_external_validation")]
         public bool UseExternalValidation { get; set; }
@@ -85,13 +89,14 @@ namespace Splunk.ModularInputs
         public bool UseSingleInstance { get; set; }
 
         /// <summary>
-        ///     Gets or sets Streaming Mode for this Modular Input (SIMPLE or XML)
+        ///     Gets or sets Streaming Mode for this Modular Input (Simple or Xml)
+        ///     Default is Simple.
         /// </summary>
         [XmlElement("streaming_mode")]
         public StreamingMode StreamingMode { get; set; }
 
         /// <summary>
-        ///     Gets or sets the endpoint description for this modular input
+        ///     Gets or sets the endpoint element for this scheme.
         /// </summary>
         [XmlElement("endpoint")]
         public EndpointElement Endpoint { get; set; }
@@ -100,7 +105,7 @@ namespace Splunk.ModularInputs
         ///     Serializes this object to XML output
         /// </summary>
         /// <returns>The XML String</returns>
-        public string Serialize()
+        internal string Serialize()
         {
             var x = new XmlSerializer(typeof(Scheme));
             var sw = new StringWriter();
@@ -132,18 +137,6 @@ namespace Splunk.ModularInputs
             [XmlArray("args")]
             [XmlArrayItem("arg")]
             public List<Argument> Arguments { get; set; }
-
-            /// <summary>
-            ///     Serializes this object to XML output
-            /// </summary>
-            /// <returns>The XML String</returns>
-            public string Serialize()
-            {
-                var x = new XmlSerializer(typeof(EndpointElement));
-                var sw = new StringWriter();
-                x.Serialize(sw, this);
-                return sw.ToString();
-            }
         }
     }
 }

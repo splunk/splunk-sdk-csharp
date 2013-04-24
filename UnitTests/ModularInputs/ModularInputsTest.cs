@@ -14,84 +14,53 @@
  * under the License.
  */
 
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Splunk.ModularInputs;
+
 namespace UnitTests
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Splunk.ModularInputs;
-    using System.Text;
-
     /// <summary>
-    /// Test classes in Splunk.ModularInputs namespace
+    ///     Test classes in Splunk.ModularInputs namespace
     /// </summary>
     [TestClass]
     public class ModularInputsTest
     {
         /// <summary>
-        /// Input file folder
+        ///     Input file folder
         /// </summary>
         private const string TestDataFolder = @"ModularInputs\Data";
 
         /// <summary>
-        /// Input file containing input configuration
+        ///     Input file containing input configuration
         /// </summary>
         private const string InputConfigurationFilePath = "InputConfiguration.xml";
 
         /// <summary>
-        /// Input file containing validation items
+        ///     Input file containing validation items
         /// </summary>
         private const string ValidationItemsFilePath = "ValidationItems.xml";
 
         /// <summary>
-        /// Input file containing scheme
+        ///     Input file containing expected validation error message.
+        /// </summary>
+        private const string ValidationErrorMessageFilePath = "ValidationErrorMessage.xml";
+
+        /// <summary>
+        ///     Input file containing scheme
         /// </summary>
         private const string SchemeFilePath = "Scheme.xml";
 
         /// <summary>
-        /// Input file containing events
+        ///     Input file containing events
         /// </summary>
         private const string EventsFilePath = "Events.xml";
 
-        private readonly static Scheme scheme = new Scheme
-                {
-                    Title = "Test Example",
-                    Description = "This is a test modular input that handles all the appropriate functionality",
-                    StreamingMode = StreamingMode.Xml,
-                    Endpoint =
-                    {
-                        Arguments = new List<Argument>
-                                        {
-                                            new Argument
-                                                {
-                                                    Name = "interval",
-                                                    Description = "Polling Interval",
-                                                    DataType = DataType.Number,
-                                                    Validation = "is_pos_int('interval')"
-                                                },
-
-                                            new Argument
-                                                {
-                                                    Name = "username",
-                                                    Description = "Admin Username",
-                                                    DataType = DataType.String,
-                                                    RequiredOnCreate = false
-                                                },
-
-                                            new Argument
-                                                {
-                                                    Name = "password",
-                                                    Description = "Admin Password",
-                                                    DataType = DataType.String,
-                                                    RequiredOnEdit = true
-                                                }
-                                        }
-                    }
-                };
-
         /// <summary>
-        /// Test returning scheme through stdout
+        ///     Test returning scheme through stdout
         /// </summary>
         [TestMethod]
         [DeploymentItem(
@@ -102,29 +71,39 @@ namespace UnitTests
             using (var consoleOut = new StringWriter())
             {
                 Console.SetOut(consoleOut);
-                Script.Run<TestScript>(new string[] { "--scheme" });
+                Script.Run<TestScript>(new[] { "--scheme" });
                 AssertEqualWithExpectedFile(SchemeFilePath, consoleOut.ToString());
             }
         }
 
         /// <summary>
-        /// Test getting validation info from stdin
+        ///     Test getting validation info from stdin and return validation error through stdout.
         /// </summary>
         [TestMethod]
         [DeploymentItem(
             ValidationItemsFilePath,
             TestDataFolder)]
+        [DeploymentItem(
+            ValidationErrorMessageFilePath,
+            TestDataFolder)]
         public void ExternalValidation()
         {
             using (var consoleIn = ReadFileFromDataFolderAsReaser(ValidationItemsFilePath))
+            using (var consoleOut = new StringWriter())
             {
                 SetConsoleIn(consoleIn);
-                Script.Run<TestScript>(new string[] { "--validate-arguments" });
+                Console.SetOut(consoleOut);
+
+                var exitCode = Script.Run<TestScript>(new[] { "--validate-arguments" });
+
+                AssertEqualWithExpectedFile(ValidationErrorMessageFilePath, consoleOut.ToString());
+
+                Assert.AreNotEqual(0, exitCode);
             }
         }
 
         /// <summary>
-        /// Test getting validation info from stdin
+        ///     Test getting validation info from stdin
         /// </summary>
         [TestMethod]
         [DeploymentItem(
@@ -140,18 +119,18 @@ namespace UnitTests
             {
                 SetConsoleIn(consoleIn);
                 Console.SetOut(consoleOut);
-                Script.Run<TestScript>(new string[] {});
+                Script.Run<TestScript>(new string[] { });
                 AssertEqualWithExpectedFile(EventsFilePath, consoleOut.ToString());
             }
         }
 
         /// <summary>
-        /// Test error handling and logging
+        ///     Test error handling and logging
         /// </summary>
         [TestMethod]
         public void ErrorHandling()
         {
-            using (var consoleIn = new StringReader(""))
+            using (var consoleIn = new StringReader(string.Empty))
             using (var consoleError = new StringWriter())
             {
                 SetConsoleIn(consoleIn);
@@ -159,32 +138,46 @@ namespace UnitTests
                 var exitCode = Script.Run<TestScript>(new string[] { });
 
                 // There will be an exception due to missing input configuration in 
-                // (redirected) console stdin. 
+                // (redirected) console stdin.      
+                var error = consoleError.ToString();
 
                 // Verify that an exception is logged with level FATAL.
-                Assert.IsTrue(consoleError.ToString().Contains(
+                Assert.IsTrue(error.Contains(
                     "FATAL Script.Run: Unhandled exception:"));
 
                 // Verify that the exception is what we expect.
-                Assert.IsTrue(consoleError.ToString().Contains("Root element is missing"));
+                Assert.IsTrue(error.Contains("Root element is missing"));
 
                 // Verify that an info level message is logged properly.
-                Assert.IsTrue(consoleError.ToString().Contains("INFO Script.Run: Reading input definition"));
+                Assert.IsTrue(error.Contains("INFO Script.Run: Reading input definition"));
+
+                // Verify that the logged exception does not span more than one line
+                // Splunk breaks up events using new lines for splunkd log.
+                var lines = error.Split(
+                    new[] { Environment.NewLine },
+                    StringSplitOptions.RemoveEmptyEntries);
+
+                Assert.AreEqual(2, lines.Length);
 
                 Assert.AreNotEqual(0, exitCode);
             }
         }
 
+        /// <summary>
+        /// Assert equal with expected file content.
+        /// </summary>
+        /// <param name="expectedFilePath">Relative file path</param>
+        /// <param name="actual">Data to check</param>
         private static void AssertEqualWithExpectedFile(
-              string expectedFilePath,
-              string actual)
+            string expectedFilePath,
+            string actual)
         {
             var expected = ReadFileFromDataFolderAsString(expectedFilePath);
             Assert.AreEqual(expected, actual);
         }
 
         /// <summary>
-        /// Read file from data directory as a string
+        ///     Read file from data directory as a string
         /// </summary>
         /// <param name="relativePath">Relative path to the resource</param>
         /// <returns>Resource content</returns>
@@ -194,7 +187,7 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// Read file from data directory as a test reader
+        ///     Read file from data directory as a test reader
         /// </summary>
         /// <param name="relativePath">Relative path to the resource</param>
         /// <returns>Resource content</returns>
@@ -209,7 +202,7 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// Get full path to the data file.
+        ///     Get full path to the data file.
         /// </summary>
         /// <param name="relativePath">Relative path to the data folder.</param>
         /// <returns>A full path</returns>
@@ -217,22 +210,22 @@ namespace UnitTests
         {
             return TestDataFolder + @"\" + relativePath;
         }
-        
+
         /// <summary>
-        /// Write events using EventStreamWriter
+        ///     Write events using EventStreamWriter
         /// </summary>
         // This method can be used by manual testing thus is public 
         public static void WriteEvents()
         {
             using (var writer = new EventStreamWriter())
             {
-                var eventTemplate = new Event
-                {
-                    //Index = "sdk-tests2",
-                    //Host = "test host",
-                    //SourceType = "test sourcetype",
-                    //Source = "test source",
-                };
+                var eventTemplate = new EventElement
+                    {
+                        //Index = "sdk-tests2",
+                        //Host = "test host",
+                        //SourceType = "test sourcetype",
+                        //Source = "test source",
+                    };
 
                 WriteEventData(
                     writer,
@@ -257,8 +250,8 @@ namespace UnitTests
                     "Part 2 of an unbroken event ending with newline" + Environment.NewLine);
 
                 WriteEventDone(
-                      writer,
-                      eventTemplate);
+                    writer,
+                    eventTemplate);
 
                 eventTemplate.Unbroken = false;
 
@@ -276,20 +269,23 @@ namespace UnitTests
             }
         }
 
+        /// <summary>
+        /// Write for multiple stanzas
+        /// </summary>
+        /// <param name="writer">An event writer</param>
         private static void WriteMultiplex(EventStreamWriter writer)
         {
-            var eventTemplate1 = new Event
-            {
-                Stanza = "modular_input://UnitTest1",
-                Unbroken = true,
-            };
+            var eventTemplate1 = new EventElement
+                {
+                    Stanza = "modular_input://UnitTest1",
+                    Unbroken = true,
+                };
 
-
-            var eventTemplate2 = new Event
-            {
-                Stanza = "modular_input://UnitTest2",
-                Unbroken = true,
-            };
+            var eventTemplate2 = new EventElement
+                {
+                    Stanza = "modular_input://UnitTest2",
+                    Unbroken = true,
+                };
 
             WriteEventDataLine(writer, eventTemplate1, "Part 1 of channel 1 with a newline");
             WriteEventData(writer, eventTemplate2, "Part 1 of channel 2 without a newline ");
@@ -304,7 +300,12 @@ namespace UnitTests
             WriteEventDone(writer, eventTemplate2);
         }
 
-        private static void WriteEventDone(EventStreamWriter writer, Event eventTemplate)
+        /// <summary>
+        /// Write a done key
+        /// </summary>
+        /// <param name="writer">An event writer</param>
+        /// <param name="eventTemplate">An event template</param>
+        private static void WriteEventDone(EventStreamWriter writer, EventElement eventTemplate)
         {
             var @event = eventTemplate;
             @event.Unbroken = false;
@@ -312,9 +313,15 @@ namespace UnitTests
             writer.Write(@event);
         }
 
+        /// <summary>
+        /// Write an event data line.
+        /// </summary>
+        /// <param name="writer">An event writer</param>
+        /// <param name="eventTemplate">An event template</param>
+        /// <param name="eventData">Event data</param>
         private static void WriteEventDataLine(
             EventStreamWriter writer,
-            Event eventTemplate,
+            EventElement eventTemplate,
             string eventData)
         {
             WriteEventData(
@@ -323,44 +330,128 @@ namespace UnitTests
                 eventData + Environment.NewLine);
         }
 
-        private static void WriteEventData(EventStreamWriter writer, Event eventTemplate, string eventData)
+        /// <summary>
+        /// Write event data without appending a newline seperator.
+        /// </summary>
+        /// <param name="writer">An event writer</param>
+        /// <param name="eventTemplate">An event template</param>
+        /// <param name="eventData">Event data</param>
+        private static void WriteEventData(EventStreamWriter writer, EventElement eventTemplate, string eventData)
         {
             var @event = eventTemplate;
             @event.Data = eventData;
             writer.Write(@event);
         }
-        
-        private static void SetConsoleIn(TextReader consoleIn)
+
+        /// <summary>
+        /// Redirect console in
+        /// </summary>
+        /// <param name="target">Destination of the redirection</param>
+        private static void SetConsoleIn(TextReader target)
         {
             // Must set Console encoding to be UTF8. Otherwise, Script.Run
             // will call the setter of OutputEncoding which results in
             // resetting Console.In (which should be a System.Console bug).
-            var utf8 = new System.Text.UTF8Encoding();
+            var utf8 = new UTF8Encoding();
             Console.InputEncoding = utf8;
-            Console.SetIn(consoleIn);
+            Console.SetIn(target);
         }
 
+        /// <summary>
+        ///     Run the scripts and validate the results.
+        /// </summary>
         private class TestScript : Script
         {
+            /// <summary>
+            /// Scheme used by the test
+            /// </summary>
             public override Scheme Scheme
             {
-                get { return scheme; }
+                get
+                {
+                    return new Scheme
+                        {
+                            Title = "Test Example",
+                            Description = "This is a test modular input that handles all the appropriate functionality",
+                            StreamingMode = StreamingMode.Xml,
+                            Endpoint =
+                                {
+                                    Arguments = new List<Argument>
+                                        {
+                                            new Argument
+                                                {
+                                                    Name = "interval",
+                                                    Description = "Polling Interval",
+                                                    DataType = DataType.Number,
+                                                    Validation = "is_pos_int('interval')"
+                                                },
+                                            new Argument
+                                                {
+                                                    Name = "username",
+                                                    Description = "Admin Username",
+                                                    DataType = DataType.String,
+                                                    RequiredOnCreate = false
+                                                },
+                                            new Argument
+                                                {
+                                                    Name = "password",
+                                                    Description = "Admin Password",
+                                                    DataType = DataType.String,
+                                                    RequiredOnEdit = true
+                                                }
+                                        }
+                                }
+                        };
+                }
             }
 
+            /// <summary>
+            /// Perform test verifications and stream events.
+            /// </summary>
+            /// <param name="inputConfiguration">Input configuration</param>
             public override void StreamEvents(InputConfiguration inputConfiguration)
             {
-                // Verify input configuration is received and parsed correctly.
+                // Verify every part of the input configuration is received 
+                // parsed, and later recontructed correctly.
                 var reconstructed = inputConfiguration.Serialize();
                 AssertEqualWithExpectedFile(InputConfigurationFilePath, reconstructed);
-               
+
+                // Test the dictionary for single value parameter.
+                var stanza = inputConfiguration.StanzaByName["foobar://bbb"];
+                var parameter = stanza.ParameterByName["param2"];
+                var singleValue = (SingleValueParameter.Value) parameter;
+                Assert.AreEqual("value22", singleValue);
+
+                // Test the dictionary for multi value parameter.
+                stanza = inputConfiguration.StanzaByName["foobar://bbb"];
+                parameter = stanza.ParameterByName["multiValue2"];
+
+                var multiValue = (MultiValueParameter.MultiValue) parameter;
+                var elementInMultiValue = multiValue[1];
+                Assert.AreEqual("value4", elementInMultiValue);
+
                 // Write events through EventStreamWriter.
-                ModularInputsTest.WriteEvents();
+                WriteEvents();
             }
 
-            public override void Validate(ValidationItems validationItems)
+            /// <summary>
+            ///     Validate and return an error message.
+            /// </summary>
+            /// <param name="validationItems">Configuration data to validate</param>
+            /// <param name="errorMessage">Message to display in UI when validation fails</param>
+            /// <returns>Whether the validation succeeded</returns>
+            public override bool Validate(ValidationItems validationItems, out string errorMessage)
             {
+                // Test the dictionary for single value parameter.
+                var item = validationItems.Item;
+                string stringParamValue = (SingleValueParameter.Value) item.ParameterByName["disabled"];
+                Assert.AreEqual("0", stringParamValue);
+
                 var reconstructed = validationItems.Serialize();
                 AssertEqualWithExpectedFile(ValidationItemsFilePath, reconstructed);
+
+                errorMessage = "test message";
+                return false;
             }
         }
     }

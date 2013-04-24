@@ -70,7 +70,7 @@ namespace Splunk
         // IFormatProvider parameter which make it 
         // not as easy to use. System.Convert methods do not require 
         // IFormatProvider parameter.
-        public class FieldValue : object
+        public class FieldValue
         {
             /// <summary>
             /// A single value or delimited  set of values. 

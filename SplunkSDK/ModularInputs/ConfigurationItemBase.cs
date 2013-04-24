@@ -14,92 +14,65 @@
  * under the License.
  */
 
+using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Serialization;
+
 namespace Splunk.ModularInputs
 {
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Xml.Serialization;
-
     /// <summary>
-    ///     Base class for input definition.
+    ///     Base class for input definition sent to modular input by Splunk
+    ///     to start event streaming.
     /// </summary>
     public class ConfigurationItemBase
     {
         /// <summary>
-        /// Configuration parameters provided by Splunk at runtime
+        ///     Parameter in the input definition item.
         /// </summary>
-        private List<Parameter> @params;
-
-
-        /// <summary>
-        /// Configuration parameters provided by Splunk at runtime
-        /// </summary>
-        private List<MultiParameter> multiParams;
+        private Dictionary<string, ParameterBase.ValueBase> parameterByName;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ConfigurationItemBase" /> class,
         /// </summary>
         internal ConfigurationItemBase()
         {
-            @params = new List<Parameter>();
-            multiParams = new List<MultiParameter>();
+            Parameters = new List<SingleValueParameter>();
+            MultiValueParameters = new List<MultiValueParameter>();
         }
 
         /// <summary>
-        /// Gets or sets the name of this stanza.
+        ///     Gets or sets the name of this stanza.
         /// </summary>
         [XmlAttribute("name")]
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the list of parameters for defining this stanza.
+        ///     Gets or sets the list of parameters for defining this stanza.
         /// </summary>
         [XmlElement("param")]
-        public List<Parameter> Parameters
-        {
-            get { return @params; }
-            set { @params = value; }
-        }
+        public List<SingleValueParameter> Parameters { get; set; }
+
         /// <summary>
-        /// Gets or sets the list of multi value parameters for defining this stanza.
+        ///     Gets or sets the list of multi value parameters for defining this stanza.
         /// </summary>
         [XmlElement("param_list")]
-        public List<MultiParameter> MultiValueParameters
-        {
-            get { return multiParams; }
-            set { multiParams = value; }
-        }
+        public List<MultiValueParameter> MultiValueParameters { get; set; }
 
         /// <summary>
-        ///     When accessing the parameters, normally you will want to access the
-        ///     parameters by name.  This method translates the list into an associative
-        ///     array for access purposes.
+        ///     Gets parameter in the input definition item.
         /// </summary>
-        /// <param name="name">The name of the parameter</param>
-        /// <param name="defaultValue">If not found, what should be returned</param>
-        /// <returns>The value of the parameter, or defaultValue if the parameter does not exist.</returns>
-        public string GetParameterByName(string name, string defaultValue)
+        public IDictionary<string, ParameterBase.ValueBase> ParameterByName
         {
-            foreach (var t in @params)
+            get
             {
-                if (t.Name.Equals(name))
+                if (parameterByName == null)
                 {
-                    return t.Value;
+                    parameterByName = Parameters
+                        .Concat<ParameterBase>(MultiValueParameters)
+                        .ToDictionary(p => p.Name, p => p.ValueAsBaseType);
                 }
+                return parameterByName;
             }
-            return defaultValue;
-        }
-
-        /// <summary>
-        ///     Serializes this object to XML output
-        /// </summary>
-        /// <returns>The XML String</returns>
-        public string Serialize()
-        {
-            var x = new XmlSerializer(typeof(Stanza));
-            var sw = new StringWriter();
-            x.Serialize(sw, this);
-            return sw.ToString();
         }
     }
 }

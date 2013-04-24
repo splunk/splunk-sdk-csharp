@@ -14,11 +14,11 @@
  * under the License.
  */
 
+using System;
+using System.Diagnostics;
+
 namespace Splunk.ModularInputs
 {
-    using System;
-    using System.Diagnostics;
-
     /// <summary>
     ///     List of appropriate log levels for logging functions
     /// </summary>
@@ -102,7 +102,7 @@ namespace Splunk.ModularInputs
         }
 
         /// <summary>
-        /// Format trace
+        ///     Format trace
         /// </summary>
         /// <param name="level">The log level</param>
         /// <param name="msg">The message</param>

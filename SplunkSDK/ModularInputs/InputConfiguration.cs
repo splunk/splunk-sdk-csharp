@@ -18,27 +18,58 @@ namespace Splunk.ModularInputs
 {
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Xml.Serialization;
 
+    /// <summary>
+    ///     When Splunk executes a modular input script to stream events into Splunk, 
+    ///     it reads configuration information from
+    ///     inputs.conf files in the system.  It then passes this configuration in XML format to
+    ///     the script.  The modular input script reads the configuration information from stdin.
+    ///     This object is used to parse and access the XML data.
+    /// </summary>
     [XmlRoot("input")]
     public class InputConfiguration : InputConfigurationBase
     {
+        /// <summary>
+        /// A dictionary of Stanzas
+        /// </summary>
+        private Dictionary<string, Stanza> stanzaByName;
 
         /// <summary>
-        ///     Gets or sets the child tags for &lt;configuration&gt; are based on the schema you define in the
-        ///     inputs.conf.spec file for your modular input.  Splunk reads all the configurations in
-        ///     the Splunk installation and passes them to the script in &lt;stanza&gt; tags.
+        ///     Gets or sets the child tags for &lt;configuration&gt; 
+        ///     which are based on the schema you define in the
+        ///     inputs.conf.spec file for your modular input.  
+        ///     Splunk reads all the configurations in
+        ///     the Splunk installation and passes them to 
+        ///     the script in &lt;stanza&gt; tags.
         /// </summary>
         [XmlArray("configuration")]
         [XmlArrayItem("stanza")]
         public List<Stanza> Stanzas { get; set; }
-        
+
+        /// <summary>
+        /// Gets a dictionary of Stanzas keyed by stanza's name.
+        /// </summary>
+        public IDictionary<string, Stanza> StanzaByName
+        {
+            get
+            {
+                if (this.stanzaByName == null)
+                {
+                    this.stanzaByName = this.Stanzas
+                        .ToDictionary(p => p.Name);
+                }
+                return this.stanzaByName;
+            }
+        }
+
         /// <summary>
         ///     Read the input stream specified and return the parsed XML input.
         /// </summary>
         /// <param name="input">The input stream</param>
         /// <returns>An InputDefinition object</returns>
-        public static InputConfiguration Read(TextReader input)
+        internal static InputConfiguration Read(TextReader input)
         {
             var x = new XmlSerializer(typeof(InputConfiguration));
             var id = (InputConfiguration)x.Deserialize(input);

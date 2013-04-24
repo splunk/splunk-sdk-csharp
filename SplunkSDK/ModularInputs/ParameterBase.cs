@@ -14,22 +14,33 @@
  * under the License.
  */
 
+using System.Xml.Serialization;
+
 namespace Splunk.ModularInputs
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Xml.Serialization;
-
     /// <summary>
-    ///     Definition of a key-value pair in the context of an XML object
+    ///     Base class for different types of parameters in input configuration
     /// </summary>
-    public class ParameterBase
+    public abstract class ParameterBase
     {
         /// <summary>
-        /// Gets or sets the name of the parameter
+        ///     Gets or sets the name of the parameter
         /// </summary>
         [XmlAttribute("name")]
         public string Name { get; set; }
-     }
+
+        /// <summary>
+        ///     Gets the value of the parameter
+        /// </summary>
+        // 'Value' or 'ValueBase' would be better names. However they conflict with 
+        // name of nested types.
+        internal abstract ValueBase ValueAsBaseType { get; }
+
+        /// <summary>
+        /// Base class of different types of parameter values.
+        /// </summary>
+        public class ValueBase
+        {
+        }
+    }
 }

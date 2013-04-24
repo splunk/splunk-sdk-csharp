@@ -14,73 +14,106 @@
  * under the License.
  */
 
+using System;
+using System.Xml;
+
 namespace Splunk.ModularInputs
 {
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Xml.Serialization;
-    using System.Xml;
-    using System;
-
     /// <summary>
-    ///     Each stanza in the inputs.conf has a set of parameters that are stored in a KV pair store.
+    ///     Writes event to stdout using XML streaming mode.
     /// </summary>
-    public class EventStreamWriter: IDisposable
+    public class EventStreamWriter : IDisposable
     {
+        /// <summary>
+        /// Used to write XML to stdout.
+        /// </summary>
         private XmlTextWriter xmlWriter = new XmlTextWriter(Console.Out);
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EventStreamWriter" /> class.
+        /// </summary>
         public EventStreamWriter()
         {
-            this.xmlWriter.WriteStartElement("stream");
+            xmlWriter.WriteStartElement("stream");
         }
 
-        public void Write(Event @event)
+        /// <summary>
+        /// Write the last end tag and release resources.
+        /// </summary>
+        public void Dispose()
         {
-            this.xmlWriter.WriteStartElement("event");
+            if (xmlWriter == null)
+            {
+                return;
+            }
 
-            var stanza = @event.Stanza;
+            xmlWriter.WriteEndElement();
+            ((IDisposable) xmlWriter).Dispose();
+            xmlWriter = null;
+        }
+
+        /// <summary>
+        /// Write the event element 
+        /// </summary>
+        /// <param name="eventElement">A event element</param>
+        public void Write(EventElement eventElement)
+        {
+            xmlWriter.WriteStartElement("event");
+
+            var stanza = eventElement.Stanza;
             if (stanza != null)
             {
-                this.xmlWriter.WriteAttributeString("stanza", stanza);
+                xmlWriter.WriteAttributeString("stanza", stanza);
             }
 
-            if (@event.Unbroken)
+            if (eventElement.Unbroken)
             {
-                this.xmlWriter.WriteAttributeString("unbroken", "1");
+                xmlWriter.WriteAttributeString("unbroken", "1");
             }
 
-            WriteElementIfNotNull(@event.Index, "index");
-            WriteElementIfNotNull(@event.SourceType, "sourcetype");
-            WriteElementIfNotNull(@event.Source, "source");
-            WriteElementIfNotNull(@event.Host, "host");
+            WriteElementIfNotNull(eventElement.Index, "index");
+            WriteElementIfNotNull(eventElement.SourceType, "sourcetype");
+            WriteElementIfNotNull(eventElement.Source, "source");
+            WriteElementIfNotNull(eventElement.Host, "host");
 
-            WriteElementIfNotNull(@event.Data, "data");
+            WriteElementIfNotNull(eventElement.Data, "data");
 
-            var time = @event.Time;
+            var time = eventElement.Time;
             if (time != null)
             {
-                this.xmlWriter.WriteElementString(
+                xmlWriter.WriteElementString(
                     "time",
                     ConvertTimeToUtcUnixTimestamp(time.Value));
             }
-         
-            if (@event.Done)
+
+            if (eventElement.Done)
             {
-                this.xmlWriter.WriteStartElement("done");
-                this.xmlWriter.WriteEndElement();
+                xmlWriter.WriteStartElement("done");
+                xmlWriter.WriteEndElement();
                 Console.Out.Flush();
             }
 
-            this.xmlWriter.WriteEndElement();
+            xmlWriter.WriteEndElement();
         }
 
+        /// <summary>
+        /// Write the element if it's content is not null
+        /// </summary>
+        /// <param name="content">Content of the element</param>
+        /// <param name="tag">The tag name</param>
         private void WriteElementIfNotNull(string content, string tag)
         {
             if (content != null)
             {
-                this.xmlWriter.WriteElementString(tag, content);
+                xmlWriter.WriteElementString(tag, content);
             }
         }
 
+        /// <summary>
+        /// Convert to Unix UTC timestamp
+        /// </summary>
+        /// <param name="dateTime">A date time value</param>
+        /// <returns>The unit timestamp</returns>
         private static string ConvertTimeToUtcUnixTimestamp(DateTime dateTime)
         {
             var unixUtcEpoch =
@@ -89,18 +122,6 @@ namespace Splunk.ModularInputs
             var utcTime = TimeZoneInfo.ConvertTimeToUtc(dateTime);
 
             return (utcTime - unixUtcEpoch).TotalSeconds.ToString();
-        }
-
-        public void Dispose()
-        {
-            if (this.xmlWriter == null)
-            {
-                return;
-            }
-
-            this.xmlWriter.WriteEndElement();
-            ((IDisposable)this.xmlWriter).Dispose();
-            this.xmlWriter = null;
         }
     }
 }

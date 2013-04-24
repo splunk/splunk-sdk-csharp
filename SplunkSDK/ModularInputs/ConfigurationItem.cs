@@ -14,13 +14,14 @@
  * under the License.
  */
 
+using System.Xml.Serialization;
+
 namespace Splunk.ModularInputs
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Xml.Serialization;
-
+    /// <summary>
+    /// Input configuration items sent to modular input by Splunk
+    /// to start event streaming.
+    /// </summary>
     [XmlRoot("item")]
     public class ConfigurationItem : ConfigurationItemBase
     {

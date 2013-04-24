@@ -21,10 +21,7 @@ namespace Splunk.ModularInputs
     using System.Xml.Serialization;
 
     /// <summary>
-    ///     When Splunk executes a modular input script, it reads configuration information from
-    ///     inputs.conf files in the system.  It then passes this configuration in XML format to
-    ///     the script.  The modular input script reads the configuration information from stdin.
-    ///     This object is used to parse and access the XML data.
+    ///     Base class for input configuration
     /// </summary>
     [XmlRoot("input")]
     public class InputConfigurationBase
@@ -36,7 +33,7 @@ namespace Splunk.ModularInputs
         public string ServerHost { get; set; }
 
         /// <summary>
-        ///     Gets or sets he management port for the splunk server, identified by host, port and protocol
+        ///     Gets or sets he management uri for the splunk server, identified by host, port and protocol
         /// </summary>
         [XmlElement("server_uri")]
         public string ServerUri { get; set; }
