@@ -44,6 +44,9 @@ namespace Splunk.ModularInputs
         /// <para>
         /// An application should pass <code>args</code> of <code>Main</code> method
         /// (i.e. executable entry point) should be passed into this method.
+        /// If the <code>args</code> are not in the supported set of values,
+        /// the method will do nothing and return a non zero code, i.e. 1, 
+        /// without raising an exception.
         /// </para>
         /// <typeparam name="T">
         /// The application derived type of
@@ -59,7 +62,8 @@ namespace Splunk.ModularInputs
         /// </param>
         /// <returns>
         /// Exit code, which should be used as the return value of 
-        /// <code>Main</code> method.
+        /// <code>Main</code> method. 
+        /// 0 indicating a success.
         /// </returns>
         public static int Run<T>(string[] args)
             where T : Script, new()
@@ -140,11 +144,7 @@ namespace Splunk.ModularInputs
                         xmlWriter.WriteElementString("message", errorMessage);
                         xmlWriter.WriteEndElement();
                     }
-
-                    return 1;
                 }
-
-                return 0;
             }
             catch (Exception e)
             {
