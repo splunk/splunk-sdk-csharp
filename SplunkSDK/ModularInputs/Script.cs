@@ -23,7 +23,7 @@ namespace Splunk.ModularInputs
     /// <summary>
     /// Represents functionality of modular input script (i.e. executable).
     /// <para>
-    /// An application derives from this class define a modular input.
+    /// An application derives from this class to define a modular input.
     /// It must override the follow methods:
     /// <see cref="Scheme"/>
     /// <see cref="StreamEvents"/>
