@@ -69,6 +69,7 @@ namespace UnitTests
 
             // test update
             settings.EnableSplunkWebSSL = !originalSSL;
+            bool updatedSSL = settings.EnableSplunkWebSSL;
             settings.Host = "sdk-host";
             settings.HttpPort = 8001;
             settings.MinFreeSpace = originalMinSpace - 100;
