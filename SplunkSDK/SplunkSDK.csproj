@@ -60,6 +60,8 @@
     <Compile Include="AtomObject.cs" />
     <Compile Include="AtomEntry.cs" />
     <Compile Include="BaseService.cs" />
+    <Compile Include="CustomStringExtension.cs" />
+    <Compile Include="CustomString.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="EventTypeArgs.cs" />
     <Compile Include="ConfCollection.cs" />
@@ -77,6 +79,7 @@
     <Compile Include="InputKind.cs" />
     <Compile Include="ISearchResults.cs" />
     <Compile Include="JobArgs.cs" />
+    <Compile Include="JobResultsArgs.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="MessageArgs.cs" />

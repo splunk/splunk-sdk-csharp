@@ -17,6 +17,7 @@
 namespace UnitTests
 {
     using System;
+    using System.Net;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Splunk;
 
@@ -97,6 +98,49 @@ namespace UnitTests
             job = this.RunWait(service, query);
             job.Results(new Args("output_mode", "json")).Close();
             job.Cancel();
+        }
+
+        /// <summary>
+        /// Tests the result from a bad search argument.
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(WebException),
+          "Bad argument should cause Splunk to return http 400: Bad Request")]
+        public void BadArgument()
+        {
+            var service = Connect();
+            var query = "search index=_internal * earliest=-1m | stats count";
+
+            var job = this.RunWait(service, query);
+            job.Results(new Args("output_mode", "invalid_arg")).Close();
+            job.Cancel();
+        }
+
+        /// <summary>
+        /// Tests the result from a bad search argument.
+        /// </summary>
+        [TestMethod]
+        public void JobResultsOutputModeArgument()
+        {
+            var service = Connect();
+            var query = "search index=_internal * earliest=-1m | stats count";
+
+            var outputModes = Enum.GetNames(typeof(JobResultsArgs.OutputModeEnum));
+            foreach (var modeString in outputModes)
+            {
+                var mode = (JobResultsArgs.OutputModeEnum)Enum.Parse(
+                    typeof(JobResultsArgs.OutputModeEnum), modeString);
+
+                var job = this.RunWait(service, query);
+
+                job.Results(
+                    new JobResultsArgs
+                        {
+                            OutputMode = mode
+                        }).Close();
+
+                job.Cancel();
+            }     
         }
     }
 }

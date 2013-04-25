@@ -855,6 +855,18 @@ namespace Splunk
         }
 
         /// <summary>
+        /// Returns the InputStream IO handle for the results from this job, 
+        /// adding optional parameters.
+        /// </summary>
+        /// <param name="args">The variable arguments.</param>
+        /// <returns>The results InputStream IO handle.</returns>
+        public Stream Results(JobResultsArgs args)
+        {
+            ResponseMessage response = Service.Get(Path + "/results", args);
+            return response.Content;
+        }
+
+        /// <summary>
         /// Returns the Stream IO handle for the preview results from this job.
         /// </summary>
         /// <returns>The Stream IO handle.</returns>
@@ -872,6 +884,19 @@ namespace Splunk
         public Stream ResultsPreview(Args args) 
         {
             ResponseMessage response = 
+                Service.Get(Path + "/results_preview", args);
+            return response.Content;
+        }
+
+        /// <summary>
+        /// Returns the InputStream IO handle for the preview results from this
+        /// job, adding optional parameters.
+        /// </summary>
+        /// <param name="args">The optional parameters.</param>
+        /// <returns>The preview results InputStream IO handle.</returns>
+        public Stream ResultsPreview(JobResultsArgs args)
+        {
+            ResponseMessage response =
                 Service.Get(Path + "/results_preview", args);
             return response.Content;
         }
