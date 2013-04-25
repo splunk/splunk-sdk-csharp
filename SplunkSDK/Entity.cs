@@ -57,7 +57,7 @@ namespace Splunk
         {
             get 
             {
-                return this.GetContent().Count != 0;
+                return this.GetContent().Count == 0;
             }
         }
 
@@ -196,7 +196,7 @@ namespace Splunk
         {
             if (this.toUpdate.ContainsKey(key)) 
             {
-                return Value.ToBoolean((string)this.toUpdate[key]);
+                return Value.ToBoolean(this.toUpdate[key].ToString());
             }
             return this.GetContent().GetBoolean(key);
         }
@@ -214,7 +214,7 @@ namespace Splunk
         {
             if (this.toUpdate.ContainsKey(key)) 
             {
-                return Value.ToBoolean((string)this.toUpdate[key]);
+                return Value.ToBoolean(this.toUpdate[key].ToString());
             }
             return this.GetContent().GetBoolean(key, defaultValue);
         }
