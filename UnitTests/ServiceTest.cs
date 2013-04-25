@@ -40,6 +40,7 @@ namespace UnitTests
         private void CheckJob(Job job)
         {
             string dummyString;
+            string[] dummyList;
             int dummyInt;
             bool dummyBool;
             DateTime dummyDateTime;
@@ -47,6 +48,7 @@ namespace UnitTests
 
             // wait until job is queryable
             this.Ready(job);
+            dummyDateTime = job.CursorTime;
             dummyString = job.Delegate;
             dummyInt = job.DiskUsage;
             dummyString = job.DispatchState;
@@ -60,6 +62,8 @@ namespace UnitTests
             dummyBool = job.EventIsTruncated;
             dummyString = job.EventSearch;
             dummyString = job.EventSorting;
+            dummyString = job.IndexEarliest;
+            dummyString = job.IndexLatest;
             dummyString = job.Keywords;
             dummyString = job.Label;
             dummyDateTime = job.LatestTime;
@@ -75,6 +79,7 @@ namespace UnitTests
             dummyString = job.Search;
             dummyString = job.SearchEarliestTime;
             dummyString = job.SearchLatestTime;
+            dummyList = job.SearchProviders;
             dummyString = job.Sid;
             dummyInt = job.StatusBuckets;
             dummyInt = job.Ttl;
@@ -84,6 +89,7 @@ namespace UnitTests
             dummyBool = job.IsPaused;
             dummyBool = job.IsPreviewEnabled;
             dummyBool = job.IsRealTimeSearch;
+            dummyBool = job.IsRemoteTimeline;
             dummyBool = job.IsSaved;
             dummyBool = job.IsSavedSearch;
             dummyBool = job.IsZombie;
@@ -106,6 +112,20 @@ namespace UnitTests
             {
                 Assert.Fail(e.Message);
             }
+        }
+
+        /// <summary>
+        /// Checks the getters in the Job class
+        /// </summary>
+        [TestMethod]
+        public void JobTest()
+        {
+            Service service = this.Connect();
+            String query = "Search * | head 10";
+            Job job = service.GetJobs().Create(query);
+            this.CheckJob(job);
+            // summary of job
+            job.Summary().Close();
         }
 
         /// <summary>
