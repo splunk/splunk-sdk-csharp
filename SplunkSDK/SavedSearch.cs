@@ -135,7 +135,7 @@ namespace Splunk
         /// <remarks>
         /// This value also applies to any attachments formats. Valid values
         /// are: "plain", "html", "raw", and "csv".
-        /// </remarks.
+        /// </remarks>
         public string ActionEmailFormat
         {
             get
@@ -212,7 +212,7 @@ namespace Splunk
 
         /// <summary>
         /// The address of the SMTP server that is used to send the emails, in
-        /// the form <host>[:<port>]. 
+        /// the form &lt;<i>host</i>&gt;[:&lt;<i>port</i>&gt;]. 
         /// </summary>
         /// <remarks>
         /// <para>&lt;<i>host</i>&gt; can be either the hostname or the IP
@@ -263,7 +263,7 @@ namespace Splunk
         /// <remarks>
         /// <para>The property value's valid format is an <i>integer</i>
         /// followed by a time unit ("s" for seconds, "m" for minutes, "h" for
-        /// hours, or "d" for days)&mdash;for instance, "2s" means 2 seconds.
+        /// hours, or "d" for days). For instance, "2s" means 2 seconds.
         /// </para>
         /// <para>This property's default value is "5m".</para>
         /// </remarks>
@@ -281,7 +281,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// The name of the view to deliver if the <cref="ActionEmailSendPdf"/> 
+        /// The name of the view to deliver if the <see cref="ActionEmailSendPdf"/> 
         /// property is set to "true".
         /// </summary>
         public string ActionEmailPdfView
@@ -556,10 +556,15 @@ namespace Splunk
         /// this email action is triggered. 
         /// </summary>
         /// <remarks>
-        /// <para>If the value is a number followed by "p", it is the number of
-        /// scheduled search periods.</para>
-        /// <para>This property's default value is "86400" (equal to 24 hours).
-        /// <para>If no actions are triggered, the artifacts will have their TTLT
+        /// <para>
+        /// If the value is a number followed by "p", it is the number of
+        /// scheduled search periods.
+        /// </para>
+        /// <para>
+        /// This property's default value is "86400" (equal to 24 hours).
+        /// </para>
+        /// <para>
+        /// If no actions are triggered, the artifacts will have their TTL
 		/// determined by the "dispatch.ttl" attribute in savedsearches.conf.
 		/// </para>
         /// </remarks>
@@ -729,9 +734,11 @@ namespace Splunk
         /// <remarks>
         /// <para>The property value's valid format is an <i>integer</i>
         /// followed by a time unit ("s" for seconds, "m" for minutes, "h" for
-        /// hours, or "d" for days)&mdash;for instance, "2s" means 2 seconds.
+        /// hours, or "d" for days). For instance, "2s" means 2 seconds.
         /// </para>
-        /// <para>This property's default value is "5m".</para>
+        /// <para>
+        /// This property's default value is "5m".
+        /// </para>
 		/// </remarks>
         public string ActionPopulateLookupMaxTime
         {
@@ -771,7 +778,7 @@ namespace Splunk
         /// <remarks>
         /// <para>If the value is a number followed by "p", it is the number of
         /// scheduled search periods.</para>
-        /// <para>This property's default value is "10p".
+        /// <para>This property's default value is "10p".</para>
         /// <para>If no actions are triggered, the artifacts will have their TTL
 		/// determined by the "dispatch.ttl" attribute in savedsearches.conf.
 		/// </para>
@@ -865,7 +872,7 @@ namespace Splunk
         /// <remarks>
         /// <para>The property value's valid format is an <i>integer</i>
         /// followed by a time unit ("s" for seconds, "m" for minutes, "h" for
-        /// hours, or "d" for days)&mdash;for instance, "2s" means 2 seconds.
+        /// hours, or "d" for days). For instance, "2s" means 2 seconds.
         /// </para>
         /// <para>This property's default value is "1m".</para>
 		/// </remarks>
@@ -904,12 +911,17 @@ namespace Splunk
         /// this RSS action is triggered. 
         /// </summary>
         /// <remarks>
-        /// <para>If the value is a number followed by "p", it is the number of
-        /// scheduled search periods.</para>
-        /// <para>This property's default value is "86400" (equal to 24 hours).
-        /// <para>If no actions are triggered, the artifacts will have their TTL
+        /// <para>
+        /// If the value is a number followed by "p", it is the number of
+        /// scheduled search periods.
+        /// </para>
+        /// <para>
+        /// If no actions are triggered, the artifacts will have their TTL
 		/// determined by the "dispatch.ttl" attribute in savedsearches.conf.
 		/// </para>
+        /// <para>
+        /// This property's default value is "86400" (equal to 24 hours).
+        /// </para>
         /// </remarks>
         public string ActionRssTtl
         {
@@ -1018,9 +1030,10 @@ namespace Splunk
         /// the action is canceled.
         /// </summary>
         /// <remarks>
-        /// <para>The property value's valid format is an <i>integer</i>
+        /// <para>
+        /// The property value's valid format is an <i>integer</i>
         /// followed by a time unit ("s" for seconds, "m" for minutes, "h" for
-        /// hours, or "d" for days)&mdash;for instance, "2s" means 2 seconds.
+        /// hours, or "d" for days). For instance, "2s" means 2 seconds.
         /// </para>
         /// <para>This property's default value is "5m".</para>
 		/// </remarks>
@@ -1059,12 +1072,17 @@ namespace Splunk
         /// this script action is triggered. 
         /// </summary>
         /// <remarks>
-        /// <para>If the value is a number followed by "p", it is the number of
-        /// scheduled search periods.</para>
-        /// <para>This property's default value is "600" (equal to 10 minutes).
-        /// <para>If no actions are triggered, the artifacts will have their TTL
+        /// <para>
+        /// If the value is a number followed by "p", it is the number of
+        /// scheduled search periods.
+        /// </para>
+        /// <para>
+        /// If no actions are triggered, the artifacts will have their TTL
 		/// determined by the "dispatch.ttl" attribute in savedsearches.conf.
 		/// </para>
+        /// <para>
+        /// This property's default value is "600" (equal to 10 minutes).
+        /// </para>
         /// </remarks>
         public string ActionScriptTtl
         {
@@ -1155,7 +1173,7 @@ namespace Splunk
         /// </summary>
         /// <remarks>
         /// This property is only considered if the summary index action is
-        /// enabled and is always executed&mdash;that is, if <b>counttype =
+        /// enabled and is always executed—that is, if <b>counttype =
         /// always</b>.
         /// </remarks>
         public bool ActionSummaryIndexInline
@@ -1198,7 +1216,7 @@ namespace Splunk
         /// <remarks>
         /// <para>The property value's valid format is an <i>integer</i>
         /// followed by a time unit ("s" for seconds, "m" for minutes, "h" for
-        /// hours, or "d" for days)&mdash;for instance, "2s" means 2 seconds.
+        /// hours, or "d" for days). For instance, "2s" means 2 seconds.
         /// </para>
         /// <para>This property's default value is "5m".</para>
         /// </remarks>
@@ -1289,7 +1307,7 @@ namespace Splunk
         /// <remarks>
         /// <para>The property value's valid format is an <i>integer</i>
         /// followed by a time unit ("s" for seconds, "m" for minutes, "h" for
-        /// hours, or "d" for days)&mdash;for instance, "2s" means 2 seconds.
+        /// hours, or "d" for days). For instance, "2s" means 2 seconds.
         /// </para>
         /// <para>
         /// This property's default value is "24h".
@@ -1387,7 +1405,7 @@ namespace Splunk
         /// <remarks>
         /// <para>The property value's valid format is an <i>integer</i>
         /// followed by a time unit ("s" for seconds, "m" for minutes, "h" for
-        /// hours, or "d" for days)&mdash;for instance, "2s" means 2 seconds.
+        /// hours, or "d" for days). For instance, "2s" means 2 seconds.
         /// </para>
         /// </remarks>
         public string AlertSuppressPeriod
@@ -1520,7 +1538,7 @@ namespace Splunk
         /// <remarks>
         /// <para>
         /// This property's value can be one of the following strings:
-        /// <list>
+        /// <list type="bullet">
         /// <item>"always"</item>
         /// <item>"custom"</item> 
         /// <item>"number of events"</item>
@@ -1562,6 +1580,7 @@ namespace Splunk
         /// <para>
         /// This property is available in Splunk 5.0 and later. 
         /// </para>
+        /// </remarks>
         public double AutoSummarizeMaxSummaryRatio
         {
             get
@@ -2251,10 +2270,11 @@ namespace Splunk
 
         /// <summary>
         /// A comma-separated list of actions to enable.
+        /// </summary>
         /// <remarks>
         /// <para>
         /// This property's value can be one of the following strings:
-        /// <list>
+        /// <list type="bullet">
         /// <item>"email"</item>
         /// <item>"populate_lookup"</item> 
         /// <item>"rss"</item>
@@ -2297,10 +2317,13 @@ namespace Splunk
 
         /// <summary>
         /// A wildcard argument that accepts any saved search template
-        /// argument, such as "args.username=foobar" when the search is "search
-        /// $username$"
+        /// argument.
         /// </summary>
         /// <remarks>
+        /// <para>
+        /// An example saved search template is "args.username=foobar" when 
+        /// the search is "search $username$".
+        /// </para>
         /// <para>
         /// This property is write-only.
         /// </para>
