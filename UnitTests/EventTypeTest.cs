@@ -92,15 +92,16 @@ namespace UnitTests
             eventType.Description = "Dummy description a second time";
             eventType.Disabled = true;
             eventType.Priority = 3;
-            eventType.Update();
-            eventType.Enable();
 
             Assert.AreEqual("sdk-test", eventType.Name, assertRoot + "#8");
             Assert.AreEqual("Dummy description a second time", eventType.Description, assertRoot + "#9");
             Assert.AreEqual(3, eventType.Priority, assertRoot + "#10");
             Assert.AreEqual("index=_internal *", eventType.Search, assertRoot + "#11");
-            Assert.IsFalse(eventType.IsDisabled, assertRoot + "#12");
 
+            eventType.Update();
+            eventType.Enable();
+
+            Assert.IsFalse(eventType.IsDisabled, assertRoot + "#12");
             eventTypeCollection.Remove("sdk-test");
             Assert.IsFalse(eventTypeCollection.ContainsKey("sdk-test"), assertRoot + "#13");
         }
