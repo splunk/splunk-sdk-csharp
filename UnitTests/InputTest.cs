@@ -432,7 +432,7 @@ namespace UnitTests
 
             Assert.AreEqual("dns", tcpSplunkInput.ConnectionHost, assertRoot + "#31");
             Assert.AreEqual("myhost", tcpSplunkInput.Host, assertRoot + "#32");
-            Assert.IsFalse(tcpSplunkInput.SSL, assertRoot + "#33");
+            Assert.IsFalse(getSSL, assertRoot + "#33");
 
             tcpSplunkInput.Remove();
             inputCollection.Refresh();
