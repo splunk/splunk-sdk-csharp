@@ -40,9 +40,9 @@ namespace Splunk.ModularInputs
     }
 
     /// <summary>
-    ///     The Argument is the XML entity that describes the arguments
-    ///     that can be placed in to the inputs.conf stanza for this modular
-    ///     input.
+    ///     Argument represents an XML entity describing an individual argument
+    ///     of a modular input. It corresponds to one of the keys that can be defined for
+    ///     an instance of that modular input in a stanza in inputs.conf.
     /// </summary>
     [XmlRoot("arg")]
     public class Argument
@@ -53,9 +53,9 @@ namespace Splunk.ModularInputs
         /// </summary>
         public Argument()
         {
-            this.DataType = DataType.String;
-            this.RequiredOnEdit = false;
-            this.RequiredOnCreate = true;
+            DataType = DataType.String;
+            RequiredOnEdit = false;
+            RequiredOnCreate = true;
         }
 
         /// <summary>

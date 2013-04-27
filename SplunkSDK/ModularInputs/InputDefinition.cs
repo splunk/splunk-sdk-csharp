@@ -14,10 +14,11 @@
  * under the License.
  */
 
+using System;
+
 namespace Splunk.ModularInputs
 {
     using System.Collections.Generic;
-    using System.IO;
     using System.Linq;
     using System.Xml.Serialization;
 
@@ -29,12 +30,12 @@ namespace Splunk.ModularInputs
     ///     This object is used to parse and access the XML data.
     /// </summary>
     [XmlRoot("input")]
-    public class InputConfiguration : InputConfigurationBase
+    public class InputDefinition : InputDefinitionBase
     {
         /// <summary>
         /// A dictionary of Stanzas
         /// </summary>
-        private Dictionary<string, Stanza> stanzaByName;
+        private Dictionary<string, Stanza> stanzas;
 
         /// <summary>
         ///     Gets or sets the child tags for &lt;configuration&gt; 
@@ -46,46 +47,41 @@ namespace Splunk.ModularInputs
         /// </summary>
         [XmlArray("configuration")]
         [XmlArrayItem("stanza")]
-        public List<Stanza> Stanzas { get; set; }
+        public List<Stanza> StanzaXmlElements { get; set; }
 
         /// <summary>
         /// Gets a dictionary of Stanzas keyed by stanza's name.
         /// </summary>
-        public IDictionary<string, Stanza> StanzaByName
+        public IDictionary<string, Stanza> Stanzas
         {
             get
             {
-                if (this.stanzaByName == null)
+                if (this.stanzas == null)
                 {
-                    this.stanzaByName = this.Stanzas
+                    this.stanzas = this.StanzaXmlElements
                         .ToDictionary(p => p.Name);
                 }
-                return this.stanzaByName;
+                return this.stanzas;
             }
         }
 
         /// <summary>
-        ///     Read the input stream specified and return the parsed XML input.
+        ///     Gets the stanza. 
+        ///     If there are more than one stanza, this method will fail.
         /// </summary>
-        /// <param name="input">The input stream</param>
-        /// <returns>An InputDefinition object</returns>
-        internal static InputConfiguration Read(TextReader input)
+        // This method is provided since it is very common to have only one.
+        // That is the case when UseSingleInstance is true.
+        public Stanza Stanza
         {
-            var x = new XmlSerializer(typeof(InputConfiguration));
-            var id = (InputConfiguration)x.Deserialize(input);
-            return id;
-        }
-
-        /// <summary>
-        ///     Serializes this object to XML output. Used by unit tests.
-        /// </summary>
-        /// <returns>The XML String</returns>
-        internal string Serialize()
-        {
-            var x = new XmlSerializer(typeof(InputConfiguration));
-            var sw = new StringWriter();
-            x.Serialize(sw, this);
-            return sw.ToString();
+            get
+            {
+                if (this.StanzaXmlElements.Count > 1)
+                {
+                    throw new InvalidOperationException(
+                        "There are more than one stanza. Use Stanzas property instead.");
+                }
+                return this.StanzaXmlElements[0];
+            }
         }
     }
 }

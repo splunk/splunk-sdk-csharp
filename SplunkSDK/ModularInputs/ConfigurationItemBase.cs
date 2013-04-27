@@ -29,15 +29,20 @@ namespace Splunk.ModularInputs
         /// <summary>
         ///     Parameter in the input definition item.
         /// </summary>
-        private Dictionary<string, ParameterBase.ValueBase> parameterByName;
+        private Dictionary<string, ParameterBase.ValueBase> parameters;
+
+        /// <summary>
+        ///     Single value parameter in the input definition item.
+        /// </summary>
+        private Dictionary<string, string> singleValueParameters;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ConfigurationItemBase" /> class,
         /// </summary>
         internal ConfigurationItemBase()
         {
-            Parameters = new List<SingleValueParameter>();
-            MultiValueParameters = new List<MultiValueParameter>();
+            SingleValueParameterXmlElements = new List<SingleValueParameter>();
+            MultiValueParameterXmlElements = new List<MultiValueParameter>();
         }
 
         /// <summary>
@@ -50,28 +55,50 @@ namespace Splunk.ModularInputs
         ///     Gets or sets the list of parameters for defining this stanza.
         /// </summary>
         [XmlElement("param")]
-        public List<SingleValueParameter> Parameters { get; set; }
+        public List<SingleValueParameter> SingleValueParameterXmlElements { get; set; }
 
         /// <summary>
         ///     Gets or sets the list of multi value parameters for defining this stanza.
         /// </summary>
         [XmlElement("param_list")]
-        public List<MultiValueParameter> MultiValueParameters { get; set; }
+        public List<MultiValueParameter> MultiValueParameterXmlElements { get; set; }
+
+        /// <summary>
+        ///     Gets single value parameter in the input definition item.
+        /// </summary>
+        // This method is provided to make it easier to retrieve single value
+        // parameters. It is a much more common case than multi value 
+        // parameters. Splunk auto generated modular input UI does not
+        // support multi value parameters.
+        public IDictionary<string, string> SingleValueParameters
+        {
+            get
+            {
+                if (singleValueParameters == null)
+                {
+                    singleValueParameters = SingleValueParameterXmlElements
+                        .ToDictionary(
+                        p => p.Name, 
+                        p => (string) (SingleValueParameter.Value) p.ValueAsBaseType);
+                }
+                return singleValueParameters;
+            }
+        }
 
         /// <summary>
         ///     Gets parameter in the input definition item.
         /// </summary>
-        public IDictionary<string, ParameterBase.ValueBase> ParameterByName
+        public IDictionary<string, ParameterBase.ValueBase> Parameters
         {
             get
             {
-                if (parameterByName == null)
+                if (parameters == null)
                 {
-                    parameterByName = Parameters
-                        .Concat<ParameterBase>(MultiValueParameters)
+                    parameters = SingleValueParameterXmlElements
+                        .Concat<ParameterBase>(MultiValueParameterXmlElements)
                         .ToDictionary(p => p.Name, p => p.ValueAsBaseType);
                 }
-                return parameterByName;
+                return parameters;
             }
         }
     }

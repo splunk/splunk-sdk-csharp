@@ -23,36 +23,13 @@ namespace Splunk.ModularInputs
     /// Input configuration for validation.
     /// </summary>
     [XmlRoot("items")]
-    public class ValidationItems : InputConfigurationBase
+    public class ValidationItems : InputDefinitionBase
     {
         /// <summary>
-        ///     Gets or sets TBD
+        ///     Gets or sets the item which represents an instance of 
+        ///     this modular input.
         /// </summary>
         [XmlElement("item")]
         public ConfigurationItem Item { get; set; }
-
-        /// <summary>
-        ///     Read the input stream specified and return the parsed XML input.
-        /// </summary>
-        /// <param name="input">The input stream</param>
-        /// <returns>An InputDefinition object</returns>
-        public static ValidationItems Read(TextReader input)
-        {
-            var x = new XmlSerializer(typeof(ValidationItems));
-            var id = (ValidationItems) x.Deserialize(input);
-            return id;
-        }
-
-        /// <summary>
-        ///     Serializes this object to XML output. Used by unit tests.
-        /// </summary>
-        /// <returns>The XML String</returns>
-        internal string Serialize()
-        {
-            var x = new XmlSerializer(typeof(ValidationItems));
-            var sw = new StringWriter();
-            x.Serialize(sw, this);
-            return sw.ToString();
-        }
     }
 }

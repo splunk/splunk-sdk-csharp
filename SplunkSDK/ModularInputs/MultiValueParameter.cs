@@ -31,7 +31,7 @@ namespace Splunk.ModularInputs
         ///     Gets or sets the value of the parameter
         /// </summary>
         [XmlElement("value")]
-        public MultiValue ValueXmlElements { get; set; }
+        public Value ValueXmlElements { get; set; }
 
         /// <summary>
         ///     Gets the value of the parameter
@@ -49,7 +49,7 @@ namespace Splunk.ModularInputs
             "SA1600:ElementsMustBeDocumented",
             Justification =
                 "Internal class. Pure passthrough")]
-        public class MultiValue : ValueBase, IList<string>
+        public class Value : ValueBase, IList<string>
         {
             private readonly List<string> value = new List<string>();
 

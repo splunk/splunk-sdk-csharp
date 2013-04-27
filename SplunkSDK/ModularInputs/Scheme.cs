@@ -52,7 +52,6 @@ namespace Splunk.ModularInputs
         /// </summary>
         public Scheme()
         {
-            // Default to true so that ... TBD
             this.UseExternalValidation = true;
             this.UseSingleInstance = false;
             this.Endpoint = new EndpointElement();
@@ -100,18 +99,6 @@ namespace Splunk.ModularInputs
         /// </summary>
         [XmlElement("endpoint")]
         public EndpointElement Endpoint { get; set; }
-
-        /// <summary>
-        ///     Serializes this object to XML output
-        /// </summary>
-        /// <returns>The XML String</returns>
-        internal string Serialize()
-        {
-            var x = new XmlSerializer(typeof(Scheme));
-            var sw = new StringWriter();
-            x.Serialize(sw, this);
-            return sw.ToString();
-        }
 
         /// <summary>
         ///     The Endpoint is a collection of arguments that represent parameters

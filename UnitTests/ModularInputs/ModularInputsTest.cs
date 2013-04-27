@@ -1,18 +1,17 @@
-﻿/*
- * Copyright 2013 Splunk, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License"): you may
- * not use this file except in compliance with the License. You may obtain
- * a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations
- * under the License.
- */
+﻿// 
+// Copyright 2013 Splunk, Inc.
+// 
+// Licensed under the Apache License, Version 2.0 (the "License"): you may
+// not use this file except in compliance with the License. You may obtain
+// a copy of the License at
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+// License for the specific language governing permissions and limitations
+// under the License.
 
 using System;
 using System.Collections.Generic;
@@ -37,7 +36,7 @@ namespace UnitTests
         /// <summary>
         ///     Input file containing input configuration
         /// </summary>
-        private const string InputConfigurationFilePath = "InputConfiguration.xml";
+        private const string InputDefinitionFilePath = "InputDefinition.xml";
 
         /// <summary>
         ///     Input file containing validation items
@@ -71,7 +70,7 @@ namespace UnitTests
             using (var consoleOut = new StringWriter())
             {
                 Console.SetOut(consoleOut);
-                Script.Run<TestScript>(new[] { "--scheme" });
+                Script.Run<TestScript>(new[] {"--scheme"});
                 AssertEqualWithExpectedFile(SchemeFilePath, consoleOut.ToString());
             }
         }
@@ -88,13 +87,13 @@ namespace UnitTests
             TestDataFolder)]
         public void ExternalValidation()
         {
-            using (var consoleIn = ReadFileFromDataFolderAsReaser(ValidationItemsFilePath))
+            using (var consoleIn = ReadFileFromDataFolderAsReader(ValidationItemsFilePath))
             using (var consoleOut = new StringWriter())
             {
                 SetConsoleIn(consoleIn);
                 Console.SetOut(consoleOut);
 
-                var exitCode = Script.Run<TestScript>(new[] { "--validate-arguments" });
+                var exitCode = Script.Run<TestScript>(new[] {"--validate-arguments"});
 
                 AssertEqualWithExpectedFile(ValidationErrorMessageFilePath, consoleOut.ToString());
 
@@ -107,19 +106,19 @@ namespace UnitTests
         /// </summary>
         [TestMethod]
         [DeploymentItem(
-            InputConfigurationFilePath,
+            InputDefinitionFilePath,
             TestDataFolder)]
         [DeploymentItem(
             EventsFilePath,
             TestDataFolder)]
         public void StreamEvents()
         {
-            using (var consoleIn = ReadFileFromDataFolderAsReaser(InputConfigurationFilePath))
+            using (var consoleIn = ReadFileFromDataFolderAsReader(InputDefinitionFilePath))
             using (var consoleOut = new StringWriter())
             {
                 SetConsoleIn(consoleIn);
                 Console.SetOut(consoleOut);
-                Script.Run<TestScript>(new string[] { });
+                Script.Run<TestScript>(new string[] {});
                 AssertEqualWithExpectedFile(EventsFilePath, consoleOut.ToString());
             }
         }
@@ -135,7 +134,7 @@ namespace UnitTests
             {
                 SetConsoleIn(consoleIn);
                 Console.SetError(consoleError);
-                var exitCode = Script.Run<TestScript>(new string[] { });
+                var exitCode = Script.Run<TestScript>(new string[] {});
 
                 // There will be an exception due to missing input configuration in 
                 // (redirected) console stdin.      
@@ -154,7 +153,7 @@ namespace UnitTests
                 // Verify that the logged exception does not span more than one line
                 // Splunk breaks up events using new lines for splunkd log.
                 var lines = error.Split(
-                    new[] { Environment.NewLine },
+                    new[] {Environment.NewLine},
                     StringSplitOptions.RemoveEmptyEntries);
 
                 Assert.AreEqual(2, lines.Length);
@@ -164,7 +163,7 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// Assert equal with expected file content.
+        ///     Assert equal with expected file content.
         /// </summary>
         /// <param name="expectedFilePath">Relative file path</param>
         /// <param name="actual">Data to check</param>
@@ -191,14 +190,9 @@ namespace UnitTests
         /// </summary>
         /// <param name="relativePath">Relative path to the resource</param>
         /// <returns>Resource content</returns>
-        private static TextReader ReadFileFromDataFolderAsReaser(string relativePath)
+        private static TextReader ReadFileFromDataFolderAsReader(string relativePath)
         {
             return File.OpenText(GetDataFilePath(relativePath));
-            //var utf8 = new UTF8Encoding();
-            //return new StreamReader(
-            //    GetDataFilePath(relativePath), 
-            //    utf8, 
-            //    false);
         }
 
         /// <summary>
@@ -221,10 +215,10 @@ namespace UnitTests
             {
                 var eventTemplate = new EventElement
                     {
-                        //Index = "sdk-tests2",
-                        //Host = "test host",
-                        //SourceType = "test sourcetype",
-                        //Source = "test source",
+                        Index = "sdk-tests2",
+                        Host = "test host",
+                        SourceType = "test sourcetype",
+                        Source = "test source",
                     };
 
                 WriteEventData(
@@ -270,7 +264,7 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// Write for multiple stanzas
+        ///     Write for multiple stanzas
         /// </summary>
         /// <param name="writer">An event writer</param>
         private static void WriteMultiplex(EventStreamWriter writer)
@@ -301,7 +295,7 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// Write a done key
+        ///     Write a done key
         /// </summary>
         /// <param name="writer">An event writer</param>
         /// <param name="eventTemplate">An event template</param>
@@ -314,7 +308,7 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// Write an event data line.
+        ///     Write an event data line.
         /// </summary>
         /// <param name="writer">An event writer</param>
         /// <param name="eventTemplate">An event template</param>
@@ -331,7 +325,7 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// Write event data without appending a newline seperator.
+        ///     Write event data without appending a newline seperator.
         /// </summary>
         /// <param name="writer">An event writer</param>
         /// <param name="eventTemplate">An event template</param>
@@ -344,7 +338,7 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// Redirect console in
+        ///     Redirect console in
         /// </summary>
         /// <param name="target">Destination of the redirection</param>
         private static void SetConsoleIn(TextReader target)
@@ -363,7 +357,7 @@ namespace UnitTests
         private class TestScript : Script
         {
             /// <summary>
-            /// Scheme used by the test
+            ///     Scheme used by the test
             /// </summary>
             public override Scheme Scheme
             {
@@ -406,29 +400,50 @@ namespace UnitTests
             }
 
             /// <summary>
-            /// Perform test verifications and stream events.
+            ///     Perform test verifications and stream events.
             /// </summary>
             /// <param name="inputConfiguration">Input configuration</param>
-            public override void StreamEvents(InputConfiguration inputConfiguration)
+            public override void StreamEvents(InputDefinition inputConfiguration)
             {
                 // Verify every part of the input configuration is received 
                 // parsed, and later recontructed correctly.
-                var reconstructed = inputConfiguration.Serialize();
-                AssertEqualWithExpectedFile(InputConfigurationFilePath, reconstructed);
+                var reconstructed = Serialize(inputConfiguration);
+                AssertEqualWithExpectedFile(InputDefinitionFilePath, reconstructed);
 
                 // Test the dictionary for single value parameter.
-                var stanza = inputConfiguration.StanzaByName["foobar://bbb"];
-                var parameter = stanza.ParameterByName["param2"];
-                var singleValue = (SingleValueParameter.Value) parameter;
+                var stanza = inputConfiguration.Stanzas["foobar://bbb"];
+                var parameterName = "param2";
+
+                // Test full parameter dictionary.
+                var parameterValue = stanza.Parameters[parameterName];
+                var singleValue = (SingleValueParameter.Value) parameterValue;
                 Assert.AreEqual("value22", singleValue);
 
-                // Test the dictionary for multi value parameter.
-                stanza = inputConfiguration.StanzaByName["foobar://bbb"];
-                parameter = stanza.ParameterByName["multiValue2"];
+                // Test single value parameter dictionary.
+                var stringValue = stanza.SingleValueParameters[parameterName];
+                Assert.AreEqual("value22", stringValue);
 
-                var multiValue = (MultiValueParameter.MultiValue) parameter;
+                // Test the dictionary for multi value parameter.
+                stanza = inputConfiguration.Stanzas["foobar://bbb"];
+                parameterValue = stanza.Parameters["multiValue2"];
+
+                var multiValue = (MultiValueParameter.Value) parameterValue;
                 var elementInMultiValue = multiValue[1];
                 Assert.AreEqual("value4", elementInMultiValue);
+
+                // Stanza property can't be used since there are
+                // more than one.
+                stanza = null;
+                try
+                {
+                    stanza = inputConfiguration.Stanza;
+                }
+                catch (InvalidOperationException e)
+                {
+                    Assert.IsTrue(e.Message.Contains(
+                        "Use Stanzas property instead"));
+                }
+                Assert.IsNull(stanza);
 
                 // Write events through EventStreamWriter.
                 WriteEvents();
@@ -444,10 +459,10 @@ namespace UnitTests
             {
                 // Test the dictionary for single value parameter.
                 var item = validationItems.Item;
-                string stringParamValue = (SingleValueParameter.Value) item.ParameterByName["disabled"];
+                string stringParamValue = (SingleValueParameter.Value) item.Parameters["disabled"];
                 Assert.AreEqual("0", stringParamValue);
 
-                var reconstructed = validationItems.Serialize();
+                var reconstructed = Serialize(validationItems);
                 AssertEqualWithExpectedFile(ValidationItemsFilePath, reconstructed);
 
                 errorMessage = "test message";

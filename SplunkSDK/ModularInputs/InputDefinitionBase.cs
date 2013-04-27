@@ -16,15 +16,13 @@
 
 namespace Splunk.ModularInputs
 {
-    using System.Collections.Generic;
-    using System.IO;
     using System.Xml.Serialization;
 
     /// <summary>
     ///     Base class for input configuration
     /// </summary>
     [XmlRoot("input")]
-    public class InputConfigurationBase
+    public class InputDefinitionBase
     {
         /// <summary>
         ///     Gets or sets the hostname for the splunk server

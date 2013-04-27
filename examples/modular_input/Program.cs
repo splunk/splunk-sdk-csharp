@@ -86,12 +86,12 @@ namespace Splunk.Examples.ModularInputs
         ///     Stream events into stdout
         /// </summary>
         /// <param name="inputConfiguration">Input configuration from Splunk</param>
-        public override void StreamEvents(InputConfiguration inputConfiguration)
+        public override void StreamEvents(InputDefinition inputConfiguration)
         {
             string lastVarValue = null;
             var writer = new EventStreamWriter();
 
-            var stanza = inputConfiguration.Stanzas[0];
+            var stanza = inputConfiguration.Stanza;
 
             // Gets input name. It is also the env var name.
             const string Seperator = @"://";
@@ -105,13 +105,12 @@ namespace Splunk.Examples.ModularInputs
 
             var interval = 1000;
 
-            ParameterBase.ValueBase intervalParam;
-            if (stanza.ParameterByName.TryGetValue(
+            string intervalParam;
+            if (stanza.SingleValueParameters.TryGetValue(
                 PollingInterval,
                 out intervalParam))
             {
-                interval = int.Parse(
-                    (SingleValueParameter.Value) intervalParam);
+                interval = int.Parse(intervalParam);
             }
 
             SystemLogger.Write(

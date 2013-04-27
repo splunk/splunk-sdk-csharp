@@ -96,21 +96,9 @@ namespace Splunk.ModularInputs
         /// <param name="msg">The message</param>
         public static void Write(LogLevel level, string msg)
         {
-            var line = Format(level, msg);
+            var line = string.Format("{0} {1}", GetLevelString(level), msg);
             Console.Error.WriteLine(line);
             Console.Error.Flush();
-        }
-
-        /// <summary>
-        ///     Format trace
-        /// </summary>
-        /// <param name="level">The log level</param>
-        /// <param name="msg">The message</param>
-        /// <returns>A line</returns>
-        internal static string Format(LogLevel level, string msg)
-        {
-            var line = string.Format("{0} {1}", GetLevelString(level), msg);
-            return line;
         }
     }
 }

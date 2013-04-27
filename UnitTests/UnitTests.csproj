@@ -102,7 +102,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="ModularInputs\Data\InputConfiguration.xml">
+    <Content Include="ModularInputs\Data\InputDefinition.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="ModularInputs\Data\ValidationItems.xml">

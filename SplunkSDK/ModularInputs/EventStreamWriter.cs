@@ -116,6 +116,8 @@ namespace Splunk.ModularInputs
         /// <returns>The unit timestamp</returns>
         private static string ConvertTimeToUtcUnixTimestamp(DateTime dateTime)
         {
+            // Unit timestamp is seconds after a fixed date, known as 
+            // "unix timestamp epoch".
             var unixUtcEpoch =
                 new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 

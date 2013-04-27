@@ -15,55 +15,57 @@
  */
 
 using System;
+using System.IO;
 using System.Text;
 using System.Xml;
+using System.Xml.Serialization;
 
 namespace Splunk.ModularInputs
 {
     /// <summary>
-    /// Represents functionality of modular input script (i.e. executable).
-    /// <para>
-    /// An application derives from this class to define a modular input.
-    /// It must override the follow methods:
-    /// <see cref="Scheme"/>
-    /// <see cref="StreamEvents"/>
-    /// It can optionally override the method below.
-    /// <see cref="Validate"/>
-    /// </para>
+    ///     Represents functionality of modular input script (i.e. executable).
+    ///     <para>
+    ///         An application derives from this class to define a modular input.
+    ///         It must override the follow methods:
+    ///         <see cref="Scheme" />
+    ///         <see cref="StreamEvents" />
+    ///         It can optionally override the method below.
+    ///         <see cref="Validate" />
+    ///     </para>
     /// </summary>
     public abstract class Script
     {
         /// <summary>
-        /// Gets <see cref="Scheme"/> returned for introspection.
+        ///     Gets <see cref="Scheme" /> returned for introspection.
         /// </summary>
         public abstract Scheme Scheme { get; }
 
         /// <summary>
-        /// Perform the action specified by <code>args</code> parameter.
+        ///     Perform the action specified by <code>args</code> parameter.
         /// </summary>
         /// <para>
-        /// An application should pass <code>args</code> of <code>Main</code> method
-        /// (i.e. executable entry point) should be passed into this method.
-        /// If the <code>args</code> are not in the supported set of values,
-        /// the method will do nothing and return a non zero code, i.e. 1, 
-        /// without raising an exception.
+        ///     An application should pass <code>args</code> of <code>Main</code> method
+        ///     (i.e. executable entry point) should be passed into this method.
+        ///     If the <code>args</code> are not in the supported set of values,
+        ///     the method will do nothing and return a non zero code, i.e. 1,
+        ///     without raising an exception.
         /// </para>
         /// <typeparam name="T">
-        /// The application derived type of
-        /// <see cref="Script"/>.
-        /// It must have a constructor without parameter.
+        ///     The application derived type of
+        ///     <see cref="Script" />.
+        ///     It must have a constructor without parameter.
         /// </typeparam>
         /// <param name="args">
-        /// Command line arguments provided by Splunk
-        /// when it invokes the modular input script (i.e. executable). 
-        /// An application should pass <code>args</code> 
-        /// of <code>Main</code> method (i.e. executable entry point) 
-        /// into this method.
+        ///     Command line arguments provided by Splunk
+        ///     when it invokes the modular input script (i.e. executable).
+        ///     An application should pass <code>args</code>
+        ///     of <code>Main</code> method (i.e. executable entry point)
+        ///     into this method.
         /// </param>
         /// <returns>
-        /// Exit code, which should be used as the return value of 
-        /// <code>Main</code> method. 
-        /// 0 indicating a success.
+        ///     Exit code, which should be used as the return value of
+        ///     <code>Main</code> method.
+        ///     0 indicating a success.
         /// </returns>
         public static int Run<T>(string[] args)
             where T : Script, new()
@@ -93,7 +95,8 @@ namespace Splunk.ModularInputs
                 if (args.Length == 0)
                 {
                     Log("Reading input definition");
-                    var inputDefinition = InputConfiguration.Read(Console.In);
+                    var inputDefinition = (InputDefinition) Read(
+                        typeof(InputDefinition));
                     Log("Calling StreamEvents");
                     script.StreamEvents(inputDefinition);
                     return 0;
@@ -104,7 +107,7 @@ namespace Splunk.ModularInputs
                     if (script.Scheme != null)
                     {
                         Log("Writing introspection streme");
-                        Console.WriteLine(script.Scheme.Serialize());
+                        Console.WriteLine(Serialize(script.Scheme));
                     }
                     return 0;
                 }
@@ -116,7 +119,8 @@ namespace Splunk.ModularInputs
                     try
                     {
                         Log("Reading validation items");
-                        var validationItems = ValidationItems.Read(Console.In);
+                        var validationItems = (ValidationItems) Read(
+                            typeof(ValidationItems));
 
                         Log("Calling Validate");
 
@@ -138,12 +142,7 @@ namespace Splunk.ModularInputs
                     }
 
                     // Validation failed.
-                    using (var xmlWriter = new XmlTextWriter(Console.Out))
-                    {
-                        xmlWriter.WriteStartElement("error");
-                        xmlWriter.WriteElementString("message", errorMessage);
-                        xmlWriter.WriteEndElement();
-                    }
+                    WriteValidationError(errorMessage);
                 }
             }
             catch (Exception e)
@@ -156,7 +155,50 @@ namespace Splunk.ModularInputs
         }
 
         /// <summary>
-        /// Write exception to as a <code>LogLevel.Info</code> event into splunkd log.
+        ///     Write validation error to stdout during external 
+        ///     validation which will be displayed by Splunk UI.
+        /// </summary>
+        /// <remarks>
+        ///     Normally an application does not need to call this method.
+        ///     It will be called by <code>Script.Run</code> automatically.
+        /// </remarks>
+        /// <param name="errorMessage">The error message</param>
+        public static void WriteValidationError(string errorMessage) 
+        {
+            using (var xmlWriter = new XmlTextWriter(Console.Out))
+            {
+                xmlWriter.WriteStartElement("error");
+                xmlWriter.WriteElementString("message", errorMessage);
+                xmlWriter.WriteEndElement();
+            }
+        }
+
+        /// <summary>
+        ///     Read stdin and return the parsed XML input.
+        /// </summary>
+        /// <param name="type">Type of object to parse out</param>
+        /// <returns>An object</returns>
+        internal static object Read(Type type)
+        {
+            var x = new XmlSerializer(type);
+            return x.Deserialize(Console.In);
+        }
+
+        /// <summary>
+        ///     Serializes this object to XML output. Used by unit tests.
+        /// </summary>
+        /// <param name="object">An object to serialize</param>
+        /// <returns>The XML String</returns>
+        internal static string Serialize(object @object)
+        {
+            var x = new XmlSerializer(@object.GetType());
+            var sw = new StringWriter();
+            x.Serialize(sw, @object);
+            return sw.ToString();
+        }
+
+        /// <summary>
+        ///     Write exception as a <code>LogLevel.Info</code> event into splunkd log.
         /// </summary>
         /// <param name="e">An exception</param>
         private static void LogException(Exception e)
@@ -176,11 +218,12 @@ namespace Splunk.ModularInputs
         }
 
         /// <summary>
-        /// Write the message into splunkd log.
+        ///     Write the message into splunkd log.
         /// </summary>
         /// <param name="msg">A message</param>
-        /// <param name="level">Log level, default to be 
-        /// <code>LogLevel.Info</code>.
+        /// <param name="level">
+        ///     Log level, default to be
+        ///     <code>LogLevel.Info</code>.
         /// </param>
         private static void Log(string msg, LogLevel level = LogLevel.Info)
         {
@@ -188,17 +231,17 @@ namespace Splunk.ModularInputs
         }
 
         /// <summary>
-        /// Stream events to splunk through stdout.
+        ///     Stream events to splunk through stdout.
         /// </summary>
         /// <param name="inputConfiguration">Input configuration</param>
-        public abstract void StreamEvents(InputConfiguration inputConfiguration);
+        public abstract void StreamEvents(InputDefinition inputConfiguration);
 
         /// <summary>
         ///     Perform external validation.
-        /// <para> 
-        ///     An application can override this method to perform custom
-        ///     validation logic.
-        /// </para>
+        ///     <para>
+        ///         An application can override this method to perform custom
+        ///         validation logic.
+        ///     </para>
         /// </summary>
         /// <param name="validationItems">Configuration data to validate</param>
         /// <param name="errorMessage">Message to display in UI when validation fails</param>
