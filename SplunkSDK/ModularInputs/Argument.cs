@@ -47,6 +47,15 @@ namespace Splunk.ModularInputs
     [XmlRoot("arg")]
     public class Argument
     {
+        //XML Exammple:
+        //<arg name="interval">
+        //  <description>Polling Interval</description>
+        //  <validation>is_pos_int('interval')</validation>
+        //  <data_type>number</data_type>
+        //  <required_on_edit>false</required_on_edit>
+        //  <required_on_create>true</required_on_create>
+        //</arg>
+        
         /// <summary>
         ///     Initializes a new instance of the <see cref="Argument" /> class,
         ///     which is empty.
