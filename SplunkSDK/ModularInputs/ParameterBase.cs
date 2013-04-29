@@ -19,25 +19,28 @@ using System.Xml.Serialization;
 namespace Splunk.ModularInputs
 {
     /// <summary>
-    ///     Base class for different types of parameters in input configuration
+    /// Base class for different types of parameters in an input configuration.
     /// </summary>
     public abstract class ParameterBase
     {
         /// <summary>
-        ///     Gets or sets the name of the parameter
+        /// The name of the parameter.
         /// </summary>
         [XmlAttribute("name")]
         public string Name { get; set; }
 
         /// <summary>
-        ///     Gets the value of the parameter
+        /// The value of the parameter.
         /// </summary>
+        /// <remarks>
+        /// This parameter is read-only.
+        /// </remarks>
         // 'Value' or 'ValueBase' would be better names. However they conflict with 
         // name of nested types.
         internal abstract ValueBase ValueAsBaseType { get; }
 
         /// <summary>
-        /// Base class of different types of parameter values.
+        /// Base class for different types of parameter values.
         /// </summary>
         public class ValueBase
         {

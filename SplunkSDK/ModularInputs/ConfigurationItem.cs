@@ -19,7 +19,7 @@ using System.Xml.Serialization;
 namespace Splunk.ModularInputs
 {
     /// <summary>
-    /// Input configuration items sent to modular input by Splunk
+    /// Input configuration items that Splunk sends to modular inputs 
     /// to start event streaming.
     /// </summary>
     [XmlRoot("item")]

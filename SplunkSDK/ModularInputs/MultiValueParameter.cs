@@ -22,20 +22,23 @@ using System.Xml.Serialization;
 namespace Splunk.ModularInputs
 {
     /// <summary>
-    ///     Represents a parameter that contains a multivalue.
+    /// Represents a parameter that contains a multivalue.
     /// </summary>
     [XmlRoot("param_list")]
     public class MultiValueParameter : ParameterBase
     {
         /// <summary>
-        ///     Gets or sets the value of the parameter
+        /// The value of the parameter.
         /// </summary>
         [XmlElement("value")]
         public MultiValue ValueXmlElements { get; set; }
 
         /// <summary>
-        ///     Gets the value of the parameter
+        /// The value of the parameter.
         /// </summary>
+        /// <remarks>
+        /// This property is read-only.
+        /// </remarks>
         internal override ValueBase ValueAsBaseType
         {
             get { return ValueXmlElements; }
@@ -121,23 +124,23 @@ namespace Splunk.ModularInputs
         }
 
         /// <summary>
-        /// Used for serialize and deseriallize the value XML element 
+        /// Used for serializing and deserializing the <b>value</b> XML element 
         /// for a multivalue parameter.
         /// </summary>
         [XmlRoot("value")]
         public class ValueXmlElement
         {
             /// <summary>
-            ///     Gets or sets the value of the parameter
+            /// The value of the parameter.
             /// </summary>
             [XmlText]
             public string Text { get; set; }
 
             /// <summary>
-            ///     Returns the string value
+            /// Returns the string value.
             /// </summary>
             /// <returns>
-            ///     The string value
+            /// The string value.
             /// </returns>
             public override string ToString()
             {
@@ -145,14 +148,15 @@ namespace Splunk.ModularInputs
             }
 
             /// <summary>
-            ///     Convert to a <c>string</c>.
-            ///     Same as <see cref="ToString" />
+            /// Converts a value to a <c>string</c>.
             /// </summary>
-            /// <param name="value">Field value</param>
+            /// <param name="value">Field value.</param>
             /// <returns>
-            ///     The string value
-            ///     <see cref="DefaultDelimiter" />.
+            /// The string value (<see cref="DefaultDelimiter" />).
             /// </returns>
+            /// <remarks>
+            /// This method is the same as <see cref="ToString" />.
+            /// </remarks>
             public static implicit operator string(ValueXmlElement value)
             {
                 return value.ToString();

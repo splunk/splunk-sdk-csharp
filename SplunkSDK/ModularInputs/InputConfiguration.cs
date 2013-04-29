@@ -22,35 +22,42 @@ namespace Splunk.ModularInputs
     using System.Xml.Serialization;
 
     /// <summary>
-    ///     When Splunk executes a modular input script to stream events into Splunk, 
-    ///     it reads configuration information from
-    ///     inputs.conf files in the system.  It then passes this configuration in XML format to
-    ///     the script.  The modular input script reads the configuration information from stdin.
-    ///     This object is used to parse and access the XML data.
+    /// This object is used to parse and access XML data.
     /// </summary>
+    /// <remarks>
+    /// When Splunk runs a modular input script to stream events into
+    /// Splunk, it reads configuration information from inputs.conf files
+    /// in the system. It then passes this configuration in XML format to
+    /// the script. The modular input script reads the configuration
+    /// information from stdin.
+    /// </remarks>
     [XmlRoot("input")]
     public class InputConfiguration : InputConfigurationBase
     {
         /// <summary>
-        /// A dictionary of Stanzas
+        /// A dictionary of stanzas.
         /// </summary>
         private Dictionary<string, Stanza> stanzaByName;
 
         /// <summary>
-        ///     Gets or sets the child tags for &lt;configuration&gt; 
-        ///     which are based on the schema you define in the
-        ///     inputs.conf.spec file for your modular input.  
-        ///     Splunk reads all the configurations in
-        ///     the Splunk installation and passes them to 
-        ///     the script in &lt;stanza&gt; tags.
+        /// The child tags for the configuration element.
         /// </summary>
+        /// <remarks>
+        /// The child tags are based on the schema you define in the
+        /// inputs.conf.spec file for your modular input. Splunk reads all of
+        /// the configurations in the Splunk installation and passes them to 
+        /// the script in the <b>stanza</b> tags.
+        /// </remarks>
         [XmlArray("configuration")]
         [XmlArrayItem("stanza")]
         public List<Stanza> Stanzas { get; set; }
 
         /// <summary>
-        /// Gets a dictionary of Stanzas keyed by stanza's name.
+        /// A dictionary of stanzas keyed by stanza name.
         /// </summary>
+        /// <remarks>
+        /// This property is read-only.
+        /// </remarks>
         public IDictionary<string, Stanza> StanzaByName
         {
             get
@@ -65,10 +72,10 @@ namespace Splunk.ModularInputs
         }
 
         /// <summary>
-        ///     Read the input stream specified and return the parsed XML input.
+        /// Reads the input stream specified and returns the parsed XML input.
         /// </summary>
-        /// <param name="input">The input stream</param>
-        /// <returns>An InputDefinition object</returns>
+        /// <param name="input">The input stream.</param>
+        /// <returns>An InputDefinition object.</returns>
         internal static InputConfiguration Read(TextReader input)
         {
             var x = new XmlSerializer(typeof(InputConfiguration));
@@ -77,9 +84,9 @@ namespace Splunk.ModularInputs
         }
 
         /// <summary>
-        ///     Serializes this object to XML output. Used by unit tests.
+        /// Serializes this object to XML output. Used by unit tests.
         /// </summary>
-        /// <returns>The XML String</returns>
+        /// <returns>The XML String.</returns>
         internal string Serialize()
         {
             var x = new XmlSerializer(typeof(InputConfiguration));

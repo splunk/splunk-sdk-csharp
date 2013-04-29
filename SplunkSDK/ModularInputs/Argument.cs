@@ -19,37 +19,36 @@ using System.Xml.Serialization;
 namespace Splunk.ModularInputs
 {
     /// <summary>
-    ///     Enumeration of the valid values for the Endpoint Argument data type.
+    /// Enumeration of the valid values for the Endpoint Argument data type.
     /// </summary>
     public enum DataType
     {
         /// <summary>
-        ///     A boolean value - true or false
+        ///     A Boolean value: true or false
         /// </summary>
         [XmlEnum(Name = "boolean")] Boolean,
 
         /// <summary>
-        ///     A numeric value - regexp = [0-9\.]+
+        ///     A numeric value: regexp = [0-9\.]+
         /// </summary>
         [XmlEnum(Name = "number")] Number,
 
         /// <summary>
-        ///     A string - virtually everything else
+        ///     A string: virtually everything else
         /// </summary>
         [XmlEnum(Name = "string")] String
     }
 
     /// <summary>
-    ///     The Argument is the XML entity that describes the arguments
-    ///     that can be placed in to the inputs.conf stanza for this modular
-    ///     input.
+    /// Represents the XML entity that describes the arguments that can
+    /// be placed in to the inputs.conf stanza for this modular input.
     /// </summary>
     [XmlRoot("arg")]
     public class Argument
     {
         /// <summary>
-        ///     Initializes a new instance of the <see cref="Argument" /> class,
-        ///     which is empty.
+        /// Initializes a new, empty instance of the <see cref="Argument" />
+        /// class.
         /// </summary>
         public Argument()
         {
@@ -59,50 +58,71 @@ namespace Splunk.ModularInputs
         }
 
         /// <summary>
-        ///     Gets or sets the unique Name for this parameter
+        /// The unique name for the parameter.
         /// </summary>
         [XmlAttribute("name")]
         public string Name { get; set; }
 
         /// <summary>
-        ///     Gets or sets the label for the parameter
+        /// The label for the parameter.
         /// </summary>
         [XmlElement("title")]
         public string Title { get; set; }
 
         /// <summary>
-        ///     Gets or sets the description of the parameter
+        /// The description of the parameter.
         /// </summary>
         [XmlElement("description")]
         public string Description { get; set; }
 
         /// <summary>
-        ///     Gets or sets the validation rules for arguments passed to an endpoint
-        ///     create or edit action.
+        /// The validation rules for arguments passed to an endpoint
+        /// create or edit action.
         /// </summary>
         [XmlElement("validation")]
         public string Validation { get; set; }
 
         /// <summary>
-        ///     Gets or sets the value for use with scripts that return data in JSON format.  Defines the
-        ///     data type of the parameter.  Default data type is string.
+        /// The value for use with scripts that return data in JSON format.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This property defines the data type of the parameter.  
+        /// </para>
+        /// <para>
+        /// The default data type is "string".
+        /// </para>
+        /// </remarks>
         [XmlElement("data_type")]
         public DataType DataType { get; set; }
 
         /// <summary>
-        ///     Gets or sets a value indicating whether the parameter is required for edit.  Default behavior
-        ///     is that arguments for edit are optional.  Set this to true to override
-        ///     this behavior, and make the parameter required.
+        /// A Boolean value that indicates whether the parameter is required
+        /// for edit.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Set this property to true to make the parameter required for edit.
+        /// </para>
+        /// <para>
+        /// This property's default value is false.
+        /// </para>
+        /// </remarks>
         [XmlElement("required_on_edit")]
         public bool RequiredOnEdit { get; set; }
 
         /// <summary>
-        ///     Gets or sets a value indicating whether the parameter is required for create.  Default behavior
-        ///     is that arguments for create are required.  Set this to false to override
-        ///     this behavior, and make the parameter optional.
+        /// A Boolean value that indicates whether the parameter is required
+        /// for create.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Set this property to false to make the parameter optional.
+        /// </para>
+        /// <para>
+        /// This property's default value is true.
+        /// </para>
+        /// </remarks>
         [XmlElement("required_on_create")]
         public bool RequiredOnCreate { get; set; }
     }

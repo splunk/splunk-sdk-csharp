@@ -19,7 +19,7 @@ using System.Xml.Serialization;
 namespace Splunk.ModularInputs
 {
     /// <summary>
-    ///     Represent a Stanza element in input configuration.
+    /// Represents a stanza element in the input configuration.
     /// </summary>
     [XmlRoot("stanza")]
     public class Stanza : ConfigurationItemBase
