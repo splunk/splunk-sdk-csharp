@@ -46,6 +46,39 @@ namespace Splunk.ModularInputs
     [XmlRoot("scheme")]
     public class Scheme
     {
+        //XML Example:
+        //<?xml version="1.0" encoding="utf-16"?>
+        //<scheme xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        //  <title>Test Example</title>
+        //  <description>This is a test modular input that handles all the appropriate functionality</description>
+        //  <use_external_validation>true</use_external_validation>
+        //  <use_single_instance>false</use_single_instance>
+        //  <streaming_mode>xml</streaming_mode>
+        //  <endpoint>
+        //    <args>
+        //      <arg name="interval">
+        //        <description>Polling Interval</description>
+        //        <validation>is_pos_int('interval')</validation>
+        //        <data_type>number</data_type>
+        //        <required_on_edit>false</required_on_edit>
+        //        <required_on_create>true</required_on_create>
+        //      </arg>
+        //      <arg name="username">
+        //        <description>Admin Username</description>
+        //        <data_type>string</data_type>
+        //        <required_on_edit>false</required_on_edit>
+        //        <required_on_create>false</required_on_create>
+        //      </arg>
+        //      <arg name="password">
+        //        <description>Admin Password</description>
+        //        <data_type>string</data_type>
+        //        <required_on_edit>true</required_on_edit>
+        //        <required_on_create>true</required_on_create>
+        //      </arg>
+        //    </args>
+        //  </endpoint>
+        //</scheme>
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="Scheme" /> class.
         ///     Sets up default values for this scheme

@@ -58,6 +58,20 @@ namespace Splunk.ModularInputs
         /// <param name="eventElement">A event element</param>
         public void Write(EventElement eventElement)
         {
+            //XML Example:
+            //<stream>
+            //  <event>
+            //      <index>sdk-tests2</index>
+            //      <sourcetype>test sourcetype</sourcetype>
+            //      <source>test source</source>
+            //      <host>test host</host>
+            //      <data>Event with all default fields set</data>
+            //  </event>
+            //  <event stanza="modular_input://UnitTest2" unbroken="1">
+            //      <data>Part 1 of channel 2 without a newline </data>
+            //  </event>
+            //</stream>
+
             xmlWriter.WriteStartElement("event");
 
             var stanza = eventElement.Stanza;

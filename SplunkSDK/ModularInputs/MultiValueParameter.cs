@@ -27,6 +27,11 @@ namespace Splunk.ModularInputs
     [XmlRoot("param_list")]
     public class MultiValueParameter : ParameterBase
     {
+        //XML Example:
+        //<param_list name="multiValue">
+        //<value>value1</value>
+        //<value>value2</value>
+        //</param_list>
         /// <summary>
         ///     Gets or sets the value of the parameter
         /// </summary>

@@ -24,6 +24,9 @@ namespace Splunk.ModularInputs
     [XmlRoot("param")]
     public class SingleValueParameter : ParameterBase
     {
+        // XML Example:
+        // <param name="param1">value1</param>
+     
         /// <summary>
         ///     Gets or sets the value of the parameter 
         ///     used for XML serialization and deserialization.

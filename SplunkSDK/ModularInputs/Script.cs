@@ -165,6 +165,9 @@ namespace Splunk.ModularInputs
         /// <param name="errorMessage">The error message</param>
         public static void WriteValidationError(string errorMessage) 
         {
+            // XML Example:
+            // <error><message>test message</message></error>
+
             using (var xmlWriter = new XmlTextWriter(Console.Out))
             {
                 xmlWriter.WriteStartElement("error");
