@@ -34,7 +34,7 @@ namespace UnitTests
         private const string TestDataFolder = @"ModularInputs\Data";
 
         /// <summary>
-        ///     Input file containing input configuration
+        ///     Input file containing input definition
         /// </summary>
         private const string InputDefinitionFilePath = "InputDefinition.xml";
 
@@ -136,7 +136,7 @@ namespace UnitTests
                 Console.SetError(consoleError);
                 var exitCode = Script.Run<TestScript>(new string[] {});
 
-                // There will be an exception due to missing input configuration in 
+                // There will be an exception due to missing input definition in 
                 // (redirected) console stdin.      
                 var error = consoleError.ToString();
 
@@ -364,54 +364,54 @@ namespace UnitTests
                 get
                 {
                     return new Scheme
+                    {
+                        Title = "Test Example",
+                        Description = "This is a test modular input that handles all the appropriate functionality",
+                        StreamingMode = StreamingMode.Xml,
+                        Endpoint =
                         {
-                            Title = "Test Example",
-                            Description = "This is a test modular input that handles all the appropriate functionality",
-                            StreamingMode = StreamingMode.Xml,
-                            Endpoint =
+                            Arguments = new List<Argument>
+                            {
+                                new Argument
                                 {
-                                    Arguments = new List<Argument>
-                                        {
-                                            new Argument
-                                                {
-                                                    Name = "interval",
-                                                    Description = "Polling Interval",
-                                                    DataType = DataType.Number,
-                                                    Validation = "is_pos_int('interval')"
-                                                },
-                                            new Argument
-                                                {
-                                                    Name = "username",
-                                                    Description = "Admin Username",
-                                                    DataType = DataType.String,
-                                                    RequiredOnCreate = false
-                                                },
-                                            new Argument
-                                                {
-                                                    Name = "password",
-                                                    Description = "Admin Password",
-                                                    DataType = DataType.String,
-                                                    RequiredOnEdit = true
-                                                }
-                                        }
+                                    Name = "interval",
+                                    Description = "Polling Interval",
+                                    DataType = DataType.Number,
+                                    Validation = "is_pos_int('interval')"
+                                },
+                                new Argument
+                                {
+                                    Name = "username",
+                                    Description = "Admin Username",
+                                    DataType = DataType.String,
+                                    RequiredOnCreate = false
+                                },
+                                new Argument
+                                {
+                                    Name = "password",
+                                    Description = "Admin Password",
+                                    DataType = DataType.String,
+                                    RequiredOnEdit = true
                                 }
-                        };
+                            }
+                        }
+                    };
                 }
             }
 
             /// <summary>
             ///     Perform test verifications and stream events.
             /// </summary>
-            /// <param name="inputConfiguration">Input configuration</param>
-            public override void StreamEvents(InputDefinition inputConfiguration)
+            /// <param name="inputDefinition">Input definition</param>
+            public override void StreamEvents(InputDefinition inputDefinition)
             {
-                // Verify every part of the input configuration is received 
+                // Verify every part of the input definition is received 
                 // parsed, and later recontructed correctly.
-                var reconstructed = Serialize(inputConfiguration);
+                var reconstructed = Serialize(inputDefinition);
                 AssertEqualWithExpectedFile(InputDefinitionFilePath, reconstructed);
 
                 // Test the dictionary for single value parameter.
-                var stanza = inputConfiguration.Stanzas["foobar://bbb"];
+                var stanza = inputDefinition.Stanzas["foobar://bbb"];
                 var parameterName = "param2";
 
                 // Test full parameter dictionary.
@@ -424,7 +424,7 @@ namespace UnitTests
                 Assert.AreEqual("value22", stringValue);
 
                 // Test the dictionary for multi value parameter.
-                stanza = inputConfiguration.Stanzas["foobar://bbb"];
+                stanza = inputDefinition.Stanzas["foobar://bbb"];
                 parameterValue = stanza.Parameters["multiValue2"];
 
                 var multiValue = (MultiValueParameter.Value) parameterValue;
@@ -436,7 +436,7 @@ namespace UnitTests
                 stanza = null;
                 try
                 {
-                    stanza = inputConfiguration.Stanza;
+                    stanza = inputDefinition.Stanza;
                 }
                 catch (InvalidOperationException e)
                 {

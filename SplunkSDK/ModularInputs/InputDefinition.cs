@@ -15,22 +15,25 @@
  */
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Serialization;
 
 namespace Splunk.ModularInputs
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Xml.Serialization;
-
     /// <summary>
-    ///     When Splunk executes a modular input script 
-    ///     to stream events into Splunk, 
+    ///     The <see cref="InputDefinition"/> class is used to parse 
+    ///     and access the XML data
+    ///     defining the input from Splunk.
+    /// <remarks>
+    ///     When Splunk executes a modular input script
+    ///     to stream events into Splunk,
     ///     it reads configuration information from
-    ///     inputs.conf files in the system.  It then passes 
+    ///     inputs.conf files in the system.  It then passes
     ///     this configuration in XML format to
     ///     the script.  The modular input script reads
     ///     the configuration information from stdin.
-    ///     This object is used to parse and access the XML data.
+    /// </remarks>
     /// </summary>
     [XmlRoot("input")]
     public class InputDefinition : InputDefinitionBase
@@ -67,16 +70,16 @@ namespace Splunk.ModularInputs
         //</input>
 
         /// <summary>
-        /// A dictionary of Stanzas
+        ///     A dictionary of Stanzas keyed by stanza name.
         /// </summary>
         private Dictionary<string, Stanza> stanzas;
 
         /// <summary>
-        ///     Gets or sets the child tags for &lt;configuration&gt; 
+        ///     Gets or sets the child tags for &lt;configuration&gt;
         ///     which are based on the schema you define in the
-        ///     inputs.conf.spec file for your modular input.  
+        ///     inputs.conf.spec file for your modular input.
         ///     Splunk reads all the configurations in
-        ///     the Splunk installation and passes them to 
+        ///     the Splunk installation and passes them to
         ///     the script in &lt;stanza&gt; tags.
         /// </summary>
         [XmlArray("configuration")]
@@ -84,23 +87,23 @@ namespace Splunk.ModularInputs
         public List<Stanza> StanzaXmlElements { get; set; }
 
         /// <summary>
-        /// Gets a dictionary of Stanzas keyed by stanza's name.
+        ///     Gets a dictionary of Stanzas keyed by stanza's name.
         /// </summary>
         public IDictionary<string, Stanza> Stanzas
         {
             get
             {
-                if (this.stanzas == null)
+                if (stanzas == null)
                 {
-                    this.stanzas = this.StanzaXmlElements
+                    stanzas = StanzaXmlElements
                         .ToDictionary(p => p.Name);
                 }
-                return this.stanzas;
+                return stanzas;
             }
         }
 
         /// <summary>
-        ///     Gets the stanza. 
+        ///     Gets the stanza.
         ///     If there are more than one stanza, this method will fail.
         /// </summary>
         // This method is provided since it is very common to have only one.
@@ -109,12 +112,12 @@ namespace Splunk.ModularInputs
         {
             get
             {
-                if (this.StanzaXmlElements.Count > 1)
+                if (StanzaXmlElements.Count > 1)
                 {
                     throw new InvalidOperationException(
                         "There are more than one stanza. Use Stanzas property instead.");
                 }
-                return this.StanzaXmlElements[0];
+                return StanzaXmlElements[0];
             }
         }
     }

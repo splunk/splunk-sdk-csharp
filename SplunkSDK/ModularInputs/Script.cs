@@ -36,7 +36,8 @@ namespace Splunk.ModularInputs
     public abstract class Script
     {
         /// <summary>
-        ///     Gets <see cref="Scheme" /> returned for introspection.
+        ///     Gets <see cref="Scheme" /> that will be returned to Splunk
+        ///     for introspection.
         /// </summary>
         public abstract Scheme Scheme { get; }
 
@@ -123,7 +124,6 @@ namespace Splunk.ModularInputs
                             typeof(ValidationItems));
 
                         Log("Calling Validate");
-
                         if (script.Validate(validationItems, out errorMessage))
                         {
                             // Validation succeeded.
@@ -209,14 +209,10 @@ namespace Splunk.ModularInputs
             // splunkd log breaks up events with newlines, which will split
             // stack trace. Replace them with double space.
             var full = e.ToString();
-            full = full.Replace(
-                Environment.NewLine,
-                "  ");
+            full = full.Replace(Environment.NewLine, "  ");
 
             Log(
-                string.Format(
-                    "Unhandled exception: {0}",
-                    full),
+                string.Format("Unhandled exception: {0}", full),
                 LogLevel.Fatal);
         }
 
@@ -236,11 +232,13 @@ namespace Splunk.ModularInputs
         /// <summary>
         ///     Stream events to splunk through stdout.
         /// </summary>
-        /// <param name="inputConfiguration">Input configuration</param>
-        public abstract void StreamEvents(InputDefinition inputConfiguration);
+        /// <param name="inputDefinition">
+        /// Input definition from Splunk for this input.
+        /// </param>
+        public abstract void StreamEvents(InputDefinition inputDefinition);
 
         /// <summary>
-        ///     Perform external validation.
+        ///     Perform external validation for input configuration.
         ///     <para>
         ///         An application can override this method to perform custom
         ///         validation logic.

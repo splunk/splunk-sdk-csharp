@@ -56,7 +56,7 @@ namespace Splunk.ModularInputs
     public static class SystemLogger
     {
         /// <summary>
-        ///     Private method that converts a Level into a string
+        ///     Converts a Level into a string
         /// </summary>
         /// <param name="level">The log level to convert</param>
         /// <returns>The string representation of the log level</returns>

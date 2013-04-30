@@ -40,8 +40,13 @@ namespace Splunk.ModularInputs
     }
     
     /// <summary>
-    ///     The Scheme class represents the XML output when a Modular Input is called
-    ///     with the --scheme argument.
+    ///     The <see cref="Scheme"/> class represents the XML output 
+    ///     when a Modular Input is called
+    ///     by Splunk for introspection.
+    /// <remarks>
+    ///     The modular input script (i.e. executable) returns
+    ///     the XML output through stdout to Splunk.
+    /// </remarks>    
     /// </summary>
     [XmlRoot("scheme")]
     public class Scheme

@@ -20,8 +20,16 @@ using System.Xml.Serialization;
 namespace Splunk.ModularInputs
 {
     /// <summary>
-    /// Input configuration for validation.
-    /// </summary>
+    ///     The <see cref="ValidationItems"/> class 
+    ///     is used to parse and access the XML data
+    ///     for new input definition from Splunk 
+    ///     pending validation.
+    /// <remarks>
+    ///     When a new input of this modular input type 
+    ///     is being created, Splunk executes the modular input 
+    ///     script (i.e. executable) to validate its configuration.
+    /// </remarks>
+    /// </summary>    
     [XmlRoot("items")]
     public class ValidationItems : InputDefinitionBase
     {

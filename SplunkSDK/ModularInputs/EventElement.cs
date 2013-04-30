@@ -49,19 +49,22 @@ namespace Splunk.ModularInputs
         public string Host { get; set; }
 
         /// <summary>
-        /// Gets or sets timestamp of the event
+        /// Gets or sets timestamp of the event.
+        /// If null, Splunk will generate a timestamp according to current time,
+        /// or in case of "unbroken" event, a timestamp supplied ealier for the
+        /// event will be used.
         /// </summary>
         public DateTime? Time { get; set; }
      
         /// <summary>
         /// Gets or sets a value indicating whether or not the event stream
-        /// completes a set of events and can be flushed.
+        /// completed a set of events and can be flushed.
         /// </summary>
         public bool Done { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether or not the 
-        /// element may contains only a part of an event or multiple events. 
+        /// element may contain only a part of an event or multiple events. 
         /// If false, the element represent a single and whole event.
         /// </summary>
         public bool Unbroken { get; set; }

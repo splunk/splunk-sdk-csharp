@@ -32,7 +32,8 @@ namespace Splunk.ModularInputs
         private Dictionary<string, ParameterBase.ValueBase> parameters;
 
         /// <summary>
-        ///     Single value parameter in the input definition item.
+        ///     Single value parameters keyed 
+        ///     by name in the input definition item.
         /// </summary>
         private Dictionary<string, string> singleValueParameters;
 
@@ -46,13 +47,13 @@ namespace Splunk.ModularInputs
         }
 
         /// <summary>
-        ///     Gets or sets the name of this stanza.
+        ///     Gets or sets the name of this item.
         /// </summary>
         [XmlAttribute("name")]
         public string Name { get; set; }
 
         /// <summary>
-        ///     Gets or sets the list of parameters for defining this stanza.
+        ///     Gets or sets the list of parameters for defining this item.
         /// </summary>
         [XmlElement("param")]
         public List<SingleValueParameter> SingleValueParameterXmlElements { get; set; }
@@ -64,7 +65,8 @@ namespace Splunk.ModularInputs
         public List<MultiValueParameter> MultiValueParameterXmlElements { get; set; }
 
         /// <summary>
-        ///     Gets single value parameter in the input definition item.
+        ///     Gets single value parameters keyed by name
+        ///     in the item.
         /// </summary>
         // This method is provided to make it easier to retrieve single value
         // parameters. It is a much more common case than multi value 
@@ -86,7 +88,8 @@ namespace Splunk.ModularInputs
         }
 
         /// <summary>
-        ///     Gets parameter in the input definition item.
+        ///     Gets parameters keyed by name
+        ///     in the item.
         /// </summary>
         public IDictionary<string, ParameterBase.ValueBase> Parameters
         {

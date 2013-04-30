@@ -19,32 +19,35 @@ namespace Splunk.ModularInputs
     using System.Xml.Serialization;
 
     /// <summary>
-    ///     Base class for input configuration
+    ///     Base class for input definition
     /// </summary>
     [XmlRoot("input")]
     public class InputDefinitionBase
     {
         /// <summary>
-        ///     Gets or sets the hostname for the splunk server
+        ///     Gets or sets the hostname for the Splunk server
+        ///     that runs the modular input.
         /// </summary>
         [XmlElement("server_host")]
         public string ServerHost { get; set; }
 
         /// <summary>
-        ///     Gets or sets he management uri for the splunk server, identified by host, port and protocol
+        ///     Gets or sets the management uri for the splunk server, 
+        ///     identified by host, port and protocol.
         /// </summary>
         [XmlElement("server_uri")]
         public string ServerUri { get; set; }
 
         /// <summary>
-        ///     Gets or sets the directory used for a script to save checkpoints.  This is where splunk tracks the
+        ///     Gets or sets the directory used for a modular input to save checkpoints.  
+        ///     This is where splunk tracks the
         ///     input state from sources from which it is reading.
         /// </summary>
         [XmlElement("checkpoint_dir")]
         public string CheckpointDirectory { get; set; }
 
         /// <summary>
-        ///     Gets or sets the REST API session key for this modular input
+        ///     Gets or sets the REST API session key for this modular input.
         /// </summary>
         [XmlElement("session_key")]
         public string SessionKey { get; set; }
