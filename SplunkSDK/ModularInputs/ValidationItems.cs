@@ -27,7 +27,7 @@ namespace Splunk.ModularInputs
     /// <remarks>
     ///     When a new input of this modular input type 
     ///     is being created, Splunk executes the modular input 
-    ///     script (i.e. executable) to validate its configuration.
+    ///     script (that is executable) to validate its configuration.
     /// </remarks>
     /// </summary>    
     [XmlRoot("items")]

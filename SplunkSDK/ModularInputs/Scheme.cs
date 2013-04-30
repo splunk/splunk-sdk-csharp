@@ -43,7 +43,7 @@ namespace Splunk.ModularInputs
     ///     Represents the XML output when a modular input is called
     ///     by Splunk for introspection.
     /// <remarks>
-    ///     The modular input script (i.e. executable) returns
+    ///     The modular input script (that is executable) returns
     ///     the XML output through stdout to Splunk.
     /// </remarks>    
     /// </summary>
