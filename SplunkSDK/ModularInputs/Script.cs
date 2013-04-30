@@ -68,6 +68,11 @@ namespace Splunk.ModularInputs
         ///     <code>Main</code> method.
         ///     0 indicating a success.
         /// </returns>
+        /// <remarks>
+        /// Exceptions if any, and internal progress messages 
+        /// when executing this method will be
+        /// logged to splunkd log.
+        /// </remarks>
         public static int Run<T>(string[] args)
             where T : Script, new()
         {
@@ -167,7 +172,6 @@ namespace Splunk.ModularInputs
         {
             // XML Example:
             // <error><message>test message</message></error>
-
             using (var xmlWriter = new XmlTextWriter(Console.Out))
             {
                 xmlWriter.WriteStartElement("error");
