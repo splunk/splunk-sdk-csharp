@@ -92,13 +92,6 @@ namespace Splunk
         ///     Specifies the index of the first result (inclusive)
         ///     from which to begin returning data.
         ///     This value is 0-indexed.
-        ///     <para>
-        ///         In Splunk 4.1+, negative offsets are allowed
-        ///         and are added to the count to compute the absolute offset
-        ///         (for example, offset=-1 is the last available offset).
-        ///         Offsets in the results are always absolute
-        ///         and never negative. The default value is 0.
-        ///     </para>
         /// </summary>
         public virtual int Offset
         {
