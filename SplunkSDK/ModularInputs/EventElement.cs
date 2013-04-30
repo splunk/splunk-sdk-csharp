@@ -70,7 +70,7 @@ namespace Splunk.ModularInputs
         public bool Unbroken { get; set; }
 
         /// <summary>
-        /// Gets or sets Stanza of the input this event belongs to.
+        /// Gets or sets the name of the stanza of the input this event belongs to.
         /// </summary>
         public string Stanza { get; set; }
     }

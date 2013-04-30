@@ -40,8 +40,7 @@ namespace Splunk.ModularInputs
 
         /// <summary>
         ///     Gets or sets the directory used for a modular input to save checkpoints.  
-        ///     This is where splunk tracks the
-        ///     input state from sources from which it is reading.
+        ///     Checkpoints are used to track state or progress of reading from sources.
         /// </summary>
         [XmlElement("checkpoint_dir")]
         public string CheckpointDirectory { get; set; }

@@ -39,7 +39,7 @@ namespace Splunk.ModularInputs
         /// <summary>
         /// Base class of different types of parameter values.
         /// </summary>
-        public class ValueBase
+        public abstract class ValueBase
         {
         }
     }
