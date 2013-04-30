@@ -46,7 +46,7 @@ namespace Splunk.ModularInputs
         public abstract Scheme Scheme { get; }
 
         /// <summary>
-        ///     Performs the action specified by <code>args</code> parameter.
+        ///     Performs the action specified by the <code>args</code> parameter.
         /// </summary>
         /// <remarks>
         /// <para>
@@ -166,6 +166,7 @@ namespace Splunk.ModularInputs
             }
 
             // Return code indicating a failure.
+            // '1' has non special meaning other than it is non zero.
             return 1;
         }
 
