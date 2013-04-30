@@ -20,46 +20,46 @@ using System.Diagnostics;
 namespace Splunk.ModularInputs
 {
     /// <summary>
-    ///     List of appropriate log levels for logging functions
+    /// List of log levels for logging functions.
     /// </summary>
     public enum LogLevel
     {
         /// <summary>
-        ///     Debug Messages
+        /// Debug messages.
         /// </summary>
         Debug,
 
         /// <summary>
-        ///     Informational Messages
+        /// Informational messages.
         /// </summary>
         Info,
 
         /// <summary>
-        ///     Warning Messages
+        /// Warning messages.
         /// </summary>
         Warn,
 
         /// <summary>
-        ///     Error Messages
+        /// Error messages.
         /// </summary>
         Error,
 
         /// <summary>
-        ///     Fatal Error Messages
+        /// Fatal error messages.
         /// </summary>
         Fatal
     }
 
     /// <summary>
-    ///     The SystemLogger class is used to hold all the specifics for logging in a Splunk Modular Input
+    /// Holds information for logging in a Splunk modular input.
     /// </summary>
     public static class SystemLogger
     {
         /// <summary>
-        ///     Converts a Level into a string
+        ///     Converts a Level into a string.
         /// </summary>
-        /// <param name="level">The log level to convert</param>
-        /// <returns>The string representation of the log level</returns>
+        /// <param name="level">The log level to convert.</param>
+        /// <returns>The string representation of the log level.</returns>
         private static string GetLevelString(LogLevel level)
         {
             switch (level)
@@ -81,19 +81,19 @@ namespace Splunk.ModularInputs
         }
 
         /// <summary>
-        ///     Convenience method to write log messages to splunkd.log
+        /// Convenience method to write log messages to splunkd.log.
         /// </summary>
-        /// <param name="msg">The message</param>
+        /// <param name="msg">The message.</param>
         public static void Write(string msg)
         {
             Write(LogLevel.Info, msg);
         }
 
         /// <summary>
-        ///     Convenience method to write log messages to splunkd.log
+        /// Convenience method to write log messages to splunkd.log.
         /// </summary>
-        /// <param name="level">The log level</param>
-        /// <param name="msg">The message</param>
+        /// <param name="level">The log level.</param>
+        /// <param name="msg">The message.</param>
         public static void Write(LogLevel level, string msg)
         {
             // Message example:

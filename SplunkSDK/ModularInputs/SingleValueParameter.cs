@@ -19,7 +19,7 @@ using System.Xml.Serialization;
 namespace Splunk.ModularInputs
 {
     /// <summary>
-    ///     Represents a parameter that contains a single value.
+    /// Represents a parameter that contains a single value.
     /// </summary>
     [XmlRoot("param")]
     public class SingleValueParameter : ParameterBase
@@ -28,14 +28,16 @@ namespace Splunk.ModularInputs
         // <param name="param1">value1</param>
      
         /// <summary>
-        ///     Gets or sets the value of the parameter 
-        ///     used for XML serialization and deserialization.
+        /// The value of the parameter 
         /// </summary>
+        /// <remarks>
+        /// This value is used for XML serialization and deserialization.
+        /// </remarks>
         [XmlText]
         public string ValueXmlText { get; set; }
 
         /// <summary>
-        ///     Gets the value of the parameter
+        /// The value of the parameter.
         /// </summary>
         internal override ValueBase ValueAsBaseType
         {
@@ -43,12 +45,12 @@ namespace Splunk.ModularInputs
         }
 
         /// <summary>
-        /// Represents a single value
+        /// Represents a single value.
         /// </summary>
         public class Value : ValueBase
         {
             /// <summary>
-            /// The single value
+            /// The single value.
             /// </summary>
             private readonly string stringValue;
 
@@ -62,10 +64,10 @@ namespace Splunk.ModularInputs
             }
 
             /// <summary>
-            /// Converts to a string.
+            /// Converts a value to a string.
             /// </summary>
-            /// <param name="singleValue">The value</param>
-            /// <returns>The string value</returns>
+            /// <param name="singleValue">The value.</param>
+            /// <returns>The string value.</returns>
             public static implicit operator string(Value singleValue)
             {
                 return singleValue.ToString();
@@ -74,7 +76,7 @@ namespace Splunk.ModularInputs
             /// <summary>
             /// Converts to a string.
             /// </summary>
-            /// <returns>The string value</returns>
+            /// <returns>The string value.</returns>
             public override string ToString()
             {
                 return stringValue;

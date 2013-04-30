@@ -22,7 +22,7 @@ using System.Xml.Serialization;
 namespace Splunk.ModularInputs
 {
     /// <summary>
-    ///     The <see cref="InputDefinition"/> class is used to parse 
+    ///     This class is used to parse 
     ///     and access the XML data
     ///     defining the input from Splunk.
     /// <remarks>
@@ -70,24 +70,22 @@ namespace Splunk.ModularInputs
         //</input>
 
         /// <summary>
-        ///     A dictionary of Stanzas keyed by stanza name.
+        ///     A dictionary of stanzas keyed by stanza name.
         /// </summary>
         private Dictionary<string, Stanza> stanzas;
 
-        /// <summary>
-        ///     Gets or sets the child tags for &lt;configuration&gt;
-        ///     which are based on the schema you define in the
-        ///     inputs.conf.spec file for your modular input.
-        ///     Splunk reads all the configurations in
-        ///     the Splunk installation and passes them to
-        ///     the script in &lt;stanza&gt; tags.
+        /// <summary> 
+        ///     The stanza elements in the configuration element.
         /// </summary>
+        /// <remarks>
+        ///     This property is read-only. 
+        /// </remarks>
         [XmlArray("configuration")]
         [XmlArrayItem("stanza")]
         public List<Stanza> StanzaXmlElements { get; set; }
 
         /// <summary>
-        ///     Gets a dictionary of Stanzas keyed by stanza's name.
+        ///     A dictionary of Stanzas keyed by stanza's name.
         /// </summary>
         public IDictionary<string, Stanza> Stanzas
         {
@@ -103,7 +101,7 @@ namespace Splunk.ModularInputs
         }
 
         /// <summary>
-        ///     Gets the stanza.
+        ///     The stanza in the input definition.
         ///     If there are more than one stanza, this method will fail.
         /// </summary>
         // This method is provided since it is very common to have only one.

@@ -22,26 +22,25 @@ namespace Splunk.ModularInputs
     using System.Xml.Serialization;
 
     /// <summary>
-    ///     Enumeration of the valid values for the Scheme Streaming Mode
+    /// Enumeration of the valid values for the Scheme Streaming Mode.
     /// </summary>
     public enum StreamingMode
     {
         /// <summary>
-        ///     A plain-text modular input
+        /// A plain-text modular input.
         /// </summary>
         [XmlEnum(Name = "simple")]
         Simple,
 
         /// <summary>
-        ///     Data is streamed to splunk with XML objects
+        /// An XML object that is part of a stream of data to Splunk.
         /// </summary>
         [XmlEnum(Name = "xml")]
         Xml
     }
     
     /// <summary>
-    ///     The <see cref="Scheme"/> class represents the XML output 
-    ///     when a Modular Input is called
+    ///     Represents the XML output when a modular input is called
     ///     by Splunk for introspection.
     /// <remarks>
     ///     The modular input script (i.e. executable) returns
@@ -85,9 +84,11 @@ namespace Splunk.ModularInputs
         //</scheme>
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="Scheme" /> class.
-        ///     Sets up default values for this scheme
+        /// Initializes a new instance of the <see cref="Scheme" /> class.
         /// </summary>
+        /// <remarks>
+        /// This constructor sets up default values for this scheme.
+        /// </remarks>
         public Scheme()
         {
             this.UseExternalValidation = true;
@@ -96,58 +97,66 @@ namespace Splunk.ModularInputs
         }
 
         /// <summary>
-        ///     Gets or sets the Modular Input title.
+        /// The title of the modular input.
         /// </summary>
         [XmlElement("title")]
         public string Title { get; set; }
 
         /// <summary>
-        ///     Gets or sets the Modular Input description.
+        /// The description of the modular input.
         /// </summary>
         [XmlElement("description")]
         public string Description { get; set; }
 
         /// <summary>
-        ///     Gets or sets a value indicating whether external validation 
-        ///     is enabled for this Modular Input.
-        ///     Default is true.
+        /// A Boolean value that indicates whether external validation 
+        /// is enabled for this modular input.
+        /// </summary>
+        /// <remarks>
         /// <para>
         /// Override <see cref="Script.Validate"/> to perform the validation.
-        /// </para>
-        /// </summary>
+        /// </para><para>
+        /// This property's default value is true.</para>
+        /// </remarks>
         [XmlElement("use_external_validation")]
         public bool UseExternalValidation { get; set; }
 
         /// <summary>
-        ///     Gets or sets a value indicating whether to launch a single instance of the script or
-        ///     one script instance for each input stanza.  Default is false.
+        /// A Boolean value that indicates whether to launch a single instance
+        /// of the script or one script instance for each input stanza.  
         /// </summary>
+        /// <remarks>
+        /// This property's default value is false.
+        /// </remarks>
         [XmlElement("use_single_instance")]
         public bool UseSingleInstance { get; set; }
 
         /// <summary>
-        ///     Gets or sets Streaming Mode for this Modular Input (Simple or Xml)
-        ///     Default is Simple.
+        /// The streaming mode for this modular input (Simple or Xml).
         /// </summary>
+        /// <remarks>
+        /// This property's default value is "Simple".
+        /// </remarks>
         [XmlElement("streaming_mode")]
         public StreamingMode StreamingMode { get; set; }
 
         /// <summary>
-        ///     Gets or sets the endpoint element for this scheme.
+        /// The endpoint element for this scheme.
         /// </summary>
         [XmlElement("endpoint")]
         public EndpointElement Endpoint { get; set; }
 
         /// <summary>
-        ///     The Endpoint is a collection of arguments that represent parameters
-        ///     to the inputs.conf stanza
+
+        /// The endpoint is a collection of arguments that represent parameters
+        /// to the inputs.conf stanza.
         /// </summary>
         [XmlRoot("endpoint")]
         public class EndpointElement
         {
             /// <summary>
-            ///     Initializes a new instance of the <see cref="EndpointElement" /> class.
-            ///     It will be empty.
+            /// Initializes a new, empty instance of the 
+            /// <see cref="EndpointElement" /> class.
             /// </summary>
             internal EndpointElement()
             {
@@ -155,9 +164,7 @@ namespace Splunk.ModularInputs
             }
 
             /// <summary>
-            ///     Gets or sets the list of arguments to this endpoint.  Note that this represents
-            ///     the parameters list for the InputDefinition as well (with some standard
-            ///     exceptions).
+            /// The list of arguments to this endpoint.  
             /// </summary>
             [XmlArray("args")]
             [XmlArrayItem("arg")]

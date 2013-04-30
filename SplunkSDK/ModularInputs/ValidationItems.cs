@@ -57,10 +57,11 @@ namespace Splunk.ModularInputs
         //</items>
 
         /// <summary>
-        ///     Gets or sets the item which represents an instance of 
+        ///     The item that represents an instance of this modular input.
         ///     this modular input.
         /// </summary>
         [XmlElement("item")]
         public ConfigurationItem Item { get; set; }
+        /// <remarks>This method is used by unit tests.</remarks>
     }
 }

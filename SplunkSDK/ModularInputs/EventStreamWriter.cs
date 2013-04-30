@@ -20,7 +20,7 @@ using System.Xml;
 namespace Splunk.ModularInputs
 {
     /// <summary>
-    ///     Writes event to stdout using XML streaming mode.
+    /// Writes an event to stdout using the XML streaming mode.
     /// </summary>
     public class EventStreamWriter : IDisposable
     {
@@ -53,9 +53,9 @@ namespace Splunk.ModularInputs
         }
 
         /// <summary>
-        /// Writes the event element. 
+        /// Writes the event element.
         /// </summary>
-        /// <param name="eventElement">A event element</param>
+        /// <param name="eventElement">A event element.</param>
         public void Write(EventElement eventElement)
         {
             //XML Example:
@@ -111,10 +111,10 @@ namespace Splunk.ModularInputs
         }
 
         /// <summary>
-        /// Writes the element if it's content is not null.
+        /// Write the element if its content is not null.
         /// </summary>
-        /// <param name="content">Content of the element</param>
-        /// <param name="tag">The tag name</param>
+        /// <param name="content">Content of the element.</param>
+        /// <param name="tag">The tag name.</param>
         private void WriteElementIfNotNull(string content, string tag)
         {
             if (content != null)
@@ -124,10 +124,10 @@ namespace Splunk.ModularInputs
         }
 
         /// <summary>
-        /// Convert to Unix UTC timestamp
+        /// Converts a date-time value to Unix UTC timestamp.
         /// </summary>
-        /// <param name="dateTime">A date time value</param>
-        /// <returns>The unit timestamp</returns>
+        /// <param name="dateTime">A date-time value.</param>
+        /// <returns>The UTC timestamp.</returns>
         private static string ConvertTimeToUtcUnixTimestamp(DateTime dateTime)
         {
             // Unit timestamp is seconds after a fixed date, known as 

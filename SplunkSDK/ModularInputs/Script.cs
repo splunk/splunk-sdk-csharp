@@ -23,50 +23,60 @@ using System.Xml.Serialization;
 namespace Splunk.ModularInputs
 {
     /// <summary>
-    ///     Represents functionality of modular input script (i.e. executable).
+    ///     Represents functionality of a modular input script (that is, an 
+    /// executable).
+    /// </summary>
+    /// <remarks>
     ///     <para>
     ///         An application derives from this class to define a modular input.
-    ///         It must override the follow methods:
-    ///         <see cref="Scheme" />
-    ///         <see cref="StreamEvents" />
-    ///         It can optionally override the method below.
-    ///         <see cref="Validate" />
+    ///         It must override the <see cref="Scheme"/> and 
+    ///         <see cref="StreamEvents"/> methods. It can optionally override the
+    ///         <see cref="Validate"/> method.
     ///     </para>
-    /// </summary>
+    /// </remarks>
     public abstract class Script
     {
         /// <summary>
-        ///     Gets <see cref="Scheme" /> that will be returned to Splunk
+        ///     The <see cref="Scheme" /> that will be returned to Splunk
         ///     for introspection.
         /// </summary>
+        /// <remarks>
+        /// This property is read-only.
+        /// </remarks>
         public abstract Scheme Scheme { get; }
 
         /// <summary>
-        ///     Perform the action specified by <code>args</code> parameter.
+        ///     Performs the action specified by <code>args</code> parameter.
         /// </summary>
+        /// <remarks>
         /// <para>
         ///     An application should pass <code>args</code> of <code>Main</code> method
-        ///     (i.e. executable entry point) should be passed into this method.
+        ///     (that is. executable entry point) should be passed into this method.
         ///     If the <code>args</code> are not in the supported set of values,
         ///     the method will do nothing and return a non zero code, i.e. 1,
         ///     without raising an exception.
         /// </para>
+        /// <para>
+        /// If the <c>args</c> are not in the supported set of values,
+        /// the method will do nothing and return a non-zero code (for
+        /// instance, "1"), without raising an exception.
+        /// </para>
+        /// </remarks>
         /// <typeparam name="T">
-        ///     The application derived type of
-        ///     <see cref="Script" />.
-        ///     It must have a constructor without parameter.
+        ///     The application-derived type of the <see cref="Script"/>.
+        ///     It must have a constructor without a parameter.
         /// </typeparam>
         /// <param name="args">
         ///     Command line arguments provided by Splunk
-        ///     when it invokes the modular input script (i.e. executable).
-        ///     An application should pass <code>args</code>
-        ///     of <code>Main</code> method (i.e. executable entry point)
+        ///     when it invokes the modular input script (that is, executable). 
+        ///     An application should pass the <c>args</c> 
+        ///     of the <c>Main</c> method (that is, the executable entry point) 
         ///     into this method.
         /// </param>
         /// <returns>
-        ///     Exit code, which should be used as the return value of
-        ///     <code>Main</code> method.
-        ///     0 indicating a success.
+        ///     Exit code, which should be used as the return value of the
+        ///     <c>Main</c> method. 
+        ///     A value of "0" indicates success.
         /// </returns>
         /// <remarks>
         /// Exceptions if any, and internal progress messages 
@@ -205,9 +215,10 @@ namespace Splunk.ModularInputs
         }
 
         /// <summary>
-        ///     Write exception as a <code>LogLevel.Info</code> event into splunkd log.
+        ///     Write an exception as a <c>LogLevel.Info</c> event into the
+        /// splunkd log.
         /// </summary>
-        /// <param name="e">An exception</param>
+        /// <param name="e">An exception.</param>
         private static void LogException(Exception e)
         {
             // splunkd log breaks up events with newlines, which will split
@@ -221,12 +232,11 @@ namespace Splunk.ModularInputs
         }
 
         /// <summary>
-        ///     Write the message into splunkd log.
+        ///     Writes a message into the splunkd log.
         /// </summary>
-        /// <param name="msg">A message</param>
-        /// <param name="level">
-        ///     Log level, default to be
-        ///     <code>LogLevel.Info</code>.
+        /// <param name="msg">A message.</param>
+        /// <param name="level">Log level. The default value is 
+        /// <c>LogLevel.Info</c>.
         /// </param>
         private static void Log(string msg, LogLevel level = LogLevel.Info)
         {
@@ -234,7 +244,7 @@ namespace Splunk.ModularInputs
         }
 
         /// <summary>
-        ///     Stream events to splunk through stdout.
+        ///     Streams events to Splunk through stdout.
         /// </summary>
         /// <param name="inputDefinition">
         /// Input definition from Splunk for this input.
@@ -242,15 +252,19 @@ namespace Splunk.ModularInputs
         public abstract void StreamEvents(InputDefinition inputDefinition);
 
         /// <summary>
-        ///     Perform external validation for input configuration.
+        ///     Perform validation for configurations of a new input being created.
+        /// </summary>
+        /// <remarks>
         ///     <para>
         ///         An application can override this method to perform custom
         ///         validation logic.
         ///     </para>
-        /// </summary>
-        /// <param name="validationItems">Configuration data to validate</param>
-        /// <param name="errorMessage">Message to display in UI when validation fails</param>
-        /// <returns>Whether the validation succeeded</returns>
+        /// <param name="validationItems">Configuration data to validate.
+        /// </param>
+        /// <param name="errorMessage">Message to display in UI when validation
+        /// fails.</param>
+        /// <returns>A Boolean value that indicates whether the validation
+        /// succeeded.</returns>
         public virtual bool Validate(ValidationItems validationItems, out string errorMessage)
         {
             errorMessage = null;

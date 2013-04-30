@@ -19,37 +19,37 @@ using System;
 namespace Splunk.ModularInputs
 {
     /// <summary>
-    ///     Event element for XML event streaming
+    /// Event element for XML event streaming.
     /// </summary>
     public struct EventElement
     {
         /// <summary>
-        /// Gets or sets event data.
+        /// Event data.
         /// </summary>
         public string Data { get; set; }
 
         /// <summary>
-        /// Gets or sets the event source.
+        /// The event source.
         /// </summary>
         public string Source { get; set; }
 
         /// <summary>
-        /// Gets or sets the source type
+        /// The source type.
         /// </summary>
         public string SourceType { get; set; }
 
         /// <summary>
-        /// Gets or sets the index
+        /// The index.
         /// </summary>
         public string Index { get; set; }
 
         /// <summary>
-        /// Gets or sets the host
+        /// The host.
         /// </summary>
         public string Host { get; set; }
 
         /// <summary>
-        /// Gets or sets timestamp of the event.
+        /// The timestamp of the event.
         /// If null, Splunk will generate a timestamp according to current time,
         /// or in case of "unbroken" event, a timestamp supplied ealier for the
         /// event will be used.
@@ -57,20 +57,24 @@ namespace Splunk.ModularInputs
         public DateTime? Time { get; set; }
      
         /// <summary>
-        /// Gets or sets a value indicating whether or not the event stream
+        /// A Boolean value that indicates whether the event stream has
         /// completed a set of events and can be flushed.
         /// </summary>
         public bool Done { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether or not the 
-        /// element may contain only a part of an event or multiple events. 
-        /// If false, the element represent a single and whole event.
+        /// A value that indicates whether the element contains only a
+        /// part of an event or multiple events. 
+        /// If false, the element represents a single and whole event.
         /// </summary>
+        /// <remarks>
+        /// If this property is false, the element represents a single, 
+        /// whole event.
+        /// </remarks>
         public bool Unbroken { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the stanza of the input this event belongs to.
+        /// The name of the stanza of the input this event belongs to.
         /// </summary>
         public string Stanza { get; set; }
     }
