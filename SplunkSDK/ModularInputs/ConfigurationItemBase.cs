@@ -97,9 +97,18 @@ namespace Splunk.ModularInputs
             {
                 if (parameters == null)
                 {
-                    parameters = SingleValueParameterXmlElements
-                        .Concat<ParameterBase>(MultiValueParameterXmlElements)
-                        .ToDictionary(p => p.Name, p => p.ValueAsBaseType);
+                    var list = new List<ParameterBase>();
+
+                    list.AddRange(
+                        SingleValueParameterXmlElements.Select(
+                            p => (ParameterBase) p));
+
+                    list.AddRange(
+                        MultiValueParameterXmlElements.Select(
+                            p => (ParameterBase) p));
+
+                        parameters = list.ToDictionary(
+                            p => p.Name, p => p.ValueAsBaseType);
                 }
                 return parameters;
             }
