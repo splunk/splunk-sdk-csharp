@@ -52,6 +52,7 @@
     <Compile Include="IndexTest.cs" />
     <Compile Include="InputTest.cs" />
     <Compile Include="MessageTest.cs" />
+    <Compile Include="ModularInputs\ModularInputsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourceCollectionTest.cs" />
     <Compile Include="ResultsReaderTest.cs" />
@@ -93,6 +94,22 @@
     <Content Include="Data\Results\resultsExport.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
+    </Content>
+    <Content Include="ModularInputs\Data\Events.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ModularInputs\Data\Scheme.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="ModularInputs\Data\InputDefinition.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ModularInputs\Data\ValidationItems.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ModularInputs\Data\ValidationErrorMessage.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
