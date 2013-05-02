@@ -384,7 +384,7 @@ namespace UnitTests
             index.Submit(restoreValues, now + " Hello World. \u0150");
             index.Submit(restoreValues, now + " Goodbye World. \u0150");
             this.Wait_event_count(index, 2, 45);
-            Assert.AreEqual(2, index.TotalEventCount, assertRoot + "#10);
+            Assert.AreEqual(2, index.TotalEventCount, assertRoot + "#10");
 
             service.Oneshot(string.Format("search index={0} * | delete", indexName));
             this.Wait_event_count(index, 0, 45);
