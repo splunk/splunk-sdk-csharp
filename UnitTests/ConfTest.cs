@@ -144,6 +144,8 @@ namespace UnitTests
             Assert.AreEqual("value2", stanza1.Get("key1"), assertRoot + "#24");
             Assert.AreEqual("42", stanza1.Get("key2"), assertRoot + "#25");
             Assert.IsFalse(stanza1.ContainsKey("key3"), assertRoot + "#26");
+            Assert.IsTrue(stanza1.ContainsValue("value2"), "Expected stanza1 to contain the value value2");
+            Assert.IsTrue(stanza1.ContainsValue("42"), "Expected stanza1 to contain the value 42");
 
             // Delete the stanzas
             stanzas.Remove("stanza3");
