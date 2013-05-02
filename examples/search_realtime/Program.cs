@@ -57,12 +57,12 @@ namespace Splunk.Examples.Search
                 (string)cli.Opts["search"], 
                 queryArgs);
 
-            var outputArgs = new Args
+            var outputArgs = new JobResultsPreviewArgs
             {
-                { "output_mode", "xml" },
+                OutputMode = JobResultsPreviewArgs.OutputModeEnum.Xml,
 
                 // Return all entries.
-                { "count", "0" }
+                Count = 0
             };
 
             for (var i = 0; i < 5; i++)

@@ -20,7 +20,7 @@ namespace Splunk
     ///     Contains arguments for getting job results
     ///     using the <seealso cref="Job" /> class.
     /// </summary>
-    public class JobResultsArgs : Args
+    public class JobResultsPreviewArgs : Args
     {
         /// <summary>
         ///     Specifies the format for the returned output.

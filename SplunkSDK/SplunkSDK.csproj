@@ -80,7 +80,9 @@
     <Compile Include="InputKind.cs" />
     <Compile Include="ISearchResults.cs" />
     <Compile Include="JobArgs.cs" />
+    <Compile Include="JobEventsArgs.cs" />
     <Compile Include="JobResultsArgs.cs" />
+    <Compile Include="JobResultsPreview.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="MessageArgs.cs" />

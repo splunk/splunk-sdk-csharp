@@ -14,6 +14,8 @@
  * under the License.
  */
 
+using System.IO;
+
 namespace UnitTests
 {
     using System;
@@ -106,7 +108,7 @@ namespace UnitTests
         [TestMethod]
         [ExpectedException(typeof(WebException),
           "Bad argument should cause Splunk to return http 400: Bad Request")]
-        public void BadArgument()
+        public void BadOutputMode()
         {
             var service = Connect();
             var query = "search index=_internal * earliest=-1m | stats count";
@@ -120,27 +122,118 @@ namespace UnitTests
         /// Tests the result from a bad search argument.
         /// </summary>
         [TestMethod]
-        public void JobResultsOutputModeArgument()
+        [ExpectedException(typeof(WebException),
+          "Bad argument should cause Splunk to return http 400: Bad Request")]
+        public void BadTruncateMode()
         {
             var service = Connect();
             var query = "search index=_internal * earliest=-1m | stats count";
 
-            var outputModes = Enum.GetNames(typeof(JobResultsArgs.OutputModeEnum));
-            foreach (var modeString in outputModes)
-            {
-                var mode = (JobResultsArgs.OutputModeEnum)Enum.Parse(
-                    typeof(JobResultsArgs.OutputModeEnum), modeString);
+            var job = this.RunWait(service, query);
+            job.Events(new Args("truncation_mode", "invalid_arg")).Close();
+            job.Cancel();
+        }
 
+        /// <summary>
+        /// Tests all output modes for Job.Results
+        /// </summary>
+        [TestMethod]
+        public void JobResultsOutputModeArgument()
+        {
+            var type = typeof(JobResultsArgs.OutputModeEnum);
+
+            TryAllEnums(
+                type,
+                (job, mode) =>
+                    job.Results(
+                        new JobResultsArgs
+                        {
+                            OutputMode = 
+                                (JobResultsArgs.OutputModeEnum) Enum.Parse(
+                                    type, 
+                                    mode)
+                        }));
+        }
+
+        /// <summary>
+        /// Tests all output modes for Job.ResultsPreview
+        /// </summary>
+        [TestMethod]
+        public void JobResultsPreviewOutputModeArgument()
+        {
+            var type = typeof(JobResultsPreviewArgs.OutputModeEnum);
+
+            TryAllEnums(
+                type,
+                (job, mode) =>
+                    job.ResultsPreview(
+                        new JobResultsPreviewArgs
+                        {
+                            OutputMode =
+                                (JobResultsPreviewArgs.OutputModeEnum) Enum.Parse(
+                                    type,
+                                    mode)
+                        }));
+        }
+
+        /// <summary>
+        /// Tests all output modes for Job.Events
+        /// </summary>
+        [TestMethod]
+        public void JobEventsOutputModeArgument()
+        {
+            var type = typeof(JobEventsArgs.OutputModeEnum);
+
+            TryAllEnums(
+                type,
+                (job, mode) =>
+                job.Events(
+                    new JobEventsArgs
+                        {
+                            OutputMode =
+                                (JobEventsArgs.OutputModeEnum) Enum.Parse(
+                                    type,
+                                    mode)
+                        }));
+        }
+
+        /// <summary>
+        /// Tests all output modes for Job.Events
+        /// </summary>
+        [TestMethod]
+        public void JobEventsTrancationModeArgument()
+        {
+            var type = typeof(JobEventsArgs.TruncationModeEnum);
+
+            TryAllEnums(
+                type,
+                (job, mode) =>
+                    job.Events(
+                        new JobEventsArgs
+                        {
+                            TruncationMode = 
+                                (JobEventsArgs.TruncationModeEnum) Enum.Parse(
+                                    type,
+                                    mode)
+                        }));
+        }
+
+        private void TryAllEnums(
+            Type enumType,
+            Func<Job, string, Stream> getResults)
+        {
+            var service = Connect();
+            var query = "search index=_internal * earliest=-1m | stats count";
+            
+            var enums = Enum.GetNames(enumType);
+            foreach (var @enum in enums)
+            {
                 var job = this.RunWait(service, query);
 
-                job.Results(
-                    new JobResultsArgs
-                        {
-                            OutputMode = mode
-                        }).Close();
+                getResults(job, @enum).Close();
 
                 job.Cancel();
-            }     
+            }
         }
     }
 }
