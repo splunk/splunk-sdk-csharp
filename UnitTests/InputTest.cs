@@ -256,9 +256,10 @@ namespace UnitTests
             monitorInput.RenameSource = "renamedSource";
             monitorInput.SourceType = "monitor";
             monitorInput.Whitelist = "phonyregex*2";
+            String index = monitorInput.Index;
             monitorInput.Update();
 
-            monitorInput.Disable();
+            //monitorInput.Disable();
             // some attributes are write only; check what we can.
             Assert.AreEqual("phonyregex*1", monitorInput.Blacklist, assertRoot + "#1");
             Assert.IsFalse(monitorInput.FollowTail, assertRoot + "#2");
@@ -269,11 +270,13 @@ namespace UnitTests
                 Assert.AreEqual("1d", monitorInput.IgnoreOlderThan, assertRoot + "#4");
                 Assert.AreEqual(120, monitorInput.TimeBeforeClose, assertRoot + "#5");
             }
-            Assert.AreEqual("main", monitorInput.Index, assertRoot + "#6");
+            Assert.AreEqual("main", index, assertRoot + "#6");
             Assert.IsFalse(monitorInput.IsRecursive, assertRoot + "#7");
             Assert.AreEqual("renamedSource", monitorInput.Source, assertRoot + "#8");
             Assert.AreEqual("monitor", monitorInput.SourceType, assertRoot + "#9");
             Assert.AreEqual("phonyregex*2", monitorInput.Whitelist, assertRoot + "#10");
+
+            monitorInput.Disable();
 
             monitorInput.Remove();
             inputCollection.Refresh();
@@ -428,11 +431,14 @@ namespace UnitTests
             tcpSplunkInput.Host = "myhost";
             tcpSplunkInput.SSL = false;
             bool getSSL = tcpSplunkInput.SSL;
+            String getGroup = tcpSplunkInput.Group;
             tcpSplunkInput.Update();
 
             Assert.AreEqual("dns", tcpSplunkInput.ConnectionHost, assertRoot + "#31");
             Assert.AreEqual("myhost", tcpSplunkInput.Host, assertRoot + "#32");
             Assert.IsFalse(getSSL, assertRoot + "#33");
+            Assert.AreEqual("listenerports", getGroup, "Expected the group of the TCP input to be listenerports");
+            Assert.IsNull(tcpSplunkInput.Queue, "Expected the queue to initially be null");
 
             tcpSplunkInput.Remove();
             inputCollection.Refresh();
