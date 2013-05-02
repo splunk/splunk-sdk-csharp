@@ -850,6 +850,16 @@ namespace Splunk
         }
 
         /// <summary>
+        /// Creates a writable socket to default index
+        /// </summary>
+        /// <returns>The network stream</returns>
+        public Stream AttachDefaultIndex()
+        {
+            Receiver receiver = this.Service.GetReceiver();
+            return receiver.Attach();
+        }
+
+        /// <summary>
         /// Creates a writable socket to this index, adding optional arguments.
         /// </summary>
         /// <param name="args">The arguments</param>
@@ -858,6 +868,17 @@ namespace Splunk
         {
             Receiver receiver = this.Service.GetReceiver();
             return receiver.Attach(this.Name, args);
+        }
+
+        /// <summary>
+        /// Creates a writable socket to this index, adding optional arguments.
+        /// </summary>
+        /// <param name="args">The arguments</param>
+        /// <returns>The network stream</returns>
+        public Stream AttachDefaultIndexWithArgs(Args args)
+        {
+            Receiver receiver = this.Service.GetReceiver();
+            return receiver.Attach(args);
         }
 
         /// <summary>
@@ -911,18 +932,38 @@ namespace Splunk
         public void Submit(string data)
         {
             Receiver receiver = this.Service.GetReceiver();
-            receiver.Submit(this.Name, data);
+            receiver.Log(this.Name, data);
         }
 
         /// <summary>
-        /// Submits an event to this index through an HTTP POST request.
+        /// Submits an event to the default index through an HTTP Post request
+        /// </summary>
+        public void SubmitDefaultIndex(string data)
+        {
+            Receiver receiver = this.Service.GetReceiver();
+            receiver.Log(data);
+        }
+
+        /// <summary>
+        /// Submits an event to this index through an HTTP POST request with variable arguements
         /// </summary>
         /// <param name="args">The optional arguments</param>
         /// <param name="data">The event data to submit</param>
         public void Submit(Args args, string data)
         {
             Receiver receiver = this.Service.GetReceiver();
-            receiver.Submit(this.Name, args, data);
+            receiver.Log(this.Name, args, data);
+        }
+
+        /// <summary>
+        /// Submits an event to the default index through an HTTP Post request with variable arguements
+        /// </summary>
+        /// <param name="args"></param>
+        /// <param name="data"></param>
+        public void SubmitDefaultIndexWithArgs(Args args, string data)
+        {
+            Receiver receiver = this.Service.GetReceiver();
+            receiver.Log(args, data);
         }
 
         /// <summary>
