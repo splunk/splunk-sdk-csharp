@@ -1,5 +1,15 @@
 # Splunk SDK for C# Changelog
 
+## Version 1.0.0.0 
+
+### New APIs
+
+* New classes are added for creating a modular input. They are all under `Splunk.ModularInputs` namespace. An example of creating such a modular input is added.
+
+### New Supported Configuration
+
+* The SDK now supports running with .NET Framework 3.5, in addition to .NET Framework 4.0 and .NET Framework 4.5. The SDK assembly's target framework is now .NET Framework 3.5. The Newtonsoft.Json assembly (used by `ResultsReaderJson` and `MultiResultsReaderJson`) is now Net35 version of Json.NET 5.0 Release 4.
+
 ## Version 0.8.0.0 (beta)
 
 ### Minor updates
