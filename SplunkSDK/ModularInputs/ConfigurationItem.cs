@@ -19,8 +19,9 @@ using System.Xml.Serialization;
 namespace Splunk.ModularInputs
 {
     /// <summary>
-    /// Input configuration items that Splunk sends to modular inputs 
-    /// to start event streaming.
+    /// The <see cref="ConfigurationItem"/> class represents input
+ 	/// configuration items that Splunk sends to modular inputs to start
+ 	/// event streaming.
     /// </summary>
     [XmlRoot("item")]
     public class ConfigurationItem : ConfigurationItemBase
