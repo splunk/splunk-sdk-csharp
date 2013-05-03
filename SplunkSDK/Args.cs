@@ -59,12 +59,13 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Adds a key/value pair to an <see cref="Args"/>.
+        /// Adds a key/value pair to an <see cref="Args"/>,
+        /// or overwrite the value if the key exists.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
         /// <returns>The <see cref="Args"/>.</returns>
-        public Args AlternateAdd(string key, object value) 
+        public new Args AlternateAdd(string key, object value) 
         {
             base[key] = value;
             return this;

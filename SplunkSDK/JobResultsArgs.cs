@@ -18,7 +18,7 @@ namespace Splunk
 {
     /// <summary>
     ///     Contains arguments for getting job results
-    ///     using the <seealso cref="Job" /> class.
+    ///     using the <see cref="Job" /> class.
     /// </summary>
     public class JobResultsArgs : Args
     {

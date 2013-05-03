@@ -163,6 +163,17 @@ namespace Splunk
         }
 
         /// <summary>
+        /// Submits the data using HTTP post, using variable arguments to the 
+        /// default index.
+        /// </summary>
+        /// <param name="args">The variable arguments.</param>
+        /// <param name="data">The data.</param>
+        public void Submit(ReceiverSubmitArgs args, string data)
+        {
+            this.Submit((Args) args, data);
+        }
+
+        /// <summary>
         /// Submits the data to the named index using variable arguments.
         /// </summary>
         /// <param name="indexName">The named index.</param>

@@ -14,6 +14,8 @@
  * under the License.
  */
 
+using System.Text;
+
 namespace Splunk
 {
     using System;
@@ -24,6 +26,69 @@ namespace Splunk
     /// </summary>
     public class JobArgs : Args
     {
+        /// <summary>
+        /// Specifies how to create a job using the <see cref="JobCollection.Create(string, JobArgs)"/>
+        /// method.       
+        /// </summary>
+        // C# disallow nested class to have the same name as
+        // a property. Use 'Enum' suffix to differentiate.
+        public enum ExecutionModeEnum
+        {
+            /// <summary>
+            /// Runs a search asynchronously and returns a search job immediately.
+            /// </summary>
+            [CustomString("normal")]
+            Normal,
+
+            /// <summary>
+            /// Runs a search synchronously and does not return a search job until 
+            /// the search has finished.
+            /// </summary>
+            [CustomString("blocking")]
+            Blocking,
+
+            /// <summary>
+            /// Runs a blocking search that is scheduled to run immediately, then 
+            /// returns the results of the search once completed. 
+            /// </summary>
+            [CustomString("oneshot")]
+            Oneshot,
+        }
+
+        /// <summary>
+        /// Specifies how to create a job using the <see cref="JobCollection.Create(string, JobArgs)"/>
+        /// method.       
+        /// </summary>
+        // C# disallow nested class to have the same name as
+        // a property. Use 'Enum' suffix to differentiate.
+        public enum SearchModeEnum
+        {
+            /// <summary>
+            /// Searches historical data.
+            /// </summary>
+            [CustomString("normal")]
+            Normal,
+
+            /// <summary>
+            /// Searches live data. A real-time search may also be specified by 
+            /// setting the "earliest_time" and "latest_time" parameters to begin 
+            /// with "rt", even if the search_mode is set to "normal" or is not set. 
+            /// <para>
+            /// If both the "earliest_time" and "latest_time" parameters are set to 
+            /// "rt", the search represents all appropriate live data that was 
+            /// received since the start of the search.
+            /// </para>
+            /// <para>
+            /// If both the "earliest_time" and "latest_time" parameters are set to 
+            /// "rt" followed by a relative time specifier, a sliding window is used 
+            /// where the time bounds of the window are determined by the relative 
+            /// time specifiers and are continuously updated based on current time.   
+            /// </para>         
+            /// </summary>
+            [CustomString("realtime")]
+            Realtime,
+        }
+
         /// <summary>
         /// Sets the auto-cancel frequency check, in seconds. The default
         /// value is 0. 
@@ -95,20 +160,11 @@ namespace Splunk
         /// Sets the search execution mode. Valid values are from the list, 
         /// "blocking", "oneshot", "normal".
         /// </summary>
-        /// <remarks>
-        /// <list type="">
-        /// <item>If set to normal, runs an asynchronous search.</item>
-        /// <item>If set to blocking, returns the sid when the job is 
-        /// complete.</item>
-        /// <item>If set to oneshot, returns results in the same call.</item>
-        /// </list>
-        /// The default is normal.
-        /// </remarks>
-        public string ExecMode
+        public ExecutionModeEnum ExecutionMode
         {
             set
             {
-                this["exec_mode"] = value;
+                this["exec_mode"] = value.GetCustomString();
             }
         }
 
@@ -206,16 +262,27 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the list of (possibly wildcarded) servers from which raw events
-        /// should be pulled. This same server list is to be used in 
-        /// subsearches. This list is a comma-separated list. The default value
-        /// is an empty list.
+        /// Sets a list of (possibly wildcarded) servers from which to pull raw events. 
+        /// This same server list is used in subsearches.
         /// </summary>
-        public string RemoteServerList
+        public string[] RemoteServerList
         {
             set
             {
-                this["remote_server_list"] = value;
+                // string[] will be encoded as multiple occurances
+                // of the same parameter of the value set. That is not 
+                // what we want.
+                var csv = new StringBuilder();
+                for (int i = 0, n = value.Length; i < n; i++)
+                {
+                    if (i != 0)
+                    {
+                        csv.Append(",");
+                    }
+                    csv.Append(value[i]);
+                }
+
+                this["remote_server_list"] = csv.ToString();
             }
         }
 
@@ -304,25 +371,13 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the search mode. Valid values are "normal" and "realtime".
+        /// Sets the search mode.
         /// </summary>
-        /// <remarks>        
-        /// If set to realtime, search runs over live data. A realtime search 
-        /// may also be indicated by earliest_time and latest_time variables 
-        /// starting with 'rt' even if the search_mode is set to normal or is 
-        /// unset. For a real-time search, if both earliest_time and latest_time 
-        /// are both exactly 'rt', the search represents all appropriate live 
-        /// data received since the start of the search. Additionally, if 
-        /// earliest_time and/or latest_time are 'rt' followed by a relative 
-        /// time specifiers then a sliding window is used where the time bounds 
-        /// of the window are determined by the relative time specifiers and are
-        /// continuously updated based on the wall-clock time.
-        /// </remarks>
-        public string SearchMode
+        public SearchModeEnum SearchMode
         {
             set 
             {
-                this["search_mode"] = value;
+                this["search_mode"] = value.GetCustomString();
             }
         }
 

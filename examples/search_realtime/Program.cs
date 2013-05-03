@@ -46,11 +46,11 @@ namespace Splunk.Examples.Search
             var service = Service.Connect(cli.Opts);
 
             // Realtime window is 5 minutes
-            var queryArgs = new Args 
+            var queryArgs = new JobArgs 
             { 
-                { "search_mode", "realtime" }, 
-                { "earliest_time", "rt-5m" }, 
-                { "latest_time", "rt" }
+                SearchMode = JobArgs.SearchModeEnum.Realtime,
+                EarliestTime = "rt-5m", 
+                LatestTime = "rt",
             };
 
             var job = service.GetJobs().Create(

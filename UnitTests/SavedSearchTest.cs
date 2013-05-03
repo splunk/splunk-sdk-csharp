@@ -272,7 +272,7 @@ namespace UnitTests
             savedSearch.ActionSummaryIndexMaxTime = "50s";
             savedSearch.ActionSummaryIndexTrackAlert = false;
             savedSearch.ActionSummaryIndexTtl = "65";
-            savedSearch.TriggerActions = "rss,email,populate_lookup,script,summary_index";
+            savedSearch.Actions = "rss,email,populate_lookup,script,summary_index";
             savedSearch.Search = search;
 
             savedSearch.Update();
@@ -377,6 +377,75 @@ namespace UnitTests
 
             // Dispatch with some additional search options
             job = savedSearch.Dispatch(new Args("dispatch.buckets", 100));
+            this.Wait(job);
+            job.Timeline().Close();
+            job.Cancel();
+
+            // Dispatch with some additional search options
+            job = savedSearch.Dispatch(new Args("dispatch.earliest_time", "aaaa"));
+            this.Wait(job);
+            job.Timeline().Close();
+            job.Cancel();
+
+            var savedSearchDispatchArgs = new SavedSearchDispatchArgs();
+
+            savedSearchDispatchArgs.ActionEmailAuthPassword = "sdk-password";
+            savedSearchDispatchArgs.ActionEmailAuthUsername = "sdk-username";
+            savedSearchDispatchArgs.ActionEmailBcc = "sdk-bcc@splunk.com";
+            savedSearchDispatchArgs.ActionEmailCc = "sdk-cc@splunk.com";
+            savedSearchDispatchArgs.ActionEmailCommand = "$name1$";
+            savedSearchDispatchArgs.ActionEmailFormat = "text";
+            savedSearchDispatchArgs.ActionEmailFrom = "sdk@splunk.com";
+            savedSearchDispatchArgs.ActionEmailHostname = "dummy1.host.com";
+            savedSearchDispatchArgs.ActionEmailInline = true;
+            savedSearchDispatchArgs.ActionEmailMailServer = "splunk.com";
+            savedSearchDispatchArgs.ActionEmailMaxResults = 101;
+            savedSearchDispatchArgs.ActionEmailMaxTime = "10s";
+            savedSearchDispatchArgs.ActionEmailPdfView = "dummy";
+            savedSearchDispatchArgs.ActionEmailReportPaperOrientation = "landscape";
+            savedSearchDispatchArgs.ActionEmailReportPaperSize = "letter";
+            savedSearchDispatchArgs.ActionEmailReportServerEnabled = false;
+            savedSearchDispatchArgs.ActionEmailReportServerUrl = "splunk.com";
+            savedSearchDispatchArgs.ActionEmailSendPdf = false;
+            savedSearchDispatchArgs.ActionEmailSendResults = false;
+            savedSearchDispatchArgs.ActionEmailSubject = "sdk-subject";
+            savedSearchDispatchArgs.ActionEmailTo = "sdk-to@splunk.com";
+            savedSearchDispatchArgs.ActionEmailTrackAlert = false;
+            savedSearchDispatchArgs.ActionEmailTtl = "61";
+            savedSearchDispatchArgs.ActionEmailUseSsl = false;
+            savedSearchDispatchArgs.ActionEmailUseTls = false;
+            savedSearchDispatchArgs.ActionEmailWidthSortColumns = false;
+            savedSearchDispatchArgs.ActionPopulateLookupCommand = "$name2$";
+            savedSearchDispatchArgs.ActionPopulateLookupDest = "dummypath";
+            savedSearchDispatchArgs.ActionPopulateLookupHostname = "dummy2.host.com";
+            savedSearchDispatchArgs.ActionPopulateLookupMaxResults = 102;
+            savedSearchDispatchArgs.ActionPopulateLookupMaxTime = "20s";
+            savedSearchDispatchArgs.ActionPopulateLookupTrackAlert = false;
+            savedSearchDispatchArgs.ActionPopulateLookupTtl = "62";
+            savedSearchDispatchArgs.ActionRssCommand = "$name3$";
+            savedSearchDispatchArgs.ActionRssHostname = "dummy3.host.com";
+            savedSearchDispatchArgs.ActionRssMaxResults = 103;
+            savedSearchDispatchArgs.ActionRssMaxTime = "30s";
+            savedSearchDispatchArgs.ActionRssTrackAlert = false;
+            savedSearchDispatchArgs.ActionRssTtl = "63";
+            savedSearchDispatchArgs.ActionScriptCommand = "$name4$";
+            //savedSearchDispatchArgs.ActionScriptFilename = String  filename;
+            savedSearchDispatchArgs.ActionScriptHostname = "dummy4.host.com";
+            savedSearchDispatchArgs.ActionScriptMaxResults = 104;
+            savedSearchDispatchArgs.ActionScriptMaxTime = "40s";
+            savedSearchDispatchArgs.ActionScriptTrackAlert = false;
+            savedSearchDispatchArgs.ActionScriptTtl = "64";
+            savedSearchDispatchArgs.ActionSummaryIndexCommand = "$name5$";
+            savedSearchDispatchArgs.ActionSummaryIndexHostname = "dummy5.host.com";
+            savedSearchDispatchArgs.ActionSummaryIndexInline = false;
+            savedSearchDispatchArgs.ActionSummaryIndexMaxResults = 105;
+            savedSearchDispatchArgs.ActionSummaryIndexMaxTime = "50s";
+            savedSearchDispatchArgs.ActionSummaryIndexTrackAlert = false;
+            savedSearchDispatchArgs.ActionSummaryIndexTtl = "65";
+            savedSearchDispatchArgs.Actions = "rss,email,populate_lookup,script,summary_index";
+    
+            // Same as the previous dispatch except using custom arg
+            job = savedSearch.Dispatch(savedSearchDispatchArgs);
             this.Wait(job);
             job.Timeline().Close();
             job.Cancel();

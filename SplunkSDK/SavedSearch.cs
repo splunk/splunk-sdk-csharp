@@ -2286,7 +2286,7 @@ namespace Splunk
         /// This property is write-only.
         /// </para>
         /// </remarks>
-        public string TriggerActions
+        public new string Actions
         {
             set
             {

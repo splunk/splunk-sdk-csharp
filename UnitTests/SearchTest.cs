@@ -30,6 +30,36 @@ namespace UnitTests
     public class SearchTest : TestHelper
     {
         /// <summary>
+        /// Search query the tests will use
+        /// </summary>
+        private const string Query = 
+            "search index=_internal * earliest=-1m | stats count";
+
+        /// <summary>
+        /// Invalid argument
+        /// </summary>
+        private readonly Args badOutputMode =
+            new Args("output_mode", "invalid_arg_value");
+
+        /// <summary>
+        /// Invalid argument
+        /// </summary>
+        private readonly Args badSearchMode =
+            new Args("search_mode", "invalid_arg_value");
+
+        /// <summary>
+        /// Invalid argument
+        /// </summary>
+        private readonly Args badTruncationMode =
+            new Args("truncation_mode", "invalid_arg_value");
+
+        /// <summary>
+        /// Invalid argument
+        /// </summary>
+        private readonly Args badExecutionMode =
+            new Args("exec_mode", "invalid_arg_value");
+
+        /// <summary>
         /// Run the given query.
         /// </summary>
         /// <param name="service">The service</param>
@@ -47,7 +77,7 @@ namespace UnitTests
         /// <param name="query">The search query</param>
         /// <param name="args">The args</param>
         /// <returns>The job</returns>
-        private Job Run(Service service, string query, Args args)
+        private Job Run(Service service, string query, JobArgs args)
         {
             return service.GetJobs().Create(query, args);
         }
@@ -85,19 +115,18 @@ namespace UnitTests
         public void Search()
         {
             Service service = Connect();
-            string query = "search index=_internal * earliest=-1m | stats count";
 
             Job job;
 
-            job = this.RunWait(service, query);
+            job = this.RunWait(service, Query);
             job.Results().Close();
             job.Cancel();
 
-            job = this.RunWait(service, query);
+            job = this.RunWait(service, Query);
             job.Results(new Args("output_mode", "csv")).Close();
             job.Cancel();
 
-            job = this.RunWait(service, query);
+            job = this.RunWait(service, Query);
             job.Results(new Args("output_mode", "json")).Close();
             job.Cancel();
         }
@@ -111,10 +140,9 @@ namespace UnitTests
         public void BadOutputMode()
         {
             var service = Connect();
-            var query = "search index=_internal * earliest=-1m | stats count";
 
-            var job = this.RunWait(service, query);
-            job.Results(new Args("output_mode", "invalid_arg")).Close();
+            var job = this.RunWait(service, Query);
+            job.Results(badOutputMode).Close();
             job.Cancel();
         }
 
@@ -127,11 +155,83 @@ namespace UnitTests
         public void BadTruncateMode()
         {
             var service = Connect();
-            var query = "search index=_internal * earliest=-1m | stats count";
 
-            var job = this.RunWait(service, query);
-            job.Events(new Args("truncation_mode", "invalid_arg")).Close();
+            var job = this.RunWait(service, Query);
+            job.Events(badTruncationMode).Close();
             job.Cancel();
+        }
+
+        /// <summary>
+        /// Tests the result from a bad search argument.
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(WebException),
+          "Bad argument should cause Splunk to return http 400: Bad Request")]
+        public void BadSearchMode()
+        {
+            var service = Connect();
+
+            var job = this.RunWait(
+                service,  
+                Query, 
+                badSearchMode);
+            job.Cancel();
+        }
+
+        /// <summary>
+        /// Tests the result from a bad search argument.
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(WebException),
+          "Bad argument should cause Splunk to return http 400: Bad Request")]
+        public void BadExecutionMode()
+        {
+            var service = Connect();
+
+            var job = this.RunWait(
+                service,
+                Query,
+                badExecutionMode);
+            job.Cancel();
+        }
+
+        /// <summary>
+        /// Tests the result from a bad search argument.
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(WebException),
+          "Bad argument should cause Splunk to return http 400: Bad Request")]
+        public void BadSearchModeExport()
+        {
+            var service = Connect();
+
+            service.Export(Query, badSearchMode);
+        }
+
+        /// <summary>
+        /// Tests the result from a bad search argument.
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(WebException),
+          "Bad argument should cause Splunk to return http 400: Bad Request")]
+        public void BadOutputModeExport()
+        {
+            var service = Connect();
+
+            service.Export(Query, badOutputMode);
+        }
+
+        /// <summary>
+        /// Tests the result from a bad search argument.
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(WebException),
+          "Bad argument should cause Splunk to return http 400: Bad Request")]
+        public void BadTruncationModeExport()
+        {
+            var service = Connect();
+
+            service.Export(Query, badTruncationMode);
         }
 
         /// <summary>
@@ -142,7 +242,7 @@ namespace UnitTests
         {
             var type = typeof(JobResultsArgs.OutputModeEnum);
 
-            TryAllEnums(
+            RunJobFuntionForEachEnum(
                 type,
                 (job, mode) =>
                     job.Results(
@@ -163,7 +263,7 @@ namespace UnitTests
         {
             var type = typeof(JobResultsPreviewArgs.OutputModeEnum);
 
-            TryAllEnums(
+            RunJobFuntionForEachEnum(
                 type,
                 (job, mode) =>
                     job.ResultsPreview(
@@ -184,7 +284,7 @@ namespace UnitTests
         {
             var type = typeof(JobEventsArgs.OutputModeEnum);
 
-            TryAllEnums(
+            RunJobFuntionForEachEnum(
                 type,
                 (job, mode) =>
                 job.Events(
@@ -201,11 +301,11 @@ namespace UnitTests
         /// Tests all output modes for Job.Events
         /// </summary>
         [TestMethod]
-        public void JobEventsTrancationModeArgument()
+        public void JobEventsTruncationModeArgument()
         {
             var type = typeof(JobEventsArgs.TruncationModeEnum);
 
-            TryAllEnums(
+            RunJobFuntionForEachEnum(
                 type,
                 (job, mode) =>
                     job.Events(
@@ -218,21 +318,170 @@ namespace UnitTests
                         }));
         }
 
-        private void TryAllEnums(
+        /// <summary>
+        /// Run a job and a function on the job 
+        /// for each enum value in an enum type.
+        /// </summary>
+        /// <param name="enumType">The enum type</param>
+        /// <param name="jobFunction">
+        /// A function for a job and an enum value
+        /// </param>
+        private void RunJobFuntionForEachEnum(
             Type enumType,
-            Func<Job, string, Stream> getResults)
+            Func<Job, string, Stream> jobFunction)
         {
             var service = Connect();
-            var query = "search index=_internal * earliest=-1m | stats count";
-            
+
+            ForEachEnum(
+                enumType,
+                (@enum) =>
+                    {
+                        var job = this.RunWait(service, Query);
+
+                        jobFunction(job, @enum).Close();
+
+                        job.Cancel();
+                    });
+        }
+
+        /// <summary>
+        /// Tests all search modes
+        /// </summary>
+        [TestMethod]
+        public void JobSearchModeArgument()
+        {
+            var type = typeof(JobArgs.SearchModeEnum);
+
+            RunJobForEachEnum(
+                type,
+                (mode) => new JobArgs
+                    {
+                        SearchMode =
+                            (JobArgs.SearchModeEnum) Enum.Parse(
+                                    type,
+                                    mode)
+                    });
+        }
+
+
+        /// <summary>
+        /// Tests all search modes for export
+        /// </summary>
+        [TestMethod]
+        public void ExportSearchModeArgument()
+        {
+            var type = typeof(JobExportArgs.SearchModeEnum);
+
+            RunExportForEachEnum(
+                type,
+                (mode) => new JobExportArgs
+                {
+                    SearchMode =
+                        (JobExportArgs.SearchModeEnum)Enum.Parse(
+                                type,
+                                mode)
+                });
+        }
+
+        /// <summary>
+        /// Tests all search modes for export
+        /// </summary>
+        [TestMethod]
+        public void ExportOutputModeArgument()
+        {
+            var type = typeof(JobExportArgs.OutputModeEnum);
+
+            RunExportForEachEnum(
+                type,
+                (mode) => new JobExportArgs
+                {
+                    OutputMode = 
+                        (JobExportArgs.OutputModeEnum)Enum.Parse(
+                                type,
+                                mode)
+                });
+        }
+
+        /// <summary>
+        /// Tests all search modes for export
+        /// </summary>
+        [TestMethod]
+        public void ExportTruncationModeArgument()
+        {
+            var type = typeof(JobExportArgs.TruncationModeEnum);
+
+            RunExportForEachEnum(
+                type,
+                (mode) => new JobExportArgs
+                {
+                    TruncationMode = 
+                        (JobExportArgs.TruncationModeEnum)Enum.Parse(
+                                type,
+                                mode)
+                });
+        }
+
+        /// <summary>
+        /// Run export for each enum value in an enum type.
+        /// </summary>
+        /// <param name="enumType">The enum type</param>
+        /// <param name="getJobExportArgs">
+        /// The funtion to get arguments to run a job.
+        /// </param>
+        private void RunExportForEachEnum(
+            Type enumType,
+            Func<string, JobExportArgs> getJobExportArgs)
+        {
+            var service = Connect();
+
+            ForEachEnum(
+                enumType,
+                (@enum) => service.Export(
+                    Query, 
+                    getJobExportArgs(@enum)));
+        }
+
+        /// <summary>
+        /// Run a job for each enum value in an enum type.
+        /// </summary>
+        /// <param name="enumType">The enum type</param>
+        /// <param name="getJobArgs">
+        /// The funtion to get arguments to run a job.
+        /// </param>
+        private void RunJobForEachEnum(
+            Type enumType,
+            Func<string, JobArgs> getJobArgs)
+        {
+            var service = Connect();
+
+            ForEachEnum(
+                enumType,
+                (@enum) =>
+                    {
+                        var job = this.Run(
+                            service,
+                            Query,
+                            getJobArgs(@enum));
+
+                        job.Cancel();
+                    });
+        }
+
+        /// <summary>
+        /// Perform an action for each enum value in an enum type.
+        /// </summary>
+        /// <param name="enumType">The enum type</param>
+        /// <param name="action">
+        /// The action to perform on an enum value
+        /// </param>
+        private static void ForEachEnum(
+          Type enumType,
+          Action<string> action)
+        {
             var enums = Enum.GetNames(enumType);
             foreach (var @enum in enums)
             {
-                var job = this.RunWait(service, query);
-
-                getResults(job, @enum).Close();
-
-                job.Cancel();
+                action(@enum);
             }
         }
     }

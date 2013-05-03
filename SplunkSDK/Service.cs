@@ -260,6 +260,18 @@ namespace Splunk
         }
 
         /// <summary>
+        /// Runs a search using the search/jobs/export endpoint which streams
+        /// results back via a Stream. 
+        /// </summary>
+        /// <param name="search">The search query string.</param>
+        /// <param name="args">The search arguments.</param>
+        /// <returns>The results stream.</returns>
+        public Stream Export(string search, JobExportArgs args)
+        {
+            return Export(search, (Args) args);
+        }
+
+        /// <summary>
         /// Ensures that the given path is fully qualified, prepending a path
         /// prefix if necessary. The path prefix is constructed using the
         /// current owner and app context when available.

@@ -99,6 +99,19 @@ namespace Splunk
         }
 
         /// <summary>
+        /// Creates a search with a UTF8 pre-encoded search request.
+        /// A 'oneshot' request is invalid. To create a oneshot search,
+        /// use the Service.oneshot method instead. 
+        /// </summary>
+        /// <param name="query">The search query.</param>
+        /// <param name="args">Additional arguments for this job.</param>
+        /// <returns>The Job.</returns>
+        public Job Create(string query, JobArgs args)
+        {
+            return this.Create(query, (Args) args);
+        }
+
+        /// <summary>
         /// Returns the List of Jobs, as a responseMessage object.
         /// </summary>
         /// <returns>The responseMessage list of jobs.</returns>

@@ -18,7 +18,7 @@ namespace Splunk
 {
     /// <summary>
     ///     Contains arguments for getting job results
-    ///     using the <seealso cref="Job" /> class.
+    ///     using the <see cref="Job.Events(JobEventsArgs)" /> method.
     /// </summary>
     public class JobEventsArgs : Args
     {
@@ -80,9 +80,15 @@ namespace Splunk
         // a property. Use 'Enum' suffix to differentiate.
         public enum TruncationModeEnum
         {
+            /// <summary>
+            /// Use the "abstract" truncation mode.
+            /// </summary>
             [CustomString("abstract")]
             Abstract,
 
+            /// <summary>
+            /// Use the "truncate" truncation mode.
+            /// </summary>
             [CustomString("truncate")]
             Truncate,
         }
