@@ -41,34 +41,33 @@ namespace Splunk.Examples.ModularInputs
             get
             {
                 return new Scheme
+                {
+                    Title = "C# SDK Example: System Environment Variable Monitor",
+                    Description = "Monitor changes to a system environment variable. When a change is detected, log the new value.",
+                    StreamingMode = StreamingMode.Xml,
+                    Endpoint =
                     {
-                        Title = "C# SDK Example: System Environment Variable Monitor",
-                        Description =
-                            "Monitor changes to a system environment variable. When a change is detected, log the new value.",
-                        StreamingMode = StreamingMode.Xml,
-                        Endpoint =
+                        Arguments = new List<Argument>
+                        {
+                            new Argument
                             {
-                                Arguments = new List<Argument>
-                                    {
-                                        new Argument
-                                            {
-                                                // 'name' is a built in var. Only its description can be
-                                                // customized.
-                                                Name = "name",
-                                                Description = "Name of the environment variable to monitor",
-                                            },
-                                        new Argument
-                                            {
-                                                Name = PollingInterval,
-                                                Description =
-                                                    "Number of milliseconds to wait before the next check of the environment variable for change. Default is 1000.",
-                                                DataType = DataType.Number,
-                                                Validation = "is_pos_int('polling_interval')",
-                                                RequiredOnCreate = false
-                                            },
-                                    }
-                            }
-                    };
+                                // 'name' is a built in var. Only its description can be
+                                // customized.
+                                Name = "name",
+                                Description = "Name of the environment variable to monitor",
+                            },
+                            new Argument
+                            {
+                                Name = PollingInterval,
+                                Description =
+                                    "Number of milliseconds to wait before the next check of the environment variable for change. Default is 1000.",
+                                DataType = DataType.Number,
+                                Validation = "is_pos_int('polling_interval')",
+                                RequiredOnCreate = false
+                            },
+                        }
+                    }
+                };
             }
         }
 
@@ -85,65 +84,65 @@ namespace Splunk.Examples.ModularInputs
         /// <summary>
         ///     Stream events into stdout
         /// </summary>
-        /// <param name="inputConfiguration">Input configuration from Splunk</param>
-        public override void StreamEvents(InputConfiguration inputConfiguration)
+        /// <param name="inputDefinition">Input definition from Splunk</param>
+        public override void StreamEvents(InputDefinition inputDefinition)
         {
             string lastVarValue = null;
-            var writer = new EventStreamWriter();
-
-            var stanza = inputConfiguration.Stanzas[0];
-
-            // Gets input name. It is also the env var name.
-            const string Seperator = @"://";
-            var indexInputName = stanza.Name.IndexOf(Seperator) + Seperator.Length;
-            var varName = stanza.Name.Substring(indexInputName);
-
-            SystemLogger.Write(
-                string.Format(
-                    "Name of the var to monitor is : {0}",
-                    varName));
-
-            var interval = 1000;
-
-            ParameterBase.ValueBase intervalParam;
-            if (stanza.ParameterByName.TryGetValue(
-                PollingInterval,
-                out intervalParam))
+            using (var writer = new EventStreamWriter())
             {
-                interval = int.Parse(
-                    (SingleValueParameter.Value) intervalParam);
-            }
+                var stanza = inputDefinition.Stanza;
 
-            SystemLogger.Write(
-                string.Format(
-                    "Polling interval is : {0}",
-                    interval));
+                // Gets input name. It is also the env var name.
+                const string Seperator = @"://";
+                var indexInputName = stanza.Name.IndexOf(Seperator) + Seperator.Length;
+                var varName = stanza.Name.Substring(indexInputName);
 
-            while (true)
-            {
-                var varValue = Environment.GetEnvironmentVariable(
-                    varName,
-                    EnvironmentVariableTarget.Machine);
+                SystemLogger.Write(
+                    string.Format(
+                        "Name of the var to monitor is : {0}",
+                        varName));
 
-                // Event data can't be null for real events.  
-                varValue = varValue ?? "(not exist)";
+                var interval = 1000;
 
-                // Splunk does not record lines with only white spaces.
-                varValue = string.IsNullOrWhiteSpace(varValue)
-                               ? "(white space)"
-                               : varValue;
-
-                if (varValue != lastVarValue)
+                string intervalParam;
+                if (stanza.SingleValueParameters.TryGetValue(
+                    PollingInterval,
+                    out intervalParam))
                 {
-                    writer.Write(
-                        new EventElement
-                            {
-                                Source = varName,
-                                Data = varValue,
-                            });
-                    lastVarValue = varValue;
+                    interval = int.Parse(intervalParam);
                 }
-                Thread.Sleep(interval);
+
+                SystemLogger.Write(
+                    string.Format(
+                        "Polling interval is : {0}",
+                        interval));
+
+                while (true)
+                {
+                    var varValue = Environment.GetEnvironmentVariable(
+                        varName,
+                        EnvironmentVariableTarget.Machine);
+
+                    // Event data can't be null for real events.  
+                    varValue = varValue ?? "(not exist)";
+
+                    // Splunk does not record lines with only white spaces.
+                    varValue = string.IsNullOrWhiteSpace(varValue)
+                                   ? "(white space)"
+                                   : varValue;
+
+                    if (varValue != lastVarValue)
+                    {
+                        writer.Write(
+                            new EventElement
+                                {
+                                    Source = varName,
+                                    Data = varValue,
+                                });
+                        lastVarValue = varValue;
+                    }
+                    Thread.Sleep(interval);
+                }
             }
         }
 

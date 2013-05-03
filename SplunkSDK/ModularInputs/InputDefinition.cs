@@ -23,14 +23,14 @@ namespace Splunk.ModularInputs
 {
     /// <summary>
     /// The <see cref="InputDefinition"/> class is used to parse and access
- 	/// the XML data that defines the input from Splunk.
+    /// the XML data that defines the input from Splunk.
     /// </summary>
     /// <remarks>
-	/// When Splunk executes a modular input script to stream events into
-	/// Splunk, it reads configuration information from inputs.conf files in
-	/// the system. It then passes this configuration in XML format to the
-	/// script. The modular input script reads the configuration information
-	/// from stdin.
+    /// When Splunk executes a modular input script to stream events into
+    /// Splunk, it reads configuration information from inputs.conf files in
+    /// the system. It then passes this configuration in XML format to the
+    /// script. The modular input script reads the configuration information
+    /// from stdin.
     /// </remarks>
     [XmlRoot("input")]
     public class InputDefinition : InputDefinitionBase

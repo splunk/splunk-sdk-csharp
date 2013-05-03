@@ -21,7 +21,14 @@ namespace Splunk.ModularInputs
 {
     /// <summary>
     /// The <see cref="ValidationItems"/> class is used to parse and access the
- 	/// XML data for a new input definition from Splunk, pending validation.
+    /// XML data for a new input definition from Splunk, pending validation.
+    ///     for new input definition from Splunk 
+    ///     pending validation.
+    /// <remarks>
+    ///     When a new input of this modular input type 
+    ///     is being created, Splunk executes the modular input 
+    ///     script (that is executable) to validate its configuration.
+    /// </remarks>
     /// </summary>    
     /// <remarks>
     /// When a new input of this modular input type is being created, Splunk
@@ -55,7 +62,8 @@ namespace Splunk.ModularInputs
         //</items>
 
         /// <summary>
-        /// Represents an instance of this modular input.
+        ///     Represents an instance of this modular input.
+        ///     this modular input.
         /// </summary>
         [XmlElement("item")]
         public ConfigurationItem Item { get; set; }

@@ -41,7 +41,11 @@ namespace Splunk.ModularInputs
     
     /// <summary>
     /// The <see cref="Scheme"/> class represents the XML output when a
- 	/// modular input is called by Splunk for introspection.
+    /// modular input is called by Splunk for introspection.
+    /// <remarks>
+    ///     The modular input script (that is executable) returns
+    ///     the XML output through stdout to Splunk.
+    /// </remarks>    
     /// </summary>
     /// <remarks>
     /// The modular input script (that is, executable) returns the XML output
@@ -149,10 +153,9 @@ namespace Splunk.ModularInputs
         public EndpointElement Endpoint { get; set; }
 
         /// <summary>
-		/// The <see cref="EndpointElement"/> class represents the 
-		/// <b>endpoint</b> XML element.
-        /// </summary>
-		/// <remarks>
+	/// The <see cref="EndpointElement"/> class represents the 
+	/// <b>endpoint</b> XML element.
+	/// <remarks>
         /// The endpoint is a collection of arguments that represent parameters
         /// to the inputs.conf stanza.
         /// </remarks>

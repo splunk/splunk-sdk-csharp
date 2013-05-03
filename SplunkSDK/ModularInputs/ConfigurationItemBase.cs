@@ -33,6 +33,12 @@ namespace Splunk.ModularInputs
         private Dictionary<string, ParameterBase.ValueBase> parameters;
 
         /// <summary>
+        ///     Single value parameters keyed 
+        ///     by name in the input definition item.
+        /// </summary>
+        private Dictionary<string, string> singleValueParameters;
+
+        /// <summary>
         /// Single value parameters keyed 
         /// by name in the input definition item.
         /// </summary>
@@ -67,7 +73,8 @@ namespace Splunk.ModularInputs
         public List<MultiValueParameter> MultiValueParameterXmlElements { get; set; }
 
         /// <summary>
-        /// Single value parameters keyed by name in the item.
+        ///     Single value parameters keyed by name in the item.
+        ///     in the item.
         /// </summary>
         // This method is provided to make it easier to retrieve single value
         // parameters. It is a much more common case than multi value 

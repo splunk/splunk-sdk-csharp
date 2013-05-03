@@ -51,6 +51,9 @@ namespace Splunk.ModularInputs
 
         /// <summary>
         /// The timestamp of the event.
+        /// If null, Splunk will generate a timestamp according to current time,
+        /// or in case of "unbroken" event, a timestamp supplied ealier for the
+        /// event will be used.
         /// </summary>
         /// <remarks>
         /// If this property is null, Splunk will generate a timestamp
@@ -68,6 +71,7 @@ namespace Splunk.ModularInputs
         /// <summary>
         /// A Boolean value that indicates whether the element contains
  		/// only a part of an event or multiple events. 
+        /// If false, the element represents a single and whole event.
         /// </summary>
         /// <remarks>
         /// If this property is false, the element represents a single, 
