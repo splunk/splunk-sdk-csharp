@@ -20,8 +20,7 @@ using System.Xml;
 namespace Splunk.ModularInputs
 {
     /// <summary>
-    /// The <see cref="EventStreamWriter"/> class writes an event to stdout
- 	/// using the XML streaming mode.
+    /// Writes an event to stdout using the XML streaming mode.
     /// </summary>
     public class EventStreamWriter : IDisposable
     {
@@ -31,8 +30,7 @@ namespace Splunk.ModularInputs
         private XmlTextWriter xmlWriter = new XmlTextWriter(Console.Out);
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EventStreamWriter" />
- 		/// class.
+        /// Initializes a new instance of the <see cref="EventStreamWriter" /> class.
         /// </summary>
         public EventStreamWriter()
         {

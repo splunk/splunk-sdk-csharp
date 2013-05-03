@@ -40,13 +40,13 @@ namespace Splunk.ModularInputs
     }
     
     /// <summary>
-    /// The <see cref="Scheme"/> class represents the XML output when a
- 	/// modular input is called by Splunk for introspection.
-    /// </summary>
+    ///     Represents the XML output when a modular input is called
+    ///     by Splunk for introspection.
     /// <remarks>
-    /// The modular input script (that is, executable) returns the XML output
- 	/// through stdout to Splunk.
+    ///     The modular input script (that is executable) returns
+    ///     the XML output through stdout to Splunk.
     /// </remarks>    
+    /// </summary>
     [XmlRoot("scheme")]
     public class Scheme
     {
@@ -115,10 +115,8 @@ namespace Splunk.ModularInputs
         /// <remarks>
         /// <para>
         /// Override <see cref="Script.Validate"/> to perform the validation.
-        /// </para>
-		/// <para>
-        /// This property's default value is true.
-		/// </para>
+        /// </para><para>
+        /// This property's default value is true.</para>
         /// </remarks>
         [XmlElement("use_external_validation")]
         public bool UseExternalValidation { get; set; }
@@ -149,13 +147,10 @@ namespace Splunk.ModularInputs
         public EndpointElement Endpoint { get; set; }
 
         /// <summary>
-		/// The <see cref="EndpointElement"/> class represents the 
-		/// <b>endpoint</b> XML element.
-        /// </summary>
-		/// <remarks>
+
         /// The endpoint is a collection of arguments that represent parameters
         /// to the inputs.conf stanza.
-        /// </remarks>
+        /// </summary>
         [XmlRoot("endpoint")]
         public class EndpointElement
         {

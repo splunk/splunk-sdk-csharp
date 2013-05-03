@@ -1,5 +1,5 @@
 # The Splunk Software Development Kit for C# 
-### Version 1.0
+### Version 0.8 (Beta)
 
 The Splunk Software Development Kit (SDK) for C# contains library code and 
 examples designed to enable developers to build applications using Splunk.
@@ -130,7 +130,6 @@ Example         | Description
 --------------- | -----------
 authenticate    | Authenticates to the server and prints the received token.
 list_apps       | Lists the apps installed on the server.
-modular_input   | Creates a modular input executable that you can modify.
 search          | Runs a normal search using a specified search query.
 search_oneshot  | Runs a oneshot search using a specified search query.
 search_realtime | Runs a real-time search, gets a number of snapshots, prints them, and then exits.
@@ -196,6 +195,11 @@ on the Microsoft Developer Network (MSDN).
 <table>
 
 <tr>
+<td><b>\SplunkSDKHelper</b></td>
+<td>Utilities shared by examples and unit tests</td>
+</tr>
+
+<tr>
 <td><b>\examples</b></td>
 <td>Examples demonstrating various SDK features</td>
 </tr>
@@ -208,11 +212,6 @@ on the Microsoft Developer Network (MSDN).
 <tr>
 <td><b>\SplunkSDK</b></td>
 <td>Source for the SDK</td>
-</tr>
-
-<tr>
-<td><b>\SplunkSDKHelper</b></td>
-<td>Utilities shared by examples and unit tests</td>
 </tr>
 
 <tr>

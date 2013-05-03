@@ -40,13 +40,10 @@ namespace Splunk.ModularInputs
     }
 
     /// <summary>
-    /// The <see cref="Argument"/> class represents an XML entity describing
- 	/// an individual argument of a modular input.
+    ///     Represents an XML entity describing an individual argument
+    ///     of a modular input. It corresponds to one of the keys that can be defined for
+    ///     an instance of that modular input in a stanza in inputs.conf.
     /// </summary>
- 	/// <remarks>
-	/// It corresponds to one of the keys that can be defined for an instance
-	/// of that modular input in a stanza in inputs.conf.
-    /// </remarks>
     [XmlRoot("arg")]
     public class Argument
     {
