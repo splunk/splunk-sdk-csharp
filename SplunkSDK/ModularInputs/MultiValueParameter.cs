@@ -22,7 +22,8 @@ using System.Xml.Serialization;
 namespace Splunk.ModularInputs
 {
     /// <summary>
-    /// Represents a parameter that contains a multivalue.
+    /// The <see cref="MultiValueParameter"/> class represents a parameter that
+ 	/// contains a multivalue.
     /// </summary>
     [XmlRoot("param_list")]
     public class MultiValueParameter : ParameterBase
@@ -50,7 +51,7 @@ namespace Splunk.ModularInputs
         }
 
         /// <summary>
-        /// Represents a multivalue.
+        /// The <see cref="Value"/> class represents a multivalue.
         /// </summary>
         [SuppressMessage(
             "Microsoft.StyleCop.CSharp.DocumentationRules",
@@ -129,9 +130,13 @@ namespace Splunk.ModularInputs
         }
 
         /// <summary>
-        /// Used for serializing and deserializing the <b>value</b> XML element 
-        /// for a multivalue parameter.
+        /// The <see cref="ValueXmlElement"/> class represents the <b>value</b> 
+		/// XML element.
         /// </summary>
+		/// <remarks>
+		/// This class is used for serializing and deserializing the
+		/// <b>value</b> XML element for a multivalue parameter.
+        /// </remarks>
         [XmlRoot("value")]
         public class ValueXmlElement
         {

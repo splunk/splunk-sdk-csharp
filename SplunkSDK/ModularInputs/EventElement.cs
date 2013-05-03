@@ -19,7 +19,8 @@ using System;
 namespace Splunk.ModularInputs
 {
     /// <summary>
-    /// Event element for XML event streaming.
+    /// The <see cref="EventElement"/> class represents an event element
+ 	/// for XML event streaming.
     /// </summary>
     public struct EventElement
     {
@@ -50,10 +51,12 @@ namespace Splunk.ModularInputs
 
         /// <summary>
         /// The timestamp of the event.
-        /// If null, Splunk will generate a timestamp according to current time,
-        /// or in case of "unbroken" event, a timestamp supplied ealier for the
-        /// event will be used.
         /// </summary>
+        /// <remarks>
+        /// If this property is null, Splunk will generate a timestamp
+ 		/// according to current time, or in case of "unbroken" event, the
+ 		/// timestamp supplied earlier for the event will be used.
+        /// </remarks>
         public DateTime? Time { get; set; }
      
         /// <summary>
@@ -63,9 +66,8 @@ namespace Splunk.ModularInputs
         public bool Done { get; set; }
 
         /// <summary>
-        /// A value that indicates whether the element contains only a
-        /// part of an event or multiple events. 
-        /// If false, the element represents a single and whole event.
+        /// A Boolean value that indicates whether the element contains
+ 		/// only a part of an event or multiple events. 
         /// </summary>
         /// <remarks>
         /// If this property is false, the element represents a single, 
