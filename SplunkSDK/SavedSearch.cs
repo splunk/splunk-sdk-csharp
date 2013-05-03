@@ -37,7 +37,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// The email password.
+        /// The password to use when authenticating with the SMTP server. 
         /// </summary>
         /// <remarks>
 		/// This property's default value is the empty string.
@@ -56,7 +56,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// The email username.
+        /// The username to use when authenticating with the SMTP server.
         /// </summary>
         /// <remarks>
 		/// This property's default value is the empty string.
@@ -120,7 +120,7 @@ namespace Splunk
         {
             get
             {
-                return this.GetString("action.email.command", null);
+                return this.GetString("action.emails", null);
             }
 
             set
@@ -150,8 +150,12 @@ namespace Splunk
         }
 
         /// <summary>
-        /// The email sender's name.
+        /// The email address from which the email action originates.
         /// </summary>
+        /// <remarks>
+        /// The default is splunk@$LOCALHOST, or whatever value is set in 
+        /// alert_actions.conf.
+        /// </remarks>
         public string ActionEmailFrom
         {
             get
@@ -168,7 +172,6 @@ namespace Splunk
         /// <summary>
         /// The host name used in the web link (URL) that is sent 
         /// in email alerts.
-        /// Valid forms are "hostname" and "protocol://hostname:port".
         /// </summary>
         /// <remarks>
         /// This property's value can be in either of two forms:
@@ -176,6 +179,24 @@ namespace Splunk
         ///   <item><i>hostname</i> (for example, "splunkserver", "splunkserver.example.com")</item>
 		///   <item><i>protocol://hostname:port</i> (for example, "http://splunkserver:8000", "https://splunkserver.example.com:443")</item>
 		/// </list>
+		/// <para>
+        /// When set to a simple hostname, the protocol and port that are 
+        /// configured within Splunk are used to construct the base of the URL.
+        /// When set to 'http://...', it is used verbatim. This means the 
+        /// correct port must be specified if it is not the default port for 
+        /// http or https. This is useful in cases in which the Splunk server
+ 		/// is not aware of how to construct a URL that can be externally
+ 		/// referenced, such as single sign on (SSO) environments, other
+ 		/// proxies, or when the Splunk server hostname is not generally
+ 		/// resolvable. 
+		/// </para>
+		/// <para>This property's default value is the current hostname
+		/// provided by the operating system, or "localhost". 
+		/// </para>
+		/// <para>
+		/// When this property is set to an empty string, the default
+		/// behavior is used.
+		/// </para>
         /// </remarks>
         public string ActionEmailHostname
         {
@@ -195,7 +216,7 @@ namespace Splunk
         /// contained in the body of the email.
         /// </summary>
         /// <remarks>
-        /// This property's default value is "false".
+        /// This property's default value is false.
         /// </remarks>
         public bool ActionEmailInline
         {
@@ -320,11 +341,20 @@ namespace Splunk
         }
 
         /// <summary>
-        /// A space-delimited list of CID fonts for handling Simplified
-        /// Chinese (gb), Traditional Chinese (cns), Japanese (jp), and Korean
-        /// (kor) in integrated PDF rendering. 
+        /// A space-delimited list of character-identified (CID)
+ 		/// fonts for handling some Asian languages in integrated PDF
+ 		/// rendering.
         /// </summary>
         /// <remarks>
+		/// <para>
+		/// The fonts that can be listed include the following:
+		/// <list>
+		/// <item><b>gb</b>: Simplified Chinese</item>
+		/// <item><b>cns</b>: Traditional Chinese</item>
+		/// <item><b>jp</b>: Japanese</item>
+		/// <item><b>kor</b>: Korean</item>
+		/// </list>
+		/// </para>
         /// <para>If multiple fonts provide a glyph for a given character code, the
         /// glyph from the first font specified in the list is used.</para> 
         /// <para>To skip loading any CID fonts, specify an empty string.</para>
@@ -418,7 +448,7 @@ namespace Splunk
         /// enabled.
         /// </summary>
         /// <remarks>
-        /// This property's default value is "false".
+        /// This property's default value is false.
         /// </remarks>
         public bool ActionEmailReportServerEnabled
         {
@@ -460,7 +490,7 @@ namespace Splunk
         /// results in PDF format.
         /// </summary>
         /// <remarks>
-        /// This property's default value is "false".
+        /// This property's default value is false.
         /// </remarks>
         public bool ActionEmailSendPdf
         {
@@ -479,8 +509,12 @@ namespace Splunk
         /// A Boolean value that indicates whether search results are 
         /// attached to an email.
         /// </summary>
+		/// <para>
+		/// Results can be either attached or inline. For more information,
+		/// see <see cref="ActionEmailInline"/>.
+		/// </para>
         /// <remarks>
-        /// This property's default value is "false".
+        /// This property's default value is false.
         /// </remarks>
         public bool ActionEmailSendResults
         {
@@ -536,7 +570,7 @@ namespace Splunk
         /// action results in a trackable alert.
         /// </summary>
         /// <remarks>
-        /// This property's default value is "false".
+        /// This property's default value is false.
         /// </remarks>
         public bool ActionEmailTrackAlert
         {
@@ -586,7 +620,7 @@ namespace Splunk
         /// (SSL) when communicating with the SMTP server.
         /// </summary>
         /// <remarks>
-        /// This property's default value is "false".
+        /// This property's default value is false.
         /// </remarks>
         public bool ActionEmailUseSsl
         {
@@ -606,7 +640,7 @@ namespace Splunk
         /// security (TLS) when communicating with the SMTP server.
         /// </summary>
         /// <remarks>
-        /// This property's default value is "false".
+        /// This property's default value is false.
         /// </remarks>
         public bool ActionEmailUseTls
         {
@@ -626,8 +660,10 @@ namespace Splunk
         /// from least wide to most wide, left to right.
         /// </summary>
         /// <remarks>
-        /// <para>This value is only used when the <see cref="ActionEmailFormat"/>
-        /// property is set to "plain".</para>
+        /// <para>
+		/// This property is only used when the <see cref="ActionEmailFormat"/>
+        /// property is set to "plain".
+		/// </para>
         /// <para>This property's default value is "true".</para>
         /// </remarks>
         public bool ActionEmailWidthSortColumns
@@ -800,11 +836,13 @@ namespace Splunk
         /// The search command (or pipeline) that runs the action.
         /// </summary>
         /// <remarks>
+		/// <para>
         /// Generally the command is a template search pipeline that is
         /// realized with values from the saved search. To reference saved
         /// search field values, wrap them in the '$' symbol. For example, to
         /// reference the saved search <i>name</i> use $name$; to reference
         /// <i>search</i> use $search$.
+		/// </para>
 		/// </remarks>
         public string ActionRssCommand
         {
@@ -832,6 +870,24 @@ namespace Splunk
         ///     "http://splunkserver:8000", 
         ///     "https://splunkserver.example.com:443")</item>
 		/// </list>
+		/// <para>
+        /// When set to a simple hostname, the protocol and port that are 
+        /// configured within Splunk are used to construct the base of the URL.
+        /// When set to 'http://...', it is used verbatim. This means the 
+        /// correct port must be specified if it is not the default port for 
+        /// http or https. This is useful in cases in which the Splunk server
+ 		/// is not aware of how to construct a URL that can be externally
+ 		/// referenced, such as single sign on (SSO) environments, other
+ 		/// proxies, or when the Splunk server hostname is not generally
+ 		/// resolvable. 
+		/// </para>
+		/// <para>This property's default value is the current hostname
+		/// provided by the operating system, or "localhost". 
+		/// </para>
+		/// <para>
+		/// When this property is set to an empty string, the default
+		/// behavior is used.
+		/// </para>
         /// </remarks>
         public string ActionRssHostname
         {
@@ -992,6 +1048,24 @@ namespace Splunk
         ///     "http://splunkserver:8000", 
         ///     "https://splunkserver.example.com:443")</item>
 		/// </list>
+		/// <para>
+        /// When set to a simple hostname, the protocol and port that are 
+        /// configured within Splunk are used to construct the base of the URL.
+        /// When set to 'http://...', it is used verbatim. This means the 
+        /// correct port must be specified if it is not the default port for 
+        /// http or https. This is useful in cases in which the Splunk server
+ 		/// is not aware of how to construct a URL that can be externally
+ 		/// referenced, such as single sign on (SSO) environments, other
+ 		/// proxies, or when the Splunk server hostname is not generally
+ 		/// resolvable. 
+		/// </para>
+		/// <para>This property's default value is the current hostname
+		/// provided by the operating system, or "localhost". 
+		/// </para>
+		/// <para>
+		/// When this property is set to an empty string, the default
+		/// behavior is used.
+		/// </para>
         /// </remarks>
         public string ActionScriptHostname
         {
@@ -1153,6 +1227,24 @@ namespace Splunk
         ///     "http://splunkserver:8000", 
         ///     "https://splunkserver.example.com:443")</item>
 		/// </list>
+		/// <para>
+        /// When set to a simple hostname, the protocol and port that are 
+        /// configured within Splunk are used to construct the base of the URL.
+        /// When set to 'http://...', it is used verbatim. This means the 
+        /// correct port must be specified if it is not the default port for 
+        /// http or https. This is useful in cases in which the Splunk server
+ 		/// is not aware of how to construct a URL that can be externally
+ 		/// referenced, such as single sign on (SSO) environments, other
+ 		/// proxies, or when the Splunk server hostname is not generally
+ 		/// resolvable. 
+		/// </para>
+		/// <para>This property's default value is the current hostname
+		/// provided by the operating system, or "localhost". 
+		/// </para>
+		/// <para>
+		/// When this property is set to an empty string, the default
+		/// behavior is used.
+		/// </para>
         /// </remarks>
         public string ActionSummaryIndexHostname
         {
@@ -1172,9 +1264,14 @@ namespace Splunk
         /// indexing action as part of the scheduled search.
         /// </summary>
         /// <remarks>
-        /// This property is only considered if the summary index action is
+		/// <para>
+        /// This property is only considered if the summary-index action is
         /// enabled and is always executed—that is, if <b>counttype =
         /// always</b>.
+		/// </para>
+		/// <para>
+		/// This property's default value is true.
+		/// </para>
         /// </remarks>
         public bool ActionSummaryIndexInline
         {
@@ -1450,7 +1547,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// The alert comparator. 
+        /// The alert comparator for alert triggering. 
         /// </summary>
         /// <remarks>
         /// <para>
@@ -2344,10 +2441,10 @@ namespace Splunk
         /// Disabled searches are not visible in Splunk Web.
         /// </para>
         /// <para>
-        /// This property is write-only.
+        /// This property's default value is false.
         /// </para>
         /// <para>
-        /// This property's default value is false.
+        /// This property is write-only.
         /// </para>
         /// </remarks>
         public bool Disabled
