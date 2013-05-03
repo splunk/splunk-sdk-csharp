@@ -21,8 +21,9 @@ using System.Xml.Serialization;
 namespace Splunk.ModularInputs
 {
     /// <summary>
-    /// Base class for input definition that Splunk sends to modular input 
-    /// to start event streaming.
+    /// The <see cref="ConfigurationItemBase"/> class is the base class for
+ 	/// input definition that Splunk sends to modular input to start event
+ 	/// streaming.
     /// </summary>
     public class ConfigurationItemBase
     {
@@ -38,7 +39,14 @@ namespace Splunk.ModularInputs
         private Dictionary<string, string> singleValueParameters;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ConfigurationItemBase" /> class,
+        /// Single value parameters keyed 
+        /// by name in the input definition item.
+        /// </summary>
+        private Dictionary<string, string> singleValueParameters;
+
+        /// <summary>
+        /// Initializes a new instance of the 
+		/// <see cref="ConfigurationItemBase" /> class.
         /// </summary>
         internal ConfigurationItemBase()
         {
@@ -65,12 +73,12 @@ namespace Splunk.ModularInputs
         public List<MultiValueParameter> MultiValueParameterXmlElements { get; set; }
 
         /// <summary>
-        ///     Single value parameters keyed by name
+        ///     Single value parameters keyed by name in the item.
         ///     in the item.
         /// </summary>
         // This method is provided to make it easier to retrieve single value
         // parameters. It is a much more common case than multi value 
-        // parameters. Splunk auto generated modular input UI does not
+        // parameters. Splunk auto-generated modular input UI does not
         // support multi value parameters.
         public IDictionary<string, string> SingleValueParameters
         {
@@ -88,8 +96,7 @@ namespace Splunk.ModularInputs
         }
 
         /// <summary>
-        ///     Parameters keyed by name
-        ///     in the item.
+        /// Parameters keyed by name in the item.
         /// </summary>
         public IDictionary<string, ParameterBase.ValueBase> Parameters
         {

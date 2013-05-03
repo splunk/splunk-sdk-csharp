@@ -22,19 +22,16 @@ using System.Xml.Serialization;
 namespace Splunk.ModularInputs
 {
     /// <summary>
-    ///     This class is used to parse 
-    ///     and access the XML data
-    ///     defining the input from Splunk.
-    /// <remarks>
-    ///     When Splunk executes a modular input script
-    ///     to stream events into Splunk,
-    ///     it reads configuration information from
-    ///     inputs.conf files in the system.  It then passes
-    ///     this configuration in XML format to
-    ///     the script.  The modular input script reads
-    ///     the configuration information from stdin.
-    /// </remarks>
+    /// The <see cref="InputDefinition"/> class is used to parse and access
+    /// the XML data that defines the input from Splunk.
     /// </summary>
+    /// <remarks>
+    /// When Splunk executes a modular input script to stream events into
+    /// Splunk, it reads configuration information from inputs.conf files in
+    /// the system. It then passes this configuration in XML format to the
+    /// script. The modular input script reads the configuration information
+    /// from stdin.
+    /// </remarks>
     [XmlRoot("input")]
     public class InputDefinition : InputDefinitionBase
     {
@@ -70,23 +67,23 @@ namespace Splunk.ModularInputs
         //</input>
 
         /// <summary>
-        ///     A dictionary of stanzas keyed by stanza name.
+        /// A dictionary of stanzas keyed by stanza name.
         /// </summary>
         private Dictionary<string, Stanza> stanzas;
 
         /// <summary> 
-        ///     The stanza elements in the configuration element.
+        /// The stanza elements in the configuration element.
         /// </summary>
-        /// <remarks>
-        ///     This property is read-only. 
-        /// </remarks>
         [XmlArray("configuration")]
         [XmlArrayItem("stanza")]
         public List<Stanza> StanzaXmlElements { get; set; }
 
         /// <summary>
-        ///     A dictionary of Stanzas keyed by stanza's name.
+        ///  A dictionary of Stanzas keyed by stanza's name.
         /// </summary>
+        /// <remarks>
+        /// This property is read-only. 
+        /// </remarks>
         public IDictionary<string, Stanza> Stanzas
         {
             get
@@ -101,11 +98,14 @@ namespace Splunk.ModularInputs
         }
 
         /// <summary>
-        ///     The stanza in the input definition.
-        ///     If there are more than one stanza, this method will fail.
+        /// The stanza in the input definition.
         /// </summary>
+        /// <remarks>
+        /// <para>If there is more than one stanza, this method will fail.</para>
+		/// <para>This property is read-only.</para>
+        /// </remarks>
         // This method is provided since it is very common to have only one.
-        // That is the case when UseSingleInstance is true.
+        // That is the case when <see cref="UseSingleInstance"/> is true.
         public Stanza Stanza
         {
             get

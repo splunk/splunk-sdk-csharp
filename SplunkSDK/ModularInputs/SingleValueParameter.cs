@@ -19,7 +19,8 @@ using System.Xml.Serialization;
 namespace Splunk.ModularInputs
 {
     /// <summary>
-    /// Represents a parameter that contains a single value.
+    /// The <see cref="SingleValueParameter"/> class represents a parameter
+ 	/// that contains a single value.
     /// </summary>
     [XmlRoot("param")]
     public class SingleValueParameter : ParameterBase
@@ -28,7 +29,7 @@ namespace Splunk.ModularInputs
         // <param name="param1">value1</param>
      
         /// <summary>
-        /// The value of the parameter 
+        /// The value of the parameter.
         /// </summary>
         /// <remarks>
         /// This value is used for XML serialization and deserialization.
