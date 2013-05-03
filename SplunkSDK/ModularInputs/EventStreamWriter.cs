@@ -20,7 +20,8 @@ using System.Xml;
 namespace Splunk.ModularInputs
 {
     /// <summary>
-    /// Writes an event to stdout using the XML streaming mode.
+    /// The <see cref="EventStreamWriter"/> class writes an event to stdout
+ 	/// using the XML streaming mode.
     /// </summary>
     public class EventStreamWriter : IDisposable
     {
@@ -30,7 +31,8 @@ namespace Splunk.ModularInputs
         private XmlTextWriter xmlWriter = new XmlTextWriter(Console.Out);
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EventStreamWriter" /> class.
+        /// Initializes a new instance of the <see cref="EventStreamWriter" />
+ 		/// class.
         /// </summary>
         public EventStreamWriter()
         {
@@ -58,6 +60,20 @@ namespace Splunk.ModularInputs
         /// <param name="eventElement">A event element.</param>
         public void Write(EventElement eventElement)
         {
+            //XML Example:
+            //<stream>
+            //  <event>
+            //      <index>sdk-tests2</index>
+            //      <sourcetype>test sourcetype</sourcetype>
+            //      <source>test source</source>
+            //      <host>test host</host>
+            //      <data>Event with all default fields set</data>
+            //  </event>
+            //  <event stanza="modular_input://UnitTest2" unbroken="1">
+            //      <data>Part 1 of channel 2 without a newline </data>
+            //  </event>
+            //</stream>
+
             xmlWriter.WriteStartElement("event");
 
             var stanza = eventElement.Stanza;
@@ -116,6 +132,8 @@ namespace Splunk.ModularInputs
         /// <returns>The UTC timestamp.</returns>
         private static string ConvertTimeToUtcUnixTimestamp(DateTime dateTime)
         {
+            // Unit timestamp is seconds after a fixed date, known as 
+            // "unix timestamp epoch".
             var unixUtcEpoch =
                 new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 

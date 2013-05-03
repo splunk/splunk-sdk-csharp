@@ -15,27 +15,29 @@
  */
 
 using System;
+using System.IO;
 using System.Text;
 using System.Xml;
+using System.Xml.Serialization;
 
 namespace Splunk.ModularInputs
 {
     /// <summary>
-    /// Represents functionality of a modular input script (that is, an 
-    /// executable).
+    /// The <see cref="Script"/> class represents the functionality of a
+ 	/// modular input script (that is, an executable).
     /// </summary>
     /// <remarks>
     /// <para>
-    /// An application derives from this class to define a modular input.
-    /// It must override the <see cref="Scheme"/> and 
-    /// <see cref="StreamEvents"/> methods. It can optionally override the
-    /// <see cref="Validate"/> method.
+    /// An application derives from this class to define a modular input. It
+ 	/// must override the <see cref="Scheme"/> and <see cref="StreamEvents"/>
+ 	/// methods. It can optionally override the <see cref="Validate"/> method.
     /// </para>
     /// </remarks>
     public abstract class Script
     {
         /// <summary>
-        /// The <see cref="Scheme"/> returned for introspection.
+        /// The <see cref="Scheme" /> that will be returned to Splunk for
+ 		/// introspection.
         /// </summary>
         /// <remarks>
         /// This property is read-only.
@@ -43,13 +45,15 @@ namespace Splunk.ModularInputs
         public abstract Scheme Scheme { get; }
 
         /// <summary>
-        /// Performs the action specified by the <c>args</c> parameter.
+        /// Performs the action specified by the <code>args</code> parameter.
         /// </summary>
         /// <remarks>
         /// <para>
-        /// An application should pass the <c>args</c> property of the 
-        /// <c>Main</c> method (that is, the executable's entry point)
-        /// into this method.
+        /// An application should pass the <code>args</code> parameter of the
+ 		/// <code>Main</code> method (that is, the executable's entry point)
+ 		/// into this method. If the <code>args</code> are not in the supported
+ 		/// set of values, the method will do nothing and return a non zero 
+		/// code (for instance, "1") without raising an exception.
         /// </para>
         /// <para>
         /// If the <c>args</c> are not in the supported set of values,
@@ -58,21 +62,23 @@ namespace Splunk.ModularInputs
         /// </para>
         /// </remarks>
         /// <typeparam name="T">
-        /// The application-derived type of the <see cref="Script"/>.
-        /// It must have a constructor without a parameter.
+        /// The application-derived type of the <see cref="Script"/>. It must
+ 		/// have a constructor without a parameter.
         /// </typeparam>
         /// <param name="args">
-        /// Command line arguments provided by Splunk
-        /// when it invokes the modular input script (that is, executable). 
-        /// An application should pass the <c>args</c> 
-        /// of the <c>Main</c> method (that is, the executable entry point) 
-        /// into this method.
+        /// Command line arguments provided by Splunk when it invokes the
+ 		/// modular input script (that is, executable). An application should
+ 		/// pass the <code>args</code> of the <code>Main</code> method (that
+	 	/// is, the executable entry point) into this method.
         /// </param>
         /// <returns>
-        /// Exit code, which should be used as the return value of the
-        /// <c>Main</c> method. 
-        /// A value of "0" indicates success.
+        /// Exit code, which should be used as the return value of the 
+		/// <code>Main</code> method. A value of "0" indicates success.
         /// </returns>
+        /// <remarks>
+        /// Any exceptions and internal progress messages when executing this
+ 		/// method will be logged to the splunkd log.
+        /// </remarks>
         public static int Run<T>(string[] args)
             where T : Script, new()
         {
@@ -101,7 +107,8 @@ namespace Splunk.ModularInputs
                 if (args.Length == 0)
                 {
                     Log("Reading input definition");
-                    var inputDefinition = InputConfiguration.Read(Console.In);
+                    var inputDefinition = (InputDefinition) Read(
+                        typeof(InputDefinition));
                     Log("Calling StreamEvents");
                     script.StreamEvents(inputDefinition);
                     return 0;
@@ -112,7 +119,7 @@ namespace Splunk.ModularInputs
                     if (script.Scheme != null)
                     {
                         Log("Writing introspection streme");
-                        Console.WriteLine(script.Scheme.Serialize());
+                        Console.WriteLine(Serialize(script.Scheme));
                     }
                     return 0;
                 }
@@ -124,10 +131,10 @@ namespace Splunk.ModularInputs
                     try
                     {
                         Log("Reading validation items");
-                        var validationItems = ValidationItems.Read(Console.In);
+                        var validationItems = (ValidationItems) Read(
+                            typeof(ValidationItems));
 
                         Log("Calling Validate");
-
                         if (script.Validate(validationItems, out errorMessage))
                         {
                             // Validation succeeded.
@@ -146,12 +153,7 @@ namespace Splunk.ModularInputs
                     }
 
                     // Validation failed.
-                    using (var xmlWriter = new XmlTextWriter(Console.Out))
-                    {
-                        xmlWriter.WriteStartElement("error");
-                        xmlWriter.WriteElementString("message", errorMessage);
-                        xmlWriter.WriteEndElement();
-                    }
+                    WriteValidationError(errorMessage);
                 }
             }
             catch (Exception e)
@@ -160,11 +162,60 @@ namespace Splunk.ModularInputs
             }
 
             // Return code indicating a failure.
+            // '1' has non special meaning other than it is non zero.
             return 1;
         }
 
         /// <summary>
-        /// Write an exception as a <c>LogLevel.Info</c> event into the
+        /// Writes a validation error to stdout during external validation.
+        /// </summary>
+        /// <remarks>
+		/// <para>
+ 		/// The validation error will also be displayed in the Splunk UI.
+		/// </para>
+		/// <para>
+        /// Normally an application does not need to call this method.
+        /// It will be called by <code>Script.Run</code> automatically.
+        /// </remarks>
+        /// <param name="errorMessage">The error message.</param>
+        public static void WriteValidationError(string errorMessage) 
+        {
+            // XML Example:
+            // <error><message>test message</message></error>
+            using (var xmlWriter = new XmlTextWriter(Console.Out))
+            {
+                xmlWriter.WriteStartElement("error");
+                xmlWriter.WriteElementString("message", errorMessage);
+                xmlWriter.WriteEndElement();
+            }
+        }
+
+        /// <summary>
+        /// Reads stdin and returns the parsed XML input.
+        /// </summary>
+        /// <param name="type">Type of object to parse.</param>
+        /// <returns>An object.</returns>
+        internal static object Read(Type type)
+        {
+            var x = new XmlSerializer(type);
+            return x.Deserialize(Console.In);
+        }
+
+        /// <summary>
+        /// Serializes this object to XML output. Used by unit tests.
+        /// </summary>
+        /// <param name="object">An object to serialize.</param>
+        /// <returns>The XML string.</returns>
+        internal static string Serialize(object @object)
+        {
+            var x = new XmlSerializer(@object.GetType());
+            var sw = new StringWriter();
+            x.Serialize(sw, @object);
+            return sw.ToString();
+        }
+
+        /// <summary>
+        /// Writes an exception as a <code>LogLevel.Info</code> event into the
         /// splunkd log.
         /// </summary>
         /// <param name="e">An exception.</param>
@@ -173,14 +224,10 @@ namespace Splunk.ModularInputs
             // splunkd log breaks up events with newlines, which will split
             // stack trace. Replace them with double space.
             var full = e.ToString();
-            full = full.Replace(
-                Environment.NewLine,
-                "  ");
+            full = full.Replace(Environment.NewLine, "  ");
 
             Log(
-                string.Format(
-                    "Unhandled exception: {0}",
-                    full),
+                string.Format("Unhandled exception: {0}", full),
                 LogLevel.Fatal);
         }
 
@@ -199,18 +246,22 @@ namespace Splunk.ModularInputs
         /// <summary>
         /// Streams events to Splunk through stdout.
         /// </summary>
-        /// <param name="inputConfiguration">Input configuration.</param>
-        public abstract void StreamEvents(InputConfiguration inputConfiguration);
+        /// <param name="inputDefinition">
+        /// Input definition from Splunk for this input.
+        /// </param>
+        public abstract void StreamEvents(InputDefinition inputDefinition);
 
         /// <summary>
-        /// Performs external validation.
+        /// Performs validation for configurations of a new input being
+ 		/// created.
         /// </summary>
         /// <remarks>
-        /// <para> 
+        /// <para>
         /// An application can override this method to perform custom
         /// validation logic.
         /// </para>
-        /// <param name="validationItems">Configuration data to validate.
+        /// </remarks>
+		/// <param name="validationItems">Configuration data to validate.
         /// </param>
         /// <param name="errorMessage">Message to display in UI when validation
         /// fails.</param>

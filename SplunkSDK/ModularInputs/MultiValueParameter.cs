@@ -22,16 +22,22 @@ using System.Xml.Serialization;
 namespace Splunk.ModularInputs
 {
     /// <summary>
-    /// Represents a parameter that contains a multivalue.
+    /// The <see cref="MultiValueParameter"/> class represents a parameter that
+ 	/// contains a multivalue.
     /// </summary>
     [XmlRoot("param_list")]
     public class MultiValueParameter : ParameterBase
     {
+        //XML Example:
+        //<param_list name="multiValue">
+        //<value>value1</value>
+        //<value>value2</value>
+        //</param_list>
         /// <summary>
         /// The value of the parameter.
         /// </summary>
         [XmlElement("value")]
-        public MultiValue ValueXmlElements { get; set; }
+        public Value ValueXmlElements { get; set; }
 
         /// <summary>
         /// The value of the parameter.
@@ -45,14 +51,14 @@ namespace Splunk.ModularInputs
         }
 
         /// <summary>
-        /// Represents a multivalue.
+        /// The <see cref="Value"/> class represents a multivalue.
         /// </summary>
         [SuppressMessage(
             "Microsoft.StyleCop.CSharp.DocumentationRules",
             "SA1600:ElementsMustBeDocumented",
             Justification =
                 "Internal class. Pure passthrough")]
-        public class MultiValue : ValueBase, IList<string>
+        public class Value : ValueBase, IList<string>
         {
             private readonly List<string> value = new List<string>();
 
@@ -124,9 +130,13 @@ namespace Splunk.ModularInputs
         }
 
         /// <summary>
-        /// Used for serializing and deserializing the <b>value</b> XML element 
-        /// for a multivalue parameter.
+        /// The <see cref="ValueXmlElement"/> class represents the <b>value</b> 
+		/// XML element.
         /// </summary>
+		/// <remarks>
+		/// This class is used for serializing and deserializing the
+		/// <b>value</b> XML element for a multivalue parameter.
+        /// </remarks>
         [XmlRoot("value")]
         public class ValueXmlElement
         {

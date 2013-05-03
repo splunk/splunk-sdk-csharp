@@ -21,57 +21,96 @@ using System.Xml.Serialization;
 namespace Splunk.ModularInputs
 {
     /// <summary>
-    /// Base class for input definition that Splunk sends to modular input 
-    /// to start event streaming.
+    /// The <see cref="ConfigurationItemBase"/> class is the base class for
+ 	/// input definition that Splunk sends to modular input to start event
+ 	/// streaming.
     /// </summary>
     public class ConfigurationItemBase
     {
         /// <summary>
         /// Parameter in the input definition item.
         /// </summary>
-        private Dictionary<string, ParameterBase.ValueBase> parameterByName;
+        private Dictionary<string, ParameterBase.ValueBase> parameters;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ConfigurationItemBase" /> class,
+        /// Single value parameters keyed 
+        /// by name in the input definition item.
+        /// </summary>
+        private Dictionary<string, string> singleValueParameters;
+
+        /// <summary>
+        /// Initializes a new instance of the 
+		/// <see cref="ConfigurationItemBase" /> class.
         /// </summary>
         internal ConfigurationItemBase()
         {
-            Parameters = new List<SingleValueParameter>();
-            MultiValueParameters = new List<MultiValueParameter>();
+            SingleValueParameterXmlElements = new List<SingleValueParameter>();
+            MultiValueParameterXmlElements = new List<MultiValueParameter>();
         }
 
         /// <summary>
-        /// The name of this stanza.
+        /// The name of this item.
         /// </summary>
         [XmlAttribute("name")]
         public string Name { get; set; }
 
         /// <summary>
-        /// The list of parameters for defining this stanza.
+        /// The list of parameters for defining this item.
         /// </summary>
         [XmlElement("param")]
-        public List<SingleValueParameter> Parameters { get; set; }
+        public List<SingleValueParameter> SingleValueParameterXmlElements { get; set; }
 
         /// <summary>
         /// The list of multi value parameters for defining this stanza.
         /// </summary>
         [XmlElement("param_list")]
-        public List<MultiValueParameter> MultiValueParameters { get; set; }
+        public List<MultiValueParameter> MultiValueParameterXmlElements { get; set; }
 
         /// <summary>
-        /// A parameter in the input definition item.
+        /// Single value parameters keyed by name in the item.
         /// </summary>
-        public IDictionary<string, ParameterBase.ValueBase> ParameterByName
+        // This method is provided to make it easier to retrieve single value
+        // parameters. It is a much more common case than multi value 
+        // parameters. Splunk auto-generated modular input UI does not
+        // support multi value parameters.
+        public IDictionary<string, string> SingleValueParameters
         {
             get
             {
-                if (parameterByName == null)
+                if (singleValueParameters == null)
                 {
-                    parameterByName = Parameters
-                        .Concat<ParameterBase>(MultiValueParameters)
-                        .ToDictionary(p => p.Name, p => p.ValueAsBaseType);
+                    singleValueParameters = SingleValueParameterXmlElements
+                        .ToDictionary(
+                        p => p.Name, 
+                        p => (string) (SingleValueParameter.Value) p.ValueAsBaseType);
                 }
-                return parameterByName;
+                return singleValueParameters;
+            }
+        }
+
+        /// <summary>
+        /// Parameters keyed by name in the item.
+        /// </summary>
+        public IDictionary<string, ParameterBase.ValueBase> Parameters
+        {
+            get
+            {
+                if (parameters == null)
+                {
+                    var list = new List<ParameterBase>();
+
+                    list.AddRange(
+                        SingleValueParameterXmlElements.Select(
+                            p => (ParameterBase) p));
+
+                    list.AddRange(
+                        MultiValueParameterXmlElements.Select(
+                            p => (ParameterBase) p));
+
+                        parameters = list.ToDictionary(
+                            p => p.Name, p => p.ValueAsBaseType);
+                }
+                return parameters;
             }
         }
     }
