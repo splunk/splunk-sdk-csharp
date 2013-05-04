@@ -65,7 +65,7 @@ namespace Splunk
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
         /// <returns>The <see cref="Args"/>.</returns>
-        public new Args AlternateAdd(string key, object value) 
+        public Args AlternateAdd(string key, object value) 
         {
             base[key] = value;
             return this;
