@@ -14,8 +14,6 @@
  * under the License.
  */
 
-using System;
-
 namespace Splunk
 {
     /// <summary>
@@ -38,14 +36,11 @@ namespace Splunk
         }
 
         /// <summary>
-        /// The maximum number of timeline buckets.
+        /// Sets the maximum number of timeline buckets.
         /// </summary>
         /// <remarks>
         /// <para>
         /// This property's default value is "0".
-        /// </para>
-        /// <para>
-        /// This property is write-only.
         /// </para>
         /// </remarks>        
         public int DispatchBuckets
@@ -54,30 +49,48 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Specifies the earliest time for this search. This value can be a relative or absolute time. If this value is an absolute time, use <see cref="DispatchTimeFormat"/>
+        /// Sets the maximum number of timeline buckets.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This property's value can be a relative or absolute time. If it
+        /// is an absolute time, use the <see cref="DispatchTimeFormat"/> to
+        /// format the value.
+        /// </para>
+        /// </remarks>
         public string DispatchEarliestTime
         {
-            set { this["dispatch.earliest_time"] = value; }
+            set
+            {
+                this["dispatch.earliest_time"] = value;
+            }
         }
 
         /// <summary>
-        /// Specifies the latest time for this search. This value can be a relative or absolute time. If this value is an absolute time, use <see cref="DispatchTimeFormat"/>
+        /// Sets a time string that specifies the latest time for this search.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This property's value can be a relative or absolute time. If it
+        /// is an absolute time, use the <see cref="DispatchTimeFormat"/> to
+        /// format the value.
+        /// </para>
+        /// </remarks>
         public string DispatchLatestTime
         {
-            set { this["dispatch.latest_time"] = value; }
+            set
+            {
+                this["dispatch.latest_time"] = value;
+            }
         }
 
         /// <summary>
-        /// A Boolean value that indicates whether lookups are enabled for this 
+        /// Sets a value indicating whether lookups are enabled for 
+        /// this search.
         /// </summary>
         /// <remarks>
         /// <para>
         /// This property's default value is true.
-        /// </para>
-        /// <para>
-        /// This property is write-only.
         /// </para>
         /// </remarks>
         public bool DispatchLookups
@@ -102,7 +115,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// An integer value that specifies how frequently Splunk runs the
+        /// Sets an integer value that specifies how frequently Splunk runs the
         /// MapReduce reduce phase on accumulated map values.
         /// </summary>
         /// <remarks>
@@ -132,7 +145,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Indicates whether to back fill the real-time window for this search. 
+        /// Sets a value indicating whether to back fill the real-time window for this search. 
         /// This value only applies to real-time searches.
         /// </summary>
         public bool DispatchRealTimeBackfill
@@ -141,7 +154,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Indicates whether the search should run in a separate spawned process. Searches against indexes must run in a separate process.
+        /// Sets a value indicating whether the search should run in a separate spawned process. Searches against indexes must run in a separate process.
         /// </summary>
         public bool DispatchSpawnProcess
         {
@@ -149,7 +162,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// A time format string that defines the time format used to
+        /// Sets a time format string that defines the time format used to
         /// specify the earliest and latest times for this search.
         /// </summary>
         /// <remarks>
@@ -166,7 +179,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// The time to live (TTL) for the artifacts of the scheduled 
+        /// Sets the time to live (TTL) for the artifacts of the scheduled 
         /// search (the time before the search job expires and artifacts are 
         /// still available), if no actions are triggered.
         /// </summary>
@@ -192,7 +205,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Indicates whether to trigger alert actions.
+        /// Sets a value indicating whether to trigger alert actions.
         /// </summary>
         public bool TriggerActions
         {
@@ -200,7 +213,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Indicates whether to start a new search, even if another instance of this search is already running.
+        /// Sets a value indicating whether to start a new search, even if another instance of this search is already running.
         /// </summary>
         public bool ForceDispatch
         {
@@ -375,7 +388,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a Boolean value that indicates whether the search results are 
+        /// Sets a Boolean value that indicating whether the search results are 
         /// contained in the body of the email.
         /// </summary>
         /// <remarks>
@@ -392,7 +405,7 @@ namespace Splunk
 
         /// <summary>
         /// Sets the address of the SMTP server that is used to send the 
-		/// emails, in the form &lt;<i>host</i>&gt;[:&lt;<i>port</i>&gt;]. 
+        /// emails, in the form &lt;<i>host</i>&gt;[:&lt;<i>port</i>&gt;]. 
         /// </summary>
         /// <remarks>
         /// <para>&lt;<i>host</i>&gt; can be either the hostname or the IP
@@ -430,7 +443,7 @@ namespace Splunk
 
         /// <summary>
         /// Sets the maximum amount of time an email action takes before the 
-		/// action is canceled. 
+        /// action is canceled. 
         /// </summary>
         /// <remarks>
         /// <para>The property value's valid format is an <i>integer</i>
@@ -539,7 +552,7 @@ namespace Splunk
 
         /// <summary>
         /// Sets the URL of the PDF report server, if one is set up and 
-		/// available on the network.
+        /// available on the network.
         /// </summary>
         /// <remarks>
         /// <para>
@@ -646,7 +659,7 @@ namespace Splunk
 
         /// <summary>
         /// Sets the minimum time-to-live (TTL), in seconds, of search 
-		/// artifacts if this email action is triggered. 
+        /// artifacts if this email action is triggered. 
         /// </summary>
         /// <remarks>
         /// <para>
@@ -671,7 +684,7 @@ namespace Splunk
 
         /// <summary>
         /// Sets a Boolean value that indicates whether to use secure socket 
-		/// layer (SSL) when communicating with the SMTP server.
+        /// layer (SSL) when communicating with the SMTP server.
         /// </summary>
         /// <remarks>
         /// <para>
@@ -705,7 +718,7 @@ namespace Splunk
 
         /// <summary>
         /// Sets a Boolean value that indicates whether columns should be 
-		/// sorted from least wide to most wide, left to right.
+        /// sorted from least wide to most wide, left to right.
         /// </summary>
         /// <remarks>
         /// <para>This property is only used when the
@@ -792,7 +805,7 @@ namespace Splunk
 
         /// <summary>
         /// Sets the maximum number of search results to send in 
-		/// populate-lookup alerts.
+        /// populate-lookup alerts.
         /// </summary>
         /// <remarks>
         /// <para>
@@ -809,7 +822,7 @@ namespace Splunk
 
         /// <summary>
         /// Sets the maximum amount of time an alert action takes before the 
-		/// action is canceled. 
+        /// action is canceled. 
         /// </summary>
         /// <remarks>
         /// <para>The property value's valid format is an <i>integer</i>
@@ -830,7 +843,7 @@ namespace Splunk
 
         /// <summary>
         /// Sets a Boolean value that indicates whether running this 
-		/// populate-lookup action results in a trackable alert.
+        /// populate-lookup action results in a trackable alert.
         /// </summary>
         public bool ActionPopulateLookupTrackAlert
         {
@@ -842,7 +855,7 @@ namespace Splunk
 
         /// <summary>
         /// Sets the minimum time-to-live (TTL), in seconds, of search 
-		/// artifacts if this populate-lookup action is triggered. 
+        /// artifacts if this populate-lookup action is triggered. 
         /// </summary>
         /// <remarks>
         /// <para>If the value is a number followed by "p", it is the number of
@@ -1616,7 +1629,7 @@ namespace Splunk
 
         /// <summary>
         /// Sets a Boolean value that indicates whether the saved search is 
-		/// disabled. 
+        /// disabled. 
         /// </summary>
         /// <remarks>
         /// <para>
@@ -1633,47 +1646,8 @@ namespace Splunk
                 this["disabled"] = value;
             }
         }
-     
-        /// <summary>
-        /// Sets the maximum number of timeline buckets.
-        /// Sets a time string that specifies the earliest time for this search.
-        /// </summary>
-        /// <remarks>
-        /// <para>
-        /// This property's value can be a relative or absolute time. If it
-        /// is an absolute time, use the <see cref="DispatchTimeFormat"/> to
-        /// format the value.
-        /// </para>
-        /// </remarks>
-        public string DipatchEarliestTime
-        {
-            set
-            {
-                this["dispatch.earliest_time"] = value;
-            }
-        }
 
         /// <summary>
-        /// Sets a time string that specifies the latest time for this search.
-        /// </summary>
-        /// <remarks>
-        /// <para>
-        /// This property's value can be a relative or absolute time. If it
-        /// is an absolute time, use the <see cref="DispatchTimeFormat"/> to
-        /// format the value.
-        /// </para>
-        /// </remarks>
-        public string DipatchLatestTime
-        {
-            set
-            {
-                this["dispatch.latest_time"] = value;
-            }
-        }
-
-        /// <summary>
-        /// Sets a Boolean value that indicates whether lookups are enabled for 
-		/// this search.
         /// Sets the maximum number of results before finalizing the search. 
         /// </summary>
         /// <remarks>
@@ -1690,7 +1664,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// The maximum amount of time in seconds before finalizing the search.
+        /// Sets the maximum amount of time in seconds before finalizing the search.
         /// </summary>
         /// <remarks>
         /// <para>
@@ -1707,8 +1681,6 @@ namespace Splunk
 
         /// <summary>
         /// Sets an integer value that specifies how frequently Splunk runs the
-        /// Sets a Boolean value that indicates whether to backfill the 
-        /// Sets a Boolean value that indicates whether Splunk spawns a new 
         /// search process when running this saved search.
         /// </summary>
         /// <remarks>
@@ -1728,10 +1700,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a time format string that defines the time format used to
-        /// Sets the time to live (TTL) for the artifacts of the scheduled 
         /// Sets the default UI view name (not label) in which to load the 
-		/// results.
+        /// results.
         /// </summary>
         /// <remarks>
         /// <para>
@@ -1748,7 +1718,7 @@ namespace Splunk
 
         /// <summary>
         /// Sets a Boolean value that indicates whether this search is run 
-		/// on a schedule.
+        /// on a schedule.
         /// </summary>
         public bool IsScheduled
         {
@@ -1877,7 +1847,7 @@ namespace Splunk
         /// <remarks>
         /// <para>
         /// If the search is not run on startup, it runs at the next scheduled 
-		/// time.
+        /// time.
         /// </para>
         /// <para>
         /// Splunk recommends that you set this property to true for scheduled
