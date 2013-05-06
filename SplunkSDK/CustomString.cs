@@ -33,8 +33,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the alue of the custom string
+        /// Gets the value of the custom string
         /// </summary>
-        public string Value { get; set; }
+        public string Value { get; private set; }
     }
 }

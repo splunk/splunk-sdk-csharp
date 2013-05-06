@@ -408,7 +408,7 @@ namespace Splunk
                 }
                 catch (Exception e)
                 {
-                    System.Console.WriteLine("Excetion: " + e.Message);
+                    System.Console.WriteLine("Exception: " + e.Message);
                 }
             }
 

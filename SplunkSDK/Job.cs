@@ -857,7 +857,7 @@ namespace Splunk
         /// Returns the InputStream IO handle for the results from this job, 
         /// adding optional parameters.
         /// </summary>
-        /// <param name="args">The variable arguments.</param>
+        /// <param name="args">The optional parameters.</param>
         /// <returns>The results InputStream IO handle.</returns>
         public Stream Results(Args args) 
         {
@@ -869,7 +869,7 @@ namespace Splunk
         /// Returns the InputStream IO handle for the results from this job, 
         /// adding optional parameters.
         /// </summary>
-        /// <param name="args">The variable arguments.</param>
+        /// <param name="args">The optional parameters.</param>
         /// <returns>The results InputStream IO handle.</returns>
         public Stream Results(JobResultsArgs args)
         {

@@ -2542,6 +2542,16 @@ namespace Splunk
         }
 
         /// <summary>
+        /// Runs the saved search using dispatch arguments.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns>The job.</returns>
+        public Job Dispatch(SavedSearchDispatchArgs args)
+        {
+            return this.Dispatch((Args) args);
+        }
+
+        /// <summary>
         /// Returns an array of search jobs created from this saved search.
         /// </summary>
         /// <returns>An array of jobs.</returns>

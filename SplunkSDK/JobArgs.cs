@@ -14,11 +14,9 @@
  * under the License.
  */
 
-using System.Text;
-
 namespace Splunk
 {
-    using System;
+    using System.Text;
 
     /// <summary>
     /// The <see cref="JobArgs"/> class extends <see cref="Args"/> for Job

@@ -363,7 +363,6 @@ namespace UnitTests
                     });
         }
 
-
         /// <summary>
         /// Tests all search modes for export
         /// </summary>

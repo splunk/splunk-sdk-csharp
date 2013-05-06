@@ -23,21 +23,7 @@ namespace Splunk
     ///     Class to host extension method to get enum custom string.
     /// </summary>
     internal static class ExtenstionMethods
-    {
-        /// Unit timestamp is seconds after a fixed date, known as 
-        /// "unix timestamp epoch".
-        private static readonly DateTime unixUtcEpoch =
-            new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-
-        /// <summary>
-        /// Time format used by Splunk.
-        /// </summary>
-        // Documented format:        "%FT%T.%Q%:z"
-        // strftime original format: "%FT%T.%Q%:z"
-        // strftime expanded format: "%Y-%m-%dT%H:%M:%S.%Q%:z"
-        private const string SplunkDateTimeFormatString =
-            "yyyy-MM-dd HH:mm:ss.fffK"; 
-        
+    {      
         /// <summary>
         ///     Get the custom string for the Ennm value
         /// </summary>
@@ -54,31 +40,6 @@ namespace Splunk
 
             // Return the first if there was a match.
             return attribs.Length > 0 ? attribs[0].Value : null;
-        }
-
-        /// <summary>
-        ///     Get the custom string for the Ennm value
-        /// </summary>
-        /// <param name="value">The enum value</param>
-        /// <returns>The custom string</returns>
-        internal static string ToUtcUnixTimestamp(this DateTime value)
-        {
-            var utcTime = TimeZoneInfo.ConvertTimeToUtc(value);
-
-            return (utcTime - unixUtcEpoch).TotalSeconds.ToString();       
-        }
-
-        /// <summary>
-        ///     Get the custom string for the Ennm value
-        /// </summary>
-        /// <param name="value">The enum value</param>
-        /// <returns>The custom string</returns>
-        internal static DateTime DateTimeFromtUtcUnixTimestamp(this string value)
-        {
-            return DateTime.ParseExact(
-                value,
-                SplunkDateTimeFormatString,
-                CultureInfo.InvariantCulture);
         }
     }
 }
