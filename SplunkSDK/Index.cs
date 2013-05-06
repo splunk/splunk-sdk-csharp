@@ -557,6 +557,42 @@ namespace Splunk
         }
 
         /// <summary>
+        /// Gets or sets the upper limit, in seconds, on how long an event can 
+        /// sit unacknowledged in raw slice. 
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This property applies only when indexer acknowledgement 
+        /// is enabled on forwarders and replication is enabled with clustering.  
+        /// </para>
+        /// <para>
+        /// This property's highest legal value is "2147483647".
+        /// </para>
+        /// <para> 
+        /// To disable this parameter, set this property to "0".
+        /// </para>
+        /// <para>
+        /// Be aware that this is an advanced parameter. Understand the 
+        /// consequences before changing. 
+        /// </para>
+        /// <para>
+        /// This property is available in Splunk 5.0 and later.
+        /// </para>
+        /// </remarks>
+        public int MaxTimeUnreplicatdWithAcks
+        {
+            get
+            {
+                return this.GetInteger("maxTimeUnreplicatedNoAcks", -1);
+            }
+
+            set
+            {
+                this.SetCacheValue("maxTimeUnreplicatedNoAcks", value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the maximum size for this index.
         /// </summary>
         /// <remarks>
