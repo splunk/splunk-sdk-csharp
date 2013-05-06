@@ -583,12 +583,12 @@ namespace Splunk
         {
             get
             {
-                return this.GetInteger("maxTimeUnreplicatedNoAcks", -1);
+                return this.GetInteger("maxTimeUnreplicatedWithAcks", -1);
             }
 
             set
             {
-                this.SetCacheValue("maxTimeUnreplicatedNoAcks", value);
+                this.SetCacheValue("maxTimeUnreplicatedWithAcks", value);
             }
         }
 
