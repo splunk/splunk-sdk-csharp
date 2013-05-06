@@ -579,7 +579,7 @@ namespace Splunk
         /// This property is available in Splunk 5.0 and later.
         /// </para>
         /// </remarks>
-        public int MaxTimeUnreplicatdWithAcks
+        public int MaxTimeUnreplicatedWithAcks
         {
             get
             {
