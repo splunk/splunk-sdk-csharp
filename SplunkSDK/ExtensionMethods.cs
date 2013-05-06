@@ -16,6 +16,7 @@
 
 using System;
 using System.Globalization;
+using System.Text;
 
 namespace Splunk
 {
@@ -40,6 +41,27 @@ namespace Splunk
 
             // Return the first if there was a match.
             return attribs.Length > 0 ? attribs[0].Value : null;
+        }
+
+        /// <summary>
+        /// Get comma seperated elements in the array.
+        /// </summary>
+        /// <param name="value">The array</param>
+        /// <returns>
+        /// A string consisting of comma seperated values
+        /// </returns>
+        internal static string GetCsv(this string[] value)
+        {
+            var csv = new StringBuilder();
+            for (int i = 0, n = value.Length; i < n; i++)
+            {
+                if (i != 0)
+                {
+                    csv.Append(",");
+                }
+                csv.Append(value[i]);
+            }
+            return csv.ToString();
         }
     }
 }

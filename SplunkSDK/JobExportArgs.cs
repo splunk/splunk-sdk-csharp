@@ -268,17 +268,7 @@ namespace Splunk
                 // string[] will be encoded as multiple occurances
                 // of the same parameter of the value set. That is not 
                 // what we want.
-                var csv = new StringBuilder();
-                for (int i = 0, n = value.Length; i < n; i++) 
-                {
-                    if (i != 0)
-                    {
-                        csv.Append(",");
-                    }
-                    csv.Append(value[i]);
-                }
-
-                this["remote_server_list"] = csv.ToString();
+                this["remote_server_list"] = value.GetCsv();
             }
         }
 

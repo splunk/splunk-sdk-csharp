@@ -483,5 +483,30 @@ namespace UnitTests
                 action(@enum);
             }
         }
+
+        /// <summary>
+        /// Tests RemoteServerList property
+        /// </summary>
+        [TestMethod]
+        public void RemoteServerList()
+        {
+            const string paramName = "remote_server_list";
+            var array = new string[]
+                {"first", "second"};
+
+            var args1 = new JobArgs
+                {
+                    RemoteServerList = array,
+                };
+
+            Assert.AreEqual("first,second", args1[paramName]);
+
+            var args2 = new JobExportArgs
+            {
+                RemoteServerList = array,
+            };
+
+            Assert.AreEqual("first,second", args2[paramName]);
+        }
     }
 }
