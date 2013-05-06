@@ -21,15 +21,16 @@ using System.Text;
 namespace Splunk
 {
     /// <summary>
-    ///     Class to host extension method to get enum custom string.
+    /// The <see cref="ExtensionMethods"/> class hosts an extension method 
+    /// that retrieves an enum value's custom string.
     /// </summary>
-    internal static class ExtenstionMethods
+    internal static class ExtensionMethods
     {      
         /// <summary>
-        ///     Get the custom string for the Ennm value
+        /// Retrieves the custom string for the enum value.
         /// </summary>
-        /// <param name="value">The enum value</param>
-        /// <returns>The custom string</returns>
+        /// <param name="value">The enum value.</param>
+        /// <returns>The custom string.</returns>
         internal static string GetCustomString(this Enum value)
         {
             var type = value.GetType();
@@ -44,11 +45,11 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Get comma seperated elements in the array.
+        /// Retrieves comma-separated elements in an array.
         /// </summary>
-        /// <param name="value">The array</param>
+        /// <param name="value">The array.</param>
         /// <returns>
-        /// A string consisting of comma seperated values
+        /// A string of comma-separated values.
         /// </returns>
         internal static string GetCsv(this string[] value)
         {
