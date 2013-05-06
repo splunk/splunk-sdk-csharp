@@ -25,10 +25,11 @@ namespace Splunk
     public class JobArgs : Args
     {
         /// <summary>
-        /// Specifies how to create a job using the <see cref="JobCollection.Create(string, JobArgs)"/>
+        /// Specifies how to create a job using the 
+        /// <see cref="JobCollection.Create(string, JobArgs)"/>
         /// method.       
         /// </summary>
-        // C# disallow nested class to have the same name as
+        // C# disallows nested class to have the same name as
         // a property. Use 'Enum' suffix to differentiate.
         public enum ExecutionModeEnum
         {
@@ -46,7 +47,7 @@ namespace Splunk
             Blocking,
 
             /// <summary>
-            /// Runs a blocking search that is scheduled to run immediately, then 
+            /// Runs a blocking search that is scheduled to run immediately, and then 
             /// returns the results of the search once completed. 
             /// </summary>
             [CustomString("oneshot")]
@@ -54,7 +55,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Specifies how to create a job using the <see cref="JobCollection.Create(string, JobArgs)"/>
+        /// Specifies how to create a job using the 
+        /// <see cref="JobCollection.Create(string, JobArgs)"/>
         /// method.       
         /// </summary>
         // C# disallow nested class to have the same name as
@@ -68,9 +70,11 @@ namespace Splunk
             Normal,
 
             /// <summary>
-            /// Searches live data. A real-time search may also be specified by 
+            /// <para>
+            /// Searches live data. A realtime search may also be specified by 
             /// setting the "earliest_time" and "latest_time" parameters to begin 
             /// with "rt", even if the search_mode is set to "normal" or is not set. 
+            /// </para>
             /// <para>
             /// If both the "earliest_time" and "latest_time" parameters are set to 
             /// "rt", the search represents all appropriate live data that was 
@@ -88,10 +92,16 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the auto-cancel frequency check, in seconds. The default
-        /// value is 0. 
-        /// A value of zero means never auto-cancel.
+        /// Sets the auto-cancel frequency check, in seconds. 
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Setting this property to "0" indicates never auto-cancel.
+        /// </para>
+        /// <para>
+        /// This property's default value is "0". 
+        /// </para>
+        /// </remarks>
         public int AutoCancel
         {
             set
@@ -101,10 +111,20 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the auto-finalize counter. When at least these many events have
-        /// been processed, the job is finalized. The default value is 0. A
-        /// value of zero means no limit.
+        /// Sets the auto-finalize counter. 
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// When at least these many events have been processed, the
+        /// job is finalized. 
+        /// </para>
+        /// <para>
+        /// Setting this property to "0" indicates there is no limit.
+        /// </para>
+        /// <para>
+        /// This property's default value is "0". 
+        /// </para>
+        /// </remarks>
         public int AutoFinalizeEventCount
         {
             set
@@ -114,9 +134,16 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the auto-pause frequency check, in seconds. The default is 0. 
-        /// A value of zero means never auto-pause.
+        /// Sets the auto-pause frequency check, in seconds. 
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Setting this property to "0" indicates never auto-pause.
+        /// </para>
+        /// <para>
+        /// This property's default value is "0". 
+        /// </para>
+        /// </remarks>
         public int AutoPause
         {
             set
@@ -126,11 +153,13 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the inclusive earliest time bounds for the search. Note that 
-        /// although this is a time stamp, it is left as a string in order to 
-        /// support Splunk relative time format, such as "+2d" that specifies 
-        /// two days from now.
+        /// Sets the inclusive earliest time bounds for the search. 
         /// </summary>
+        /// <remarks>
+        /// Be aware that although this property's value is a time stamp,
+        /// it is left as a string to support Splunk relative time format--
+        /// for instance, "+2d", which specifies two days from now.
+        /// </remarks>
         public string EarliestTime
         {
             set
@@ -141,11 +170,18 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether lookups should be applied to
+        /// Sets a value indicating whether lookups should be applied to
         /// events.
-        /// The default value is true. Specifying true may slow searches
-        /// significantly depending on the nature of the lookups.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Setting this propery to true may slow searches
+        /// significantly, depending on the nature of the lookups.
+        /// </para>
+        /// <para>
+        /// This property's default value is true. 
+        /// </para>
+        /// </remarks>
         public bool EnableLookups
         {
             set
@@ -155,9 +191,12 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the search execution mode. Valid values are from the list, 
-        /// "blocking", "oneshot", "normal".
+        /// Sets the search execution mode. 
         /// </summary>
+        /// <remarks>
+        /// This property's valid values are any of the following keywords: 
+        /// "blocking", "oneshot", "normal".
+        /// </remarks>
         public ExecutionModeEnum ExecutionMode
         {
             set
@@ -167,10 +206,13 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether this search should cause (and
-        /// wait depending on the value of sync_bundle_replication) for bundle 
-        /// synchronization with all search peers. The default value is false.
+        /// Sets a value indicating whether this search should cause (and
+        /// wait depending on the value of sync_bundle_replication) bundle 
+        /// synchronization with all search peers. 
         /// </summary>
+        /// <remarks>
+        /// This property's default value is false.
+        /// </remarks>
         public bool ForceBundleReplication
         {
             set
@@ -180,8 +222,11 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the search ID. If unset, a random ID is generated.
+        /// Sets the search ID. 
         /// </summary>
+        /// <remarks>
+        /// If this property is not set, a random ID is generated.
+        /// </remarks>
         public string Id
         {
             set
@@ -191,11 +236,13 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the exclusive latest time bounds for the search. Note that 
-        /// although this is a time stamp, it is left as a string in order to 
-        /// support Splunk relative time format, such as "+2d" that specifies 
-        /// two days from now.
+        /// Sets the exclusive latest time bounds for the search. 
         /// </summary>
+        /// <remarks>
+        /// Be aware that although this property's value is a time stamp,
+        /// it is left as a string to support Splunk relative time format--
+        /// for instance, "+2d", which specifies two days from now.
+        /// </remarks>
         public string LatestTime
         {
             set
@@ -206,10 +253,18 @@ namespace Splunk
 
         /// <summary>
         /// Sets the number of events that can be accessible in any given status 
-        /// bucket. When a search is transformed, the maximum number of events 
-        /// to store. Specifically, in all calls, codeoffset+count
-        /// &lt;= max_count. The default is 1000. 
+        /// bucket. 
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// When a search is transformed, this property indicates the maximum number
+        /// of events to store. Specifically, in all calls, <i>codeoffset</i> + <i>count</i>
+        /// &lt;= max_count. 
+        /// </para>
+        /// <para>
+        /// This property's default value is "1000". 
+        /// </para>
+        /// </remarks>
         public int MaxCount
         {
             set
@@ -222,11 +277,18 @@ namespace Splunk
 
         /// <summary>
         /// Sets the absolute time for any relative time specifier in the 
-        /// search. Defaults to the current system time. Note that although 
-        /// this is a time stamp, it is left as a string in order to support 
-        /// Splunk relative time format, such as "+2d" that specifies two days 
-        /// from now.
+        /// search. 
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Be aware that although this property's value is a time stamp,
+        /// it is left as a string to support Splunk relative time format--
+        /// for instance, "+2d", which specifies two days from now.
+        /// </para>
+        /// <para>
+        /// This property's default value is the current system time. 
+        /// </para>
+        /// </remarks>
         public string Now
         {
             set
@@ -248,9 +310,12 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether to reload macro definitions from
-        /// macros.conf. The default value is true.
+        /// Sets a value indicating whether to reload macro definitions from
+        /// macros.conf. 
         /// </summary>
+        /// <remarks>
+        /// This property's default value is true.
+        /// </remarks>
         public bool ReloadMacros
         {
             set
@@ -261,8 +326,10 @@ namespace Splunk
 
         /// <summary>
         /// Sets a list of (possibly wildcarded) servers from which to pull raw events. 
-        /// This same server list is used in subsearches.
         /// </summary>
+        /// <remarks>
+        /// This same server list is used in subsearches.
+        /// </remarks>
         public string[] RemoteServerList
         {
             set
@@ -286,10 +353,17 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether the indexer blocks if the queue
-        /// for this search is full. This only applies to real-time searches.
-        /// The default value is false.
+        /// Sets a value indicating whether the indexer blocks if the queue
+        /// for this search is full. 
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This property only applies to real-time searches.
+        /// </para>
+        /// <para>
+        /// This property's default value is false.
+        /// </para>
+        /// </remarks>
         public bool RtBlocking
         {
             set
@@ -299,10 +373,17 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether the indexer prefilters the
-        /// events. This only applies to real-time searches. The default value
-        /// is true.
+        /// Sets a value indicating whether the indexer prefilters the
+        /// events. 
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This property only applies to real-time searches.
+        /// </para>
+        /// <para>
+        /// This property's default value is false.
+        /// </para>
+        /// </remarks>
         public bool RtIndexfilter
         {
             set
@@ -313,9 +394,17 @@ namespace Splunk
 
         /// <summary>
         /// Sets the maximum time to block, in seconds. This only applies to 
-        /// real-time searches and when rt_blocking is true. The default value 
-        /// is 60.
+        /// real-time searches and when rt_blocking is true. 
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This property only applies to real-time searches when the 
+        /// <see cref="RtBlocking"/> property is set to true.
+        /// </para>
+        /// <para>
+        /// This property's default value is "60".
+        /// </para>
+        /// </remarks>
         public int RtMaxblockSeconds
         {
             set
@@ -326,9 +415,14 @@ namespace Splunk
 
         /// <summary>
         /// Sets the queue size, in number of events, the indexer should use for
-        /// this search. This only applies for real-time searches. The default 
-        /// value is 10,000.
+        /// this search. 
         /// </summary>
+        /// <para>
+        /// This property only applies to real-time searches.
+        /// </para>
+        /// <para>
+        /// This property's default value is "10000".
+        /// </para>
         public int RtQueueSize
         {
             set
@@ -370,10 +464,17 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether the search should run in a
-        /// separate spawned process. The default value is true. 
-        /// Note: searches against indexes must run in a separate process.
+        /// Sets a value indicating whether the search should run in a
+        /// separate spawned process. 
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Be aware that searches against indexes must run in a separate process.
+        /// </para>
+        /// <para>
+        /// This property's default value is true.
+        /// </para>
+        /// </remarks>
         public bool SpawnProcess
         {
             set
@@ -383,9 +484,18 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the maximum number of buckets to create. A value of zero causes
-        /// no timeline information to be generated. The default value is 0.
+        /// Sets the maximum number of buckets to create.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Setting this property to "0" causes
+        /// no timeline information to be generated.
+        /// </para>
+        /// <para>
+        /// This property's default value is "0".
+        /// </para>
+        /// </remarks>
+        /// </remarks>
         public int StatusBuckets
         {
             set
@@ -395,7 +505,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether this search should wait for
+        /// Sets a value indicating whether this search should wait for
         /// bundle replication to complete.
         /// </summary>
         public bool SyncBundleReplication
@@ -408,8 +518,11 @@ namespace Splunk
 
         /// <summary>
         /// Sets the time format string, used to convert a formatted time string 
-        /// from {start,end}_time into UTC seconds. It defaults to ISO-8601.
+        /// from {start,end}_time into UTC seconds. 
         /// </summary>
+        /// <remarks>
+        /// This property's default value is "ISO-8601".
+        /// </remarks>
         public string TimeFormat
         {
             set
@@ -420,8 +533,11 @@ namespace Splunk
 
         /// <summary>
         /// Sets the number of seconds to keep this search after processing has 
-        /// stopped. The default is 86400 (24 hours).
+        /// stopped. 
         /// </summary>
+        /// <remarks>
+        /// This property's default value is "86400" (24 hours).
+        /// </remarks>
         public int Timeout
         {
             set
