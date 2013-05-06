@@ -43,10 +43,10 @@ namespace Splunk
         /// <summary>
         /// Gets this job's name (its SID). 
         /// </summary>
-		/// <remarks>
-		/// Be aware that this getting this property may cause a refresh from 
-		/// the server if the local copy is dirty.
-		/// </remarks>
+        /// <remarks>
+        /// Be aware that this getting this property may cause a refresh from 
+        /// the server if the local copy is "dirty."
+        /// </remarks>
         public override string Name
         {
             get
@@ -59,11 +59,11 @@ namespace Splunk
         /// <summary>
         /// Gets or sets this job's priority. 
         /// </summary>
-		/// <remarks>
-		/// Be aware that this property has the side effect of setting the 
-		/// priority immediately, and may if the data is dirty cause a 
-		/// refreshing of the data when getting the priority.
-		/// </remarks>
+        /// <remarks>
+        /// Be aware that this property has the side effect of setting the 
+        /// priority immediately, and may, if the data is "dirty." cause a 
+        /// refresh of the data when getting the priority.
+        /// </remarks>
         public int Priority
         {
             get
@@ -93,9 +93,9 @@ namespace Splunk
         /// <summary>
         /// Gets the earliest time from which no events are later scanned. 
         /// </summary>
-		/// <remarks>
-		/// Use this property as a progress indicator.
-		/// </remarks>
+        /// <remarks>
+        /// Use this property as a progress indicator.
+        /// </remarks>
         public DateTime CursorTime
         {
             get
@@ -131,10 +131,10 @@ namespace Splunk
         /// <summary>
         /// Gets the dispatch state for this job.
         /// </summary>
-		/// <remarks>
-		/// <para>
+        /// <remarks>
+        /// <para>
         /// Valid values are: QUEUED, PARSING, RUNNING, PAUSED, FINALIZING, FAILED, DONE
-		/// </para>
+        /// </para>
         /// </remarks>
         public string DispatchState
         {
@@ -149,15 +149,15 @@ namespace Splunk
         /// Gets the approximate progress of the job, in the range of 0.0 to 
         /// 1.0. 
         /// </summary>
-		/// <remarks>
-		/// <para>
-		/// The <see cref="DoneProgress"/> property is calculated as follows:
-		/// </para>
+        /// <remarks>
+        /// <para>
+        /// The <see cref="DoneProgress"/> property is calculated as follows:
+        /// </para>
         /// <para>
         /// doneProgress = (latestTime - cursorTime) / 
-		/// (latestTime - earliestTime)
+        /// (latestTime - earliestTime)
         /// </para>
-		/// </remarks>
+        /// </remarks>
         /// <seealso cref="LatestTime" />
         /// <seealso cref="CursorTime" />
         /// <seealso cref="EarliestTime" />
@@ -234,7 +234,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value that indicates whether the events from this job are 
+        /// Gets a value indicating whether the events from this job are 
         /// available by streaming or not. 
         /// </summary>
         public bool EventIsStreaming 
@@ -247,7 +247,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value that indicates whether any events from this job have
+        /// Gets a value indicating whether any events from this job have
         /// not been stored. 
         /// </summary>
         public bool EventIsTruncated 
@@ -263,10 +263,10 @@ namespace Splunk
         /// Gets the subset of the entire search that is before any transforming 
         /// commands. 
         /// </summary>
-		/// <remarks>
-		/// The original search should be the <see cref="EventSearch"/> + 
-		/// <see cref="ReportSearch"/>.
-		/// </remarks>
+        /// <remarks>
+        /// The original search should be the <see cref="EventSearch"/> + 
+        /// <see cref="ReportSearch"/>.
+        /// </remarks>
         public string EventSearch 
         {
             get
@@ -277,22 +277,22 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value that indicates how events are sorted. 
+        /// Gets a value indicating how events are sorted. 
         /// </summary>
-		/// <remarks>
-		/// <para>
-		/// Valid values are:
-		/// </para>
-		/// <para>
+        /// <remarks>
+        /// <para>
+        /// Valid values are:
+        /// </para>
+        /// <para>
         /// <b>asc</b>: oldest first
-		/// </para>
-		/// <para>
- 		/// <b>desc</b>: latest first
-		/// </para>
-		/// <para>
-		/// <b>none</b>: not sorted
-		/// </para>	
-		/// </remarks>
+        /// </para>
+        /// <para>
+        /// <b>desc</b>: latest first
+        /// </para>
+        /// <para>
+        /// <b>none</b>: not sorted
+        /// </para>	
+        /// </remarks>
         public string EventSorting 
         {
             get
@@ -306,15 +306,15 @@ namespace Splunk
         /// Gets the earliest (inclusive), respectively, time bounds for the 
         /// search, based on the index time bounds. 
         /// </summary>
-		/// <remarks>
-		/// <para>
-		/// The time string can be either a UTC time (with fractional seconds), 
-		/// a relative time specifier (to now) or a formatted time string. 
-		/// </para>
-		/// <para>
-		/// This property was introduced in Splunk 5.0.
-		/// </para>
-		/// </remarks>
+        /// <remarks>
+        /// <para>
+        /// The time string can be either a UTC time (with fractional seconds), 
+        /// a relative time specifier (to now) or a formatted time string. 
+        /// </para>
+        /// <para>
+        /// This property was introduced in Splunk 5.0.
+        /// </para>
+        /// </remarks>
         public string IndexEarliest
         {
             get
@@ -328,15 +328,15 @@ namespace Splunk
         /// Gets the latest (exclusive), respectively, time bounds for the 
         /// search, based on the index time bounds. 
         /// </summary>
-		/// <remarks>
-		/// <para>
-		/// The time string can be either a UTC time (with fractional seconds), 
-		/// a relative time specifier (to now) or a formatted time string. 
-		/// </para>
-		/// <para>
-		/// This property was introduced in Splunk 5.0.
-		/// </para>
-		/// </remarks>
+        /// <remarks>
+        /// <para>
+        /// The time string can be either a UTC time (with fractional seconds), 
+        /// a relative time specifier (to now) or a formatted time string. 
+        /// </para>
+        /// <para>
+        /// This property was introduced in Splunk 5.0.
+        /// </para>
+        /// </remarks>
         public string IndexLatest
         {
             get
@@ -349,9 +349,8 @@ namespace Splunk
         /// <summary>
         /// Gets all positive keywords used by this job. 
         /// </summary>
-		/// <remarks>
-		/// A positive keyword is a keyword that is not in a NOT clause.
-		/// </remarks
+        /// <remarks>/// A positive keyword is a keyword that is not in a NOT clause.
+        /// </remarks
         public string Keywords
         {
             get
@@ -414,14 +413,14 @@ namespace Splunk
         /// Gets the reporting subset of this search. 
         /// <seealso cref="EventSearch" />
         /// </summary>
-		/// <remarks>
-		/// <para>
-		/// This is the streaming part of the search that is sent to remote
-		/// providers if reporting commands are used. The original search 
-		/// should be the <see cref="EventSearch"/> + 
-		/// <see cref="reportSearch"/>.
-		/// </para>
-		/// </remarks>
+        /// <remarks>
+        /// <para>
+        /// This is the streaming part of the search that is sent to remote
+        /// providers if reporting commands are used. The original search 
+        /// should be the <see cref="EventSearch"/> + 
+        /// <see cref="reportSearch"/>.
+        /// </para>
+        /// </remarks>
         public string ReportSearch
         {
             get
@@ -437,7 +436,7 @@ namespace Splunk
         /// <remarks>
         /// This is the subset of scanned events that actually matches the 
         /// search terms. 
-		/// </remarks>
+        /// </remarks>
         public int ResultCount
         {
             get
@@ -448,8 +447,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a Boolean value that indicates whether the job's result is 
-		/// available by streaming.  
+        /// Gets a value indicating whether the job's result is 
+        /// available by streaming.  
         /// </summary>
         public bool ResultIsStreaming 
         {
@@ -553,11 +552,11 @@ namespace Splunk
         /// <summary>
         /// Gets the maximum number of timeline buckets for this job.  
         /// </summary>
-		/// <remarks>
-		/// Be aware that if the Splunk instance is "dirty," getting this 
-		/// property has the side effect of retrieving refreshed data from the
-		/// server.
-		/// </remarks>
+        /// <remarks>
+        /// Be aware that if the Splunk instance is "dirty," getting this 
+        /// property has the side effect of retrieving refreshed data from the
+        /// server.
+        /// </remarks>
         public int StatusBuckets 
         {
             get
@@ -569,11 +568,11 @@ namespace Splunk
 
         /// <summary>
         /// Gets this job's time to live (that is, the time before the search
-	 	/// job expires and is still available) in seconds.
+        /// job expires and is still available) in seconds.
         /// </summary>
-		/// <remarks>
-		/// If this property's value is "0", it means the job has expired.  
-		/// </remarks>
+        /// <remarks>
+        /// If this property's value is "0", it means the job has expired.  
+        /// </remarks>
         public int Ttl
         {
             get
@@ -584,12 +583,12 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value that indicates whether the job is done. 
+        /// Gets a value indicating whether the job is done. 
         /// </summary>
-		/// <remarks>
-		/// This property implicitly calls the <see cref="Refresh"/> method to 
-		/// get current data.
-		/// </remarks>
+        /// <remarks>
+        /// This property implicitly calls the <see cref="Refresh"/> method to 
+        /// get current data.
+        /// </remarks>
         public bool IsDone
         {
             get
@@ -605,7 +604,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a Boolean value that indicates whether the job failed. 
+        /// Gets a value indicating whether the job failed. 
         /// </summary>
         public bool IsFailed
         {
@@ -617,8 +616,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value that indicates whether the job is finalized (that is,
-	 	/// it was forced to finish). 
+        /// Gets a value indicating whether the job is finalized (that is,
+        /// it was forced to finish). 
         /// </summary>
         public bool IsFinalized 
         {
@@ -630,7 +629,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a Boolean value that indicates whether the job is paused.
+        /// Gets a value indicating whether the job is paused.
         /// </summary>
 		/// <remarks>
 		/// Be aware that if the Splunk instance is "dirty," getting this 
@@ -647,8 +646,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a Boolean value that indicates whether preview for the job 
-		/// is enabled. 
+        /// Gets a value indicating whether preview for the job 
+        /// is enabled. 
         /// </summary>
         public bool IsPreviewEnabled
         {
@@ -660,13 +659,13 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a Boolean value that indicates whether this job is ready to
+        /// Gets a value indicating whether this job is ready to
         /// be queried. 
         /// </summary>
-		/// <remarks>
-		/// This property implicitly calls the <see cref="Refresh"/> method to 
-		/// get current data.
-		/// </remarks>
+        /// <remarks>
+        /// This property implicitly calls the <see cref="Refresh"/> method to 
+        /// get current data.
+        /// </remarks>
         public bool IsReady
         {
             get
@@ -677,8 +676,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a Boolean value that indicates whether the job is a real-time
- 		/// search. 
+        /// Gets a value indicating whether the job is a real-time search. 
         /// </summary>
         public bool IsRealTimeSearch
         {
@@ -690,8 +688,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a Boolean value that indicates whether the job has a remote 
-		/// timeline component. 
+        /// Gets a value indicating whether the job has a remote 
+        /// timeline component. 
         /// </summary>
         /// <returns>Whether the job has a remote timeline.</returns>
         public bool IsRemoteTimeline
@@ -704,7 +702,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a Boolean value that indicates whether the job is to be saved
+        /// Gets a value indicating whether the job is to be saved
         /// indefinitely.
         /// </summary>
         public bool IsSaved
@@ -717,8 +715,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a Boolean value that indicates whether this job was run as a
- 		/// saved search (via scheduler).  
+        /// Gets a value indicating whether this job was run as a
+        /// saved search (via scheduler).  
         /// </summary>
         public bool IsSavedSearch
         {
@@ -730,8 +728,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a Boolean value that indicates whether the process running 
-		/// the search is dead but with the search not finished. 
+        /// Gets a value indicating whether the process running 
+        /// the search is dead but with the search not finished. 
         /// </summary>
         public bool IsZombie
         {
@@ -747,10 +745,10 @@ namespace Splunk
         /// </summary>
         /// <param name="action">The requested action.</param>
         /// <returns>The action path endpoint.</returns>
-		/// <remarks>
-		/// This class adds the control endpoint plus includes all the base
-		/// class actions.
-		/// </remarks>
+        /// <remarks>
+        /// This class adds the control endpoint plus includes all the base
+        /// class actions.
+        /// </remarks>
         protected override string ActionPath(string action) 
         {
             if (action.Equals("control")) 
@@ -786,7 +784,7 @@ namespace Splunk
 
         /// <summary>
         /// Stops the current search and deletes the result cache on the
- 		/// server.
+        /// server.
         /// </summary>
         /// <returns>The <see cref="Job"/>.</returns>
         public Job Cancel() 
@@ -796,7 +794,7 @@ namespace Splunk
 
         /// <summary>
         /// Checks whether the job is ready to be queried; if it is not, throws
- 		/// an exception.
+        /// an exception.
         /// </summary>
         private void CheckReady()
         {
@@ -820,9 +818,9 @@ namespace Splunk
         /// <summary>
         /// Enables preview for this job.
         /// </summary>
-		/// <remarks>
-		/// This method might slow search considerably.
-		/// </remarks>
+        /// <remarks>
+        /// This method might slow search considerably.
+        /// </remarks>
         /// <returns>The <see cref="Job"/>.</returns>
         public Job EnablePreview() 
         {
@@ -891,11 +889,11 @@ namespace Splunk
 
         /// <summary>
         /// Returns the input stream I/O handle for the results from this job,
- 		/// adding optional parameters.
+        /// adding optional parameters.
         /// </summary>
         /// <param name="args">The optional parameters.</param>
         /// <returns>The results input <see cref="Stream"/> I/O handle.
-		/// </returns>
+        /// </returns>
         public Stream Results(Args args) 
         {
             ResponseMessage response = Service.Get(Path + "/results", args);
@@ -907,14 +905,15 @@ namespace Splunk
         /// job.
         /// </summary>
         /// <param name="args">The optional parameters.</param>
-        /// <returns>The results InputStream IO handle.</returns>
-        public Stream Results(JobResultsArgs args)
+        /// <returns>The results input <see cref="Stream"/> I/O handle.
+        /// </returns>
+	public Stream Results(JobResultsArgs args)
         {
             return this.Results((Args) args);
         }
 
         /// <summary>
-        /// Returns the Stream IO handle for the preview results from this job.
+        /// Returns the Stream I/O handle for the preview results from this job.
         /// </summary>
         /// <returns>The <see cref="Stream"/> I/O handle.</returns>
         public Stream ResultsPreview() 
@@ -924,11 +923,11 @@ namespace Splunk
 
         /// <summary>
         /// Returns the input stream I/O handle for the preview results from
- 		/// this job, adding optional parameters.
+        /// this job, adding optional parameters.
         /// </summary>
         /// <param name="args">The optional parameters.</param>
         /// <returns>The preview results input <see cref="Stream"/> I/O
- 		/// handle.</returns>
+        /// handle.</returns>
         public Stream ResultsPreview(Args args) 
         {
             ResponseMessage response = 
@@ -937,11 +936,12 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Returns the InputStream IO handle for the preview results from this
-        /// job, adding optional parameters.
+        /// Returns the input stream I/O handle for the preview results from
+        /// this job, adding optional parameters.
         /// </summary>
         /// <param name="args">The optional parameters.</param>
-        /// <returns>The preview results InputStream IO handle.</returns>
+        /// <returns>The preview results input <see cref="Stream"/> I/O
+        /// handle.</returns>
         public Stream ResultsPreview(JobResultsPreviewArgs args)
         {
             return this.ResultsPreview((Args) args);
@@ -970,7 +970,7 @@ namespace Splunk
 
         /// <summary>
         /// Returns this job's SID from within a response message, as opposed
- 		/// to directly from the <see cref="Job"/> object.
+        /// to directly from the <see cref="Job"/> object.
         /// </summary>
         /// <param name="response">Response message.</param>
         /// <returns>The job's SID.</returns>
@@ -995,7 +995,7 @@ namespace Splunk
 
         /// <summary>
         /// Returns the stream I/O handle for the summary for this job, adding
- 		/// optional arguments.
+        /// optional arguments.
         /// </summary>
         /// <param name="args">The optional arguments.</param>
         /// <returns>The <see cref="Stream"/> handle.</returns>
@@ -1051,9 +1051,9 @@ namespace Splunk
         /// <summary>
         /// Not supported. Removes this job. 
         /// </summary>
-		/// <remarks>
-		/// This method is unsupported and will throw an exception.
-		/// </remarks>
+        /// <remarks>
+        /// This method is unsupported and will throw an exception.
+        /// </remarks>
         public new void Remove() 
         {
             throw new Exception("Job removal not supported");
