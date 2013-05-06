@@ -264,6 +264,7 @@ namespace Splunk
         public Stream Export(string search, Args args) 
         {
             args = Args.Create(args).AlternateAdd("search", search);
+            args.SetSegmentationDefault();
             ResponseMessage response = Get("search/jobs/export", args);
             return new ExportResultsStream(response.Content);
         }
@@ -581,7 +582,7 @@ namespace Splunk
         public EntityCollection<Role> GetRoles() 
         {
             return new EntityCollection<Role>(
-                this, "authentication/roles", typeof(Role));
+                this, "authorization/roles", typeof(Role));
         }
 
         /// <summary>
@@ -593,7 +594,7 @@ namespace Splunk
         public EntityCollection<Role> GetRoles(Args args) 
         {
             return new EntityCollection<Role>(
-                this, "authentication/roles", args, typeof(Role));
+                this, "authorization/roles", args, typeof(Role));
         }
 
         /// <summary>
@@ -738,6 +739,7 @@ namespace Splunk
             inputArgs = Args.Create(inputArgs);
             inputArgs.Add("search", query);
             inputArgs.Add("exec_mode", "oneshot");
+            inputArgs.SetSegmentationDefault();
             ResponseMessage response = this.Post("search/jobs", inputArgs);
             return response.Content;
         }

@@ -844,8 +844,9 @@ namespace Splunk
         /// <param name="args">The variable arguments sent to the .../events 
         /// endpoint.</param>
         /// <returns>The event <see cref="Stream"/> I/O handle.</returns>
-        public Stream Events(Args args) 
+        public Stream Events(Args args)
         {
+            args.SetSegmentationDefault();
             ResponseMessage response = Service.Get(Path + "/events", args);
             return response.Content;
         }

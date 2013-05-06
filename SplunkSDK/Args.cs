@@ -198,5 +198,17 @@ namespace Splunk
             }
             return (string)args[key];
         }
+
+        /// <summary>
+        /// If "segmentation" is not set, set it to "none".
+        /// </summary>
+        internal void SetSegmentationDefault()
+        {
+            const string Segmentation = "segmentation";
+            if (this.ContainsKey(Segmentation))
+            {
+                this[Segmentation] = "none";
+            }
+        }
     }
 }
