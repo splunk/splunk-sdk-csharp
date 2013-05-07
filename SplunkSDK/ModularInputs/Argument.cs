@@ -24,29 +24,28 @@ namespace Splunk.ModularInputs
     public enum DataType
     {
         /// <summary>
-        ///     A Boolean value: true or false
+        /// A Boolean value: true or false
         /// </summary>
         [XmlEnum(Name = "boolean")] Boolean,
 
         /// <summary>
-        ///     A numeric value: regexp = [0-9\.]+
+        /// A numeric value: regexp = [0-9\.]+
         /// </summary>
         [XmlEnum(Name = "number")] Number,
 
         /// <summary>
-        ///     A string: virtually everything else
+        /// A string: virtually everything else
         /// </summary>
         [XmlEnum(Name = "string")] String
     }
 
     /// <summary>
     /// The <see cref="Argument"/> class represents an XML entity describing
- 	/// an individual argument of a modular input.
-    ///     an instance of that modular input in a stanza in inputs.conf.
+    /// an individual argument of a modular input.
     /// </summary>
- 	/// <remarks>
-	/// It corresponds to one of the keys that can be defined for an instance
-	/// of that modular input in a stanza in inputs.conf.
+    /// <remarks>
+    /// It corresponds to one of the keys that can be defined for an instance
+    /// of that modular input in a stanza in inputs.conf.
     /// </remarks>
     [XmlRoot("arg")]
     public class Argument
@@ -111,8 +110,7 @@ namespace Splunk.ModularInputs
         public DataType DataType { get; set; }
 
         /// <summary>
-        /// A Boolean value that indicates whether the parameter is required
-        /// for edit.
+        /// A value indicating whether the parameter is required for edit.
         /// </summary>
         /// <remarks>
         /// <para>
@@ -126,8 +124,7 @@ namespace Splunk.ModularInputs
         public bool RequiredOnEdit { get; set; }
 
         /// <summary>
-        /// A Boolean value that indicates whether the parameter is required
-        /// for create.
+        /// A value indicating whether the parameter is required for create.
         /// </summary>
         /// <remarks>
         /// <para>
