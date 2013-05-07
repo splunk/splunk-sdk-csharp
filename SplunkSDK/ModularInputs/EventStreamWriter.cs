@@ -57,7 +57,7 @@ namespace Splunk.ModularInputs
         /// <summary>
         /// Writes the event element.
         /// </summary>
-        /// <param name="eventElement">A event element.</param>
+        /// <param name="eventElement">An event element.</param>
         public void Write(EventElement eventElement)
         {
             //XML Example:
@@ -113,7 +113,7 @@ namespace Splunk.ModularInputs
         }
 
         /// <summary>
-        /// Write the element if its content is not null.
+        /// Writes the element if its content is not null.
         /// </summary>
         /// <param name="content">Content of the element.</param>
         /// <param name="tag">The tag name.</param>
