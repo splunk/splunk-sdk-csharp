@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright 2013 Splunk, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"): you may
@@ -53,10 +53,12 @@ namespace Splunk
         public string SegmentedRaw { get; internal set; }
 
         /// <summary>
-        /// A field can be accessed as either an array <see cref="Array"/>
-        /// or as a delimited string (using implicit string converter or <see
-        /// cref="GetArray"/>). We recommend accessing values as an array when
-        /// possible.
+        /// A field can be accessed as either an <see cref="Array"/>
+        /// or as a delimited string (using an implicit string converter or 
+    	/// <see cref="GetArray"/>). Splunk recommends accessing values as an 
+		/// array when possible.
+        /// </summary>
+        /// <remarks>
         /// <para>
         /// The delimiter for field values depends on the underlying 
         /// result format. If the underlying format does not specify 
@@ -64,7 +66,7 @@ namespace Splunk
         /// the delimiter is <see cref="DefaultDelimiter"/>, 
         /// which is a comma (,).
         /// </para>
-        /// </summary>
+        /// </remarks>
         // Note that the type conversion methods are not from IConvertible. 
         // That is primarily because IConvertible methods require 
         // IFormatProvider parameter which make it 
@@ -73,7 +75,7 @@ namespace Splunk
         public class FieldValue
         {
             /// <summary>
-            /// A single value or delimited  set of values. 
+            /// A single value or delimited set of values. 
             /// Null if <see cref="arrayValues"/> is used.
             /// </summary>
             private string singleOrDelimited;
@@ -85,7 +87,7 @@ namespace Splunk
             private string[] arrayValues;
 
             /// <summary>
-            /// Default Delimiter, which is a comma (,).
+            /// The default delimiter, which is a comma (,).
             /// </summary>
             public const string DefaultDelimiter = ",";
 
@@ -94,7 +96,7 @@ namespace Splunk
             /// class.
             /// </summary>
             /// <param name="singleOrDelimited">
-            /// The single value or delimited set of values
+            /// The single value or delimited set of values.
             /// </param>
             public FieldValue(string singleOrDelimited)
             {
@@ -113,21 +115,23 @@ namespace Splunk
 
             /// <summary>
             /// Gets the values for the field.
-            /// Caution: This variant of <see cref="GetArray"/> method is
-            /// unsafe for <see cref="ResultsReader"/> implementations that 
+            /// </summary>
+            /// <remarks>
+            /// <b>Caution:</b> This variant of <see cref="GetArray"/> method 
+            /// is unsafe for <see cref="ResultsReader"/> implementations that 
             /// require a delimiter. Therefore, this method should only be 
             /// used for results that are returned by 
             /// <see cref="ResultsReaderXml"/>. For other readers, use the 
             /// <see cref="GetArray(String)"/> method instead.
-            /// If the underlying  <see cref="ResultsReader"/> object has 
+            /// If the underlying <see cref="ResultsReader"/> object has 
             /// no delimiter, the original array of values is returned. 
             /// If the object does have a delimiter, the single/delimited value
             /// is split based on the 
             /// <see cref="DefaultDelimiter"/> and is returned as an array.
-            /// </summary>
+            /// </remarks>
             /// <returns>
             /// The original array of values if there is no delimiter, or the 
-            /// array of values split by delimiter.
+            /// array of values split by the delimiter.
             /// </returns>
             public string[] GetArray()
             {
@@ -136,22 +140,24 @@ namespace Splunk
 
             /// <summary>
             /// Gets the values for the field.
+            /// </summary>
+            /// <remarks>
             /// The delimiter must be determined empirically based on the search
             /// string and the data format of the index. The delimiter can 
             /// differ between fields in the same <see cref="Event"/>.
             /// <para>
-            /// If the underlying  <see cref="ResultsReader"/> object has 
+            /// If the underlying <see cref="ResultsReader"/> object has 
             /// no delimiter, the original array of values is returned. 
             /// If the object does have a delimiter, the single/delimited value
             /// is split based on the specified delimiter 
             /// and is returned as an array.
             /// </para>
-            /// </summary>
+            /// </remarks>
             /// <param name="delimiter">The delimiter, which is be passed to 
             /// <see cref="System.String.Split"/> to perform the split.</param>
             /// <returns>
             /// The original array of values if there is no delimiter,
-            /// or the array of values split by delimiter.
+            /// or the array of values split by the delimiter.
             /// </returns>
             public string[] GetArray(string delimiter)
             {
@@ -163,11 +169,13 @@ namespace Splunk
             /// <summary>
             /// Returns the single value or delimited set of values for the
             /// field.
+			/// </summary>
+			/// <remarks>
             /// <para>
             /// When getting a multi-valued field, use the
             /// <see cref="GetArray"/> methods instead.
             /// </para>
-            /// </summary>
+            /// </remarks>
             /// <returns>The single value or set of values delimited by 
             /// <see cref="DefaultDelimiter"/>.
             /// </returns>
@@ -179,15 +187,17 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Convert to a <c>string</c>.
+            /// Converts a <see cref="FieldValue"/> to a <c>string</c>.
             /// Same as <see cref="ToString"/>
+            /// </summary>
+            /// <remarks>
             /// <para>
             /// When getting a multi-valued field, use the
             /// <see cref="GetArray"/> methods instead.
             /// </para>
-            /// </summary>
+            /// </remarks>
             /// <param name="value">Field value</param>
-            /// <returns>The single value or set of values delimited by 
+            /// <returns>The single value or set of values delimited by the 
             /// <see cref="DefaultDelimiter"/>.
             /// </returns>
             public static implicit operator string(FieldValue value)
@@ -196,7 +206,7 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Convert to a <c>double</c>.
+            /// Converts an <see cref="Event.FieldValue"/> to a <c>double</c>.
             /// </summary>
             /// <param name="value">The field value.</param>
             /// <returns>The converted value.</returns>
@@ -206,7 +216,7 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Convert to a <c>float</c>.
+            /// Converts an <see cref="Event.FieldValue"/> to a <c>float</c>.
             /// </summary>
             /// <param name="value">The field value.</param>
             /// <returns>The converted value.</returns>
@@ -216,7 +226,7 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Convert to a <c>byte</c>.
+            /// Converts an <see cref="Event.FieldValue"/> to a <c>byte</c>.
             /// </summary>
             /// <param name="value">The field value.</param>
             /// <returns>The converted value.</returns>
@@ -226,7 +236,7 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Convert to a <c>ushort</c>.
+            /// Converts an <see cref="Event.FieldValue"/> to a <c>ushort</c>.
             /// </summary>
             /// <param name="value">The field value.</param>
             /// <returns>The converted value.</returns>
@@ -236,7 +246,7 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Convert to a <c>uint</c>.
+            /// Converts an <see cref="Event.FieldValue"/> to a <c>uint</c>.
             /// </summary>
             /// <param name="value">The field value.</param>
             /// <returns>The converted value.</returns>
@@ -246,7 +256,7 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Convert to a <c>ulong</c>.
+            /// Converts an <see cref="Event.FieldValue"/> to a <c>ulong</c>.
             /// </summary>
             /// <param name="value">The field value.</param>
             /// <returns>The converted value.</returns>
@@ -256,7 +266,7 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Convert to a <c>sbyte</c>.
+            /// Converts an <see cref="Event.FieldValue"/> to a <c>sbyte</c>.
             /// </summary>
             /// <param name="value">The field value.</param>
             /// <returns>The converted value.</returns>
@@ -266,7 +276,7 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Convert to a <c>short</c>/.
+            /// Converts an <see cref="Event.FieldValue"/> to a <c>short</c>/.
             /// </summary>
             /// <param name="value">The field value.</param>
             /// <returns>The converted value.</returns>
@@ -276,7 +286,7 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Convert to a <c>int</c>.
+            /// Converts an <see cref="Event.FieldValue"/> to a <c>int</c>.
             /// </summary>
             /// <param name="value">The field value.</param>
             /// <returns>The converted value.</returns>
@@ -286,7 +296,7 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Convert to a <c>ulong</c>.
+            /// Converts an <see cref="Event.FieldValue"/> to a <c>ulong</c>.
             /// </summary>
             /// <param name="value">The field value.</param>
             /// <returns>The converted value.</returns>
@@ -296,7 +306,7 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Convert to a <c>byte</c>.
+            /// Converts to a <c>byte</c>.
             /// </summary>
             /// <returns>The converted value.</returns>
             public byte ToByte()
@@ -305,7 +315,7 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Convert to a <c>ushort</c>.
+            /// Converts to a <c>ushort</c>.
             /// </summary>
             /// <returns>The converted value.</returns>
             public ushort ToUInt16()
@@ -314,7 +324,7 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Convert to a <c>uint</c>.
+            /// Converts to a <c>uint</c>.
             /// </summary>
             /// <returns>The converted value.</returns>
             public uint ToUInt32()
@@ -323,7 +333,7 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Convert to a <c>ulong</c>.
+            /// Converts to a <c>ulong</c>.
             /// </summary>
             /// <returns>The converted value</returns>
             public ulong ToUInt64()
@@ -332,7 +342,7 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Convert to a <c>sbyte</c>.
+            /// Converts to a <c>sbyte</c>.
             /// </summary>
             /// <returns>The converted value.</returns>
             public sbyte ToSByte()
@@ -341,7 +351,7 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Convert to a <c>short</c>/.
+            /// Converts to a <c>short</c>/.
             /// </summary>
             /// <returns>The converted value.</returns>
             public short ToInt16()
@@ -350,7 +360,7 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Convert to a <c>int</c>.
+            /// Converts to a <c>int</c>.
             /// </summary>
             /// <returns>The converted value</returns>
             public int ToInt32()
@@ -359,7 +369,7 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Convert to a <c>ulong</c>.
+            /// Converts to a <c>ulong</c>.
             /// </summary>
             /// <returns>The converted value.</returns>
             public long ToInt64()
