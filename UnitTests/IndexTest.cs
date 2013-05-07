@@ -37,12 +37,12 @@ namespace UnitTests
 
         /// <summary>
         /// Polls the index until wither time runs down, or the event count
-        /// matches th desired value.
+        /// matches the desired value.
         /// </summary>
         /// <param name="index">The index</param>
         /// <param name="value">The desired event count value</param>
         /// <param name="seconds">The number seconds to poll</param>
-        private void Wait_event_count(Index index, int value, int seconds)
+        private void WaitUntilEventCount(Index index, int value, int seconds)
         {
             while (seconds > 0)
             {
@@ -65,44 +65,10 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// Gets old values from given index, skip saving paths and things we cannot write
-        /// </summary>
-        /// <param name="index">The Index</param>
-        /// <returns>The argument restore</returns>
-        [TestMethod]
-        public Args restore(Index index)
-        {
-            Args restore = new Args();
-
-            restore.Add("blockSignSize", index.BlockSignSize);
-            restore.Add("frozenTimePeriodInSecs", index.FrozenTimePeriodInSecs);
-            restore.Add("maxConcurrentOptimizes", index.MaxConcurrentOptimizes);
-            restore.Add("maxDataSize", index.MaxDataSize);
-            restore.Add("maxHotBuckets", index.MaxHotBuckets);
-            restore.Add("maxHotIdleSecs", index.MaxHotIdleSecs);
-            restore.Add("maxHotSpanSecs", index.MaxHotSpanSecs);
-            restore.Add("maxMemMB", index.MaxMemMB);
-            restore.Add("maxMetaEntries", index.MaxMetaEntries);
-            restore.Add("maxTotalDataSizeMB", index.MaxTotalDataSizeMB);
-            restore.Add("maxWarmDBCount", index.MaxWarmDBCount);
-            restore.Add("minRawFileSyncSecs", index.MinRawFileSyncSecs);
-            restore.Add("partialServiceMetaPeriod", index.PartialServiceMetaPeriod);
-            restore.Add("quarantineFutureSecs", index.QuarantineFutureSecs);
-            restore.Add("quarantinePastSecs", index.QuarantinePastSecs);
-            restore.Add("rawChunkSizeBytes", index.RawChunkSizeBytes);
-            restore.Add("rotatePeriodInSecs", index.RotatePeriodInSecs);
-            restore.Add("serviceMetaPeriod", index.ServiceMetaPeriod);
-            restore.Add("syncMeta", index.SyncMeta);
-            restore.Add("throttleCheckPeriod", index.ThrottleCheckPeriod);
-
-            return restore;
-        }
-
-        /// <summary>
         /// Tests the basic getters and setters of index
         /// </summary>
         [TestMethod]
-        public void Index()
+        public void IndexAccessors()
         {
             string indexName = "sdk-tests2";
             Service service = Connect();
@@ -193,7 +159,7 @@ namespace UnitTests
 
             Index index = indexes.Get(indexName);
 
-            Args restoreValues = restore(index);
+            Args indexProperties = getIndexProperties(index);
 
             // use setters to update most
             index.BlockSignSize = index.BlockSignSize + 1;
@@ -223,22 +189,59 @@ namespace UnitTests
             index.Update();
 
             // check, then restore using map method
-            index.Update(restoreValues);
+            index.Update(indexProperties);
             index.Refresh();
 
             service.Oneshot(string.Format("search index={0} * | delete", indexName));
-            this.Wait_event_count(index, 0, 45);
-            //index.Clean(180);
+            this.WaitUntilEventCount(index, 0, 45);
             Assert.AreEqual(0, index.TotalEventCount, assertRoot + "#2");
 
             index.Disable();
             Assert.IsTrue(index.IsDisabled);
 
+            // Restore original roles
+            user.Roles = roles;
+            user.Update();
+
             this.SplunkRestart();
         }
 
         /// <summary>
-        /// Tests the basic index functionality
+        /// Gets old values from given index, skip saving paths and things we cannot write
+        /// </summary>
+        /// <param name="index">The Index</param>
+        /// <returns>The argument getIndexProperties</returns>
+        private Args getIndexProperties(Index index)
+        {
+            Args getIndexProperties = new Args();
+
+            getIndexProperties.Add("blockSignSize", index.BlockSignSize);
+            getIndexProperties.Add("frozenTimePeriodInSecs", index.FrozenTimePeriodInSecs);
+            getIndexProperties.Add("maxConcurrentOptimizes", index.MaxConcurrentOptimizes);
+            getIndexProperties.Add("maxDataSize", index.MaxDataSize);
+            getIndexProperties.Add("maxHotBuckets", index.MaxHotBuckets);
+            getIndexProperties.Add("maxHotIdleSecs", index.MaxHotIdleSecs);
+            getIndexProperties.Add("maxHotSpanSecs", index.MaxHotSpanSecs);
+            getIndexProperties.Add("maxMemMB", index.MaxMemMB);
+            getIndexProperties.Add("maxMetaEntries", index.MaxMetaEntries);
+            getIndexProperties.Add("maxTotalDataSizeMB", index.MaxTotalDataSizeMB);
+            getIndexProperties.Add("maxWarmDBCount", index.MaxWarmDBCount);
+            getIndexProperties.Add("minRawFileSyncSecs", index.MinRawFileSyncSecs);
+            getIndexProperties.Add("partialServiceMetaPeriod", index.PartialServiceMetaPeriod);
+            getIndexProperties.Add("quarantineFutureSecs", index.QuarantineFutureSecs);
+            getIndexProperties.Add("quarantinePastSecs", index.QuarantinePastSecs);
+            getIndexProperties.Add("rawChunkSizeBytes", index.RawChunkSizeBytes);
+            getIndexProperties.Add("rotatePeriodInSecs", index.RotatePeriodInSecs);
+            getIndexProperties.Add("serviceMetaPeriod", index.ServiceMetaPeriod);
+            getIndexProperties.Add("syncMeta", index.SyncMeta);
+            getIndexProperties.Add("throttleCheckPeriod", index.ThrottleCheckPeriod);
+
+            return getIndexProperties;
+        }
+
+        /// <summary>
+        /// Tests submitting and streaming events to an index 
+        /// and also removing all events from the index
         /// </summary>
         [TestMethod]
         public void IndexEvents()
@@ -251,7 +254,6 @@ namespace UnitTests
             Service service = this.Connect();
             ServiceInfo info = service.GetInfo();
             Index index = service.GetIndexes().Get(indexName);
-            User user = service.GetUsers().Get("admin");
 
             index.Enable();
             Assert.IsFalse(index.IsDisabled);
@@ -259,12 +261,11 @@ namespace UnitTests
             // submit events to index
             index.Submit(now + " Hello World. \u0150");
             index.Submit(now + " Goodbye world. \u0150");
-            this.Wait_event_count(index, 2, 45);
+            this.WaitUntilEventCount(index, 2, 45);
             Assert.AreEqual(2, index.TotalEventCount, assertRoot + "#3");
 
             service.Oneshot(string.Format("search index={0} * | delete", indexName));
-            this.Wait_event_count(index, 0, 45);
-            //index.Clean(180);
+            this.WaitUntilEventCount(index, 0, 45);
             Assert.AreEqual(0, index.TotalEventCount, assertRoot + "#4");
 
             // stream events to index
@@ -272,11 +273,11 @@ namespace UnitTests
             stream.Write(Encoding.UTF8.GetBytes(now + " Hello World again. \u0150\r\n"));
             stream.Write(Encoding.UTF8.GetBytes(now + " Goodbye World again.\u0150\r\n"));
             stream.Close();
-            this.Wait_event_count(index, 2, 45);
+            this.WaitUntilEventCount(index, 2, 45);
             Assert.AreEqual(2, index.TotalEventCount, assertRoot + "#5");
 
             service.Oneshot(string.Format("search index={0} * | delete", indexName));
-            this.Wait_event_count(index, 0, 45);
+            this.WaitUntilEventCount(index, 0, 45);
             index.Clean(180);
             Assert.AreEqual(0, index.TotalEventCount, assertRoot + "#6");
 
@@ -308,17 +309,13 @@ namespace UnitTests
             }
 
             service.Oneshot(string.Format("search index={0} * | delete", indexName));
-            this.Wait_event_count(index, 0, 45);
-            //index.Clean(180);
+            this.WaitUntilEventCount(index, 0, 45);
             Assert.AreEqual(0, index.TotalEventCount, assertRoot + "#7");
-
-            // Restore original roles
-//            user.Roles = roles;
-//            user.Update();
         }
 
         /// <summary>
-        /// Tests the basic default index functionality
+        /// Tests submitting and streaming events to a default index 
+        /// and also removing all events from the index
         /// </summary>
         [TestMethod]
         public void DefaultIndex()
@@ -329,39 +326,39 @@ namespace UnitTests
                 string.Format("{0}{1} ", offset.Offset.Hours.ToString("D2"), offset.Offset.Minutes.ToString("D2"));
 
             Service service = this.Connect();
+            Receiver receiver = service.GetReceiver();
             Index index = service.GetIndexes().Get(indexName);
-            User user = service.GetUsers().Get("admin");
 
             index.Enable();
             Assert.IsFalse(index.IsDisabled);
 
             // submit events to default index
-            index.SubmitDefaultIndex(now + " Hello World. \u0150");
-            index.SubmitDefaultIndex(now + " Goodbye World. \u0150");
-            this.Wait_event_count(index, 2, 45);
-            Assert.AreEqual(2, index.TotalEventCount, "Expected total event count to be 2");
+            receiver.Log(now + " Hello World. \u0150");
+            receiver.Log(now + " Goodbye World. \u0150");
+            this.WaitUntilEventCount(index, 2, 45);
+            Assert.AreEqual(2, index.TotalEventCount, "Expected the total event count to be 2");
 
             service.Oneshot(string.Format("search index={0} * | delete", indexName));
-            this.Wait_event_count(index, 0, 45);
-            //index.Clean(180);
-            Assert.AreEqual(0, index.TotalEventCount, assertRoot + "#8");
+            this.WaitUntilEventCount(index, 0, 45);
+            Assert.AreEqual(0, index.TotalEventCount, "Expcted the total event count to be 0");
 
             // stream event to default index
-            Stream streamDefaultIndex = index.AttachDefaultIndex();
+            Stream streamDefaultIndex = receiver.Attach();
             streamDefaultIndex.Write(Encoding.UTF8.GetBytes(now + " Hello World again. \u0150\r\n"));
             streamDefaultIndex.Write(Encoding.UTF8.GetBytes(now + " Goodbye World again.\u0150\r\n"));
             streamDefaultIndex.Close();
-            this.Wait_event_count(index, 2, 45);
-            Assert.AreEqual(2, index.TotalEventCount, "Expected total event count to be 2");
+            this.WaitUntilEventCount(index, 2, 45);
+            Assert.AreEqual(2, index.TotalEventCount, "Expected the total event count to be 2");
 
             service.Oneshot(string.Format("search index={0} * | delete", indexName));
-            this.Wait_event_count(index, 0, 45);
+            this.WaitUntilEventCount(index, 0, 45);
             index.Clean(180);
-            Assert.AreEqual(0, index.TotalEventCount, assertRoot + "#9");
+            Assert.AreEqual(0, index.TotalEventCount, "Expected the total event count to be 0");
         }
 
         /// <summary>
-        /// Tests the basic index functionality with variable arguements
+        /// Tests submitting and streaming events to an index given the indexProperties argument
+        /// and also removing all events from the index
         /// </summary>
         [TestMethod]
         public void IndexArgs()
@@ -373,40 +370,39 @@ namespace UnitTests
 
             Service service = this.Connect();
             Index index = service.GetIndexes().Get(indexName);
-            User user = service.GetUsers().Get("admin");
 
             index.Enable();
             Assert.IsFalse(index.IsDisabled);
 
-            Args restoreValues = restore(index);
+            Args indexProperties = getIndexProperties(index);
 
             // submit event to index using variable arguments
-            index.Submit(restoreValues, now + " Hello World. \u0150");
-            index.Submit(restoreValues, now + " Goodbye World. \u0150");
-            this.Wait_event_count(index, 2, 45);
-            Assert.AreEqual(2, index.TotalEventCount, assertRoot + "#10");
+            index.Submit(indexProperties, now + " Hello World. \u0150");
+            index.Submit(indexProperties, now + " Goodbye World. \u0150");
+            this.WaitUntilEventCount(index, 2, 45);
+            Assert.AreEqual(2, index.TotalEventCount, "Expected the total event count to be 2");
 
             service.Oneshot(string.Format("search index={0} * | delete", indexName));
-            this.Wait_event_count(index, 0, 45);
-            //index.Clean(180);
-            Assert.AreEqual(0, index.TotalEventCount, assertRoot + "#11");
+            this.WaitUntilEventCount(index, 0, 45);
+            Assert.AreEqual(0, index.TotalEventCount, "Expected the total event count to be 0");
 
-            // stream event to index with variable args
-            Stream streamArgs = index.Attach(restoreValues);
+            // stream event to index with variable arguments
+            Stream streamArgs = index.Attach(indexProperties);
             streamArgs.Write(Encoding.UTF8.GetBytes(now + " Hello World again. \u0150\r\n"));
             streamArgs.Write(Encoding.UTF8.GetBytes(now + " Goodbye World again.\u0150\r\n"));
             streamArgs.Close();
-            this.Wait_event_count(index, 2, 45);
-            Assert.AreEqual(2, index.TotalEventCount, "Expected total event count to be 2");
+            this.WaitUntilEventCount(index, 2, 45);
+            Assert.AreEqual(2, index.TotalEventCount, "Expected the total event count to be 2");
 
             service.Oneshot(string.Format("search index={0} * | delete", indexName));
-            this.Wait_event_count(index, 0, 45);
+            this.WaitUntilEventCount(index, 0, 45);
             index.Clean(180);
-            Assert.AreEqual(0, index.TotalEventCount, assertRoot + "#12");
+            Assert.AreEqual(0, index.TotalEventCount, "Expected the total event count to be 0");
         }
 
         /// <summary>
-        /// Test the basic default index functionaity with variable arguments
+        /// Test submitting and streaming to a default index given the indexProperties argument
+        /// and also removing all events from the index
         /// </summary>
         [TestMethod]
         public void DefaultIndexArgs()
@@ -417,37 +413,36 @@ namespace UnitTests
                 string.Format("{0}{1} ", offset.Offset.Hours.ToString("D2"), offset.Offset.Minutes.ToString("D2"));
 
             Service service = this.Connect();
+            Receiver receiver = service.GetReceiver();
             Index index = service.GetIndexes().Get(indexName);
-            User user = service.GetUsers().Get("admin");
 
             index.Enable();
             Assert.IsFalse(index.IsDisabled);
 
-            Args restoreValues = restore(index);
+            Args indexProperties = getIndexProperties(index);
 
-            // submit event to default index using variable arugments
-            index.SubmitDefaultIndexWithArgs(restoreValues, now + " Hello World. \u0150");
-            index.SubmitDefaultIndexWithArgs(restoreValues, now + " Goodbye World. \u0150");
-            this.Wait_event_count(index, 2, 45);
-            Assert.AreEqual(2, index.TotalEventCount, "Expected total event count to be 2");
+            // submit event to default index using variable arguments
+            receiver.Log(indexProperties, now + " Hello World. \u0150");
+            receiver.Log(indexProperties, now + " Goodbye World. \u0150");
+            this.WaitUntilEventCount(index, 2, 45);
+            Assert.AreEqual(2, index.TotalEventCount, "Expected the total event count to be 2");
 
             service.Oneshot(string.Format("search index={0} * | delete", indexName));
-            this.Wait_event_count(index, 0, 45);
-            //index.Clean(180);
-            Assert.AreEqual(0, index.TotalEventCount, assertRoot + "#13");
+            this.WaitUntilEventCount(index, 0, 45);
+            Assert.AreEqual(0, index.TotalEventCount, "Expected the total event count to be 0");
 
-            // stream event to default index with variable args
-            Stream streamArgs = index.AttachDefaultIndexWithArgs(restoreValues);
+            // stream event to default index with variable arguments
+            Stream streamArgs = receiver.Attach(indexProperties);
             streamArgs.Write(Encoding.UTF8.GetBytes(now + " Hello World again. \u0150\r\n"));
             streamArgs.Write(Encoding.UTF8.GetBytes(now + " Goodbye World again.\u0150\r\n"));
             streamArgs.Close();
-            this.Wait_event_count(index, 2, 45);
-            Assert.AreEqual(2, index.TotalEventCount, "Expected total event count to be 2");
+            this.WaitUntilEventCount(index, 2, 45);
+            Assert.AreEqual(2, index.TotalEventCount, "Expected the total event count to be 2");
 
             service.Oneshot(string.Format("search index={0} * | delete", indexName));
-            this.Wait_event_count(index, 0, 45);
+            this.WaitUntilEventCount(index, 0, 45);
             index.Clean(180);
-            Assert.AreEqual(0, index.TotalEventCount, assertRoot + "#14");
+            Assert.AreEqual(0, index.TotalEventCount, "Expected the total event count to be 0");
         }
     }
 }
