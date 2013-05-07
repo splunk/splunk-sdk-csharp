@@ -79,11 +79,8 @@ namespace Splunk.ModularInputs
         public List<Stanza> StanzaXmlElements { get; set; }
 
         /// <summary>
-        ///  A dictionary of Stanzas keyed by stanza's name.
+        /// Gets a dictionary of stanzas keyed by stanza name.
         /// </summary>
-        /// <remarks>
-        /// This property is read-only. 
-        /// </remarks>
         public IDictionary<string, Stanza> Stanzas
         {
             get
@@ -98,11 +95,10 @@ namespace Splunk.ModularInputs
         }
 
         /// <summary>
-        /// The stanza in the input definition.
+        /// Gets the stanza in the input definition.
         /// </summary>
         /// <remarks>
         /// <para>If there is more than one stanza, this method will fail.</para>
-		/// <para>This property is read-only.</para>
         /// </remarks>
         // This method is provided since it is very common to have only one.
         // That is the case when <see cref="UseSingleInstance"/> is true.
