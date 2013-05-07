@@ -846,9 +846,24 @@ namespace Splunk
         /// <returns>The event <see cref="Stream"/> I/O handle.</returns>
         public Stream Events(Args args)
         {
-            args.SetSegmentationDefault();
+            args = SetSegmentationDefault(args);
             ResponseMessage response = Service.Get(Path + "/events", args);
             return response.Content;
+        }
+
+        /// <summary>
+        /// Set segmentation default
+        /// </summary>
+        /// <param name="args">Arguments input</param>
+        /// <returns>Arguments with default set</returns>
+        private static Args SetSegmentationDefault(Args args)
+        {
+            if (args == null)
+            {
+                args = new Args();
+            }
+            args.SetSegmentationDefault();
+            return args;
         }
 
         /// <summary>
@@ -888,6 +903,7 @@ namespace Splunk
 		/// </returns>
         public Stream Results(Args args) 
         {
+            args = SetSegmentationDefault(args);
             ResponseMessage response = Service.Get(Path + "/results", args);
             return response.Content;
         }
@@ -911,6 +927,7 @@ namespace Splunk
  		/// handle.</returns>
         public Stream ResultsPreview(Args args) 
         {
+            args = SetSegmentationDefault(args);
             ResponseMessage response = 
                 Service.Get(Path + "/results_preview", args);
             return response.Content;

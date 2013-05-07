@@ -205,7 +205,7 @@ namespace Splunk
         internal void SetSegmentationDefault()
         {
             const string Segmentation = "segmentation";
-            if (this.ContainsKey(Segmentation))
+            if (!this.ContainsKey(Segmentation))
             {
                 this[Segmentation] = "none";
             }
