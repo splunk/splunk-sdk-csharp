@@ -22,8 +22,8 @@ namespace Splunk.ModularInputs
 {
     /// <summary>
     /// The <see cref="ConfigurationItemBase"/> class is the base class for
- 	/// input definition that Splunk sends to modular input to start event
- 	/// streaming.
+    /// input definition that Splunk sends to modular input to start event
+    /// streaming.
     /// </summary>
     public class ConfigurationItemBase
     {
@@ -40,7 +40,7 @@ namespace Splunk.ModularInputs
 
         /// <summary>
         /// Initializes a new instance of the 
-		/// <see cref="ConfigurationItemBase" /> class.
+        /// <see cref="ConfigurationItemBase" /> class.
         /// </summary>
         internal ConfigurationItemBase()
         {
@@ -67,8 +67,7 @@ namespace Splunk.ModularInputs
         public List<MultiValueParameter> MultiValueParameterXmlElements { get; set; }
 
         /// <summary>
-        ///     Single value parameters keyed by name in the item.
-        ///     in the item.
+        /// Single value parameters keyed by name in the item.
         /// </summary>
         // This method is provided to make it easier to retrieve single value
         // parameters. It is a much more common case than multi value 
