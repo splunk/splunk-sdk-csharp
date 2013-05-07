@@ -17,56 +17,56 @@
 namespace Splunk
 {
     /// <summary>
-    ///     Contains arguments for getting job results
-    ///     using the <see cref="Job" /> class.
+    /// The <see cref="JobResultsArgs"/> class contains arguments for getting
+    /// job results using the <see cref="Job" /> class.
     /// </summary>
     public class JobResultsArgs : Args
     {
         /// <summary>
-        ///     Specifies the format for the returned output.
+        /// Specifies the format for the returned output.
         /// </summary>
-        // C# disallow nested class to have the same name as
-        // a property. Use 'Enum' suffix to differentiate.
+        // C# disallows nested classes from having the same name as
+        // properties. Use 'Enum' suffix to differentiate.
         public enum OutputModeEnum
         {
             /// <summary>
-            ///     Returns output in Atom format.
+            /// Returns output in Atom format.
             /// </summary>
             [CustomString("atom")]
             Atom,
 
             /// <summary>
-            ///     Returns output in CSV format.
+            /// Returns output in CSV format.
             /// </summary>
             [CustomString("csv")]
             Csv,
 
             /// <summary>
-            ///     Returns output in JSON format.
+            /// Returns output in JSON format.
             /// </summary>
             [CustomString("json")]
             Json,
 
             /// <summary>
-            ///     Returns output in JSON_COLS format.
+            /// Returns output in JSON_COLS format.
             /// </summary>
             [CustomString("json_cols")]
             JsonColumns,
 
             /// <summary>
-            ///     Returns output in JSON_ROWS format.
+            /// Returns output in JSON_ROWS format.
             /// </summary>
             [CustomString("json_rows")]
             JsonRows,
 
             /// <summary>
-            ///     Returns output in raw format.
+            /// Returns output in raw format.
             /// </summary>
             [CustomString("raw")]
             Raw,
 
             /// <summary>
-            ///     Returns output in XML format.
+            /// Returns output in XML format.
             /// </summary>
             [CustomString("xml")]
             Xml,
@@ -91,11 +91,19 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Specifies the index of the first result (inclusive) from which to begin returning data. This value is 0-indexed.
-        /// <para>
-        /// In Splunk 4.1+, negative offsets are allowed and are added to the count to compute the absolute offset (for example, offset=-1 is the last available offset). Offsets in the results are always absolute and never negative. The default value is 0.
-        /// </para>
+        /// Specifies the index of the first result (inclusive) from which to begin returning 
+        /// data. This value is 0-indexed.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Starting in Splunk 4.1, negative offsets are allowed and are added to the count to 
+        /// compute the absolute offset (for example, offset=-1 is the last available 
+        /// offset). Offsets in the results are always absolute and never negative. 
+        /// </para>
+        /// <para>
+        /// This property's default value is "0".
+        /// </para>
+        /// </remarks>
         public int Offset
         {
             set { this["offset"] = value; }
