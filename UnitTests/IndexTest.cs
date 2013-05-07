@@ -328,7 +328,6 @@ namespace UnitTests
             Service service = this.Connect();
             Receiver receiver = service.GetReceiver();
             Index index = service.GetIndexes().Get(indexName);
-
             index.Enable();
             Assert.IsFalse(index.IsDisabled);
 
