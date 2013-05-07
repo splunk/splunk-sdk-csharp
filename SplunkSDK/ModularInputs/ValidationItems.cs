@@ -25,8 +25,8 @@ namespace Splunk.ModularInputs
     /// </summary>    
     /// <remarks>
     /// When a new input of this modular input type is being created, Splunk
- 	/// runs the modular input script (that is, executable) to validate its
- 	/// configuration.
+    /// runs the modular input script (that is, executable) to validate its
+    /// configuration.
     /// </remarks>
     [XmlRoot("items")]
     public class ValidationItems : InputDefinitionBase
