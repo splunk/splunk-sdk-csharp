@@ -14,6 +14,8 @@
  * under the License.
  */
 
+using System.IO;
+
 namespace UnitTests
 {
     using System;
@@ -97,6 +99,82 @@ namespace UnitTests
             job = this.RunWait(service, query);
             job.Results(new Args("output_mode", "json")).Close();
             job.Cancel();
+        }
+
+        /// <summary>
+        /// Verify that segmentation is default to 'none'.
+        /// </summary>
+        [TestMethod]
+        public void SegmentationWithExport()
+        {
+            Segmentation(
+                (service, query, args) => service.Export(query, args));
+        }
+
+        /// <summary>
+        /// Verify that segmentation is default to 'none'.
+        /// </summary>
+        [TestMethod]
+        public void SegmentationWithOneshot()
+        {
+            Segmentation(
+                (service, query, args) =>
+                    {
+                        var job = this.RunWait(service, query, args);
+                        return job.Results();
+                    });
+        }
+
+        /// <summary>
+        /// Verify that segmentation is default to 'none'.
+        /// </summary>
+        [TestMethod]
+        public void SegmentationWithJob()
+        {
+            Segmentation(
+                (service, query, args) => service.Oneshot(query, args));
+        }
+
+        /// <summary>
+        /// Verify that segmentation is default to 'none'.
+        /// </summary>
+        /// <param name="getResults">
+        /// Function to get a results stream.
+        /// </param>
+        private void Segmentation(
+            Func<Service, string, Args, Stream> getResults)
+        {
+            var service = Connect();
+
+            // 'segmentation=none' has no impact on Splunk 4.3.5 (or earlier)
+            if (service.VersionCompare("5.0") < 0)
+            {
+                return;
+            }
+
+            const string SgTag = "<sg";
+
+            var query = "search index=_internal GET | head 3";
+            var input = service.Export(query);
+
+            using (var reader = new StreamReader(input))
+            {
+                var data = reader.ReadToEnd();
+                Assert.IsFalse(data.Contains(SgTag));
+            }
+
+            var args = new Args
+                {
+                    { "segmentation", "raw" }
+                };
+
+            input = getResults(service, query, args);
+
+            using (var reader = new StreamReader(input))
+            {
+                var data = reader.ReadToEnd();
+                Assert.IsTrue(data.Contains(SgTag));
+            }
         }
     }
 }
