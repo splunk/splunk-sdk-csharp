@@ -20,14 +20,13 @@ namespace Splunk.ModularInputs
 {
     /// <summary>
     /// The <see cref="SingleValueParameter"/> class represents a parameter
- 	/// that contains a single value.
+    /// that contains a single value.
     /// </summary>
     [XmlRoot("param")]
     public class SingleValueParameter : ParameterBase
     {
         // XML Example:
         // <param name="param1">value1</param>
-     
         /// <summary>
         /// The value of the parameter.
         /// </summary>
@@ -38,7 +37,7 @@ namespace Splunk.ModularInputs
         public string ValueXmlText { get; set; }
 
         /// <summary>
-        /// The value of the parameter.
+        /// Gets the value of the parameter.
         /// </summary>
         internal override ValueBase ValueAsBaseType
         {
@@ -46,7 +45,7 @@ namespace Splunk.ModularInputs
         }
 
         /// <summary>
-        /// Represents a single value.
+        /// The <see cref="Value"/> class represents a single value.
         /// </summary>
         public class Value : ValueBase
         {
