@@ -10,8 +10,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Splunk</RootNamespace>
     <AssemblyName>SplunkSDK</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -46,7 +48,6 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -81,6 +82,21 @@
     <Compile Include="Message.cs" />
     <Compile Include="MessageArgs.cs" />
     <Compile Include="MessageCollection.cs" />
+    <Compile Include="ModularInputs\Argument.cs" />
+    <Compile Include="ModularInputs\ConfigurationItem.cs" />
+    <Compile Include="ModularInputs\EventElement.cs" />
+    <Compile Include="ModularInputs\EventStreamWriter.cs" />
+    <Compile Include="ModularInputs\InputDefinition.cs" />
+    <Compile Include="ModularInputs\InputDefinitionBase.cs" />
+    <Compile Include="ModularInputs\Script.cs" />
+    <Compile Include="ModularInputs\MultiValueParameter.cs" />
+    <Compile Include="ModularInputs\SingleValueParameter.cs" />
+    <Compile Include="ModularInputs\ParameterBase.cs" />
+    <Compile Include="ModularInputs\Stanza.cs" />
+    <Compile Include="ModularInputs\ConfigurationItemBase.cs" />
+    <Compile Include="ModularInputs\SystemLogger.cs" />
+    <Compile Include="ModularInputs\Scheme.cs" />
+    <Compile Include="ModularInputs\ValidationItems.cs" />
     <Compile Include="MonitorInput.cs" />
     <Compile Include="MonitorInputArgs.cs" />
     <Compile Include="MultiResultsReader.cs" />
