@@ -92,7 +92,7 @@ namespace Splunk
             {
                 TcpClient tcp = new TcpClient();
                 tcp.Connect(this.service.Host, this.service.Port);
-                var sslStream = new SSLStreamWrapper(tcp);
+                var sslStream = new SslStreamWrapper(tcp);
                 sslStream.AuthenticateAsClient(this.service.Host);
                 stream = sslStream;
             }
@@ -231,7 +231,7 @@ namespace Splunk
         /// Wrapper class of SslStream for closing TCP connection 
         /// when closing the stream.
         /// </summary>
-        private class SSLStreamWrapper : SslStream
+        private class SslStreamWrapper : SslStream
         {
             /// <summary>
             /// The TcpClient object the SSLStream object is based on.
@@ -239,12 +239,12 @@ namespace Splunk
             private TcpClient tcpClient;
             
             /// <summary>
-            /// Initializes a new instance of the <see cref="SSLStreamWrapper"/> class.
+            /// Initializes a new instance of the <see cref="SslStreamWrapper"/> class.
             /// </summary>
             /// <param name="tcpClient">
             /// A TcpClient object the SSLStream object is based on.
             /// </param>
-            public SSLStreamWrapper(
+            public SslStreamWrapper(
                 TcpClient tcpClient)
                 : base(
                     tcpClient.GetStream(),
