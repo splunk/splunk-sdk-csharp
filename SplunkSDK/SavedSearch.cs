@@ -124,7 +124,7 @@ namespace Splunk
         {
             get
             {
-                return this.GetString("action.emails", null);
+                return this.GetString("action.email.command", null);
             }
 
             set

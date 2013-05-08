@@ -52,7 +52,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Creates a search with a UTF8 pre-encoded search request.
+        /// Creates a search with a UTF-8 pre-encoded search request.
         /// </summary>
         /// <param name="query">The search query.</param>
         /// <returns>The <see cref="Job"/>.</returns>
@@ -66,7 +66,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Creates a search with a UTF8 pre-encoded search request.
+        /// Creates a search with a UTF-8 pre-encoded search request.
         /// </summary>
         /// <remarks>
         /// A "oneshot" request is invalid. To create a oneshot search,
@@ -105,7 +105,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Creates a search with a UTF8 pre-encoded search request.
+        /// Creates a search with a UTF-8 pre-encoded search request.
         /// </summary>
         /// <remarks>
         /// A "oneshot" request is invalid. To create a oneshot search,

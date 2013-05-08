@@ -22,7 +22,7 @@ namespace Splunk
     /// </summary>
     public class ReceiverSubmitArgs : Args
     {
-       /// <summary>
+        /// <summary>
         /// Sets a value to populate the host field for inputs from this data 
         /// input. 
         /// </summary>

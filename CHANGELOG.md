@@ -4,7 +4,7 @@
 
 ### New APIs
 
-* New classes are added for creating a modular input. They are all under `Splunk.ModularInputs` namespace. An example of creating such a modular input is added.
+* New classes have been added for creating a modular input. They are all under `Splunk.ModularInputs` namespace. An example of creating such a modular input is added.
 * More specialized *args* classes have been added to make it easier to pass 
   operation-specific arguments:
     - `JobEventsArgs`
@@ -27,9 +27,10 @@
 * The SDK now supports running with .NET Framework 3.5, in addition to .NET Framework 4.0 and .NET Framework 4.5. The SDK assembly's target framework is now .NET Framework 3.5. The Newtonsoft.Json assembly (used by `ResultsReaderJson` and `MultiResultsReaderJson`) is now Net35 version of Json.NET 5.0 Release 4.
 
 ### Breaking changes
-* `JobArgs.ExecMode` is renamed to `JobArgs.ExecutionMode`, and changed from string type to enum type.
-* `JobArgs.RemoteServerList` is changed from string type to string array type.
-* `SavedSearchArgs` class is renamed to `SavedSearchDispatchArgs`.
+* `JobArgs.ExecMode` has been renamed to `JobArgs.ExecutionMode`, and changed from string type to enum type.
+* `JobArgs.ExecutionMode` and `JobArgs.SearchMode` have been changed to Enum types.
+* `JobArgs.RemoteServerList` has been changed from string type to string array type.
+* `SavedSearchArgs` class has been renamed to `SavedSearchDispatchArgs`.
 
 ## Version 0.8.0.0 (beta)
 

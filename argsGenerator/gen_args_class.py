@@ -99,6 +99,8 @@ try:
         else:
             # Standard code for this setter, depending on its parameter type
             code = """        set { this["%s"] = value; }""" % (machine_name)
+
+            # Convert Java type to C# equivalent
             if type == 'boolean':
                 type = 'bool'
             if type == 'OutputMode' or type == 'TruncationMode' or type == 'SearchMode':
@@ -111,7 +113,7 @@ try:
                     type = 'string[]'
                 elif type == 'String[]-CSV':
                     type = 'string[]'
-                    code = """                // string[] will be encoded as multiple occurances
+                    code = """                // string[] will be encoded as multiple occurences
                 // of the same parameter of the value set. That is not 
                 // what we want.
                 this["%s"] = value.GetCsv();""" % (java_name_lower, java_name_lower, machine_name)
@@ -144,7 +146,7 @@ try:
             for line in method_description_lines:
                 method_description_formatted += '    /// %s' % line
         
-        # Fix java doc tags for C# XML Docs
+        # Fix java doc tags for C# XML Docs for method description.
         method_description_formatted = fix_doc(method_description_formatted)
 
         # Format param_description_lines
@@ -152,7 +154,7 @@ try:
         for line in param_description_lines:
             param_description_formatted += '     *      %s' % line
           
-        # Fix java doc tags for C# XML Docs
+        # Fix java doc tags for C# XML Docs for parameter description.
         param_description_formatted = fix_doc(param_description_formatted)
 
         cur_arg = (machine_name, type)
@@ -171,6 +173,7 @@ try:
 %s    /// </summary>
     public """ % (method_description_formatted))
 
+            # "Count" is a Property on ICollection. "new" is needed to avoid conflicts.
             if machine_name == 'count':
                 output.write('new ')
                 

@@ -258,7 +258,11 @@ namespace UnitTests
             savedSearch.ActionRssTrackAlert = false;
             savedSearch.ActionRssTtl = "63";
             savedSearch.ActionScriptCommand = "$name4$";
-            //savedSearch.ActionScriptFilename = String  filename;
+
+            const string ActionScriptFilename = "action_script_filename";
+            savedSearch.ActionScriptFilename = ActionScriptFilename;
+
+
             savedSearch.ActionScriptHostname = "dummy4.host.com";
             savedSearch.ActionScriptMaxResults = 104;
             savedSearch.ActionScriptMaxTime = "40s";
@@ -325,7 +329,9 @@ namespace UnitTests
             Assert.IsFalse(savedSearch.ActionRssTrackAlert, this.assertRoot + "#50");
             Assert.AreEqual("63", savedSearch.ActionRssTtl, this.assertRoot + "#51");
             Assert.AreEqual("$name4$", savedSearch.ActionScriptCommand, this.assertRoot + "#52");
-            //savedSearch.ActionScriptFilename(String  filename);
+
+            Assert.AreEqual(ActionScriptFilename, savedSearch.ActionScriptFilename);
+
             Assert.AreEqual("dummy4.host.com", savedSearch.ActionScriptHostname, this.assertRoot + "#53");
             Assert.AreEqual(104, savedSearch.ActionScriptMaxResults, this.assertRoot + "#54");
             Assert.AreEqual("40s", savedSearch.ActionScriptMaxTime, this.assertRoot + "#55");
@@ -429,7 +435,7 @@ namespace UnitTests
             savedSearchDispatchArgs.ActionRssTrackAlert = false;
             savedSearchDispatchArgs.ActionRssTtl = "63";
             savedSearchDispatchArgs.ActionScriptCommand = "$name4$";
-            //savedSearchDispatchArgs.ActionScriptFilename = String  filename;
+            savedSearchDispatchArgs.ActionScriptFilename = "action_script_filename";
             savedSearchDispatchArgs.ActionScriptHostname = "dummy4.host.com";
             savedSearchDispatchArgs.ActionScriptMaxResults = 104;
             savedSearchDispatchArgs.ActionScriptMaxTime = "40s";

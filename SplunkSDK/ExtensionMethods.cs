@@ -21,8 +21,7 @@ using System.Text;
 namespace Splunk
 {
     /// <summary>
-    /// The <see cref="ExtensionMethods"/> class hosts an extension method 
-    /// that retrieves an enum value's custom string.
+    /// The <see cref="ExtensionMethods"/> class hosts extension methods 
     /// </summary>
     internal static class ExtensionMethods
     {      
@@ -45,13 +44,13 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Retrieves comma-separated elements in an array.
+        /// Joins the specified strings with a comma, forming a single comma-separated string.
         /// </summary>
         /// <param name="value">The array.</param>
         /// <returns>
         /// A string of comma-separated values.
         /// </returns>
-        internal static string GetCsv(this string[] value)
+        internal static string ToCsv(this string[] value)
         {
             var csv = new StringBuilder();
             for (int i = 0, n = value.Length; i < n; i++)
