@@ -30,14 +30,14 @@ namespace Splunk
         /// </summary>
         /// <param name="value">The enum value.</param>
         /// <returns>The custom string.</returns>
-        internal static string GetCustomString(this Enum value)
+        internal static string GetSplunkEnumValue(this Enum value)
         {
             var type = value.GetType();
             var fieldInfo = type.GetField(value.ToString());
 
             // Get the stringvalue attributes
             var attribs = fieldInfo.GetCustomAttributes(
-                typeof(CustomString), false) as CustomString[];
+                typeof(SplunkEnumValue), false) as SplunkEnumValue[];
 
             // Return the first if there was a match.
             return attribs.Length > 0 ? attribs[0].Value : null;

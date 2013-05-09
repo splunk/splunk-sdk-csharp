@@ -19,16 +19,16 @@ using System;
 namespace Splunk
 {
     /// <summary>
-    /// The <see cref="CustomString"/> class represents an <see cref="Attribute"/>
-    /// for custom Enum strings.
+    /// The <see cref="SplunkEnumValue"/> class represents an <see cref="Attribute"/>
+    /// for Enum types holding a string value used by Splunk REST API.
     /// </summary>
-    internal class CustomString : Attribute
+    internal class SplunkEnumValue : Attribute
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CustomString" /> class.
+        /// Initializes a new instance of the <see cref="SplunkEnumValue" /> class.
         /// </summary>
         /// <param name="value">The value of the custom string.</param>
-        public CustomString(string value)
+        public SplunkEnumValue(string value)
         {
             this.Value = value;
         }

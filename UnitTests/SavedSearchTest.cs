@@ -262,7 +262,6 @@ namespace UnitTests
             const string ActionScriptFilename = "action_script_filename";
             savedSearch.ActionScriptFilename = ActionScriptFilename;
 
-
             savedSearch.ActionScriptHostname = "dummy4.host.com";
             savedSearch.ActionScriptMaxResults = 104;
             savedSearch.ActionScriptMaxTime = "40s";

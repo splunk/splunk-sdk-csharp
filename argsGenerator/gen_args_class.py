@@ -105,7 +105,7 @@ try:
                 type = 'bool'
             if type == 'OutputMode' or type == 'TruncationMode' or type == 'SearchMode':
                 type += 'Enum'
-                code = """        set { this["%s"] = value.GetCustomString(); }""" % (machine_name)
+                code = """        set { this["%s"] = value.GetSplunkEnumValue(); }""" % (machine_name)
             if type == 'String':
                 type = 'string'
             if '[]' in type or type == 'Date':
@@ -113,10 +113,10 @@ try:
                     type = 'string[]'
                 elif type == 'String[]-CSV':
                     type = 'string[]'
-                    code = """                // string[] will be encoded as multiple occurences
-                // of the same parameter of the value set. That is not 
-                // what we want.
-                this["%s"] = value.GetCsv();""" % (java_name_lower, java_name_lower, machine_name)
+                    code = """                // string[] were simply passed thru, it would be encoded as 
+                // as Splunk REST API multi value parameter. 
+                // Instead we want a comma separated string.
+                this["%s"] = value.ToCsv();""" % (java_name_lower, java_name_lower, machine_name)
                 else:
                     sys.exit("Don't know how to encode an array of type: %s" % type);
         

@@ -32,43 +32,43 @@ namespace Splunk
             /// <summary>
             /// Returns output in Atom format.
             /// </summary>
-            [CustomString("atom")]
+            [SplunkEnumValue("atom")]
             Atom,
 
             /// <summary>
             /// Returns output in CSV format.
             /// </summary>
-            [CustomString("csv")]
+            [SplunkEnumValue("csv")]
             Csv,
 
             /// <summary>
             /// Returns output in JSON format.
             /// </summary>
-            [CustomString("json")]
+            [SplunkEnumValue("json")]
             Json,
 
             /// <summary>
             /// Returns output in JSON_COLS format.
             /// </summary>
-            [CustomString("json_cols")]
+            [SplunkEnumValue("json_cols")]
             JsonColumns,
 
             /// <summary>
             /// Returns output in JSON_ROWS format.
             /// </summary>
-            [CustomString("json_rows")]
+            [SplunkEnumValue("json_rows")]
             JsonRows,
 
             /// <summary>
             /// Returns output in raw format.
             /// </summary>
-            [CustomString("raw")]
+            [SplunkEnumValue("raw")]
             Raw,
 
             /// <summary>
             /// Returns output in XML format.
             /// </summary>
-            [CustomString("xml")]
+            [SplunkEnumValue("xml")]
             Xml,
         }
 
@@ -114,7 +114,7 @@ namespace Splunk
         /// </summary>
         public OutputModeEnum OutputMode
         {
-            set { this["output_mode"] = value.GetCustomString(); }
+            set { this["output_mode"] = value.GetSplunkEnumValue(); }
         }
 
         /// <summary>

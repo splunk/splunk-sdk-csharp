@@ -62,7 +62,7 @@
     <Compile Include="AtomEntry.cs" />
     <Compile Include="BaseService.cs" />
     <Compile Include="ExtensionMethods.cs" />
-    <Compile Include="CustomString.cs" />
+    <Compile Include="SplunkEnumValue.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="EventTypeArgs.cs" />
     <Compile Include="ConfCollection.cs" />

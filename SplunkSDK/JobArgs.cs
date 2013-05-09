@@ -36,21 +36,21 @@ namespace Splunk
             /// <summary>
             /// Runs a search asynchronously and returns a search job immediately.
             /// </summary>
-            [CustomString("normal")]
+            [SplunkEnumValue("normal")]
             Normal,
 
             /// <summary>
             /// Runs a search synchronously and does not return a search job until 
             /// the search has finished.
             /// </summary>
-            [CustomString("blocking")]
+            [SplunkEnumValue("blocking")]
             Blocking,
 
             /// <summary>
             /// Runs a blocking search that is scheduled to run immediately, and then 
             /// returns the results of the search once completed. 
             /// </summary>
-            [CustomString("oneshot")]
+            [SplunkEnumValue("oneshot")]
             Oneshot,
         }
 
@@ -66,7 +66,7 @@ namespace Splunk
             /// <summary>
             /// Searches historical data.
             /// </summary>
-            [CustomString("normal")]
+            [SplunkEnumValue("normal")]
             Normal,
 
             /// <summary>
@@ -87,7 +87,7 @@ namespace Splunk
             /// time specifiers and are continuously updated based on current time.   
             /// </para>         
             /// </summary>
-            [CustomString("realtime")]
+            [SplunkEnumValue("realtime")]
             Realtime,
         }
 
@@ -201,7 +201,7 @@ namespace Splunk
         {
             set
             {
-                this["exec_mode"] = value.GetCustomString();
+                this["exec_mode"] = value.GetSplunkEnumValue();
             }
         }
 
@@ -334,9 +334,9 @@ namespace Splunk
         {
             set
             {
-                // string[] will be encoded as multiple occurances
-                // of the same parameter of the value set. That is not 
-                // what we want.
+                // string[] were simply passed thru, it would be encoded as 
+                // as Splunk REST API multi value parameter. 
+                // Instead we want a comma separated string.
                 this["remote_server_list"] = value.ToCsv();
             }
         }
@@ -459,7 +459,7 @@ namespace Splunk
         {
             set 
             {
-                this["search_mode"] = value.GetCustomString();
+                this["search_mode"] = value.GetSplunkEnumValue();
             }
         }
 
