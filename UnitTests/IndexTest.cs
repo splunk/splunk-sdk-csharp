@@ -213,30 +213,30 @@ namespace UnitTests
         /// <returns>The argument getIndexProperties</returns>
         private Args getIndexProperties(Index index)
         {
-            Args getIndexProperties = new Args();
+            Args indexProperties = new Args();
 
-            getIndexProperties.Add("blockSignSize", index.BlockSignSize);
-            getIndexProperties.Add("frozenTimePeriodInSecs", index.FrozenTimePeriodInSecs);
-            getIndexProperties.Add("maxConcurrentOptimizes", index.MaxConcurrentOptimizes);
-            getIndexProperties.Add("maxDataSize", index.MaxDataSize);
-            getIndexProperties.Add("maxHotBuckets", index.MaxHotBuckets);
-            getIndexProperties.Add("maxHotIdleSecs", index.MaxHotIdleSecs);
-            getIndexProperties.Add("maxHotSpanSecs", index.MaxHotSpanSecs);
-            getIndexProperties.Add("maxMemMB", index.MaxMemMB);
-            getIndexProperties.Add("maxMetaEntries", index.MaxMetaEntries);
-            getIndexProperties.Add("maxTotalDataSizeMB", index.MaxTotalDataSizeMB);
-            getIndexProperties.Add("maxWarmDBCount", index.MaxWarmDBCount);
-            getIndexProperties.Add("minRawFileSyncSecs", index.MinRawFileSyncSecs);
-            getIndexProperties.Add("partialServiceMetaPeriod", index.PartialServiceMetaPeriod);
-            getIndexProperties.Add("quarantineFutureSecs", index.QuarantineFutureSecs);
-            getIndexProperties.Add("quarantinePastSecs", index.QuarantinePastSecs);
-            getIndexProperties.Add("rawChunkSizeBytes", index.RawChunkSizeBytes);
-            getIndexProperties.Add("rotatePeriodInSecs", index.RotatePeriodInSecs);
-            getIndexProperties.Add("serviceMetaPeriod", index.ServiceMetaPeriod);
-            getIndexProperties.Add("syncMeta", index.SyncMeta);
-            getIndexProperties.Add("throttleCheckPeriod", index.ThrottleCheckPeriod);
+            indexProperties.Add("blockSignSize", index.BlockSignSize);
+            indexProperties.Add("frozenTimePeriodInSecs", index.FrozenTimePeriodInSecs);
+            indexProperties.Add("maxConcurrentOptimizes", index.MaxConcurrentOptimizes);
+            indexProperties.Add("maxDataSize", index.MaxDataSize);
+            indexProperties.Add("maxHotBuckets", index.MaxHotBuckets);
+            indexProperties.Add("maxHotIdleSecs", index.MaxHotIdleSecs);
+            indexProperties.Add("maxHotSpanSecs", index.MaxHotSpanSecs);
+            indexProperties.Add("maxMemMB", index.MaxMemMB);
+            indexProperties.Add("maxMetaEntries", index.MaxMetaEntries);
+            indexProperties.Add("maxTotalDataSizeMB", index.MaxTotalDataSizeMB);
+            indexProperties.Add("maxWarmDBCount", index.MaxWarmDBCount);
+            indexProperties.Add("minRawFileSyncSecs", index.MinRawFileSyncSecs);
+            indexProperties.Add("partialServiceMetaPeriod", index.PartialServiceMetaPeriod);
+            indexProperties.Add("quarantineFutureSecs", index.QuarantineFutureSecs);
+            indexProperties.Add("quarantinePastSecs", index.QuarantinePastSecs);
+            indexProperties.Add("rawChunkSizeBytes", index.RawChunkSizeBytes);
+            indexProperties.Add("rotatePeriodInSecs", index.RotatePeriodInSecs);
+            indexProperties.Add("serviceMetaPeriod", index.ServiceMetaPeriod);
+            indexProperties.Add("syncMeta", index.SyncMeta);
+            indexProperties.Add("throttleCheckPeriod", index.ThrottleCheckPeriod);
 
-            return getIndexProperties;
+            return indexProperties;
         }
 
         /// <summary>

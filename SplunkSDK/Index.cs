@@ -1025,7 +1025,7 @@ namespace Splunk
         public void Submit(string data)
         {
             Receiver receiver = this.Service.GetReceiver();
-            receiver.Log(this.Name, data);
+            receiver.Submit(this.Name, data);
         }
 
         /// <summary>
@@ -1036,7 +1036,7 @@ namespace Splunk
         public void Submit(Args args, string data)
         {
             Receiver receiver = this.Service.GetReceiver();
-            receiver.Log(this.Name, args, data);
+            receiver.Submit(this.Name, args, data);
         }
 
         /// <summary>
