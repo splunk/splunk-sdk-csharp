@@ -102,27 +102,27 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// Verify that segmentation is default to 'none'.
+        /// Verify that segmentation is defaulted to 'none' and can be changed.
         /// </summary>
         [TestMethod]
         public void SegmentationWithExport()
         {
-            Segmentation(
+            VerifySegmentation(
                 (service, query, args) => service.Export(query, args));
         }
 
         /// <summary>
-        /// Verify that segmentation is default to 'none'.
+        /// Verify that segmentation is defaulted to 'none' and can be changed.
         /// </summary>
         [TestMethod]
         public void SegmentationWithOneshot()
         {
-            Segmentation(
+            VerifySegmentation(
                 (service, query, args) => service.Oneshot(query, args));
         }
 
         /// <summary>
-        /// Verify that segmentation is default to 'none'.
+        /// Verify that segmentation is defaulted to 'none' and can be changed.
         /// </summary>
         [TestMethod]
         public void SegmentationWithJobResults()
@@ -132,7 +132,7 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// Verify that segmentation is default to 'none'.
+        /// Verify that segmentation is defaulted to 'none' and can be changed.
         /// </summary>
         [TestMethod]
         public void SegmentationWithJobResultsPreview()
@@ -142,7 +142,7 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// Verify that segmentation is default to 'none'.
+        /// Verify that segmentation is defaulted to 'none' and can be changed.
         /// </summary>
         [TestMethod]
         public void SegmentationWithJobEvents()
@@ -152,7 +152,7 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// Verify that segmentation is default to 'none'.
+        /// Verify that segmentation is defaulted to 'none' and can be changed.
         /// </summary>
         /// <param name="results">
         /// Get results stream from a Job object.
@@ -160,7 +160,7 @@ namespace UnitTests
         private void SegmentationWithJob(
             Func<Job, Args, Stream> results)
         {
-            Segmentation(
+            VerifySegmentation(
                 (service, query, resultsArgs) =>
                 {
                     var job = this.RunWait(service, query);
@@ -169,17 +169,17 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// Verify that segmentation is default to 'none'.
+        /// Verify that segmentation is defaulted to 'none' and can be changed.
         /// </summary>
         /// <param name="getResults">
         /// Function to get a results stream.
         /// </param>
-        private void Segmentation(
+        private void VerifySegmentation(
             Func<Service, string, Args, Stream> getResults)
         {
             var service = Connect();
 
-            // 'segmentation=none' has no impact on Splunk 4.3.5 (or earlier)
+            // 'segmentation=none' has no impact on Splunk 4.3.5 (or earlier).
             if (service.VersionCompare("5.0") < 0)
             {
                 return;
@@ -189,8 +189,7 @@ namespace UnitTests
 
             var query = "search index=_internal GET | head 3";
 
-            var input = getResults(service, query, null);
-
+            using (var input = getResults(service, query, null))
             using (var reader = new StreamReader(input))
             {
                 var data = reader.ReadToEnd();
@@ -202,8 +201,7 @@ namespace UnitTests
                     { "segmentation", "raw" }
                 };
 
-            input = getResults(service, query, args);
-
+            using (var input = getResults(service, query, args))
             using (var reader = new StreamReader(input))
             {
                 var data = reader.ReadToEnd();

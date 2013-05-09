@@ -204,10 +204,10 @@ namespace Splunk
         /// </summary>
         internal void SetSegmentationDefault()
         {
-            const string Segmentation = "segmentation";
-            if (!this.ContainsKey(Segmentation))
+            const string SegmentationKey = "segmentation";
+            if (!this.ContainsKey(SegmentationKey))
             {
-                this[Segmentation] = "none";
+                this[SegmentationKey] = "none";
             }
         }
     }
