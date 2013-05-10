@@ -20,8 +20,8 @@ namespace Splunk.ModularInputs
 {
     /// <summary>
     /// The <see cref="ConfigurationItem"/> class represents input
- 	/// configuration items that Splunk sends to modular inputs to start
- 	/// event streaming.
+    /// configuration items that Splunk sends to modular inputs to start
+    /// event streaming.
     /// </summary>
     [XmlRoot("item")]
     public class ConfigurationItem : ConfigurationItemBase

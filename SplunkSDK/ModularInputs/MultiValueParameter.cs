@@ -23,7 +23,7 @@ namespace Splunk.ModularInputs
 {
     /// <summary>
     /// The <see cref="MultiValueParameter"/> class represents a parameter that
- 	/// contains a multivalue.
+    /// contains a multivalue.
     /// </summary>
     [XmlRoot("param_list")]
     public class MultiValueParameter : ParameterBase
@@ -40,11 +40,8 @@ namespace Splunk.ModularInputs
         public Value ValueXmlElements { get; set; }
 
         /// <summary>
-        /// The value of the parameter.
+        /// Gets the value of the parameter.
         /// </summary>
-        /// <remarks>
-        /// This property is read-only.
-        /// </remarks>
         internal override ValueBase ValueAsBaseType
         {
             get { return ValueXmlElements; }
@@ -131,11 +128,11 @@ namespace Splunk.ModularInputs
 
         /// <summary>
         /// The <see cref="ValueXmlElement"/> class represents the <b>value</b> 
-		/// XML element.
+	/// XML element.
         /// </summary>
-		/// <remarks>
-		/// This class is used for serializing and deserializing the
-		/// <b>value</b> XML element for a multivalue parameter.
+	/// <remarks>
+	/// This class is used for serializing and deserializing the
+	/// <b>value</b> XML element for a multivalue parameter.
         /// </remarks>
         [XmlRoot("value")]
         public class ValueXmlElement
@@ -158,7 +155,7 @@ namespace Splunk.ModularInputs
             }
 
             /// <summary>
-            /// Converts a value to a <c>string</c>.
+            /// Converts a <see cref="ValueXmlElement"/> to a <c>string</c>.
             /// </summary>
             /// <param name="value">Field value.</param>
             /// <returns>

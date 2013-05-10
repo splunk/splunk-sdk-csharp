@@ -42,14 +42,10 @@ namespace Splunk.ModularInputs
     /// <summary>
     /// The <see cref="Scheme"/> class represents the XML output when a
     /// modular input is called by Splunk for introspection.
-    /// <remarks>
-    ///     The modular input script (that is executable) returns
-    ///     the XML output through stdout to Splunk.
-    /// </remarks>    
     /// </summary>
     /// <remarks>
     /// The modular input script (that is, executable) returns the XML output
- 	/// through stdout to Splunk.
+    /// through stdout to Splunk.
     /// </remarks>    
     [XmlRoot("scheme")]
     public class Scheme
@@ -101,34 +97,34 @@ namespace Splunk.ModularInputs
         }
 
         /// <summary>
-        /// The title of the modular input.
+        /// Gets or sets the title of the modular input.
         /// </summary>
         [XmlElement("title")]
         public string Title { get; set; }
 
         /// <summary>
-        /// The description of the modular input.
+        /// Gets or sets the description of the modular input.
         /// </summary>
         [XmlElement("description")]
         public string Description { get; set; }
 
         /// <summary>
-        /// A Boolean value that indicates whether external validation 
+        /// Gets or sets a value indicating whether external validation 
         /// is enabled for this modular input.
         /// </summary>
         /// <remarks>
         /// <para>
         /// Override <see cref="Script.Validate"/> to perform the validation.
         /// </para>
-		/// <para>
+        /// <para>
         /// This property's default value is true.
-		/// </para>
+        /// </para>
         /// </remarks>
         [XmlElement("use_external_validation")]
         public bool UseExternalValidation { get; set; }
 
         /// <summary>
-        /// A Boolean value that indicates whether to launch a single instance
+        /// Gets or sets a value indicating whether to launch a single instance
         /// of the script or one script instance for each input stanza.  
         /// </summary>
         /// <remarks>
@@ -138,7 +134,7 @@ namespace Splunk.ModularInputs
         public bool UseSingleInstance { get; set; }
 
         /// <summary>
-        /// The streaming mode for this modular input (Simple or Xml).
+        /// Gest or sets the streaming mode for this modular input (Simple or Xml).
         /// </summary>
         /// <remarks>
         /// This property's default value is "Simple".
@@ -147,7 +143,7 @@ namespace Splunk.ModularInputs
         public StreamingMode StreamingMode { get; set; }
 
         /// <summary>
-        /// The endpoint element for this scheme.
+        /// Gets or sets the endpoint element for this scheme.
         /// </summary>
         [XmlElement("endpoint")]
         public EndpointElement Endpoint { get; set; }
@@ -172,7 +168,7 @@ namespace Splunk.ModularInputs
             }
 
             /// <summary>
-            /// The list of arguments to this endpoint.  
+            /// Gets or sets the list of arguments to this endpoint.  
             /// </summary>
             [XmlArray("args")]
             [XmlArrayItem("arg")]

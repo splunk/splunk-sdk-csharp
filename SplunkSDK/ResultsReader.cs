@@ -87,7 +87,7 @@ namespace Splunk
         /// Gets all the field names that may appear in each result.
         /// </summary>
         /// <remarks>
-        /// Note that any given result will contain a subset of these fields.
+        /// Be aware that any given result will contain a subset of these fields.
         /// </remarks>
         public virtual ICollection<string> Fields
         {
@@ -95,11 +95,13 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether the results in this
+        /// Gets a value indicating whether the results in this
         /// reader are a preview from an unfinished search.
-        /// The default value is "false", which results in no results set
-        /// skipping or concatenation.
         /// </summary>
+        /// <remarks>
+        /// This property's default value is "false", which results in no results set
+        /// skipping or concatenation.
+        /// </remarks>
         public virtual bool IsPreview
         {
             get
@@ -113,10 +115,9 @@ namespace Splunk
             }
         }
         /// <summary>
-        /// Used by constructors of results readers to do the following for a
-        /// single reader:
-        /// 1. Obtain the preview flag and the field list.
-        /// 2. Skip any previews for export.
+        /// Used by constructors of results readers to obtain the preview flag
+        /// and field list, and then skip any previews for export for a
+        /// single reader.
         /// </summary>
         internal virtual void FinishInitialization()
         {
@@ -155,9 +156,11 @@ namespace Splunk
     
         /// <summary>
         /// Returns an enumerator over the events in the event stream.
-        /// It will concatenates results across sets when necessary.
         /// </summary>
-        /// <returns>An enumerator of events</returns>
+        /// <remarks>
+        /// This property concatenates results across sets when necessary.
+        /// </remarks>
+        /// <returns>An enumerator of events.</returns>
         public IEnumerator<Event> GetEnumerator()
         {
             while (true)
@@ -204,7 +207,7 @@ namespace Splunk
         /// <summary>
         /// Returns an enumerator over the events in the event stream.
         /// </summary>
-        /// <returns>An enumerator of events</returns>
+        /// <returns>An enumerator of events.</returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();

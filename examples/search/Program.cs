@@ -49,12 +49,12 @@ namespace Splunk.Examples.Search
                 Thread.Sleep(1000);
             }
 
-            var outArgs = new Args
+            var outArgs = new JobResultsArgs
             {
-                { "output_mode", "xml" },
+                OutputMode = JobResultsArgs.OutputModeEnum.Xml,
 
                 // Return all entries.
-                { "count", "0" }
+                Count = 0
             };
 
             using (var stream = job.Results(outArgs))

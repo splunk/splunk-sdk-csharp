@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright 2013 Splunk, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"): you may
@@ -25,9 +25,9 @@ namespace Splunk
     /// <summary>
     /// The <see cref="Service"/> class represents a Splunk service instance 
     /// at a given address (<i>host</i>:<i>port</i>) accessed using the http or
- 	/// https protocol scheme.
+    /// https protocol scheme.
     /// </summary>
-	/// <remarks>
+    /// <remarks>
     /// <para>
     /// A <see cref="Service"/> instance also captures an optional namespace 
     /// contact that consists of an optional owner name (or "-" wildcard) and 
@@ -38,7 +38,8 @@ namespace Splunk
     /// instance must be authenticated by presenting credentials using the 
     /// <see cref="Login"/> method, or by constructing the
     /// <see cref="Service"/> instance using the <see cref="Connect"/> method.
-    /// </para>	/// </remarks>
+    /// </para>	
+    /// </remarks>
     public class Service : BaseService 
     {
         /// <summary>
@@ -80,7 +81,7 @@ namespace Splunk
         /// with host, port, and scheme.
         /// </summary>
         /// <param name="host">The host name.</param>
-        /// <param name="port">The port</param>
+        /// <param name="port">The port.</param>
         /// <param name="scheme">The scheme, http or https.</param>
         public Service(string host, int port, string scheme)
             : base(host, port, scheme) 
@@ -270,11 +271,23 @@ namespace Splunk
         }
 
         /// <summary>
+        /// Runs a search using the search/jobs/export endpoint which streams
+        /// results back via a <see cref="Stream"/>. 
+        /// </summary>
+        /// <param name="search">The search query string.</param>
+        /// <param name="args">The search arguments.</param>
+        /// <returns>The results stream.</returns>
+        public Stream Export(string search, JobExportArgs args)
+        {
+            return Export(search, (Args) args);
+        }
+
+        /// <summary>
         /// Ensures that the given path is fully qualified, prepending a path
         /// prefix if necessary. 
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns>A fully qualified URL.</returns>
+        /// <returns>The fully qualified URL.</returns>
 		/// <remarks>
 		/// The path prefix is constructed using the current owner and app
 		/// context when available.
@@ -388,7 +401,7 @@ namespace Splunk
         /// <summary>
         /// Returns a collection of saved event types.
         /// </summary>
-        /// <returns>A <see cref="EventTypeCollection"/>.</returns>
+        /// <returns>An <see cref="EventTypeCollection"/>.</returns>
         public EventTypeCollection GetEventTypes()
         {
             return new EventTypeCollection(this);
@@ -398,7 +411,7 @@ namespace Splunk
         /// Returns a collection of saved event types.
         /// </summary>
         /// <param name="args">The arguments.</param>
-        /// <returns>A <see cref="EventTypeCollection"/>.</returns>
+        /// <returns>An <see cref="EventTypeCollection"/>.</returns>
         public EventTypeCollection GetEventTypes(Args args)
         {
             return new EventTypeCollection(this, args);
@@ -429,7 +442,8 @@ namespace Splunk
         /// <summary>
         /// Returns a collection of Splunk indexes.
         /// </summary>
-        /// <returns>An <see cref="Index"/> collection.</returns>
+        /// <returns>An <see cref="EntityCollection"/> of 
+		/// <see cref="Index">Indexes</see>.</returns>
         public EntityCollection<Index> GetIndexes() 
         {
             return new 
@@ -440,7 +454,8 @@ namespace Splunk
         /// Returns a collection of Splunk indexes.
         /// </summary>
         /// <param name="args">The optional arguments.</param>
-        /// <returns>An <see cref="Index"/> collection.</returns>
+        /// <returns>An <see cref="EntityCollection"/> of 
+		/// <see cref="Index">Indexes</see>.</returns>
         public EntityCollection<Index> GetIndexes(Args args) 
         {
             return new EntityCollection<Index>(
@@ -499,7 +514,7 @@ namespace Splunk
         /// Returns a collection of service logging categories and their 
 		/// status.
         /// </summary>
-        /// <returns>A collection of 
+        /// <returns>An <see cref="EntityCollection"/> of 
 		/// <see cref="Logger">Loggers</see>.</returns>
         public EntityCollection<Logger> GetLoggers()
         {
@@ -512,7 +527,7 @@ namespace Splunk
         /// </summary>
         /// <param name="args">Optional arguments, such as "count" and "offset"
         /// for pagination.</param>
-        /// <returns>A collection of 
+        /// <returns>An <see cref="EntityCollection"/> of 
 		/// <see cref="Logger">Loggers</see>.</returns>
         public EntityCollection<Logger> GetLoggers(Args args) 
         {
@@ -577,7 +592,7 @@ namespace Splunk
         /// <summary>
         /// Returns a collection of Splunk user roles.
         /// </summary>
-        /// <returns>A collection of Splunk 
+        /// <returns>An <see cref="EntityCollection"/> of Splunk
 		/// <see cref="Role">Roles</see>.</returns>
         public EntityCollection<Role> GetRoles() 
         {
@@ -589,7 +604,7 @@ namespace Splunk
         /// Returns a collection of Splunk user roles.
         /// </summary>
         /// <param name="args">Optional parameters.</param>
-        /// <returns>A collection of Splunk 
+        /// <returns>An <see cref="EntityCollection"/> of Splunk
 		/// <see cref="Role">Roles</see>.</returns>
         public EntityCollection<Role> GetRoles(Args args) 
         {
@@ -629,7 +644,7 @@ namespace Splunk
         /// <summary>
         /// Returns a collection of in-progress oneshot uploads.
         /// </summary>
-        /// <returns>A collection of oneshot 
+        /// <returns>An <see cref="EntityCollection"/> of oneshot
 		/// <see cref="Upload">Uploads</see>.</returns>
         public EntityCollection<Upload> GetUploads()
         {
@@ -641,7 +656,7 @@ namespace Splunk
         /// Returns a collection of in-progress oneshot uploads.
         /// </summary>
         /// <param name="splunkNamespace">The specific namespace.</param>
-        /// <returns>A collection of oneshot 
+        /// <returns>An <see cref="EntityCollection"/> of oneshot
 		/// <see cref="Upload">Uploads</see>.</returns>
         public EntityCollection<Upload> GetUploads(Args splunkNamespace) 
         {
@@ -869,7 +884,7 @@ namespace Splunk
         /// </summary>
         /// <param name="right">The desired version.</param>
         /// <returns><para>One of the following values:
- 		/// <list>
+ 		/// <list type="bullet">
 		/// <item>"-1" indicates the current version is less than the desired
 		/// version.</item>
 		/// <item>"0" indicates the versions are equal.</item>

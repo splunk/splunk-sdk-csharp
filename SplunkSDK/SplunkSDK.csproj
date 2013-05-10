@@ -61,6 +61,8 @@
     <Compile Include="AtomObject.cs" />
     <Compile Include="AtomEntry.cs" />
     <Compile Include="BaseService.cs" />
+    <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="SplunkEnumValue.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="EventTypeArgs.cs" />
     <Compile Include="ConfCollection.cs" />
@@ -78,6 +80,10 @@
     <Compile Include="InputKind.cs" />
     <Compile Include="ISearchResults.cs" />
     <Compile Include="JobArgs.cs" />
+    <Compile Include="JobEventsArgs.cs" />
+    <Compile Include="JobExportArgs.cs" />
+    <Compile Include="JobResultsArgs.cs" />
+    <Compile Include="JobResultsPreview.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="MessageArgs.cs" />
@@ -104,12 +110,13 @@
     <Compile Include="MultiResultsReaderXml.cs" />
     <Compile Include="Credential.cs" />
     <Compile Include="CredentialCollection.cs" />
+    <Compile Include="ReceiverSubmitArgs.cs" />
     <Compile Include="ReplaceTimezone.cs" />
     <Compile Include="ResultsReaderXml.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="RoleArgs.cs" />
     <Compile Include="SavedSearch.cs" />
-    <Compile Include="SavedSearchArgs.cs" />
+    <Compile Include="SavedSearchDispatchArgs.cs" />
     <Compile Include="SavedSearchCollection.cs" />
     <Compile Include="ScriptInput.cs" />
     <Compile Include="ScriptInputArgs.cs" />

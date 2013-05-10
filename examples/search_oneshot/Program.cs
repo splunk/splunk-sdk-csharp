@@ -43,12 +43,12 @@ namespace Splunk.Examples.Search
 
             var service = Service.Connect(cli.Opts);
        
-            var outArgs = new Args
+            var outArgs = new JobResultsArgs
             {
-                { "output_mode", "xml" },
-
+                OutputMode = JobResultsArgs.OutputModeEnum.Xml,
+                
                 // Return all entries.
-                { "count", "0" }
+                Count = 0,
             };
 
             using (var stream = service.Oneshot(

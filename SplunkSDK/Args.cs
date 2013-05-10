@@ -59,7 +59,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Adds a key/value pair to an <see cref="Args"/>.
+        /// Adds a key/value pair to an <see cref="Args"/>,
+        /// or overwrites the value if the key exists.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>

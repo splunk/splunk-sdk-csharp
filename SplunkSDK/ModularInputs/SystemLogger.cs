@@ -51,7 +51,8 @@ namespace Splunk.ModularInputs
     }
 
     /// <summary>
-    /// Holds information for logging in a Splunk modular input.
+    /// The <see cref="SystemLogger"/> class holds information for logging 
+    /// in a Splunk modular input.
     /// </summary>
     public static class SystemLogger
     {
