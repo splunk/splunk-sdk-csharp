@@ -852,7 +852,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Set segmentation default
+        /// Sets the default value for the 'segmentation' property 
+        /// in the specified Args, returning the modified original.
         /// </summary>
         /// <param name="args">Arguments input</param>
         /// <returns>Arguments with default set</returns>
