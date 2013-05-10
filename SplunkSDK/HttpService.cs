@@ -399,7 +399,7 @@ namespace Splunk
                 byte[] bytes = Encoding.UTF8.GetBytes((string)content);
                 webRequest.ContentLength = bytes.GetLength(0);
                 using (var stream = webRequest.GetRequestStream())
-                // Default encoding is UTF-8.
+                // Default encoding of StreamWriter is UTF-8.
                 using (var streamWriter = new StreamWriter(stream))
                 {
                     streamWriter.Write(content);
