@@ -1029,7 +1029,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Submits an event to this index through an HTTP POST request.
+        /// Submits an event to this index through an HTTP POST request with variable arguements
         /// </summary>
         /// <param name="args">The optional arguments.</param>
         /// <param name="data">The event data to submit.</param>

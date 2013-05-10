@@ -116,6 +116,8 @@ namespace UnitTests
 
             // Grab the new stanza and check its content
             Entity stanza1 = stanzas.Get("stanza1");
+            Assert.IsFalse(stanza1.IsEmpty, "Expected stanza1 to be non-empty");
+            Assert.AreEqual(5, stanza1.Size, "Expected stanza1 to have 5 elements");
             Assert.AreEqual("nobody", stanza1.Get("eai:userName"), assertRoot + "#16");
             Assert.AreEqual(app, stanza1.Get("eai:appName"), assertRoot + "#17");
             Assert.IsFalse(stanza1.ContainsKey("key1"), assertRoot + "#18");
@@ -142,6 +144,8 @@ namespace UnitTests
             Assert.AreEqual("value2", stanza1.Get("key1"), assertRoot + "#24");
             Assert.AreEqual("42", stanza1.Get("key2"), assertRoot + "#25");
             Assert.IsFalse(stanza1.ContainsKey("key3"), assertRoot + "#26");
+            Assert.IsTrue(stanza1.ContainsValue("value2"), "Expected stanza1 to contain the value value2");
+            Assert.IsTrue(stanza1.ContainsValue("42"), "Expected stanza1 to contain the value 42");
 
             // Delete the stanzas
             stanzas.Remove("stanza3");
