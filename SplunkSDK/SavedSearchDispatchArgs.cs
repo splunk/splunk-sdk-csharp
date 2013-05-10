@@ -122,22 +122,6 @@ namespace Splunk
         /// <para>
         /// This property's default value is "10".
         /// </para>
-        /// <para>
-        /// This property is write-only.
-        /// </para>
-        /// </remarks>
-        /// A Boolean value that indicates whether to backfill the 
-        /// real-time window for this search. 
-        /// <remarks>
-        /// <para>
-        /// This property is only valid for real-time searches.
-        /// </para>
-        /// <para>
-        /// This property's default value is false.
-        /// </para>
-        /// <para>
-        /// This property is write-only.
-        /// </para>
         /// </remarks>
         public int DispatchReduceFrequency
         {
@@ -154,7 +138,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value indicating whether the search should run in a separate spawned process. Searches against indexes must run in a separate process.
+        /// Sets a value indicating whether the search should run in a separate spawned process. 
+        /// Searches against indexes must run in a separate process.
         /// </summary>
         public bool DispatchSpawnProcess
         {
@@ -168,9 +153,6 @@ namespace Splunk
         /// <remarks>
         /// <para>
         /// This property's default value is "%FT%T.%Q%:z".
-        /// </para>
-        /// <para>
-        /// This property is write-only.
         /// </para>
         /// </remarks>
         public string DispatchTimeFormat
@@ -192,9 +174,6 @@ namespace Splunk
         /// <para>If the value is a number followed by "p", it is the number of
         /// scheduled search periods.</para>
         /// <para>This property's default value is "2p".</para>
-        /// <para>
-        /// This property is write-only.
-        /// </para>
         /// </remarks>
         public string DispatchTtl
         {
@@ -213,7 +192,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value indicating whether to start a new search, even if another instance of this search is already running.
+        /// Sets a value indicating whether to start a new search, even if another
+        /// instance of this search is already running.
         /// </summary>
         public bool ForceDispatch
         {
@@ -322,7 +302,13 @@ namespace Splunk
         /// <remarks>
         /// <para>
         /// This value also applies to any attachments formats. Valid values
-        /// are: "plain", "html", "raw", and "csv".
+        /// are: 
+        /// <list type="bullet">
+        /// <item>"plain"</item> 
+        /// <item>"html"</item> 
+        /// <item>"raw"</item>
+        /// <item>"csv"</item>
+        /// </list>
         /// </para>
         /// </remarks>
         public string ActionEmailFormat
@@ -371,12 +357,12 @@ namespace Splunk
         /// proxies, or when the Splunk server hostname is not generally
         /// resolvable. 
         /// </para>
-        /// <para>This property's default value is the current hostname
-        /// provided by the operating system, or "localhost". 
-        /// </para>
         /// <para>
         /// When this property is set to an empty string, the default
         /// behavior is used.
+        /// </para>
+        /// <para>This property's default value is the current hostname
+        /// provided by the operating system, or "localhost". 
         /// </para>
         /// </remarks>
         public string ActionEmailHostname
@@ -429,9 +415,9 @@ namespace Splunk
         /// Sets the maximum number of search results to send in email alerts.
         /// </summary>
         /// <remarks>
-    /// <para>
+        /// <para>
         /// This property's default value is "100".
-    /// </para>
+        /// </para>
         /// </remarks>
         public int ActionEmailMaxResults
         {
@@ -641,7 +627,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a Boolean value that indicates whether running this email 
+        /// Sets a value indicating whether running this email 
         /// action results in a trackable alert.
         /// </summary>
         /// <remarks>
@@ -667,11 +653,11 @@ namespace Splunk
         /// scheduled search periods.
         /// </para>
         /// <para>
-        /// This property's default value is "86400" (equal to 24 hours).
-        /// </para>
-        /// <para>
         /// If no actions are triggered, the artifacts will have their TTL
         /// determined by the "dispatch.ttl" attribute in savedsearches.conf.
+        /// </para>
+        /// <para>
+        /// This property's default value is "86400" (equal to 24 hours).
         /// </para>
         /// </remarks>
         public string ActionEmailTtl
@@ -683,7 +669,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a Boolean value that indicates whether to use secure socket 
+        /// Sets a value indicating whether to use secure socket 
         /// layer (SSL) when communicating with the SMTP server.
         /// </summary>
         /// <remarks>
@@ -700,7 +686,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a Boolean value that indicates whether to use transport layer 
+        /// Sets a value indicating whether to use transport layer 
         /// security (TLS) when communicating with the SMTP server.
         /// </summary>
         /// <remarks>
@@ -717,7 +703,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a Boolean value that indicates whether columns should be 
+        /// Sets a value indicating whether columns should be 
         /// sorted from least wide to most wide, left to right.
         /// </summary>
         /// <remarks>
@@ -787,12 +773,12 @@ namespace Splunk
         /// proxies, or when the Splunk server hostname is not generally
         /// resolvable. 
         /// </para>
-        /// <para>This property's default value is the current hostname
-        /// provided by the operating system, or "localhost". 
-        /// </para>
         /// <para>
         /// When this property is set to an empty string, the default
         /// behavior is used.
+        /// </para>
+        /// <para>This property's default value is the current hostname
+        /// provided by the operating system, or "localhost". 
         /// </para>
         /// </remarks>
         public string ActionPopulateLookupHostname
@@ -842,7 +828,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a Boolean value that indicates whether running this 
+        /// Sets a value indicating whether running this 
         /// populate-lookup action results in a trackable alert.
         /// </summary>
         public bool ActionPopulateLookupTrackAlert
@@ -860,11 +846,11 @@ namespace Splunk
         /// <remarks>
         /// <para>If the value is a number followed by "p", it is the number of
         /// scheduled search periods.</para>
-        /// <para>This property's default value is "10p".</para>
         /// <para>If no actions are triggered, the artifacts will have their 
         /// TTL determined by the "dispatch.ttl" attribute in 
         /// savedsearches.conf.
         /// </para>
+        /// <para>This property's default value is "10p".</para>
         /// </remarks>
         public string ActionPopulateLookupTtl
         {
@@ -918,12 +904,12 @@ namespace Splunk
         /// proxies, or when the Splunk server hostname is not generally
         /// resolvable. 
         /// </para>
-        /// <para>This property's default value is the current hostname
-        /// provided by the operating system, or "localhost". 
-        /// </para>
         /// <para>
         /// When this property is set to an empty string, the default
         /// behavior is used.
+        /// </para>
+        /// <para>This property's default value is the current hostname
+        /// provided by the operating system, or "localhost". 
         /// </para>
         /// </remarks>
         public string ActionRssHostname
@@ -972,7 +958,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a Boolean value that indicates whether running this RSS action 
+        /// Sets a value indicating whether running this RSS action 
         /// results in a trackable alert.
         /// </summary>
         public bool ActionRssTrackAlert
@@ -1033,7 +1019,7 @@ namespace Splunk
         /// </summary>
         /// <remarks>
         /// <para>
-        /// This value is required if script action is enabled 
+        /// This property is required if script action is enabled 
         /// <see cref="IsActionScript"/> is set to true).
         /// </para>
         /// </remarks>
@@ -1069,12 +1055,12 @@ namespace Splunk
         /// proxies, or when the Splunk server hostname is not generally
         /// resolvable. 
         /// </para>
-        /// <para>This property's default value is the current hostname
-        /// provided by the operating system, or "localhost". 
-        /// </para>
         /// <para>
         /// When this property is set to an empty string, the default
         /// behavior is used.
+        /// </para>
+        /// <para>This property's default value is the current hostname
+        /// provided by the operating system, or "localhost". 
         /// </para>
         /// </remarks>
         public string ActionScriptHostname
@@ -1122,7 +1108,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a Boolean value that indicates whether running this script 
+        /// Sets a value indicating whether running this script 
         /// action results in a trackable alert.
         /// </summary>
         public bool ActionScriptTrackAlert
@@ -1217,12 +1203,12 @@ namespace Splunk
         /// proxies, or when the Splunk server hostname is not generally
         /// resolvable. 
         /// </para>
-        /// <para>This property's default value is the current hostname
-        /// provided by the operating system, or "localhost". 
-        /// </para>
         /// <para>
         /// When this property is set to an empty string, the default
         /// behavior is used.
+        /// </para>
+        /// <para>This property's default value is the current hostname
+        /// provided by the operating system, or "localhost". 
         /// </para>
         /// </remarks>
         public string ActionSummaryIndexHostname
@@ -1234,7 +1220,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a Boolean value that indicates whether to run the summary 
+        /// Sets a value indicating whether to run the summary 
         /// indexing action as part of the scheduled search.
         /// </summary>
         /// <remarks>
@@ -1310,10 +1296,10 @@ namespace Splunk
         /// <remarks>
         /// <para>If the value is a number followed by "p", it is the number of
         /// scheduled search periods.</para>
-        /// <para>This property's default value is "10p".</para>
         /// <para>If no actions are triggered, the artifacts will have their TTL
         /// determined by the "dispatch.ttl" attribute in savedsearches.conf.
         /// </para>
+        /// <para>This property's default value is "10p".</para>
         /// </remarks>
         public string ActionSummaryIndexTtl
         {
@@ -1347,7 +1333,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a Boolean value that indicates whether Splunk applies the alert 
+        /// Sets a value indicating whether Splunk applies the alert 
         /// actions to the entire result set (digest) or to each individual 
         /// search result (per result).
         /// </summary>
@@ -1414,7 +1400,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a Boolean value that indicates whether alert suppression is 
+        /// Sets a value indicating whether alert suppression is 
         /// enabled for this search.
         /// </summary>
         public bool AlertSuppress
@@ -1553,7 +1539,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates what to base the alert on. 
+        /// Sets a value indicating what to base the alert on. 
         /// </summary>
         /// <remarks>
         /// <para>
@@ -1628,7 +1614,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a Boolean value that indicates whether the saved search is 
+        /// Sets a value indicating whether the saved search is 
         /// disabled. 
         /// </summary>
         /// <remarks>
@@ -1717,7 +1703,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a Boolean value that indicates whether this search is run 
+        /// Sets a value indicating whether this search is run 
         /// on a schedule.
         /// </summary>
         public bool IsScheduled
@@ -1729,7 +1715,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a Boolean value that indicates whether the search should be 
+        /// Sets a value indicating whether the search should be 
         /// visible in the saved search list.
         /// </summary>
         /// <remarks>
@@ -1763,7 +1749,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates how the scheduler computes the next run
+        /// Sets a value indicating how the scheduler computes the next run
         /// time of a scheduled search.
         /// </summary>
         /// <remarks>
@@ -1795,7 +1781,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a string value that specifies the app in which Splunk Web
+        /// Sets a string value specifying the app in which Splunk Web
         /// dispatches this search.
         /// </summary>
         public string RequestUIDispatchApp
@@ -1807,7 +1793,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a string value that specifies the view in which Splunk Web
+        /// Sets a string value specifying the view in which Splunk Web
         /// displays this search.
         /// </summary>
         public string RequestUIDispatchView
@@ -1819,7 +1805,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a Boolean value that indicates whether a real-time search 
+        /// Sets a value indicating whether a real-time search 
         /// managed by the scheduler is restarted when a search peer becomes 
         /// available for this saved search.
         /// </summary>
@@ -1841,7 +1827,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a Boolean value that indicates whether this search is run when 
+        /// Sets a value indicating whether this search is run when 
         /// Splunk starts.
         /// </summary>
         /// <remarks>
