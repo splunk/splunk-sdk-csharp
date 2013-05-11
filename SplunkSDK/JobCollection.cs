@@ -85,7 +85,7 @@ namespace Splunk
                       "Oneshot not allowed, use service oneshot search method");
                 }
             }
-            args = Args.Create(args).AlternateAdd("search", query);
+            args = Args.Create(args).Set("search", query);
             ResponseMessage response = Service.Post(Path, args);
             /* assert(response.getStatus() == 201); */
             StreamReader streamReader = new StreamReader(response.Content);

@@ -65,7 +65,7 @@ namespace Splunk
         /// on the given XML.
         /// </summary>
         /// <param name="element">The XML element.</param>
-        public virtual void Init(XmlElement element) 
+        internal virtual void Init(XmlElement element) 
         {
             string name = element.Name;
             if (name.Equals("id")) 

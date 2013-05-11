@@ -66,23 +66,23 @@ namespace Splunk
             Args splunkNamespace = new Args();
             if (args.ContainsKey("app")) 
             {
-                splunkNamespace.AlternateAdd("app", args["app"].ToString());
+                splunkNamespace.Set("app", args["app"].ToString());
                 clonedArgs.Remove("app");
             }
             if (args.ContainsKey("owner")) 
             {
-                splunkNamespace.AlternateAdd("owner", args["owner"].ToString());
+                splunkNamespace.Set("owner", args["owner"].ToString());
                 clonedArgs.Remove("owner");
             }
             if (args.ContainsKey("sharing")) 
             {
-                splunkNamespace.AlternateAdd(
+                splunkNamespace.Set(
                     "sharing", args["sharing"].ToString());
                 clonedArgs.Remove("sharing");
             }
             if (!clonedArgs.ContainsKey("count")) 
             {
-                clonedArgs.AlternateAdd("count", "-1");
+                clonedArgs.Set("count", "-1");
             }
 
             this.RefreshArgs = clonedArgs;

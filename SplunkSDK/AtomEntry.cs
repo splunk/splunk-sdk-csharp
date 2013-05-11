@@ -83,7 +83,7 @@ namespace Splunk
         /// </summary>
         /// <param name="element">The XML element.</param>
         /// <returns>An <see cref="AtomEntry"/>.</returns>
-        public static AtomEntry Parse(XmlElement element) 
+        internal static AtomEntry Parse(XmlElement element) 
         {
             AtomEntry entry = AtomEntry.Create();
             entry.Load(element);
@@ -95,7 +95,7 @@ namespace Splunk
         /// given XML element.
         /// </summary>
         /// <param name="element">The XML element.</param>
-        public override void Init(XmlElement element) 
+        internal override void Init(XmlElement element) 
         {
             string name = element.Name;
             if (name.Equals("published")) 
@@ -119,7 +119,7 @@ namespace Splunk
         /// </summary>
         /// <param name="element">The XML element.</param>
         /// <returns>XML element list.</returns>
-        public static List<XmlElement> GetChildElements(XmlElement element) 
+        internal static List<XmlElement> GetChildElements(XmlElement element) 
         {
             List<XmlElement> result = new List<XmlElement>();
             foreach (XmlNode child in element.ChildNodes) 
@@ -137,7 +137,7 @@ namespace Splunk
         /// </summary>
         /// <param name="element">The XML element.</param>
         /// <returns>The content Record.</returns>
-        public Record ParseContent(XmlElement element) 
+        internal Record ParseContent(XmlElement element) 
         {
             Trace.Assert(element.LocalName.Equals("content"));
             Record content = null;
@@ -163,7 +163,7 @@ namespace Splunk
         /// </summary>
         /// <param name="element">An XML element.</param>
         /// <returns>The Record.</returns>
-        public Record ParseDict(XmlElement element) 
+        internal Record ParseDict(XmlElement element) 
         {
             Trace.Assert(element.Name.Equals("s:dict"));
             if (element.FirstChild == null) 
@@ -199,7 +199,7 @@ namespace Splunk
         /// </summary>
         /// <param name="element">An XML element.</param>
         /// <returns>The list of parsed values.</returns>
-        public List<object> ParseList(XmlElement element) 
+        internal List<object> ParseList(XmlElement element) 
         {
             Trace.Assert(element.Name.Equals("s:list"));
             if (element.FirstChild == null) 
@@ -234,7 +234,7 @@ namespace Splunk
         /// </summary>
         /// <param name="element">The XML element.</param>
         /// <returns>Either the dictionary or list of values.</returns>
-        public object ParseValue(XmlElement element) 
+        internal object ParseValue(XmlElement element) 
         {
             string name = element.Name;
 

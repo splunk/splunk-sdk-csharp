@@ -31,6 +31,7 @@
 * `JobArgs.ExecutionMode` and `JobArgs.SearchMode` have been changed to Enum types.
 * `JobArgs.RemoteServerList` has been changed from string type to string array type.
 * `SavedSearchArgs` class has been renamed to `SavedSearchDispatchArgs`.
+* A few Atom parsing methods were changed from public to internal.
 
 ## Version 0.8.0.0 (beta)
 

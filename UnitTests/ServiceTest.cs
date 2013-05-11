@@ -217,7 +217,9 @@ namespace UnitTests
             // check for standard fields
             foreach (string name in expected)
             {
-                Assert.IsTrue(info.ContainsKey(name), this.assertRoot + "#1");
+                Assert.IsTrue(
+                    info.ContainsKey(name), 
+                    string.Format("{0} not found.", name));
             }
 
             bool dummyBool;

@@ -776,7 +776,7 @@ namespace Splunk
         /// <returns>The <see cref="Job"/>.</returns>
         public Job Control(string action, Args args) 
         {
-            args = Args.Create(args).AlternateAdd("action", action);
+            args = Args.Create(args).Set("action", action);
             this.Service.Post(this.ActionPath("control"), args);
             this.Invalidate();
             return this;
@@ -844,7 +844,7 @@ namespace Splunk
         /// <returns>The event <see cref="Stream"/> I/O handle.</returns>
         public Stream Events(Args args)
         {
-            args = SetSegmentationDefault(args);
+            Service.SetSegmentationDefault(ref args);
             ResponseMessage response = Service.Get(Path + "/events", args);
             return response.Content;
         }
@@ -860,22 +860,6 @@ namespace Splunk
             return this.Events((Args) args);
         }
         
-        /// <summary>
-        /// Sets the default value for the 'segmentation' property 
-        /// in the specified Args, returning the modified original.
-        /// </summary>
-        /// <param name="args">Arguments input</param>
-        /// <returns>Arguments with default set</returns>
-        private static Args SetSegmentationDefault(Args args)
-        {
-            if (args == null)
-            {
-                args = new Args();
-            }
-            args.SetSegmentationDefault();
-            return args;
-        }
-
         /// <summary>
         /// Stops the job and provides intermediate results available for 
         /// retrieval.
@@ -913,7 +897,7 @@ namespace Splunk
         /// </returns>
         public Stream Results(Args args) 
         {
-            args = SetSegmentationDefault(args);
+            Service.SetSegmentationDefault(ref args);
             ResponseMessage response = Service.Get(Path + "/results", args);
             return response.Content;
         }
@@ -948,7 +932,7 @@ namespace Splunk
         /// handle.</returns>
         public Stream ResultsPreview(Args args) 
         {
-            args = SetSegmentationDefault(args);
+            Service.SetSegmentationDefault(ref args);
             ResponseMessage response = 
                 Service.Get(Path + "/results_preview", args);
             return response.Content;

@@ -112,7 +112,7 @@ namespace Splunk
         /// given XML element.
         /// </summary>
         /// <param name="element">The XML element.</param>
-        public override void Init(XmlElement element) 
+        internal override void Init(XmlElement element) 
         {
             string name = element.Name;
             if (name.Equals("entry")) 

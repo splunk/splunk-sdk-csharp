@@ -64,8 +64,8 @@ namespace Splunk
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
-        /// <returns>The <see cref="Args"/>.</returns>
-        public Args AlternateAdd(string key, object value) 
+        /// <returns>The <see cref="Args"/>.</returns>F
+        public Args Set(string key, object value) 
         {
             base[key] = value;
             return this;
@@ -198,18 +198,6 @@ namespace Splunk
                 return defaultValue;
             }
             return (string)args[key];
-        }
-
-        /// <summary>
-        /// If "segmentation" is not set, set it to "none".
-        /// </summary>
-        internal void SetSegmentationDefault()
-        {
-            const string SegmentationKey = "segmentation";
-            if (!this.ContainsKey(SegmentationKey))
-            {
-                this[SegmentationKey] = "none";
-            }
         }
     }
 }

@@ -417,17 +417,17 @@ namespace Splunk
                 (Dictionary<string, object>)entry.Content["eai:acl"];
             if (entityMetadata.ContainsKey("owner")) 
             {
-                splunkNamespace.AlternateAdd(
+                splunkNamespace.Set(
                     "owner", entityMetadata["owner"]);
             }
             if (entityMetadata.ContainsKey("app")) 
             {
-                splunkNamespace.AlternateAdd(
+                splunkNamespace.Set(
                     "app", entityMetadata["app"]);
             }
             if (entityMetadata.ContainsKey("sharing")) 
             {
-                splunkNamespace.AlternateAdd(
+                splunkNamespace.Set(
                     "sharing", entityMetadata["sharing"]);
             }
             return splunkNamespace;

@@ -14,12 +14,12 @@
  * under the License.
  */
 
-using System.IO;
-
 namespace UnitTests
 {
     using System;
+    using System.IO;
     using System.Net;
+    using System.Text.RegularExpressions;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Splunk;
 
@@ -210,19 +210,18 @@ namespace UnitTests
         {
             var service = Connect();
 
-            // 'segmentation=none' has no impact on Splunk 4.3.5 (or earlier).
-            if (service.VersionCompare("5.0") < 0)
-            {
-                return;
-            }
+            // SDK's segmentation default has no impact on Splunk 4.3.5 (or earlier).
+            var segmentationDefaultEffective = service.VersionCompare("5.0") >= 0;
 
-            const string SgTag = "<sg";
+            var countSgWithDefault = CountSg( 
+                () => getResults(
+                    service,
+                    Query,
+                    null));
 
-            using (var input = getResults(service, Query, null))
-            using (var reader = new StreamReader(input))
+            if (segmentationDefaultEffective)
             {
-                var data = reader.ReadToEnd();
-                Assert.IsFalse(data.Contains(SgTag));
+                Assert.AreEqual(0, countSgWithDefault);
             }
 
             var args = new Args
@@ -230,14 +229,40 @@ namespace UnitTests
                     { "segmentation", "raw" }
                 };
 
-            using (var input = getResults(service, Query, args))
+            var countSgWithSegmentationRaw = CountSg(
+                () => getResults(
+                    service,
+                    Query,
+                    args)); 
+
+            Assert.AreNotEqual(0, countSgWithSegmentationRaw);
+
+            if (!segmentationDefaultEffective)
+            {
+                Assert.AreEqual(
+                    countSgWithDefault, 
+                    countSgWithSegmentationRaw);
+            }
+        }
+
+        /// <summary>
+        /// Count the number of sg tags in a stream
+        /// </summary>
+        /// <param name="getStream">Function to return a stream</param>
+        /// <returns>The count</returns>
+        private static int CountSg(
+            Func<Stream> getStream)
+        {
+            const string SgTag = "<sg";
+
+            using (var input = getStream())
             using (var reader = new StreamReader(input))
             {
                 var data = reader.ReadToEnd();
-                Assert.IsTrue(data.Contains(SgTag));
+                return Regex.Matches(data, SgTag).Count;
             }
         }
-     
+
         /// <summary>
         /// Tests the result from a bad search argument.
         /// </summary>
@@ -344,7 +369,6 @@ namespace UnitTests
         /// <summary>
         /// Tests all output modes for Job.Results
         /// </summary>
-
         [TestMethod]
         public void JobResultsOutputModeArgument()
         {
@@ -599,8 +623,7 @@ namespace UnitTests
         public void RemoteServerList()
         {
             const string ParamName = "remote_server_list";
-            var array = new string[]
-                {"first", "second"};
+            var array = new string[] { "first", "second" };
 
             var args1 = new JobArgs
                 {
