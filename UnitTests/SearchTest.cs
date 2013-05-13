@@ -213,7 +213,7 @@ namespace UnitTests
             // SDK's segmentation default has no impact on Splunk 4.3.5 (or earlier).
             var segmentationDefaultEffective = service.VersionCompare("5.0") >= 0;
 
-            var countSgWithDefault = CountSg( 
+            var countSgWithDefault = CountSgIn( 
                 () => getResults(
                     service,
                     Query,
@@ -229,7 +229,7 @@ namespace UnitTests
                     { "segmentation", "raw" }
                 };
 
-            var countSgWithSegmentationRaw = CountSg(
+            var countSgWithSegmentationRaw = CountSgIn(
                 () => getResults(
                     service,
                     Query,
@@ -250,7 +250,7 @@ namespace UnitTests
         /// </summary>
         /// <param name="getStream">Function to return a stream</param>
         /// <returns>The count</returns>
-        private static int CountSg(
+        private static int CountSgIn(
             Func<Stream> getStream)
         {
             const string SgTag = "<sg";
