@@ -50,7 +50,7 @@ resources to your computer.
 #### Visual Studio
 
 The Splunk SDK for C# supports development in Microsoft Visual Studio 2012. The 
-minimum supported version of the .NET Framework is version 4.0. Visual Studio 
+minimum supported version of the .NET Framework is version 3.5. Visual Studio 
 downloads are available on the 
 [Visual Studio Downloads webpage](http://www.microsoft.com/visualstudio/downloads).
 
