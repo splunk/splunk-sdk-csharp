@@ -38,7 +38,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a Boolean value that indicates whether the data 
+        /// Gets or sets a value indicating whether the data 
         /// retrieved from this index has been UTF8-encoded. 
         /// </summary>
         /// <remarks>
@@ -188,7 +188,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a Boolean value that indicates whether the raw data is 
+        /// Gets a value indicating whether the raw data is 
         /// compressed.
         /// </summary>
         public bool CompressRawdata
@@ -222,7 +222,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether asnychronous "online
+        /// Gets or sets a value indicating whether asnychronous "online
         /// fsck" bucket repair is enabled. 
         /// </summary>
         /// <remarks>
@@ -244,7 +244,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a Boolean value that indicates whether real-time search is 
+        /// Gets a value indicating whether real-time search is 
         /// enabled for this index.
         /// </summary>
         public bool EnableRealtimeSearch
@@ -261,7 +261,8 @@ namespace Splunk
         /// </summary>
         /// <remarks>
         /// If archiving is necessary for frozen data, see the ColdToFrozen 
-        /// attributes.
+        /// attributes, <see cref="ColdToFrozenDir"/> and 
+        /// <see cref="ColdToFrozenScript"/>.
         /// </remarks>
         /// <seealso cref="ColdToFrozenDir"/>
         /// <seealso cref="ColdToFrozenScript"/>
@@ -526,8 +527,8 @@ namespace Splunk
         /// </para>
         /// <para>
         /// If there are any acknowledged events sharing this raw slice, this
-        /// paramater does not apply, and maxTimeUnreplicatedWithAcks
-        /// applies. 
+        /// paramater does not apply, and 
+        /// <see cref="MaxTimeUnreplicatedWithAcks"/> applies. 
         /// </para>
         /// <para>
         /// This property's highest legal value is "2147483647".
@@ -647,8 +648,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the frequency at which Splunkd forces a filesystem sync
-        /// while compressing journal slices for this index. 
+        /// Gets or sets the frequency at which Splunkd forces a filesystem 
+        /// sync while compressing journal slices for this index. 
         /// </summary>
         /// <remarks>
         /// When this property is set to "disable", this feature is disabled
@@ -757,8 +758,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the future event-time quarantine for this index. Events
-        /// that are newer than now plus this value are quarantined.
+        /// Gets or sets the future event-time quarantine for this index. 
+        /// Events that are newer than now plus this value are quarantined.
         /// </summary>
         public int QuarantineFutureSecs
         {
@@ -774,8 +775,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the past event-time quarantine for this index. Events
-        /// that are older than now minus this value are quarantined.
+        /// Gets or sets the past event-time quarantine for this index. 
+        /// Events that are older than now minus this value are quarantined.
         /// </summary>
         public int QuarantinePastSecs
         {
@@ -844,9 +845,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the frequency to check for the need to create a new hot
-        /// bucket and the need to roll or freeze any warm or cold buckets for 
-        /// this index.
+        /// Gets or sets the frequency to check for the need to create a new 
+        /// hot bucket and the need to roll or freeze any warm or cold buckets 
+        /// for this index.
         /// </summary>
         public int RotatePeriodInSecs
         {
@@ -903,7 +904,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a Boolean value that indicates whether the sync 
+        /// Gets or sets a value indicating whether the sync 
         /// operation is invoked before the file descriptor is closed on 
         /// metadata updates. 
         /// </summary>
@@ -978,7 +979,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a Boolean value that indicates whether this index is an 
+        /// Gets a value indicating whether this index is an 
         /// internal index.
         /// </summary>
         public bool IsInternal
@@ -1011,11 +1012,12 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Cleans this index, removing all events, with specific timeout value.
+        /// Cleans this index, removing all events, with specific timeout 
+        /// value.
         /// </summary>
         /// <param name="maxSeconds">The maximum number of seconds to wait 
-        /// before returning. A value of "-1" indicates to Splunk that it should
-        /// wait forever.</param>
+        /// before returning. A value of "-1" indicates to Splunk that it 
+        /// should wait forever.</param>
         /// <returns>The <see cref="Index"/>.</returns>
         public Index Clean(int maxSeconds)
         {
@@ -1065,7 +1067,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Submits an event to this index through an HTTP POST request with variable arguements
+        /// Submits an event to this index through an HTTP POST request with
+        /// variable arguments.
         /// </summary>
         /// <param name="args">The optional arguments.</param>
         /// <param name="data">The event data to submit.</param>
@@ -1081,7 +1084,7 @@ namespace Splunk
         /// <param name="filepath">The path to the file to upload.</param>
         /// <remarks>
         /// Be aware that this file must be directly accessible by the Splunk
-        /// server, by the file path supplied.
+        /// server, at the file path supplied.
         /// </remarks>
         public void Upload(string filepath)
         {
