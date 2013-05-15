@@ -18,15 +18,22 @@ namespace Splunk
 {
     /// <summary>
     /// The <see cref="IndexArgs"/> class extends <see cref="Args"/> for Index
-    /// creation specific setters.
+    /// creation-specific setters.
     /// </summary>
     public class IndexArgs : Args
     {
         /// <summary>
-        /// Sets a value that indicates whether or not all data retrieved 
-        /// from the index is proper UTF8. Note: when enabled indexing 
-        /// performance will degrade. The default value is false.
+        /// Sets a value indicating whether all data retrieved 
+        /// from the index is proper UTF8. 
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// <b>Note:</b> When enabled indexing, performance will degrade. 
+        /// </para>
+        /// <para>
+        /// This property's default value is false.
+        /// </para>
+        /// <remarks>
         public bool AssureUTF8
         {
             set
@@ -37,9 +44,17 @@ namespace Splunk
 
         /// <summary>
         /// Sets a value that controls how many events make up a block for 
-        /// block signatures. If set to 0, block signing is disabled for this 
-        /// index. A recommended value is 100. The default is 0.
+        /// block signatures. 
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// If set to "0", block signing is disabled for this 
+        /// index. This property's recommended value is "100". 
+        /// </para>
+        /// <para>
+        /// The default is 0.
+        /// </para>
+        /// </remarks>
         public int BlockSignSize
         {
             set
