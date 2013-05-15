@@ -34,6 +34,7 @@ namespace Splunk.Examples.Authenticate
         /// </summary>
         public static void Main()
         {
+            // Load connection info for Splunk server in .splunkrc file.
             var cli = Command.Splunk("authenticate");
 
             var service = Service.Connect(cli.Opts);

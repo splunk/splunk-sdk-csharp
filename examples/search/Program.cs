@@ -32,6 +32,7 @@ namespace Splunk.Examples.Search
         /// <param name="argv">The command line arguments</param>
         public static void Main(string[] argv) 
         {
+            // Load connection info for Splunk server in .splunkrc file.
             var cli = Command.Splunk("search");
             cli.AddRule("search", typeof(string), "search string");
             cli.Parse(argv);
