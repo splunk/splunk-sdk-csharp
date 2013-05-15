@@ -495,7 +495,6 @@ namespace Splunk
         /// This property's default value is "0".
         /// </para>
         /// </remarks>
-        /// </remarks>
         public int StatusBuckets
         {
             set
