@@ -1,77 +1,91 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Web.UI.WebControls.WebParts;
-using SplunkSDKHelper;
+﻿/*
+ * Copyright 2013 Splunk, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"): you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
 
 namespace Splunk.Examples.SharePointWebPart.IndexSummaryWebPart
 {
+    using System;
+    using System.ComponentModel;
+    using System.Linq;
+    using System.Web.UI.WebControls.WebParts;
+    using SplunkSDKHelper;
+
+    /// <summary>
+    /// Web part code behind to populate the UI control
+    /// </summary>
     [ToolboxItemAttribute(false)]
     public partial class IndexSummaryWebPart : WebPart
     {
-        // Uncomment the following SecurityPermission attribute only when doing Performance Profiling on a farm solution
-        // using the Instrumentation method, and then remove the SecurityPermission attribute when the code is ready
-        // for production. Because the SecurityPermission attribute bypasses the security check for callers of
-        // your constructor, it's not recommended for production purposes.
-        // [System.Security.Permissions.SecurityPermission(System.Security.Permissions.SecurityAction.Assert, UnmanagedCode = true)]
-        public IndexSummaryWebPart()
-        {
-        }
-
+        /// <summary>
+        /// There's no change to this method after being generated
+        /// by Visual Studio.
+        /// </summary>
+        /// <param name="e">Event arguments</param>
         protected override void OnInit(EventArgs e)
         {
             base.OnInit(e);
             InitializeControl();
         }
 
+        /// <summary>
+        /// Binds search results to GridView.
+        /// </summary>
+        /// <param name="sender">A sender</param>
+        /// <param name="e">Event arguments</param>
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Get info on how 
+            // Load connection info for Splunk server in .splunkrc file,
             var cli = Command.Splunk();
-
-            cli.AddRule("search", typeof(string), "search string");
-            if (!cli.Opts.ContainsKey("search"))
-            {
-                System.Console.WriteLine(
-                    "Search query string required, use --search=\"query\"");
-                Environment.Exit(1);
-            }
 
             var service = Service.Connect(cli.Opts);
 
-            var outArgs = new JobResultsArgs
-            {
-                OutputMode = JobResultsArgs.OutputModeEnum.Xml,
+            const string Search = 
+                "search  * | stats count by sourcetype, source, host | sort -count";
 
-                // Return all entries.
-                Count = 0,
-            };
+            var outArgs = new JobResultsArgs
+                {
+                    OutputMode = JobResultsArgs.OutputModeEnum.Xml,
+
+                    // Return all entries.
+                    Count = 0,
+                };
 
             using (var stream = service.Oneshot(
-                (string)cli.Opts["search"], outArgs))
+                Search, 
+                outArgs))
             {
-                using (var rr = new ResultsReaderXml(stream))
+                using (var results = new ResultsReaderXml(stream))
                 {
-                    foreach (var @event in rr)
-                    {
-                        System.Console.WriteLine("EVENT:");
-                        foreach (string key in @event.Keys)
-                        {
-                            System.Console.WriteLine(
-                                "   " + key + " -> " + @event[key]);
-                        }
-                    }
+                    var summary = from @event in results
+                                    let s = @event.ToDictionary(
+                                        r => r.Key,
+                                        // Convert event field values to string
+                                        // type so that GridView can generate
+                                        // columns for them.
+                                        r => (string) r.Value)
+                                    select new
+                                        {
+                                            source = s["source"],
+                                            sourcetype = s["sourcetype"],
+                                            host = s["host"],
+                                            EventCount = s["count"],
+                                        };
+                    this.IndexSummaryGridView.DataSource = summary;
+                    this.IndexSummaryGridView.DataBind();
                 }
             }
-            this.IndexSummaryGridView.DataSource
-               = new List<IndexSummaryItem>
-                    {
-                        new IndexSummaryItem
-                            {
-                                SourceType = "test",
-                            }
-                    };
-            this.IndexSummaryGridView.DataBind();
         }
     }
 }

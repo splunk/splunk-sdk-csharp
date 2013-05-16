@@ -14,6 +14,8 @@
  * under the License.
  */
 
+using System.Text.RegularExpressions;
+
 namespace SplunkSDKHelper
 {
     using System;
@@ -404,10 +406,20 @@ namespace SplunkSDKHelper
         /// the home drive and homepath.
         /// </summary>
         /// <returns>The Command instance.</returns>
-        public Command Splunkrc() 
+        public Command Splunkrc()
         {
+            const string ToExpand = "%HOMEDRIVE%%HOMEPATH%";
             string home = 
-                Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
+                Environment.ExpandEnvironmentVariables(ToExpand);
+
+            if (home == ToExpand)
+            {
+                var path = Environment.GetFolderPath(
+                    Environment.SpecialFolder.LocalApplicationData);
+                var matches = Regex.Matches(path, @"\\");
+                var end = matches[matches.Count - 2].Index;
+                home = path.Substring(0, end);
+            }
             this.Load(home + "\\.splunkrc");
             return this;
         }
