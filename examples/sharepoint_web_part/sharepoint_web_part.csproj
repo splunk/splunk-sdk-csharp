@@ -46,6 +46,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Microsoft.SharePoint" />
@@ -97,6 +98,7 @@
       <Generator>SharePointWebPartCodeGenerator</Generator>
       <LastGenOutput>IndexSummaryWebPart.ascx.g.cs</LastGenOutput>
     </Content>
+    <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -23,7 +23,8 @@ namespace Splunk.Examples.SharePointWebPart.IndexSummaryWebPart
     using SplunkSDKHelper;
 
     /// <summary>
-    /// Web part code behind to populate the UI control
+    /// Partial class that contains custom code for 
+    /// getting index summary data from Splunk.
     /// </summary>
     [ToolboxItemAttribute(false)]
     public partial class IndexSummaryWebPart : WebPart

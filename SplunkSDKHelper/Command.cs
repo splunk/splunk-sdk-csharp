@@ -409,16 +409,20 @@ namespace SplunkSDKHelper
         public Command Splunkrc()
         {
             const string ToExpand = "%HOMEDRIVE%%HOMEPATH%";
-            string home = 
+            var home = 
                 Environment.ExpandEnvironmentVariables(ToExpand);
 
+            // If failed to expand, try a different method.
+            // This happens when running inside SharePoint/IIS.
             if (home == ToExpand)
             {
                 var path = Environment.GetFolderPath(
                     Environment.SpecialFolder.LocalApplicationData);
+                // Path is in the form of <userhomepath>\AppData\Local,
+                // for example, C:\Users\Andy\AppData\Local.
                 var matches = Regex.Matches(path, @"\\");
-                var end = matches[matches.Count - 2].Index;
-                home = path.Substring(0, end);
+                var len = matches[matches.Count - 2].Index;
+                home = path.Substring(0, len);
             }
             this.Load(home + "\\.splunkrc");
             return this;
