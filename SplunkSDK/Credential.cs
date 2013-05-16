@@ -26,8 +26,8 @@ namespace Splunk
         /// <summary>
         /// Initializes a new instance of the <see cref="Credential"/> class.
         /// </summary>
-        /// <param name="service">The service</param>
-        /// <param name="path">The path</param>
+        /// <param name="service">The service.</param>
+        /// <param name="path">The path.</param>
         public Credential(Service service, string path)
             : base(service, path)
         {

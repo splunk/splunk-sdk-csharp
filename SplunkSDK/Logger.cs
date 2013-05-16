@@ -19,25 +19,33 @@ namespace Splunk
     using System;
 
     /// <summary>
-    /// The <see cref="Logger"/> class represents the Logger Entity.
+    /// The <see cref="Logger"/> class represents a specific Splunkd logging 
+    /// category.
     /// </summary>
     public class Logger : Entity
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Logger"/> class.
         /// </summary>
-        /// <param name="service">The service</param>
-        /// <param name="path">The path</param>
+        /// <param name="service">The service.</param>
+        /// <param name="path">The path.</param>
         public Logger(Service service, string path)
             : base(service, path)
         {
         }
 
         /// <summary>
-        /// Gets or sets the logging level of this logger. Valid values are:
-        /// FATAL, CRIT, WARN, INFO, and DEBUG. The value of CRIT is only 
-        /// availble in versions of Splunk prior to version 4.3.4.
+        /// Gets or sets the logging level of this logger. 
         /// </summary>
+        /// <remarks>
+        /// This property's valid values are:
+        /// <list type="bullet">
+        /// <item>"FATAL"</item>
+        /// <item>"CRIT" (versions of Splunk prior to 4.3.4 only)</item>
+        /// <item>"WARN"</item>
+        /// <item>"INFO"</item>
+        /// <item>"DEBUG"</item>
+        /// </list>
         public string Level
         {
             get

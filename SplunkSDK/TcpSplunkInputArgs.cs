@@ -18,12 +18,12 @@ namespace Splunk
 {
     /// <summary>
     /// The <see cref="TcpSplunkInputArgs"/> class extends <see cref="Args"/> 
-    /// for cooked TcpInput creation setters.
+    /// for cooked <see cref="TcpInput"/> creation properties.
     /// </summary>
     public class TcpSplunkInputArgs : Args
     {
         /// <summary>
-        /// Sets a value that indicates whether SSL is used.
+        /// Sets a value indicating whether SSL is used.
         /// </summary>
         public bool Ssl
         {
@@ -34,15 +34,23 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the host of the remote server that sends data. Valid 
-        /// values are "ip", "dns", or "none". The default value is "ip".
+        /// Sets the host of the remote server that sends data. 
         /// </summary>
         /// <remarks>
-        /// A value of "ip" sets the host to the IP address of the remote 
-        /// server sending data. <br/>A value of "dns" sets the host to the 
-        /// reverse DNS entry for the IP address of the remote server sending 
-        /// data. <br/>A value of "none" leaves the host as specified in 
-        /// inputs.conf, which is typically the Splunk system hostname.
+        /// <para>
+        /// This property's possible values are:
+        /// <list type="bullet">
+        /// <item><b>"ip"</b> sets the host to the IP address of the remote 
+        /// server sending data.</item>
+        /// <item><b>"dns"</b> sets the host to the reverse DNS entry for the
+        /// IP address of the remote server sending data.</item>
+        /// <item><b>"none"</b> leaves the host as specified in inputs.conf,
+        /// which is typically the Splunk system hostname.</item>
+        /// </list>
+        /// </para>
+        /// <para>
+        /// This property's default value is "ip".
+        /// </para>
         /// </remarks>
         public string ConnectionHost
         {
@@ -53,7 +61,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether this input is disabled.
+        /// Sets a value indicating whether this input is disabled.
         /// </summary>
         public bool Disabled
         {

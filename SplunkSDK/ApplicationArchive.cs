@@ -45,7 +45,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the path that indicates where the app archive file is stored 
+        /// Gets the path indicating where the app archive file is stored 
         /// on the server, for direct file access.
         /// </summary>
         public string FilePath
@@ -57,7 +57,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value that indicates whether to reload the objects contained  
+        /// Gets a value indicating whether to reload the objects contained  
         /// in the locally-installed app.
         /// </summary>
         public bool Refreshes

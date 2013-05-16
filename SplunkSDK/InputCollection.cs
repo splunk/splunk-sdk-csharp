@@ -24,7 +24,7 @@ namespace Splunk
     /// <summary>
     /// The InputCollection class represents a collection of inputs. The 
     /// collection is heterogeneous and each member contains an 
-    /// <see cref="InputKind"/> value that indicates the specific type of 
+    /// <see cref="InputKind"/> value indicating the specific type of 
     /// input.
     /// </summary>
     /// <typeparam name="Input">The Input class and its derived

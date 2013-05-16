@@ -21,7 +21,7 @@ using System.Text;
 namespace Splunk
 {
     /// <summary>
-    /// The <see cref="ExtensionMethods"/> class hosts extension methods 
+    /// The <see cref="ExtensionMethods"/> class hosts extension methods. 
     /// </summary>
     internal static class ExtensionMethods
     {      
@@ -44,7 +44,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Joins the specified strings with a comma, forming a single comma-separated string.
+        /// Joins the specified strings with a comma, forming a single
+        /// comma-separated string.
         /// </summary>
         /// <param name="value">The array.</param>
         /// <returns>

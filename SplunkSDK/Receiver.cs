@@ -71,8 +71,8 @@ namespace Splunk
         /// Creates a socket to the Splunk server using the default index and 
         /// variable arguments.
         /// </summary>
-        /// <param name="args">The variable arguments</param>
-        /// <returns>The Socket</returns>
+        /// <param name="args">The variable arguments.</param>
+        /// <returns>The socket.</returns>
         public Stream Attach(Args args)
         {
             return this.Attach(null, args);
@@ -210,8 +210,8 @@ namespace Splunk
         /// <summary>
         /// Alias for the <see cref="Submit(string, string)"/> method.
         /// </summary>
-        /// <param name="indexName">The index name</param>
-        /// <param name="data">The data</param>
+        /// <param name="indexName">The index name.</param>
+        /// <param name="data">The data.</param>
         public void Log(string indexName, string data) 
         {
             this.Submit(indexName, data);
@@ -220,8 +220,8 @@ namespace Splunk
         /// <summary>
         /// Alias for the <see cref="Submit(Args, string)"/> method.
         /// </summary>
-        /// <param name="args">The arguments</param>
-        /// <param name="data">The data</param>
+        /// <param name="args">The arguments.</param>
+        /// <param name="data">The data.</param>
         public void Log(Args args, string data) 
         {
             this.Submit(args, data);
@@ -230,16 +230,16 @@ namespace Splunk
         /// <summary>
         /// Alias for the <see cref="Submit(string, Args, string)"/> method.
         /// </summary>
-        /// <param name="indexName">The index name</param>
-        /// <param name="args">The arguments</param>
-        /// <param name="data">The data</param>
+        /// <param name="indexName">The index name.</param>
+        /// <param name="args">The arguments.</param>
+        /// <param name="data">The data.</param>
         public void Log(string indexName, Args args, string data) 
         {
             this.Submit(indexName, args, data);
         }
 
         /// <summary>
-        /// The <see cref="SSLStreamWrapper"/> class is a wrapper class for
+        /// The <see cref="SslStreamWrapper"/> class is a wrapper class for
         /// the <see cref="SslStream"/> object, and is used for closing the
         /// TCP connection when closing the stream.
         /// </summary>
@@ -275,7 +275,7 @@ namespace Splunk
             /// unmanaged resources; false to release only unmanaged resources.</param>
             protected override void Dispose(bool disposing)
             {
-                // Dispose(bool disposing) executes in two distinct scenarios.
+                // Dispose(bool disposing) runs in two distinct scenarios.
                 // If disposing equals true, the method has been called directly
                 // or indirectly by a user's code. Managed and unmanaged resources
                 // can be disposed.

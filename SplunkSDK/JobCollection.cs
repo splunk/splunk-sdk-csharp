@@ -25,11 +25,9 @@ namespace Splunk
 
     /// <summary>
     /// The <see cref="JobCollection"/> class represents a collection of jobs.
-    /// </summary>
-    /// <remarks>
     /// A job is an individual instance of a running or completed search or
     /// report, along with its related output.
-    /// </remarks>
+    /// </summary>
     public class JobCollection : EntityCollection<Job>
     {
         /// <summary>
@@ -55,7 +53,7 @@ namespace Splunk
         /// Creates a search with a UTF-8 pre-encoded search request.
         /// </summary>
         /// <param name="query">The search query.</param>
-        /// <returns>The <see cref="Job"/>.</returns>
+        /// <returns>The job.</returns>
         /// <remarks>
         /// A "oneshot" request is invalid. To create a oneshot search,
         /// use the <see cref="Service.Oneshot"/> method instead. 
@@ -74,7 +72,7 @@ namespace Splunk
         /// </remarks>
         /// <param name="query">The search query.</param>
         /// <param name="args">Additional arguments for this job.</param>
-        /// <returns>The <see cref="Job"/>.</returns>
+        /// <returns>The job.</returns>
         public new Job Create(string query, Args args) 
         {
             if (args != null && args.ContainsKey("exec_mode")) 
@@ -113,7 +111,7 @@ namespace Splunk
         /// </remarks>
         /// <param name="query">The search query.</param>
         /// <param name="args">Additional arguments for this job.</param>
-        /// <returns>The <see cref="Job"/>.</returns>
+        /// <returns>The job.</returns>
         public Job Create(string query, JobArgs args)
         {
             return this.Create(query, (Args) args);
@@ -122,7 +120,7 @@ namespace Splunk
         /// <summary>
         /// Returns the list of jobs, as a <see cref="ResponseMessage"/> object.
         /// </summary>
-        /// <returns>The <see cref="ResponseMessage"/> list of jobs.</returns>
+        /// <returns>The list of jobs.</returns>
         public override ResponseMessage List() 
         {
             return Service.Get(this.Path + "?count=0");
@@ -132,7 +130,7 @@ namespace Splunk
         /// Returns the job's unique search identifier (SID), which is used as 
         /// this item's key.
         /// </summary>
-        /// <param name="entry">The <see cref="AtomEntry"/>.</param>
+        /// <param name="entry">The Atom entry.</param>
         /// <returns>The SID.</returns>
         protected override string ItemKey(AtomEntry entry) 
         {

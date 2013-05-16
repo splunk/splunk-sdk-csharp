@@ -18,20 +18,27 @@ namespace Splunk
 {
     /// <summary>
     /// The <see cref="UdpInputArgs"/> class extends <see cref="Args"/> for 
-    /// UdpInput creation setters.
+    /// UdpInput creation properties.
     /// </summary>
     public class UdpInputArgs : Args
     {
         /// <summary>
-        /// Sets the host of the remote server that sends data. Valid 
-        /// values are "ip", "dns", or "none". The default is "ip".
+        /// Sets the host of the remote server that sends data. 
         /// </summary>
         /// <remarks>
-        /// A value of "ip" sets the host to the IP address of the remote 
-        /// server sending data. <br/>A value of "dns" sets the host to the 
+        /// This property's valid values are:
+        /// <list type="bullet">
+        /// <item><b>"ip"</b> sets the host to the IP address of the remote 
+        /// server sending data.</item>
+        /// <item><b>"dns"</b> sets the host to the 
         /// reverse DNS entry for the IP address of the remote server sending 
-        /// data. <br/>A value of "none" leaves the host as specified in
-        /// inputs.conf, which is typically the Splunk system hostname.
+        /// data.</item>
+        /// <item><b>"none"</b> leaves the host as specified in
+        /// inputs.conf, which is typically the Splunk system hostname.</item>
+        /// </list>
+        /// <para>
+        /// This property's default value is "ip".
+        /// </para>
         /// </remarks>
         public string ConnectionHost
         {
@@ -65,7 +72,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether Splunk prepends a timestamp 
+        /// Sets a value indicating whether Splunk prepends a timestamp 
         /// and host name to incoming events.
         /// </summary>
         public bool NoAppendingTimestamp
@@ -77,7 +84,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether Splunk removes the priority
+        /// Sets a value indicating whether Splunk removes the priority
         /// field from incoming syslog events.
         /// </summary>
         public bool NoPriorityStripping
@@ -94,12 +101,20 @@ namespace Splunk
         /// is "parsingQueue".
         /// </summary>
         /// <remarks>
-        /// Set <see cref="Queue"/> to "parsingQueue" to apply props.conf and 
-        /// other parsing rules to your data. For more information about 
+        /// <para>
+        /// This property's valid values are:
+        /// <list type="bullet">
+        /// <item><b>"parsingQueue"</b> applies props.conf and other parsing 
+        /// rules to your data. For more information about 
         /// props.conf and rules for timestamping and linebreaking, refer to 
-        /// props.conf and the the Edit inputs.conf topic in the Getting Data 
-        /// In manual. Set <see cref="Queue"/> to "indexQueue" to send your 
-        /// data directly into the index.
+        /// the <see href="http://docs.splunk.com/Documentation/Splunk/latest/Data/Editinputs.conf>Edit inputs.conf</see>
+        /// topic in the Getting Data In manual.</item>
+        /// <item><b>"indexQueue"</b> sends your data directly into the
+        /// index.</item>
+        /// </para>
+        /// <para>
+        /// This property's default value is "parsingQueue".
+        /// </para>
         /// </remarks>
         public string Queue
         {
@@ -126,13 +141,18 @@ namespace Splunk
         /// indexing. It is also the source field used at search time. As a 
         /// convenience, the chosen string is prepended with 'source::'. 
         /// </summary>
-		/// <remarks>        
-        /// Note: Overriding the source key is generally not recommended. 
+        /// <remarks>
+        /// <para>
+        /// Overriding the source key is generally not recommended. 
         /// Typically, the input layer provides a more accurate string to aid 
         /// in problem analysis and investigation, accurately recording the 
         /// file from which the data was retrieved. Consider use of source 
         /// types, tagging, and search wildcards before overriding this value. 
-        /// The default is the input file path.
+        /// </para>
+        /// <para>
+        /// This property's default value is the input file path.
+        /// </para>
+        /// </remarks>
         public string Source
         {
             set
@@ -142,10 +162,15 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the source type for events from this input. The default is
-        /// "audittrail", if signedaudit=true, or "fschange" if 
-        /// signedaudit=false.
+        /// Sets the source type for events from this input. 
         /// </summary>
+        /// <remarks>
+        /// This property's default value is:
+        /// <list type="bullet">
+        /// <item>"audittrail" if signedaudit=true</item>
+        /// <item>"fschange" if signedaudit=false</item>
+        /// </list>
+        /// </remarks>
         public string SourceType
         {
             set

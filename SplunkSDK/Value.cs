@@ -19,8 +19,7 @@ namespace Splunk
     using System;
 
     /// <summary>
-    /// The <see cref="Value"/> class represents a class to convert values 
-    /// easily.
+    /// The <see cref="Value"/> class provides methods for converting values.
     /// </summary>
     public class Value
     {
@@ -36,10 +35,10 @@ namespace Splunk
         };
 
         /// <summary>
-        /// Converts a string of either 0/1 or true/false to a Boolean value.
+        /// Converts a string of "0", "1", true, or false to a Boolean value.
         /// </summary>
         /// <param name="value">The string value.</param>
-        /// <returns>The boolean value.</returns>
+        /// <returns>The Boolean value.</returns>
         public static bool ToBoolean(string value) 
         {
             if (value == null) 

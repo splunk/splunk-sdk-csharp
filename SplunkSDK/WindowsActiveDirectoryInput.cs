@@ -19,8 +19,8 @@ namespace Splunk
     using System.Collections.Generic;
 
     /// <summary>
-    /// The <see cref="WindowsActiveDirectoryInput"/> class represents the 
-    /// <see cref="Input"/> subclass Windows Active Directory Input.
+    /// The <see cref="WindowsActiveDirectoryInput"/> class represents a 
+    /// Windows Active Directory data input.
     /// </summary>
     public class WindowsActiveDirectoryInput : Input
     {
@@ -36,7 +36,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether this input is disabled.
+        /// Sets a value indicating whether this input is disabled.
         /// </summary>
         public bool Disabled
         {
@@ -74,7 +74,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether the directory path 
+        /// Gets or sets a value indicating whether the directory path 
         /// subtree is being monitored for this Windows Active Directory input.
         /// </summary>
         public bool MonitorSubtree
@@ -92,9 +92,12 @@ namespace Splunk
 
         /// <summary>
         /// Gets or sets the starting location in the directory path for this 
-        /// Windows Active Directory input. If not specified, the the root of 
-        /// the directory tree is used.
+        /// Windows Active Directory input. 
         /// </summary>
+        /// <remarks>
+        /// If this property is not specified, the root of 
+        /// the directory tree is used.
+        /// </remarks>
         public string StartingNode
         {
             get
@@ -110,9 +113,12 @@ namespace Splunk
 
         /// <summary>
         /// Gets or sets the fully-qualified domain name of a valid, 
-        /// network-accessible domain controller. If not specified, the local 
-        /// machine is used.
+        /// network-accessible domain controller. 
         /// </summary>
+        /// <remarks>
+        /// If this property is not specified, the local machine
+        /// is used.
+        /// </remarks>
         public string TargetDc
         {
             get
@@ -128,9 +134,9 @@ namespace Splunk
 
         /// <summary>
         /// Updates the entity with the values you previously set using the 
-        /// setter methods, and any additional specified arguments. The 
-        /// specified arguments take precedent over the values that were set 
-        /// using the setter methods.
+        /// class properties, and any additional specified arguments. The 
+        /// specified arguments take precedence over the values that were set 
+        /// using properties.
         /// </summary>
         /// <param name="args">The key/value pairs to update.</param>
         public override void Update(Dictionary<string, object> args)
@@ -147,7 +153,7 @@ namespace Splunk
 
         /// <summary>
         /// Updates the entity with the accumulated arguments, established by 
-        /// the individual setter methods for each specific entity class.
+        /// the individual properties for each specific entity class.
         /// </summary>
         public override void Update()
         {

@@ -19,8 +19,8 @@ namespace Splunk
     using System.Text;
 
     /// <summary>
-    /// The <see cref="JobArgs"/> class extends <see cref="Args"/> for Job
-    /// creation setters.
+    /// The <see cref="JobArgs"/> class extends <see cref="Args"/> for <see
+    /// cref="Job"/> creation properties.
     /// </summary>
     public class JobArgs : Args
     {
@@ -29,7 +29,7 @@ namespace Splunk
         /// <see cref="JobCollection.Create(string, JobArgs)"/>
         /// method.       
         /// </summary>
-        // C# disallows nested class to have the same name as
+        // C# disallows nested classes from having the same name as
         // a property. Use 'Enum' suffix to differentiate.
         public enum ExecutionModeEnum
         {
@@ -59,7 +59,7 @@ namespace Splunk
         /// <see cref="JobCollection.Create(string, JobArgs)"/>
         /// method.       
         /// </summary>
-        // C# disallow nested class to have the same name as
+        // C# disallows nested classes from having the same name as
         // a property. Use 'Enum' suffix to differentiate.
         public enum SearchModeEnum
         {
@@ -72,19 +72,23 @@ namespace Splunk
             /// <summary>
             /// <para>
             /// Searches live data. A realtime search may also be specified by 
-            /// setting the "earliest_time" and "latest_time" parameters to begin 
-            /// with "rt", even if the search_mode is set to "normal" or is not set. 
+            /// setting the <see cref="EarliestTime"/> and <see 
+            /// cref="LatestTime"/> properties to begin with "rt", even if the 
+            /// <see cref="SearchMode"/> is set to "normal" or is not set. 
             /// </para>
             /// <para>
-            /// If both the "earliest_time" and "latest_time" parameters are set to 
-            /// "rt", the search represents all appropriate live data that was 
-            /// received since the start of the search.
+            /// If both the <see cref="EarliestTime"/> and <see 
+            /// cref="LatestTime"/> properties are set to "rt", the search
+            /// represents all appropriate live data that was received since 
+            /// the start of the search.
             /// </para>
             /// <para>
-            /// If both the "earliest_time" and "latest_time" parameters are set to 
-            /// "rt" followed by a relative time specifier, a sliding window is used 
-            /// where the time bounds of the window are determined by the relative 
-            /// time specifiers and are continuously updated based on current time.   
+            /// If both the <see cref="EarliestTime"/> and <see 
+            /// cref="LatestTime"/> properties are set to "rt" followed by a
+            /// relative time specifier, a sliding window is used where the 
+            /// time bounds of the window are determined by the relative 
+            /// time specifiers and are continuously updated based on current 
+            /// time.   
             /// </para>         
             /// </summary>
             [SplunkEnumValue("realtime")]
@@ -257,9 +261,9 @@ namespace Splunk
         /// </summary>
         /// <remarks>
         /// <para>
-        /// When a search is transformed, this property indicates the maximum number
-        /// of events to store. Specifically, in all calls, <i>codeoffset</i> + <i>count</i>
-        /// &lt;= max_count. 
+        /// When a search is transformed, this property indicates the maximum 
+        /// number of events to store. Specifically, in all calls, 
+        /// <i>codeoffset</i> + <i>count</i> &lt;= max_count. 
         /// </para>
         /// <para>
         /// This property's default value is "1000". 
@@ -325,7 +329,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a list of (possibly wildcarded) servers from which to pull raw events. 
+        /// Sets a list of (possibly wildcarded) servers from which to pull 
+        /// raw events. 
         /// </summary>
         /// <remarks>
         /// This same server list is used in subsearches.
@@ -393,8 +398,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the maximum time to block, in seconds. This only applies to 
-        /// real-time searches and when rt_blocking is true. 
+        /// Sets the maximum time to block, in seconds. 
         /// </summary>
         /// <remarks>
         /// <para>
@@ -440,9 +444,7 @@ namespace Splunk
         /// search_state;results_condition;http_method;uri;
         /// </para>
         /// For example:
-        /// <example>
-        /// "onResults;true;POST;/servicesNS/admin/search/saved/search/foobar/notify;"
-        /// </example>
+        /// <c>"onResults;true;POST;/servicesNS/admin/search/saved/search/foobar/notify;"</c>
         /// </remarks>
         public string SearchListener
         {
@@ -488,8 +490,8 @@ namespace Splunk
         /// </summary>
         /// <remarks>
         /// <para>
-        /// Setting this property to "0" causes
-        /// no timeline information to be generated.
+        /// Setting this property to "0" causes no timeline information to be
+        /// generated.
         /// </para>
         /// <para>
         /// This property's default value is "0".

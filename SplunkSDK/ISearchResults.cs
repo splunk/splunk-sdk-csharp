@@ -25,7 +25,7 @@ namespace Splunk
     public interface ISearchResults : IEnumerable<Event>
     {
         /// <summary>
-        /// Gets a value that indicates whether or not the results are
+        /// Gets a value indicating whether the results are
         /// a preview from an unfinished search.
         /// </summary>
         bool IsPreview
@@ -37,7 +37,8 @@ namespace Splunk
         /// Gets all the fields that may appear in each result.
         /// </summary>
         /// <remarks>
-        /// Note that any given result will contain a subset of these fields.
+        /// Be aware that any given result will contain a subset of these 
+        /// fields.
         /// </remarks>
         ICollection<string> Fields
         {

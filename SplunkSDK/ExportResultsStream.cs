@@ -21,8 +21,8 @@ namespace Splunk
 
     /// <summary>
     /// The <see cref="ExportResultsStream"/> class represents a stream
-    /// constructed by Service.Export.
-    /// Everything is redirected to the original stream.
+    /// constructed by <see cref="Service.Export(string)"/>. Everything is
+    /// redirected to the original stream.
     /// </summary>
     [SuppressMessage(
         "Microsoft.StyleCop.CSharp.DocumentationRules", 

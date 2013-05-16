@@ -18,12 +18,12 @@ namespace Splunk
 {
     /// <summary>
     /// The <see cref="ScriptInputArgs"/> class extends <see cref="Args"/> for 
-    /// <see cref="EventType"/> creation setters.
+    /// <see cref="EventType"/> creation properties.
     /// </summary>
     public class ScriptInputArgs : Args
     {
         /// <summary>
-        /// Sets a value that indicates whether the input script is disabled.
+        /// Sets a value indicating whether the input script is disabled.
         /// </summary>
         public bool Disabled
         {
@@ -34,9 +34,11 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the host for events from this input. The default value is 
-        /// whatever host sent the event.
+        /// Sets the host for events from this input. 
         /// </summary>
+        /// <remarks>
+        /// This property's default value is whichever host sent the event.
+        /// </remarks>
         public string Host
         {
             set
@@ -46,9 +48,11 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the index for events from this input. The default value is the
-        /// main index.
+        /// Sets the index for events from this input. 
         /// </summary>
+        /// <remarks>
+        /// This property's default value is the main index.
+        /// </remarks>
         public string Index
         {
             set
@@ -58,11 +62,18 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the frequency of script execution. Valid values are either an 
-        /// integer, in seconds, or a cron schedule. If a cron schedule is
-        /// specified, the script is not executed on start-up. The default 
-        /// value is 60 seconds.
+        /// Sets the frequency of script execution. 
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This property's valid values are either an integer, in seconds, or
+        /// a cron schedule. If a cron schedule is specified, the script is
+        /// not executed on start-up. 
+        /// </para>
+        /// <para>
+        /// This property's default value is 60 seconds.
+        /// </para>
+        /// </remarks>
         public string Interval
         {
             set
@@ -96,19 +107,23 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the source key/field for events from this input. Defaults to 
-        /// the input file path. Sets the source key's initial value. The key 
-        /// is used during parsing/indexing, in particular to set the source 
-        /// field during indexing. It is also the source field used at search 
-        /// time. As a convenience, the chosen string is prepended with 
-        /// 'source::'.
+        /// Sets the source key's initial value for events from this input.
+        /// As a convenience, the chosen string is prepended with
+        /// "source::".
         /// </summary>
         /// <remarks>
-        /// Note: Overriding the source key is generally not recommended. 
+        /// <para>
+        /// The key is used during parsing and indexing, in particular to set 
+        /// the source field during indexing. It is also the source field used 
+        /// at search time.
+        /// </para>
+        /// <para>Overriding the source key is generally not recommended. 
         /// Typically, the input layer provides a more accurate string to aid 
         /// in problem analysis and investigation, accurately recording the file
         /// from which the data was retrieved. Consider use of source types, 
-        /// tagging, and search wildcards before overriding this value.
+        /// tagging, and search wildcards before overriding this value. </para>
+        /// <para>
+        /// This property's default value is the input file path.</para>
         /// </remarks>
         public string Source
         {
@@ -119,19 +134,24 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the sourcetype key/field for events from this input. If unset, 
-        /// Splunk picks a source type based on various aspects of the data. As 
-        /// a convenience, the chosen string is prepended with 'sourcetype::'. 
-        /// There is no default value. Sets the sourcetype key's initial value. 
+        /// Sets the sourcetype key's initial value for events from this input.
+        /// If unset, Splunk picks a sourcetype based on various aspects of 
+        /// the data. As a convenience, the chosen string is prepended with 
+        /// "sourcetype::". 
         /// </summary>
         /// <remarks>
-        /// The key is used during parsing/indexing, in particular to set the 
-        /// source type field during indexing. It is also the source type field 
-        /// used at search time. Primarily used to explicitly declare the source 
-        /// type for this data, as opposed to allowing it to be determined via 
-        /// automated methods. This is typically important both for 
-        /// searchability and for applying the relevant configuration for this 
-        /// type of data during parsing and indexing.
+        /// <para>
+        /// The key is used during parsing and indexing, in particular to set  
+        /// the sourcetype field during indexing. It is also the source type 
+        /// field used at search time. Primarily used to explicitly declare 
+        /// the source type for this data, as opposed to allowing it to be 
+        /// determined via automated methods. This is typically important both 
+        /// for searchability and for applying the relevant configuration for 
+        /// this type of data during parsing and indexing.
+        /// </para>
+        /// <para>
+        /// This property has no default value. 
+        /// </para>
         /// </remarks>
         public string SourceType
         {

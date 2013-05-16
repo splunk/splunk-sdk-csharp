@@ -22,8 +22,8 @@ namespace Splunk
     using System.Text;
 
     /// <summary>
-    /// The <see cref="WindowsWmiInput"/> class represents the 
-    /// <see cref="Input"/> subclass Windows WMI Input.
+    /// The <see cref="WindowsWmiInput"/> class represents represents a Windows 
+    /// Management Instrumentation (WMI) data input.
     /// </summary>
     public class WindowsWmiInput : Input
     {
@@ -55,7 +55,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether this input is disabled.
+        /// Sets a value indicating whether this input is disabled.
         /// </summary>
         public bool Disabled
         {
@@ -99,9 +99,11 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the counter instances of this Windows WMI input. An 
-        /// asterisk (*) is equivalent to all instances.
+        /// Gets or sets the counter instances of this WMI input. 
         /// </summary>
+        /// <remarks>
+        /// An asterisk (*) is equivalent to all instances.
+        /// </remarks>
         public string[] Instances
         {
             get
@@ -133,7 +135,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the Input type of this object, Windows WMI input.
+        /// Gets the input type of this object, WMI input.
         /// </summary>
         public InputKind Kind
         {
@@ -144,8 +146,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the main host of this Windows Event Log input. 
-        /// Secondary hosts are specified in the hosts attribute.
+        /// Gets or sets the main host of this Windows Event log input. 
+        /// Secondary hosts are specified in the <see cref="Hosts"/> attribute.
         /// </summary>
         public string LookupHost
         {
@@ -203,9 +205,9 @@ namespace Splunk
 
         /// <summary>
         /// Updates the entity with the values you previously set using the 
-        /// setter methods, and any additional specified arguments. The 
-        /// specified arguments take precedent over the values that were set
-        /// using the setter methods.
+        /// class properties, and any additional specified arguments. The 
+        /// specified arguments take precedence over the values that were set
+        /// using the properties.
         /// </summary>
         /// <param name="args">The key/value pairs to update.</param>
         public override void Update(Dictionary<string, object> args)
@@ -234,7 +236,7 @@ namespace Splunk
 
         /// <summary>
         /// Updates the entity with the accumulated arguments, established by 
-        /// the individual setter methods for each specific entity class.
+        /// the individual properties for each specific entity class.
         /// </summary>
         public override void Update()
         {

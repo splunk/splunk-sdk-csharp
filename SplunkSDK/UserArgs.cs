@@ -18,7 +18,7 @@ namespace Splunk
 {
     /// <summary>
     /// The <see cref="UserArgs"/> class extends <see cref="Args"/> for 
-    /// user creation setters.
+    /// <see cref="User"/> creation setters.
     /// </summary>
     public class UserArgs : Args
     {

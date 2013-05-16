@@ -30,7 +30,7 @@ namespace Splunk
         /// <param name="template">The original string.</param>
         /// <param name="toFind">What to find.</param>
         /// <param name="defaultTo">Default if not found.</param>
-        /// <returns>The substring after 'toFind'.</returns>
+        /// <returns>The substring after "toFind"".</returns>
         public static string 
             SubstringAfter(string template, string toFind, string defaultTo)
         {

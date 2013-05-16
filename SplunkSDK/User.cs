@@ -54,7 +54,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value that indicates whether the user's default app was set 
+        /// Gets a value indicating whether the user's default app was set 
         /// specifically by the user.
         /// </summary>
         public bool DefaultAppIsUserOverride
@@ -67,7 +67,7 @@ namespace Splunk
 
         /// <summary>
         /// Gets the name of the role that the default app was inherited from, 
-        /// or 'system' if it was inherited from the default system setting. 
+        /// or "system" if it was inherited from the default system setting. 
         /// </summary>
         public string DefaultAppSourceRole
         {
@@ -126,10 +126,13 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether to restart background search 
-        /// jobs when Splunk restarts. When true, a background search job for 
-        /// this user that has not completed is restarted when Splunk restarts. 
+        /// Sets a value indicating whether to restart background search 
+        /// jobs when Splunk restarts. 
         /// </summary>
+        /// <remarks>
+        /// When this property is set to true, a background search job for 
+        /// this user that has not completed is restarted when Splunk restarts.
+        /// </remarks>
         public bool RestartBackgroundJobs
         {
             set

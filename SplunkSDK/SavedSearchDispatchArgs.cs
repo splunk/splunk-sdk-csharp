@@ -18,7 +18,7 @@ namespace Splunk
 {
     /// <summary>
     /// The <see cref="SavedSearchDispatchArgs"/> class extends 
-    /// <see cref="Args"/> for <see cref="SavedSearch"/> creation setters.
+    /// <see cref="Args"/> for <see cref="SavedSearch"/> creation properties.
     /// </summary>
     public class SavedSearchDispatchArgs : Args
     {
@@ -512,8 +512,17 @@ namespace Splunk
         /// Sets the paper size for PDFs.
         /// </summary>
         /// <remarks>
-        /// <para>Valid values for this property are "letter", "legal",
-        /// "ledger", "a2", "a3", "a4", and "a5".</para>
+        /// <para>Valid values for this property are:
+        /// <list type="bullet">
+        /// <item>"letter"</item>
+        /// <item>"legal"</item>
+        /// <item>"ledger"</item>
+        /// <item>"a2"</item>
+        /// <item>"a3"</item>
+        /// <item>"a4"</item>
+        /// <item>"a5"</item>
+        /// </list>
+        /// </para>
         /// <para>
         /// This property's default value is "letter".
         /// </para>
@@ -527,8 +536,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a Boolean value that indicates whether the PDF server is 
-        /// enabled.
+        /// Sets a value indicating whether the PDF server is enabled.
         /// </summary>
         /// <remarks>
         /// <para>
@@ -562,7 +570,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a Boolean value that indicates whether to create and send the 
+        /// Sets a value indicating whether to create and send the 
         /// results in PDF format.
         /// </summary>
         /// <remarks>
@@ -1459,7 +1467,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a keyword value that indicates how to track the actions
+        /// Sets a keyword value indicating how to track the actions
         /// triggered by this saved search. 
         /// </summary>
         /// <remarks>

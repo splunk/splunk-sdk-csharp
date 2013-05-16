@@ -27,7 +27,7 @@ namespace Splunk
     public static class ReplaceTimezone
     {
         /// <summary>
-        /// A list of time zone information, including nickname, UTC and full
+        /// A list of time zone information, including nickname, UTC, and full
         /// text. This list is distilled from various places on the web.
         /// Military time zones are not represented.
         /// </summary>

@@ -40,7 +40,8 @@ namespace Splunk
         /// <remarks>
         /// If the path for a file matches this regular expression, the 
         /// captured value is used to populate the host field for events from
-        /// this data input. The regular expression must have one capture group.
+        /// this data input. The regular expression must have one capture 
+        /// group.
         /// </remarks>
         public string HostRegex
         {

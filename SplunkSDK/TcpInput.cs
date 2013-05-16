@@ -17,25 +17,41 @@
 namespace Splunk
 {
     /// <summary>
-    /// The <see cref="TcpInput"/> class represents the <see cref="Input"/> 
-    /// subclass Tcp (raw) Input.
+    /// The <see cref="TcpInput"/> class represents a raw TCP data input.
+    /// This differs from a cooked TCP input in that this TCP input is in raw
+    /// form, and is not processed (or "cooked").
     /// </summary>
     public class TcpInput : Input
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TcpInput"/> class.
         /// </summary>
-        /// <param name="service">The connected service</param>
-        /// <param name="path">The path</param>
+        /// <param name="service">The connected service.</param>
+        /// <param name="path">The path.</param>
         public TcpInput(Service service, string path)
             : base(service, path)
         {
         }
 
         /// <summary>
-        /// Gets or sets the style of host connection. Valid values are: "ip",
-        /// "dns", and "none".
+        /// Gets or sets the host of the remote server that sends data. 
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This property's possible values are:
+        /// <list type="bullet">
+        /// <item><b>"ip"</b> sets the host to the IP address of the remote 
+        /// server sending data.</item>
+        /// <item><b>"dns"</b> sets the host to the reverse DNS entry for the
+        /// IP address of the remote server sending data.</item>
+        /// <item><b>"none"</b> leaves the host as specified in inputs.conf,
+        /// which is typically the Splunk system hostname.</item>
+        /// </list>
+        /// </para>
+        /// <para>
+        /// This property's default value is "ip".
+        /// </para>
+        /// </remarks>
         public string ConnectionHost
         {
             get
@@ -50,7 +66,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether this input is disabled.
+        /// Sets a value indicating whether this input is disabled.
         /// </summary>
         public bool Disabled
         {
@@ -116,9 +132,11 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the queue for this TCP input. Valid values are
-        /// "parsingQueue" and "indexQueue".
+        /// Gets or sets the queue for this TCP input. 
         /// </summary>
+        /// <remarks>
+        /// This property's valid values are
+        /// "parsingQueue" and "indexQueue".
         public string Queue
         {
             get
@@ -145,8 +163,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the initial source key for this TCP input. Typically 
-        /// this value is the input file path.
+        /// Gets or sets the initial source key for this TCP input.  
+        /// This property's value is typically the input file path.
         /// </summary>
         public string Source
         {
@@ -178,10 +196,9 @@ namespace Splunk
         }
         
         /// <summary>
-        /// Gets or sets a value that indicates whether this TCP input is using 
+        /// Gets or sets a value indicating whether this TCP input is using 
         /// secure socket layer (SSL).
         /// </summary>
-        /// <returns></returns>
         public bool SSL
         {
             get
@@ -197,11 +214,13 @@ namespace Splunk
 
         /// <summary>
         /// Sets the timeout value for adding a "Done" key. 
+        /// </summary>
+        /// <remarks>
         /// If a connection over the input port specified by name remains 
         /// idle after receiving data for this specified number of seconds, it 
         /// adds a "Done" key, implying that the last event has been completely 
         /// received.
-        /// </summary>
+        /// </remarks>
         public int RawTcpDoneTimeout
         {
             set

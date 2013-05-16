@@ -83,10 +83,12 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether the event type is disabled.
-        /// Note that changing the setting does not take effect until Splunk is
-        /// restarted.
+        /// Sets a value indicating whether the event type is disabled.
         /// </summary>
+        /// <remarks>
+        /// Be aware that changing the setting does not take effect until 
+        /// Splunk is restarted.
+        /// </remarks>
         public bool Disabled
         {
             set
@@ -96,10 +98,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Updates the event type with the values you previously set using the 
-        /// setter methods, and any additional specified arguments. The 
-        /// specified arguments take precedent over the values that were set 
-        /// using the setter methods.
+        /// Updates the event type with the values you previously set using 
+        /// the class properties, and any additional specified arguments. The 
+        /// specified arguments take precedence over the values that were set 
+        /// using the properties.
         /// </summary>
         /// <param name="args">The arguments.</param>
         public override void Update(Dictionary<string, object> args)
@@ -115,7 +117,7 @@ namespace Splunk
 
         /// <summary>
         /// Updates the event type with the accumulated arguments, established 
-        /// by the individual setter methods for each specific entity class.
+        /// by the individual properties for each specific entity class.
         /// </summary>
         public override void Update()
         {

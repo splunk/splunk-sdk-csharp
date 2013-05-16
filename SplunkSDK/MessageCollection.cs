@@ -23,7 +23,7 @@ namespace Splunk
 
     /// <summary>
     /// The <see cref="MessageCollection"/> class represents a collection of
-    /// Messages.
+    /// <see cref="Message"/>s.
     /// </summary>
     public class MessageCollection : EntityCollection<Message>
     {
@@ -51,9 +51,9 @@ namespace Splunk
         /// <summary>
         /// Creates a new message.
         /// </summary>
-        /// <param name="name">The key name</param>
-        /// <param name="value">The Value</param>
-        /// <returns>The new message</returns>
+        /// <param name="name">The key name.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>The new message.</returns>
         public Message Create(string name, string value)
         {
             Args args = new Args("value", value);

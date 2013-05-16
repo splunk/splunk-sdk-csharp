@@ -249,7 +249,7 @@ namespace Splunk
         /// results back via a <see cref="Stream"/>.
         /// </summary>
         /// <param name="search">The search query string.</param>
-        /// <returns>A results <see cref="Stream"/>.</returns>
+        /// <returns>A results stream.</returns>
         public Stream Export(string search) 
         {
             return this.Export(search, null);
@@ -261,7 +261,7 @@ namespace Splunk
         /// </summary>
         /// <param name="search">The search query string.</param>
         /// <param name="args">The search arguments.</param>
-        /// <returns>A results <see cref="Stream"/>.</returns>
+        /// <returns>A results stream.</returns>
         public Stream Export(string search, Args args) 
         {
             args = Args.Create(args).AlternateAdd("search", search);
@@ -736,7 +736,7 @@ namespace Splunk
         /// Creates a oneshot synchronous search.
         /// </summary>
         /// <param name="query">The search string.</param>
-        /// <returns>An I/O <see cref="Stream"/>.</returns>
+        /// <returns>An I/O stream.</returns>
         public Stream Oneshot(string query) 
         {
            return this.Oneshot(query, null);
@@ -747,7 +747,7 @@ namespace Splunk
         /// </summary>
         /// <param name="query">The search query.</param>
         /// <param name="inputArgs">The input arguments.</param>
-        /// <returns>An I/O <see cref="Stream"/>.</returns>
+        /// <returns>An I/O stream.</returns>
         public Stream Oneshot(string query, Args inputArgs) 
         {
             inputArgs = (inputArgs == null) ? Args.Create() : inputArgs; 
@@ -811,7 +811,7 @@ namespace Splunk
         /// Creates a simplified synchronous search using search arguments. 
         /// </summary>
         /// <param name="query">The search string.</param>
-        /// <returns>The <see cref="Stream"/> handle of the search.</returns>
+        /// <returns>The stream handle of the search.</returns>
 		/// <remarks>
 		/// Use this method for simple searches. For output control arguments, 
         /// use the <see cref="Search(string,Args,Args)"/> method.
@@ -826,7 +826,7 @@ namespace Splunk
         /// </summary>
         /// <param name="query">The search string.</param>
         /// <param name="inputArgs">The variable arguments.</param>
-        /// <returns>The <see cref="Stream"/> handle of the search.</returns>
+        /// <returns>The stream handle of the search.</returns>
 		/// <remarks>
 		/// Use this method for simple searches. For output control arguments, 
         /// use the <see cref="Search(string,Args,Args)"/> method.
@@ -842,7 +842,7 @@ namespace Splunk
         /// <param name="query">The search string.</param>
         /// <param name="inputArgs">The variable arguments.</param>
         /// <param name="outputArgs">The output arguments.</param>
-        /// <returns>The <see cref="Stream"/> handle of the search.</returns>
+        /// <returns>The stream handle of the search.</returns>
 		/// <remarks>
 		/// Use this method for simple searches. 
 		/// </remarks>
