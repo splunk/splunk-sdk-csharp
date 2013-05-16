@@ -595,12 +595,12 @@ namespace Splunk
 
         /// <summary>
         /// Updates the entity with the values you previously set using the 
-        /// setter methods, and any additional specified arguments. 
+        /// class properties, and any additional specified arguments. The 
+        /// specified arguments take precedence over the values that were  
+        /// set using the class properties.
         /// </summary>
-        /// <param name="args">The key-value pairs to update.</param>
+        /// <param name="args">The key/value pairs to update.</param>
         /// <remarks>
-        /// The specified arguments take precedence over the values that were  
-        /// set using the setter methods.
         /// </remarks>
         public virtual void Update(Dictionary<string, object> args)
         {
@@ -626,7 +626,7 @@ namespace Splunk
 
         /// <summary>
         /// Updates the entity with the accumulated arguments, established by 
-        /// the individual setter methods for each specific entity class.
+        /// the individual properties for each specific entity class.
         /// </summary>
         public virtual void Update() 
         {

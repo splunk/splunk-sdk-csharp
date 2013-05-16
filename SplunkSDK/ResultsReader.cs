@@ -54,7 +54,7 @@ namespace Splunk
         private readonly List<string> fields = new List<string>();
 
         /// <summary>
-        /// Whether or not the reader is inside a multi reader.
+        /// Whether the reader is inside a multi reader.
         /// </summary>
         private readonly bool isInMultiReader;
         
@@ -69,7 +69,7 @@ namespace Splunk
         /// </summary>
         /// <param name="stream">Input stream.</param>
         /// <param name="isInMultiReader">
-        /// Whether or not constructed inside a multi reader.
+        /// Whether constructed inside a multi reader.
         /// </param>
         protected ResultsReader(Stream stream, bool isInMultiReader)
         {
@@ -78,7 +78,7 @@ namespace Splunk
         }
      
         /// <summary>
-        /// Gets a value that indicates whether or not the stream is 
+        /// Gets a value indicating whether the stream is 
         /// from the export endpoint.
         /// </summary>
         internal bool IsExportStream { get; private set; }
@@ -87,7 +87,8 @@ namespace Splunk
         /// Gets all the field names that may appear in each result.
         /// </summary>
         /// <remarks>
-        /// Be aware that any given result will contain a subset of these fields.
+        /// Be aware that any given result will contain a subset of these 
+        /// fields.
         /// </remarks>
         public virtual ICollection<string> Fields
         {
@@ -99,8 +100,8 @@ namespace Splunk
         /// reader are a preview from an unfinished search.
         /// </summary>
         /// <remarks>
-        /// This property's default value is "false", which results in no results set
-        /// skipping or concatenation.
+        /// This property's default value is "false", which results in no 
+        /// results set skipping or concatenation.
         /// </remarks>
         public virtual bool IsPreview
         {

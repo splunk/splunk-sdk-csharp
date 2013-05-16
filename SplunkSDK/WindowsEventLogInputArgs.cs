@@ -18,15 +18,18 @@ namespace Splunk
 {
     /// <summary>
     /// The <see cref="WindowsEventLogInputArgs"/> class extends 
-    /// <see cref="Args"/> for WindowsEventLogInput creation setters.
+    /// <see cref="Args"/> for <see cref="WindowsEventLogInput"/> properties.
     /// </summary>
     public class WindowsEventLogInputArgs : Args
     {
         /// <summary>
-        /// Sets addtional hosts to be used for monitoring. The first host 
-        /// should be specified with "lookup_host", and the additional ones
-        /// using this parameter. This parameters is a comma-separated list.
+        /// Sets additional hosts to be used for monitoring. 
         /// </summary>
+        /// <remarks>
+        /// The first host should be specified with the 
+        /// <see cref="LookupHost"/> property, and the additional ones using 
+        /// this property. This property accepts a comma-separated list.
+        /// </remarks>
         public string Hosts
         {
             set
@@ -36,10 +39,12 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the host from which log events are monitored. This parameter
-        /// is required. To specify additional hosts to be monitored via WMI, 
-        /// use the "hosts" parameter.
+        /// Required. Sets the host from which log events are monitored. 
         /// </summary>
+        /// <remarks>
+        /// To specify additional hosts to be monitored via Windows Management 
+        /// Instrumentation (WMI), use the <see cref="Hosts"/> property.
+        /// </remarks>
         public string LookupHost
         {
             set

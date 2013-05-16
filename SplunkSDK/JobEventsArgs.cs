@@ -26,7 +26,7 @@ namespace Splunk
         /// <summary>
         /// Specifies the format for the returned output.
         /// </summary>
-        // C# disallow nested class to have the same name as
+        // C# disallows nested class from having the same name as
         // a property. Use 'Enum' suffix to differentiate.
         public enum OutputModeEnum
         {
@@ -77,7 +77,7 @@ namespace Splunk
         /// Specifies how to truncate lines to achieve the value in 
         /// <see cref="MaximumLines"/>
         /// </summary>
-        // C# disallow nested class to have the same name as
+        // C# disallows nested classes from having the same name as
         // a property. Use 'Enum' suffix to differentiate.
         public enum TruncationModeEnum
         {
@@ -117,9 +117,9 @@ namespace Splunk
         /// </summary>
         /// <remarks>
         /// <para>
-        /// This property's value is a time string. The time string can be a UTC
-        /// time (with fractional seconds), a relative time specifier (to now),
-        /// or a formatted time string.
+        /// This property's value is a time string. The time string can be a 
+        /// UTC time (with fractional seconds), a relative time specifier (to
+        /// now), or a formatted time string.
         /// </para>
         /// </remarks>
         public string EarliestTime
@@ -151,7 +151,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the maximum number of lines that any single event's <b>_raw</b> field should contain.
+        /// Sets the maximum number of lines that any single event's 
+        /// <b>_raw</b> field should contain.
         /// </summary>
         public int MaximumLines
         {
@@ -159,14 +160,15 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the index of the first result (inclusive) from which to begin returning
-        /// data. This value is 0-indexed.
+        /// Sets the index of the first result (inclusive) from which to begin
+        /// returning data. This value is 0-indexed.
         /// </summary>
         /// <remarks>
         /// <para>
-        /// Starting in Splunk 4.1, negative offsets are allowed and are added to the count to 
-        /// compute the absolute offset (for example, offset=-1 is the last available 
-        /// offset). Offsets in the results are always absolute and never negative. 
+        /// Starting in Splunk 4.1, negative offsets are allowed and are added 
+        /// to the count to compute the absolute offset (for example, offset=-1 
+        /// is the last available offset). Offsets in the results are always 
+        /// absolute and never negative. 
         /// </para>
         /// <para>
         /// This property's default value is "0".
@@ -212,7 +214,8 @@ namespace Splunk
 
         /// <summary>
         /// Sets an expression to convert a formatted time string from 
-        /// {start,end}_time into UTC seconds. The default format is "%m/%d/%Y:%H:%M:%S".
+        /// {start,end}_time into UTC seconds. 
+        /// The default format is "%m/%d/%Y:%H:%M:%S".
         /// </summary>
         public string TimeFormat
         {

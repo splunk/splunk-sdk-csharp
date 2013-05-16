@@ -17,8 +17,8 @@
 namespace Splunk
 {
     /// <summary>
-    /// The <see cref="ServiceArgs"/> class represents a Service Arguments data
-    /// structure that defines the context of the Splunk service.
+    /// The <see cref="ServiceArgs"/> class contains a collection of arguments 
+    /// that are used to initialize a Splunk <see cref="Service"/> instance.
     /// </summary>
     public class ServiceArgs
     {
@@ -63,7 +63,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the Splunk authentication token to use for the session.
+        /// Gets or sets the Splunk authentication token to use for the 
+        /// session.
         /// </summary>
         public string Token 
         { 

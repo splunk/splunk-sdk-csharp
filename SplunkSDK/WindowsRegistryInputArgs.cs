@@ -19,13 +19,13 @@ namespace Splunk
     /// <summary>
     /// The <see cref="WindowsRegistryInputArgs"/> class extends 
     /// <see cref="Args"/> for <see cref="WindowsRegistryInput"/> 
-    /// creation setters.
+    /// creation properties.
     /// </summary>
     public class WindowsRegistryInputArgs : Args
     {
         /// <summary>
-        /// Sets a value that indicates whether this Windows Registry input 
-        /// has an established baseline. This parameter is required.
+        /// Required. Sets a value indicating whether this Windows Registry 
+        /// input has an established baseline. 
         /// </summary>
         public bool Baseline
         {
@@ -36,7 +36,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether a specific stanza is monitored. 
+        /// Sets a value indicating whether a specific stanza is monitored. 
         /// </summary>
         public bool Disabled
         {
@@ -47,8 +47,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the registry hive under which to monitor for changes. This 
-        /// parameter is required.
+        /// Required. Sets the registry hive under which to monitor for 
+        /// changes. 
         /// </summary>
         public string Hive
         {
@@ -70,7 +70,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether to monitor the subnodes of a 
+        /// Sets a value indicating whether to monitor the subnodes of a 
         /// given registry hive.
         /// </summary>
         public bool MonitorSubnodes
@@ -82,9 +82,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a regular expression applied to registry events. If the regex
-        /// pattern matches on a registry event, that event is collected. This
-        /// parameter is required.
+        /// Required. Sets a regular expression applied to registry events. If 
+        /// the regex pattern matches on a registry event, that event is 
+        /// collected. 
         /// </summary>
         public string Proc
         {

@@ -69,8 +69,8 @@ namespace Splunk
         /// Initializes a new instance of the <see cref="ResponseMessage"/> 
         /// class with an initial status and stream.
         /// </summary>
-        /// <param name="status">The status</param>
-        /// <param name="content">The content stream</param>
+        /// <param name="status">The status.</param>
+        /// <param name="content">The content stream.</param>
         /// <param name="response">The response.</param>
         public ResponseMessage(
             int status, Stream content, HttpWebResponse response) 

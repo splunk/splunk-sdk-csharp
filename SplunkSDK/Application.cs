@@ -51,7 +51,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether Splunk checks 
+        /// Gets or sets a value indicating whether Splunk checks 
         /// Splunkbase for updates.
         /// </summary>
         public bool CheckForUpdates
@@ -101,7 +101,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value that indicates whether to reload objects contained
+        /// Gets a value indicating whether to reload objects contained
         /// in the locally-installed app.
         /// </summary>
         public bool Refreshes
@@ -129,10 +129,12 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether the app's custom setup 
-        /// has been performed. This field is available in Splunk version 4.2.4
-        /// and later.
+        /// Gets or sets a value indicating whether the app's custom setup 
+        /// has been performed. 
         /// </summary>
+        /// <remarks>
+        /// This property is available starting in Splunk version 4.2.4.
+        /// </remarks>
         public bool IsConfigured
         {
             get
@@ -147,8 +149,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether the app can be managed 
-        /// by Splunk Manager. Note: This method is deprecated in Splunk 5.0.
+        /// Deprecated in Splunk 5.0. Gets or sets a value indicating whether 
+        /// the app can be managed by Splunk Manager. 
         /// </summary>
         public bool IsManageable
         {
@@ -164,7 +166,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether the app is visible and 
+        /// Gets or sets a value indicating whether the app is visible and 
         /// navigable from Splunk Web.
         /// </summary>
         public bool IsVisible
@@ -181,7 +183,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value that indicates whether a state change requires the app 
+        /// Gets a value indicating whether a state change requires the app 
         /// to be restarted.
         /// </summary>
         public bool StateChangeRequiresRestart

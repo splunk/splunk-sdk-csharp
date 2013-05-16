@@ -19,12 +19,13 @@ namespace Splunk
     /// <summary>
     /// The <see cref="WindowsWmiInputArgs"/> class extends the 
     /// <see cref="Args"/> class for <see cref="WindowsWmiInput"/> creation 
-    /// setters.
+    /// properties.
     /// </summary>
     public class WindowsWmiInputArgs : Args
     {
         /// <summary>
-        /// Sets a valid WMI class name. This parameter is required.
+        /// Required. Sets a valid Windows Management Instrumentation (WMI) 
+        /// class name.
         /// </summary>
         public string Classes
         {
@@ -35,7 +36,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether this collection is disabled. 
+        /// Sets a value indicating whether this collection is disabled. 
         /// </summary>
         public bool Disabled
         {
@@ -79,8 +80,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the frequency, in seconds, at which the SMI provider(s) are
-        /// queried. This parameter is required.
+        /// Required. Sets the frequency, in seconds, at which the WMI
+        /// provider(s) are queried. 
         /// </summary>
         public int Interval
         {
@@ -91,10 +92,12 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the host from which WMI data is gathered. This parameter
-        /// is required. To specify additional hosts to be monitored via WMI, 
-        /// use the "server" parameter.
+        /// Required. Sets the host from which WMI data is gathered. 
         /// </summary>
+        /// <remarks>
+        /// To specify additional hosts to be monitored via WMI, use the 
+        /// <see cref="Server"/> parameter.
+        /// </remarks>
         public string LookupHost
         {
             set

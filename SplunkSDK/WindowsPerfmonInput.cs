@@ -17,8 +17,8 @@
 namespace Splunk
 {
     /// <summary>
-    /// The <see cref="WindowsPerfmonInput"/> class represents the 
-    /// <see cref="Input"/> subclass Windows Performance Monitor Input.
+    /// The <see cref="WindowsPerfmonInput"/> class represents a Windows 
+    /// Performance Monitor (Perfmon) data input.
     /// </summary>
     public class WindowsPerfmonInput : Input
     {
@@ -51,9 +51,11 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether this input is disabled. 
-        /// Note: This attribute is only available in Splunk 4.3 or earlier.
+        /// Sets a value indicating whether this input is disabled. 
         /// </summary>
+        /// <remarks>
+        /// This attribute is available starting in Splunk 4.3.
+        /// </remarks>
         public bool Disabled
         {
             set
@@ -142,9 +144,16 @@ namespace Splunk
 
         /// <summary>
         /// Gets or sets the source value to populate in he source field for 
-        /// events from this data input. The same source should not be used for 
-        /// multiple events. This was introduced in Splunk 5.0. 
+        /// events from this data input. 
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// The same source should not be used for multiple events. 
+        /// </para>
+        /// <para>
+        /// This property is available in Splunk 5.0 and later.
+        /// </para>
+        /// </remarks>
         public string Source
         {
             get
@@ -160,8 +169,11 @@ namespace Splunk
 
         /// <summary>
         /// Gets or sets the sourcetype value to populate in the sourcetype 
-        /// field for incoming events. This was introduced in Splunk 5.0. 
+        /// field for incoming events. 
         /// </summary>
+        /// <remarks>
+        /// This property is available in Splunk 5.0 and later.
+        /// </remarks>
         public string SourceType
         {
             get

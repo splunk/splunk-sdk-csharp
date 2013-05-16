@@ -26,7 +26,7 @@ namespace Splunk
         /// Initializes a new instance of the <see cref="EventTypeCollection"/> 
         /// class.
         /// </summary>
-        /// <param name="service">The connected service</param>
+        /// <param name="service">The connected service.</param>
         public EventTypeCollection(Service service)
             : base(service, "saved/eventtypes", typeof(EventType))
         {
@@ -60,7 +60,7 @@ namespace Splunk
         /// <param name="name">The name of the event.</param>
         /// <param name="search">The search string.</param>
         /// <param name="args">The arguments.</param>
-        /// <returns>The EventType.</returns>
+        /// <returns>The event type.</returns>
         public EventType Create(string name, string search, Args args)
         {
             args = Args.Create(args);

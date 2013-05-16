@@ -20,7 +20,7 @@ namespace Splunk
 
     /// <summary>
     /// The <see cref="SavedSearchCollection"/> class represents the 
-    /// collection of SavedSearches.
+    /// collection of <see cref="SavedSearch"/>es.
     /// </summary>
     public class SavedSearchCollection : EntityCollection<SavedSearch>
     {
@@ -50,7 +50,7 @@ namespace Splunk
         /// string.
         /// </summary>
         /// <param name="name">Search name.</param>
-        /// <returns>N/A. Throws an exception.</returns>
+        /// <returns>Throws an exception.</returns>
         public override SavedSearch Create(string name)
         {
             throw new Exception("Create unsuported");

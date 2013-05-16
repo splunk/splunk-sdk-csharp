@@ -25,7 +25,7 @@ namespace Splunk
     public class AtomObject
     {
         /// <summary>
-        /// Gets or sets value of the Atom id element.
+        /// Gets or sets value of the Atom <b>id</b> element.
         /// </summary>
         public string Id 
         {
@@ -34,7 +34,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the value of the Atom link elements 
+        /// Gets or sets the value of the Atom <b>link</b> elements 
         /// </summary>
         public Dictionary<string, string> Links 
         {
@@ -43,7 +43,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the value of the Atom title element.
+        /// Gets or sets the value of the Atom <b>title</b> element.
         /// </summary>
         public string Title 
         {
@@ -52,7 +52,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the value of the Atom updated element.
+        /// Gets or sets the value of the Atom <b>updated</b> element.
         /// </summary>
         public string Updated 
         {
@@ -97,8 +97,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Initializes the current AtomObect instance from the given XML 
-        /// element by invoking init() on each child of the XML element.
+        /// Initializes the current AtomObject instance from the given XML 
+        /// element by invoking <see cref="Init"/> on each child of the XML 
+        /// element.
         /// </summary>
         /// <param name="element">The XML element.</param>
         public void Load(XmlElement element) 

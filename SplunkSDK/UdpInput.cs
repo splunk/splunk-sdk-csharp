@@ -22,25 +22,39 @@ namespace Splunk
     using System.Text;
 
     /// <summary>
-    /// The <see cref="UdpInput"/> class represents the <see cref="Input"/> 
-    /// subclass Udp Input.
+    /// The <see cref="UdpInput"/> class represents a UDP data input.
     /// </summary>
     public class UdpInput : Input
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="UdpInput"/> class.
         /// </summary>
-        /// <param name="service">The connected service</param>
-        /// <param name="path">The path</param>
+        /// <param name="service">The connected service.</param>
+        /// <param name="path">The path.</param>
         public UdpInput(Service service, string path)
             : base(service, path)
         {
         }
 
         /// <summary>
-        /// Gets or sets the style of host connection. Valid values are: "ip", 
-        /// "dns", and "none".
+        /// Gets or sets the host of the remote server that sends data. 
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This property's possible values are:
+        /// <list type="bullet">
+        /// <item><b>"ip"</b> sets the host to the IP address of the remote 
+        /// server sending data.</item>
+        /// <item><b>"dns"</b> sets the host to the reverse DNS entry for the
+        /// IP address of the remote server sending data.</item>
+        /// <item><b>"none"</b> leaves the host as specified in inputs.conf,
+        /// which is typically the Splunk system hostname.</item>
+        /// </list>
+        /// </para>
+        /// <para>
+        /// This property's default value is "ip".
+        /// </para>
+        /// </remarks>
         public string ConnectionHost
         {
             get
@@ -110,7 +124,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether Splunk prepends a 
+        /// Gets or sets a value indicating whether Splunk prepends a 
         /// timestamp and hostname to incoming events.
         /// </summary>
         public bool NoAppendingTimeStamp
@@ -127,7 +141,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether Splunk removes the 
+        /// Gets or sets a value indicating whether Splunk removes the 
         /// priority field from incoming events. 
         /// </summary>
         public bool NoPriorityStripping
@@ -144,9 +158,15 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the  queue for this TCP input. Valid values are:
-        /// "parsingQueue" and "indexQueue".
+        /// Gets or sets the queue for this TCP input. 
         /// </summary>
+        /// <remarks>
+        /// This property's valid values are:
+        /// <list type="bullet">
+        /// <item>"parsingQueue"</item>
+        /// <item>"indexQueue"</item>
+        /// </list>
+        /// </remarks>
         public string Queue
         {
             get
@@ -194,9 +214,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Returns an object that contains the inbound raw TCP connections.
+        /// Returns an object containing the inbound raw TCP connections.
         /// </summary>
-        /// <returns>The connections</returns>
+        /// <returns>The connections.</returns>
         public UdpConnections Connections()
         {
             return new UdpConnections(this.Service, this.Path + "/connections");

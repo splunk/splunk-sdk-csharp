@@ -72,8 +72,20 @@ namespace Splunk
         /// Gets or sets the block sign size for this index. 
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This value defines the number of events that make up a block for 
-        /// block signatures. A value of "0" means block signing is disabled.
+        /// block signatures. 
+        /// </para>
+        /// <para>
+        /// If this property is set to "0", block signing is disabled for this 
+        /// index. 
+        /// </para>
+        /// <para>
+        /// This property's recommended value is "100". 
+        /// </para>
+        /// <para>
+        /// This property's default value is "0".
+        /// </para>
         /// </remarks>
         public int BlockSignSize
         {
@@ -105,15 +117,16 @@ namespace Splunk
         /// </summary>
         /// <remarks>
         /// <para>
-        /// Caution: This is an advanced parameter. Inappropriate use of this 
-        /// parameter causes splunkd to not start if rebuild is required. Do not
-        /// set this parameter unless instructed by Splunk Support.
+        /// <b>Caution:</b> This is an advanced parameter. Inappropriate use 
+        /// of this parameter causes splunkd to not start if rebuild is 
+        /// required. Do not set this parameter unless instructed by Splunk
+        /// Support.
         /// </para>
         /// <para>
         /// This property's default value is "auto".
         /// </para>
         /// <para>
-        /// This property is available in Splunk 5.0 and later.
+        /// This property is available starting in Splunk 5.0.
         /// </para>
         /// </remarks>
         public string BucketRebuildMemoryHint
@@ -130,10 +143,22 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the absolute file path to the cold database for this index. 
+        /// Gets an absolute filesystem path, local to the server, to
+        /// the cold database for the index. The path must be both readable and 
+        /// writable. 
         /// </summary>
         /// <remarks>
+        /// <para>
+        /// Cold databases are opened as needed when searching. May be
+        /// defined in terms of a volume definition (see volume). 
+        /// </para>
+        /// <para>
         /// This property's value may contain shell expansion terms.
+        /// </para>
+        /// <para>
+        /// Be aware that Splunk will not start if an index lacks a valid 
+        /// <see cref="ColdPath"/>. 
+        /// </para>
         /// </remarks>
         public string ColdPath
         {
@@ -156,8 +181,35 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the frozen archive destination path for this index.
+        /// Gets the destination filesystem path, local to the server, for the 
+        /// frozen archive. Splunk automatically puts frozen buckets in this 
+        /// directory.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Use as an alternative to a <see cref="ColdToFrozenScript"/>.
+        /// </para>
+        /// <para>
+        /// Bucket freezing policy is as follows:
+        /// </para>
+        /// <list type="bullet">
+        /// <item> 
+        /// New style buckets (4.2 and on): removes all files but the rawdata. 
+        /// To thaw, run splunk rebuild "bucket dir" on the bucket, then move to 
+        /// the thawed directory. 
+        /// </item>
+        /// <item>
+        /// Old style buckets (Pre-4.2): gzip all the 
+        /// .data and .tsidx files. To thaw, gunzip the zipped files and move 
+        /// the bucket into the thawed directory for that index. 
+        /// </item>
+        /// </list>
+        /// <para>
+        /// <b>Note:</b> If both the <see cref="ColdToFrozenDir"/> 
+        /// and <see cref="ColdToFrozenScript"/> properties are specified, the
+        /// <see cref="ColdToFrozenDir"/> property takes precedence.
+        /// </para>
+        /// </remarks>
         public string ColdToFrozenDir
         {
             get
@@ -172,8 +224,27 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the path to the archiving script. 
+        /// Gets the filesystem path, local to the server, that is the archiving
+        /// script. 
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Bucket freezing policy is as follows:
+        /// </para>
+        /// <list type="bullet">
+        /// <item> 
+        /// New style buckets (4.2 and on): removes all files but the rawdata. 
+        /// To thaw, run splunk rebuild "bucket dir" on the bucket, then move to 
+        /// the thawed directory. Use the <see cref="ColdToFrozenDir"/> unless 
+        /// you need to perform a more advanced operation upon freezing buckets.
+        /// </item>
+        /// <item>
+        /// Old style buckets (Pre-4.2): gzip all the 
+        /// .data and .tsidx files. To thaw, gunzip the zipped files and move 
+        /// the bucket into the thawed directory for that index.
+        /// </item>
+        /// </list>
+        /// </remarks>
         public string ColdToFrozenScript
         {
             get
@@ -222,13 +293,19 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether asnychronous "online
-        /// fsck" bucket repair is enabled. 
+        /// Gets or sets a value indicating whether asynchronous (online fsck) 
+        /// bucket repair is enabled. When enabled, bucket repair runs 
+        /// concurrently with Splunk.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// When this feature is enabled, you don't have to wait for buckets
         /// to be repaired before starting Splunk, but you might notice a 
         /// slight degradation in performance as a result.
+        /// </para>
+        /// <para>
+        /// This property's default value is "enabled".
+        /// </para>
         /// </remarks>
         public bool EnableOnlineBucketRepair
         {
@@ -256,13 +333,19 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the maximum age for a bucket, after which the data in 
-        /// this index rolls to frozen. 
+        /// Gets or sets the number of seconds after which indexed data rolls 
+        /// to frozen. 
         /// </summary>
         /// <remarks>
+        /// <para>
+        /// Freezing data means it is removed from the index. 
         /// If archiving is necessary for frozen data, see the ColdToFrozen 
         /// attributes, <see cref="ColdToFrozenDir"/> and 
         /// <see cref="ColdToFrozenScript"/>.
+        /// </para>
+        /// <para>
+        /// This property's default value is "188697600" (6 years).
+        /// </para>
         /// </remarks>
         /// <seealso cref="ColdToFrozenDir"/>
         /// <seealso cref="ColdToFrozenScript"/>
@@ -280,10 +363,17 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the absolute path to both hot and warm buckets for this index.
+        /// Gets an absolute path that contains the hot and warm buckets for the
+        /// index. The path must be both readable and writable. 
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This property's value may contain shell expansion terms.
+        /// </para>
+        /// <para>
+        /// <b>Note:</b> Splunk will not start if an index lacks a valid 
+        /// <see cref="HomePath"/>.
+        /// </para>
         /// </remarks>
         public string HomePath
         {
@@ -333,7 +423,7 @@ namespace Splunk
         /// <summary>
         /// Gets or sets a time that indicates a bucket age. When a warm or
         /// cold bucket is older than this, Splunk does not create or rebuild
-        /// its bloom filter. 
+        /// its bloomfilter. 
         /// </summary>
         /// <remarks>
         /// <para>
@@ -343,6 +433,9 @@ namespace Splunk
         /// <para>
         /// When this property is set to "0", Splunk never rebuilds
         /// bloom filters.
+        /// </para>
+        /// <para>
+        /// This property's default value is "30d".
         /// </para>
         /// </remarks>
         public string MaxBloomBackfillBucketAge
@@ -360,8 +453,17 @@ namespace Splunk
 
         /// <summary>
         /// Gets or sets the maximum number of concurrent optimize processes 
-        /// that can run against a hot bucket for this index.
+        /// that can run against a hot bucket for this index. 
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This number should be increased from the 
+        /// default only if instructed by Splunk Support.
+        /// </para>
+        /// <para>
+        /// This property's default value is "3".
+        /// </para>
+        /// </remarks>
         public int MaxConcurrentOptimizes
         {
             get
@@ -376,14 +478,41 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the maximum data size before triggering a roll from 
-        /// hot to warm buckets for this index. 
+        /// Gets or sets the maximum size in megabytes (MB) for a hot database 
+        /// to reach before triggering a roll from hot to warm buckets for this 
+        /// index.
         /// </summary>
         /// <remarks>
-        /// This property's value is expressed in megabytes (MB). When this
-        /// property is set to <c>auto</c>, it indicates 750MB. When set to 
-        /// <c>auto_high_volume</c>, it indicates 10 gigabytes (GB) 
-        /// on a 64-bit system, or 1GB on a 32-bit system.
+        /// <para>
+        /// Acceptable values are also "auto" or "auto_high_volume". 
+        /// </para>
+        /// <list type="bullet">
+        /// <item>"auto" sets the size to 750MB</item>
+        /// <item>"auto_high_volume" sets the size to 10 gigabytes (GB) on
+        /// 64-bit, and 1GB on 32-bit systems</item> 
+        /// </list>
+        /// <para>
+        /// A "high volume index" would typically be considered one that gets 
+        /// over 10GB of data per day. 
+        /// </para>
+        /// <para>
+        /// Although the maximum value to which you can set this property is
+        /// 1048576MB, which corresponds to 1 terabyte (TB), a reasonable
+        /// number ranges anywhere from 100 to 50000. Any number outside this
+        /// range should be approved by Splunk Support before proceeding. 
+        /// </para>
+        /// <para>
+        /// If you specify an invalid number or string, <see
+        /// cref="MaxDataSize"/> will be auto tuned. 
+        /// </para>
+        /// <para>
+        /// <b>Note:</b> The precise size of your warm buckets may 
+        /// vary from <see cref="MaxDataSize"/>, due to post-processing and 
+        /// timing issues with the rolling policy.
+        /// </para>
+        /// <para>
+        /// This property's default value is "auto".
+        /// </para>
         /// </remarks>
         public string MaxDataSize
         {
@@ -399,9 +528,20 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the maximum number of hot buckets that can exist for 
-        /// this index.
+        /// Gets or sets the maximum number of hot buckets for this index.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// When <see cref="MaxHotBuckets"/> is exceeded, Splunk rolls the 
+        /// least recently used (LRU) hot bucket to warm. Both normal hot 
+        /// buckets and quarantined hot buckets count towards this total. 
+        /// This setting operates independently of <see 
+        /// cref="MaxHotIdleSecs"/>, which can also cause hot buckets to roll.
+        /// </para>
+        /// <para>
+        /// This property's default value is "3". 
+        /// </para>
+        /// </remarks>
         public int MaxHotBuckets
         {
             get
@@ -416,11 +556,19 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the maximum lifetime of a hot bucket for this index. 
+        /// Gets or sets the maximum life of a hot bucket, in seconds. 
         /// </summary>
         /// <remarks>
-        /// If a hot bucket exceeds this value, Splunk rolls it to warm. 
-        /// A value of "0" means an infinite lifetime.
+        /// If a hot bucket exceeds this property's value, Splunk rolls
+        /// the bucket to warm. This setting operates independently of <see 
+        /// cref="MaxHotBuckets"/>, which can also cause hot buckets to roll.
+        /// <para>
+        /// A value of "0" turns off the idle check, and indicates an
+        /// infinite lifetime.
+        /// </para>
+        /// <para>
+        /// This property's default value is "0". 
+        /// </para>
         /// </remarks>
         public int MaxHotIdleSecs
         {
@@ -436,9 +584,21 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the upper bound of the target maximum timespan of 
-        /// hot and warm buckets for this index.
+        /// Gets or sets the upper bound of target maximum timespan of hot 
+        /// and warm buckets for this index, in seconds.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// <b>Note:</b> If you set this property too small, you can get an 
+        /// explosion of hot/warm buckets in the filesystem. The system sets 
+        /// a lower bound implicitly for this parameter at 3600, but this is an 
+        /// advanced parameter that should be set with care and understanding 
+        /// of the characteristics of your data.
+        /// </para>
+        /// <para>
+        /// This property's default value is "7776000" (90 days). 
+        /// </para>
+        /// </remarks>
         public int MaxHotSpanSecs
         {
             get
@@ -453,9 +613,24 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the amount of memory to allocate for buffering 
-        /// a single .tsidx file into memory before flushing to disk. 
+        /// Gets or sets the amount of memory, expressed in megabytes (MB), to 
+        /// allocate for buffering a single tsidx file into memory before 
+        /// flushing to disk. 
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This property's default value ("5") is recommended for all 
+        /// environments.
+        /// </para>
+        /// <para>
+        /// <b>Important:</b> Calculate this number carefully. Setting this 
+        /// number incorrectly may have adverse effects on your system's memory 
+        /// and splunkd stability and performance.
+        /// </para>
+        /// <para>
+        /// This property's default value is "5". 
+        /// </para>
+        /// </remarks>
         public int MaxMemMB
         {
             get
@@ -470,11 +645,28 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the maximum number of unique lines that are allowed 
-        /// in a bucket's .data files for this index. 
+        /// Gets or sets the maximum number of unique lines in .data files in 
+        /// a bucket, which may help to reduce memory consumption. 
         /// </summary>
         /// <remarks>
-        /// A value of "0" indicates infinite lines.
+        /// <para>
+        /// If set to "0", this setting is ignored (it is treated as
+        /// infinite). 
+        /// </para>
+        /// <para>
+        /// If this property's value is exceeded, a hot bucket is rolled to 
+        /// prevent further increase. If your buckets are rolling due to 
+        /// Strings.data hitting this limit, the culprit may be the punct field 
+        /// in your data. If you don't use punct, it may be best to simply 
+        /// disable this (see props.conf.spec in 
+        /// $SPLUNK_HOME/etc/system/README). There is a small time delta 
+        /// between when maximum is exceeded and bucket is rolled. This means
+        /// a bucket may end up with epsilon more lines than specified, but
+        /// this is not a major concern unless the excess is significant.
+        /// </para>
+        /// <para>
+        /// This property's default value is "1000000". 
+        /// </para>
         /// </remarks>
         public int MaxMetaEntries
         {
@@ -527,21 +719,21 @@ namespace Splunk
         /// </para>
         /// <para>
         /// If there are any acknowledged events sharing this raw slice, this
-        /// paramater does not apply, and 
+        /// property does not apply, and 
         /// <see cref="MaxTimeUnreplicatedWithAcks"/> applies. 
         /// </para>
         /// <para>
         /// This property's highest legal value is "2147483647".
         /// </para>
         /// <para> 
-        /// To disable this parameter, set this property to "0".
+        /// To disable this property, set it to "0".
         /// </para>
         /// <para>
         /// Be aware that this is an advanced parameter. Understand the 
         /// consequences before changing. 
         /// </para>
         /// <para>
-        /// This property is available in Splunk 5.0 and later.
+        /// This property is available starting in Splunk 5.0.
         /// </para>
         /// </remarks>
         public int MaxTimeUnreplicatedNoAcks
@@ -594,11 +786,16 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the maximum size for this index.
+        /// Gets or sets the maximum size of an index, in megabytes (MB).
         /// </summary>
         /// <remarks>
-        /// If an index grows larger than this value, the oldest data is 
+        /// <para>
+        /// If an index grows larger than the maximum size, the oldest data is
         /// frozen.
+        /// </para>
+        /// <para>
+        /// This property's default value is "500000".
+        /// </para>
         /// </remarks>
         public int MaxTotalDataSizeMB
         {
@@ -617,8 +814,13 @@ namespace Splunk
         /// Gets or sets the maximum number of warm buckets for this index. 
         /// </summary>
         /// <remarks>
-        /// If this value is exceeded, the warm buckets with the lowest value
-        /// for their latest times are moved to cold.
+        /// <para>
+        /// If this property's value is exceeded, the warm buckets with the 
+        /// lowest value for their latest times are moved to cold.
+        /// </para>
+        /// <para>
+        /// This property's default value is "300".
+        /// </para>
         /// </remarks>
         public int MaxWarmDBCount
         {
@@ -648,13 +850,31 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the frequency at which Splunkd forces a filesystem 
-        /// sync while compressing journal slices for this index. 
+        /// Gets or sets how frequently splunkd forces a filesystem sync while 
+        /// compressing journal slices for this index. 
         /// </summary>
         /// <remarks>
-        /// When this property is set to "disable", this feature is disabled
-        /// completely. When set to "0", Splunk forces a file-system sync after
-        /// completing compression of every journal slice.
+        /// <para>
+        /// During the interval specified by this property, uncompressed 
+        /// slices are left on disk even after they are compressed. Then 
+        /// splunkd forces a filesystem sync of the compressed journal and
+        /// removes the accumulated uncompressed files.
+        /// </para>
+        /// <para>
+        /// If this property is set to "0", splunkd forces a filesystem sync 
+        /// after every slice completes compressing. 
+        /// </para>
+        /// <para>
+        /// If this property is set to "disable", syncing is disabled entirely;
+        /// uncompressed slices are removed as soon as compression is complete.
+        /// </para>
+        /// <para>
+        /// <b>Note:</b> Some filesystems are very inefficient at performing
+        /// sync operations, so only enable this if you are sure it is needed.
+        /// </para>
+        /// <para>
+        /// This property's default value is "disable".
+        /// </para>
         /// </remarks>
         public string MinRawFileSyncSecs
         {
@@ -761,6 +981,9 @@ namespace Splunk
         /// Gets or sets the future event-time quarantine for this index. 
         /// Events that are newer than now plus this value are quarantined.
         /// </summary>
+        /// <remarks>
+        /// This property's default value is "2592000" (30 days).
+        /// </remarks>
         public int QuarantineFutureSecs
         {
             get
@@ -778,6 +1001,9 @@ namespace Splunk
         /// Gets or sets the past event-time quarantine for this index. 
         /// Events that are older than now minus this value are quarantined.
         /// </summary>
+        /// <remarks>
+        /// This property's default value is "77760000" (900 days).
+        /// </remarks>
         public int QuarantinePastSecs
         {
             get
@@ -796,8 +1022,18 @@ namespace Splunk
         /// in the raw data journal for this index. 
         /// </summary>
         /// <remarks>
+        /// <para>
         /// <b>Warning:</b> This is an advanced property. Only change it if 
         /// you are instructed to do so by Splunk Support.
+        /// </para>
+        /// <para>
+        /// This property only specifies a target chunk size. The actual chunk
+        /// size may be slightly larger by an amount proportional to an
+        /// individual event size.
+        /// </para>
+        /// <para>
+        /// This property's default value is 131072 (128 kilobytes (KB)).
+        /// </para>
         /// </remarks>
         public int RawChunkSizeBytes
         {
@@ -822,13 +1058,16 @@ namespace Splunk
         /// </para>
         /// <para>
         /// A value of "auto" instructs Splunk to use the value as configured
-        /// with the master. A value of "0" turns off replication for this index. 
+        /// with the master. 
+        /// </para>
+        /// <para>
+        /// A value of "0" turns off replication for this index. 
         /// </para>
         /// <para>
         /// This parameter only applies to Splunk clustering slaves. 
         /// </para>
         /// <para>
-        /// This property is available in Splunk 5.0 and later.
+        /// This property is available starting in Splunk 5.0.
         /// </para>
         /// </remarks>
         public string ReplicationFactor
@@ -863,9 +1102,19 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the frequency at which metadata is synced to disk for 
-        /// this index.
+        /// Gets or sets the frequency, in seconds, at which metadata is 
+        /// synced to disk for this index.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// You may want to set this to a larger value if the sum of your
+        /// metadata file sizes is larger than many tens of megabytes, to
+        /// avoid the hit on I/O in the indexing fast path.
+        /// </para>
+        /// <para>
+        /// This property's default value is "25".
+        /// </para>
+        /// </remarks>
         public int ServiceMetaPeriod
         {
             get
@@ -908,9 +1157,18 @@ namespace Splunk
         /// operation is invoked before the file descriptor is closed on 
         /// metadata updates. 
         /// </summary>
-        /// </remarks>
+        /// <remarks>
+        /// <para>
+        /// This functionality improves integrity of metadata files, especially
+        /// in regards to operating system crashes or machine failures.
+        /// </para>
+        /// <para>
         /// <b>Warning:</b> This is an advanced parameter. Only change it if
         /// you are instructed to do so by Splunk Support.
+        /// </para>
+        /// <para>
+        /// This property's default value is true.
+        /// </para>
         /// </remarks>
         public bool SyncMeta
         {
@@ -926,10 +1184,17 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the absolute path to the thawed index for this index. 
+        /// Gets an absolute filesystem path, local to the server, that 
+        /// contains the thawed (resurrected) databases for the index. 
         /// </summary>
         /// <remarks>
+        /// <para>
+        /// Be aware that Splunk will not start if an index lacks a 
+        /// valid <see cref="ThawedPath"/>. 
+        /// </para>
+        /// <para>
         /// This property's value may contain shell expansion terms.
+        /// </para>
         /// </remarks>
         public string ThawedPath
         {
@@ -954,6 +1219,15 @@ namespace Splunk
         /// Gets or sets the frequency at which Splunk checks for an index 
         /// throttling condition.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This property's value should be changed from the default only 
+        /// if instructed by Splunk Support.
+        /// </para>
+        /// <para>
+        /// This property's default value is "15".
+        /// </para>
+        /// </remarks>
         public int ThrottleCheckPeriod
         {
             get

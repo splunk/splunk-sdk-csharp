@@ -17,8 +17,8 @@
 namespace Splunk
 {
     /// <summary>
-    /// The <see cref="RoleArgs"/> class extends <see cref="Args"/> for Role
-    /// creation setters.
+    /// The <see cref="RoleArgs"/> class extends <see cref="Args"/> for 
+    /// <see cref="Role"/> creation properties.
     /// </summary>
     public class RoleArgs : Args
     {
@@ -35,9 +35,12 @@ namespace Splunk
 
         /// <summary>
         /// Sets the name of the app to use as the default app for 
-        /// the role. A user-specific default app will override this.
-        /// The name you specify is the name of the folder containing the app.
+        /// the role. 
         /// </summary>
+        /// <remarks>
+        /// A user-specific default app will override this.
+        /// The name you specify is the name of the folder containing the app.
+        /// </remarks>
         public string DefaultApp
         {
             set
@@ -48,8 +51,11 @@ namespace Splunk
 
         /// <summary>
         /// Sets a role from which to import attributes, as a list.
-        /// The default value is a role that imports no other roles.
         /// </summary>
+        /// <remarks>
+        /// This property's default value is a role that imports no other 
+        /// roles.
+        /// </remarks>
         public string[] ImportedRoles
         {
             set
@@ -59,9 +65,12 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the maximum number of concurrent real time search jobs for this
-        /// role. This count does not affect the normal search jobs limit.
+        /// Sets the maximum number of concurrent real time search jobs for 
+        /// this role. 
         /// </summary>
+        /// <remarks>
+        /// This count does not affect the normal search jobs limit.
+        /// </remarks>
         public int RtSrchJobsQuota
         {
             set 
@@ -71,8 +80,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the maximum disk space, in MB, that can be used by a user's 
-        /// search jobs. For example, 100 limits this role to 100 MB total.
+        /// Sets the maximum disk space, in megabytes (MB), that can be used 
+        /// by a user's search jobs. For example, 100 limits this role to 100MB
+        /// total.
         /// </summary>
         public int SrchDiskQuota
         {
@@ -87,15 +97,16 @@ namespace Splunk
         /// this role. 
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Search results for this role only show events that also 
         /// match the search string you specify. In the case that a user has 
         /// multiple roles with different search filters, they are combined with
         /// an OR. The search string can include source, host, index, eventtype,
         /// sourcetype, search fields, *, OR, and AND.
-        /// Example: 
-        /// <example>"host=web* OR source=/var/log/*"</example>
-        /// Note: You can also use the srchIndexesAllowed and srchIndexesDefault 
-        /// parameters to limit the search on indexes.
+        /// For example: <c>"host=web* OR source=/var/log/*"</c></para>
+        /// <para><b>Note:</b> You can also use the <see cref="SrchIndexesAllowed"/>
+        /// and <see cref="SrchIndexesDefault"/> parameters to limit the search 
+        /// on indexes.</para>
         /// </remarks>
         public string SrchFilter
         {
@@ -117,11 +128,13 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the indexes to search when no index is specified. These indexes
-        /// can be wildcarded, with the exception that '*' does not match 
-        /// internal indexes. To match internal indexes, start with '_'. All 
-        /// internal indexes are represented by '_*'.
+        /// Sets the indexes to search when no index is specified. 
         /// </summary>
+        /// <remarks>
+        /// These indexes can be wildcarded, with the exception that '*' 
+        /// does not match internal indexes. To match internal indexes, 
+        /// start with '_'. All internal indexes are represented by '_*'.
+        /// </remarks>
         public string[] SrchIndexesDefault
         {
             set
@@ -149,7 +162,7 @@ namespace Splunk
         /// <remarks>
         /// By default, searches are not limited to any specific time window. 
         /// To override any search time windows from imported roles, set 
-        /// srchTimeWin to '0', as the 'admin' role does.
+        /// <see cref="SrchTimeWin"/> to "0", as the admin role does.
         /// </remarks>
         public int SrchTimeWin
         {

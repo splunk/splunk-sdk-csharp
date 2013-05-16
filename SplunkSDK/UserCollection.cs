@@ -29,7 +29,7 @@ namespace Splunk
         /// Initializes a new instance of the <see cref="UserCollection"/> 
         /// class.
         /// </summary>
-        /// <param name="service">The service</param>
+        /// <param name="service">The service.</param>
         public UserCollection(Service service)
             : base(service, "authentication/users", typeof(User)) 
         {
@@ -39,8 +39,8 @@ namespace Splunk
         /// Initializes a new instance of the <see cref="UserCollection"/> 
         /// class.
         /// </summary>
-        /// <param name="service">The service</param>
-        /// <param name="args">The args</param>
+        /// <param name="service">The service.</param>
+        /// <param name="args">The args.</param>
         public UserCollection(Service service, Args args)
             : base(service, "authentication/users", args, typeof(User))
         {
@@ -53,7 +53,7 @@ namespace Splunk
         /// </summary>
         /// <param name="name">The username for the new user.</param>
         /// <param name="password">The password for this new user.</param>
-        /// <param name="role">A roles to assign this new user.</param>
+        /// <param name="role">A role to assign this new user.</param>
         /// <returns>The new user entity.</returns>
         public User Create(string name, string password, string role)
         {
@@ -66,7 +66,7 @@ namespace Splunk
         /// log in to Splunk.
         /// </summary>
         /// <param name="name">The username for the new user.</param>
-        /// <param name="password">The asswird fir this new user.</param>
+        /// <param name="password">The password for this new user.</param>
         /// <param name="roles">A list of roles to assign this new user.</param>
         /// <returns>The new user entity.</returns>
         public User Create(string name, string password, string[] roles)
@@ -98,7 +98,7 @@ namespace Splunk
         /// log in to Splunk.
         /// </summary>
         /// <param name="name">The username for the new user.</param>
-        /// <param name="password">The asswird fir this new user.</param>
+        /// <param name="password">The password for this new user.</param>
         /// <param name="roles">A list of roles to assign this new user.</param>
         /// <param name="args">The optional args.</param>
         /// <returns>The new user entity.</returns>

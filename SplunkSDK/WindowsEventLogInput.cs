@@ -19,14 +19,14 @@ namespace Splunk
     using System.Collections.Generic;
 
     /// <summary>
-    /// The <see cref="WindowsEventLogInput"/> class represents the 
-    /// <see cref="Input"/> subclass Windows Event Log Input.
+    /// The <see cref="WindowsEventLogInput"/> class represents a Windows 
+    /// event log data input.
     /// </summary>
     public class WindowsEventLogInput : Input
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="WindowsEventLogInput"/> 
-        /// class.
+        /// Initializes a new instance of the 
+        /// <see cref="WindowsEventLogInput"/> class.
         /// </summary>
         /// <param name="service">The connected service.</param>
         /// <param name="path">The path.</param>
@@ -53,7 +53,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the index name of this Windows Event Log input.
+        /// Gets or sets the index name of this Windows event log input.
         /// </summary>
         public string Index
         {
@@ -69,7 +69,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the Input type of this object, Windows Event Log input.
+        /// Gets the input type of this object, Windows event log input.
         /// </summary>
         public InputKind Kind
         {
@@ -81,7 +81,7 @@ namespace Splunk
 
         /// <summary>
         /// Gets or sets the list of event log names to gather data from for 
-        /// this Windows Event Log input.
+        /// this Windows event log input.
         /// </summary>
         public string[] Logs
         {
@@ -97,11 +97,14 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the collection name of this Windows Event Log input. This name
-        /// appears in the configuration file, the source, and the sourcetype of
-        /// the indexed data. If the value is "localhost", it will use native 
-        /// event log collection; otherwise, it will use WMI.
+        /// Gets the collection name of this Windows event log input. 
         /// </summary>
+        /// <remarks>
+        /// This name appears in the configuration file, the source, and the
+        /// sourcetype of the indexed data. If this property is set to 
+        /// "localhost", it will use native event log collection; otherwise, 
+        /// it will use Windows Management Instrumentation (WMI).
+        /// </remarks>
         public string LocalName
         {
             get
@@ -111,8 +114,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the main host of this Windows Event Log input.
-        /// Secondary hosts are specified in the hosts attribute.
+        /// Gets or sets the main host of this Windows event log input.
+        /// Secondary hosts are specified in the <see cref="Hosts"/> attribute.
         /// </summary>
         public string LookupHost
         {
@@ -129,9 +132,9 @@ namespace Splunk
 
         /// <summary>
         /// Updates the entity with the values you previously set using the 
-        /// setter methods, and any additional specified arguments. The 
-        /// specified arguments take precedent over the values that were set 
-        /// using the setter methods.
+        /// class properties, and any additional specified arguments. The 
+        /// specified arguments take precedence over the values that were set 
+        /// using the properties.
         /// </summary>
         /// <param name="args">The key/value pairs to update.</param>
         public override void Update(Dictionary<string, object> args)
@@ -148,7 +151,7 @@ namespace Splunk
 
         /// <summary>
         /// Updates the entity with the accumulated arguments, established by 
-        /// the individual setter methods for each specific entity class.
+        /// the individual properties for each specific entity class.
         /// </summary>
         public override void Update()
         {
