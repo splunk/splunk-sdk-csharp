@@ -195,12 +195,12 @@ namespace Splunk
         /// proxies, or when the Splunk server hostname is not generally
         /// resolvable. 
         /// </para>
-        /// <para>This property's default value is the current hostname
-        /// provided by the operating system, or "localhost". 
-        /// </para>
         /// <para>
         /// When this property is set to an empty string, the default
         /// behavior is used.
+        /// </para>
+        /// <para>This property's default value is the current hostname
+        /// provided by the operating system, or "localhost". 
         /// </para>
         /// </remarks>
         public string ActionEmailHostname
@@ -315,7 +315,8 @@ namespace Splunk
         /// </summary>
         /// <remarks>
         /// This property is only valid if the <see cref="ActionEmailSendPdf"/> 
-        /// property is set to true./// </remarks>
+        /// property is set to true.
+        /// </remarks>
         public string ActionEmailPdfView
         {
             get
@@ -371,7 +372,7 @@ namespace Splunk
         /// glyph from the first font specified in the list is used.</para> 
         /// <para>To skip loading any CID fonts, specify an empty string.</para>
         /// <para>This property's default value is "gb cns jp kor".</para>
-        /// <para>This property was introduced in Splunk 5.0.</para>
+        /// <para>This property is available in Splunk 5.0 and later.</para>
         /// </remarks>
         public string ActionEmailReportCIDFontList
         {
@@ -391,7 +392,7 @@ namespace Splunk
         /// Splunk logo with the report. 
         /// </summary>
         /// <remarks>
-        /// This property was introduced in Splunk 5.0. 
+        /// This property is available in Splunk 5.0 and later. 
         /// </remarks>
         public bool ActionEmailReportIncludeSplunkLogo
         {
@@ -678,7 +679,7 @@ namespace Splunk
         /// This property is only used when the <see cref="ActionEmailFormat"/>
         /// property is set to "plain".
         /// </para>
-        /// <para>This property's default value is "true".</para>
+        /// <para>This property's default value is true.</para>
         /// </remarks>
         public bool ActionEmailWidthSortColumns
         {
@@ -830,10 +831,10 @@ namespace Splunk
         /// <remarks>
         /// <para>If the value is a number followed by "p", it is the number of
         /// scheduled search periods.</para>
-        /// <para>This property's default value is "10p".</para>
         /// <para>If no actions are triggered, the artifacts will have their TTL
         /// determined by the "dispatch.ttl" attribute in savedsearches.conf.
         /// </para>
+        /// <para>This property's default value is "10p".</para>
         /// </remarks>
         public string ActionPopulateLookupTtl
         {
@@ -1537,7 +1538,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a keyword value that indicates how to track the 
+        /// Gets or sets a keyword value indicating how to track the 
         /// actions triggered by this saved search. 
         /// </summary>
         /// <remarks>
@@ -1649,7 +1650,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates what to base the alert on. 
+        /// Gets or sets a value indicating what to base the alert on. 
         /// </summary>
         /// <remarks>
         /// <para>
@@ -2081,7 +2082,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates how the scheduler computes the 
+        /// Gets or sets a value indicating how the scheduler computes the 
         /// next run time of a scheduled search.
         /// </summary>
         /// <remarks>
@@ -2118,7 +2119,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a string value that specifies the app in which Splunk 
+        /// Gets or sets a string value specifying the app in which Splunk 
         /// Web dispatches this search.
         /// </summary>
         public string RequestUiDispatchApp
@@ -2135,7 +2136,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a string value that specifies the view in which Splunk
+        /// Gets or sets a string value specifying the view in which Splunk
         /// Web displays this search.
         /// </summary>
         public string RequestUiDispatchView

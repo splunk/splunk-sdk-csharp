@@ -56,8 +56,7 @@ namespace Splunk
         /// </summary>
         /// <param name="stream">The JSON stream to parse.</param>
         /// <param name="isInMultiReader">
-        /// Whether or not the reader is the underlying reader of a multi
-        /// reader.
+        /// Whether the reader is the underlying reader of a multi reader.
         /// </param>
         internal ResultsReaderJson(Stream stream, bool isInMultiReader) :
             base(stream, isInMultiReader)
@@ -71,7 +70,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets and sets the stream reader on the JSON stream to parse.
+        /// Gets the stream reader on the JSON stream to parse.
         /// </summary>
         internal StreamReader StreamReader { get; private set; }
      
@@ -136,7 +135,7 @@ namespace Splunk
         /// Advances to the next set, skipping remaining event(s) 
         /// if there are any in the current set.
         /// </summary>
-        /// <returns>Returns "false" if the end is reached.</returns>
+        /// <returns>Returns false if the end is reached.</returns>
         internal override bool AdvanceStreamToNextSet()
         {
             return this.AdvanceIntoNextSetBeforeEvent();
