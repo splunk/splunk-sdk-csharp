@@ -27,7 +27,7 @@ namespace Splunk
         /// class.
         /// </summary>
         /// <param name="service">The connected service.</param>
-        /// <param name="path">The path</param>
+        /// <param name="path">The path.</param>
         public FiredAlertGroup(Service service, string path)
             : base(service, path)
         {

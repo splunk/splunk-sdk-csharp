@@ -19,8 +19,8 @@ namespace Splunk
     using System.Collections.Generic;
 
     /// <summary>
-    /// The <see cref="WindowsRegistryInput"/> class represents the 
-    /// <see cref="Input"/> subclass Windows Registry Input.
+    /// The <see cref="WindowsRegistryInput"/> class represents a 
+    /// Windows Registry data input.
     /// </summary>
     public class WindowsRegistryInput : Input
     {
@@ -36,7 +36,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether this Windows Registry 
+        /// Gets or sets a value indicating whether this Windows Registry 
         /// input has an established baseline.
         /// </summary>
         public bool Baseline
@@ -53,7 +53,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether this input is disabled.
+        /// Sets a value indicating whether this input is disabled.
         /// </summary>
         public bool Disabled
         {
@@ -109,7 +109,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether this Windows Registry 
+        /// Gets or sets a value indicating whether this Windows Registry 
         /// input monitors all sub-nodes under a given hive.
         /// </summary>
         public bool MonitorSubnodes
@@ -183,9 +183,10 @@ namespace Splunk
 
         /// <summary>
         /// Updates the entity with the values you previously set using the 
-        /// setter methods, and any additional specified arguments. The 
-        /// specified arguments take precedent over the values that were set 
-        /// using the setter methods.
+        /// <see cref="WindowsRegistryInput"/> properties, and any additional 
+        /// specified arguments. The specified arguments take precedence over
+        /// the values that were set using the 
+        /// <see cref="WindowsRegistryInput"/> properties.
         /// </summary>
         /// <param name="args">The key/value pairs to update.</param>
         public override void Update(Dictionary<string, object> args)
@@ -220,7 +221,7 @@ namespace Splunk
 
         /// <summary>
         /// Updates the entity with the accumulated arguments, established by 
-        /// the individual setter methods for each specific entity class.
+        /// the individual properties for each specific entity class.
         /// </summary>
         public override void Update()
         {

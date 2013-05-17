@@ -65,7 +65,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether SSL is enabled on the
+        /// Gets or sets a value indicating whether SSL is enabled on the
         /// Splunk management port.
         /// </summary>
         public bool EnableSplunkWebSSL
@@ -99,11 +99,11 @@ namespace Splunk
 
         /// <summary>
         /// Gets or sets the port on which Splunk Web is listening for this 
-        /// instance of Splunk. The port number defaults to 8000. 
+        /// instance of Splunk. The port number defaults to "8000". 
         /// </summary>
         /// <remarks>
         /// Be aware that the port must be present for Splunk Web to start. If 
-        /// this value is omitted or set to 0, the server will not start an 
+        /// this value is omitted or set to "0", the server will not start an 
         /// HTTP listener.
         /// </remarks>
         public int HttpPort
@@ -154,8 +154,8 @@ namespace Splunk
 
         /// <summary>
         /// Gets or sets the string that is prepended to the Splunk symmetric 
-        /// key to generate the final key that used to sign all traffic between 
-        /// master and slave licensers.
+        /// key to generate the final key that used to sign all traffic 
+        /// between master and slave licensers.
         /// </summary>
         public string Pass4SymmKey
         {
@@ -189,9 +189,11 @@ namespace Splunk
 
         /// <summary>
         /// Gets or sets the amount of time before a user session times out.
+        /// </summary>
+        /// <remarks>
         /// A valid format is <i>number</i> followed by a time unit ("s", "h",
         /// or "d").
-        /// </summary>
+        /// </remarks>
         public string SessionTimeout
         {
             get
@@ -206,7 +208,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether the instance is 
+        /// Gets or sets a value indicating whether the instance is 
         /// configured to start Splunk Web.
         /// </summary>
         public bool StartWebServer
@@ -239,12 +241,16 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Updates the settings with the values previously set using the setter
-        /// methods, and any additional specified arguments. The specified
-        /// arguments take precedent over the values that were set using the 
-        /// setter methods. The post message is sent to a non-normal endpoint.
+        /// Updates the settings with the values previously set using the 
+        /// <see cref="Settings"/> properties, and any additional specified 
+        /// arguments. 
         /// </summary>
         /// <param name="args">The key/value pairs to update.</param>
+        /// <remarks>
+        /// The specified arguments take precedence over the values that were 
+        /// set using the <see cref="Settings"/> properties. The post message 
+        /// is sent to a non-normal endpoint.
+        /// </remarks>
         public override void Update(Dictionary<string, object> args)
         {
             // Merge cached setters and live args together before updating; live

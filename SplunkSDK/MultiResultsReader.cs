@@ -25,7 +25,7 @@ namespace Splunk
     /// multi result readers.
     /// </summary>
     /// <typeparam name="T">
-    /// Matching type of a single reader which will be passed into the
+    /// Matching type of a single reader that will be passed into the
     /// constructor.
     /// </typeparam>
     public class MultiResultsReader<T> : 
@@ -69,7 +69,7 @@ namespace Splunk
         /// <summary>
         /// Returns an enumerator over the sets of results from this reader.
         /// </summary>
-        /// <returns>An enumerator of events</returns>
+        /// <returns>An enumerator of events.</returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();

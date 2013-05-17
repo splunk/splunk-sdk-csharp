@@ -37,8 +37,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="AtomFeed"/>'s itemsPerPage element 
-        /// value.
+        /// Gets or sets the <see cref="AtomFeed"/>'s <b>itemsPerPage</b> 
+        /// element value.
         /// </summary>
         public string ItemsPerPage 
         {
@@ -47,7 +47,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="AtomFeed"/>'s startIndex element value.
+        /// Gets or sets the <see cref="AtomFeed"/>'s <b>startIndex</b> 
+        /// element value.
         /// </summary>
         public string StartIndex 
         {
@@ -56,7 +57,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="AtomFeed"/>'s totalResults element 
+        /// Gets or sets the <see cref="AtomFeed"/>'s <b>totalResults</b> element 
         /// value.
         /// </summary>
         public string TotalResults 
@@ -82,7 +83,7 @@ namespace Splunk
         /// stream.
         /// </summary>
         /// <param name="input">The input stream.</param>
-        /// <returns>The <see cref="AtomFeed"/>.</returns>
+        /// <returns>The AtomFeed.</returns>
         public static AtomFeed Parse(Stream input) 
         {
             XmlElement root = Xml.Parse(input).DocumentElement;
@@ -99,7 +100,7 @@ namespace Splunk
         /// Creates a new <see cref="AtomFeed"/> based on a given XML element.
         /// </summary>
         /// <param name="element">The XML element.</param>
-        /// <returns>The <see cref="AtomFeed"/>.</returns>
+        /// <returns>The AtomFeed.</returns>
         private static AtomFeed Parse(XmlElement element) 
         {
             AtomFeed feed = AtomFeed.Create();
@@ -112,7 +113,7 @@ namespace Splunk
         /// given XML element.
         /// </summary>
         /// <param name="element">The XML element.</param>
-        public override void Init(XmlElement element) 
+        internal override void Init(XmlElement element) 
         {
             string name = element.Name;
             if (name.Equals("entry")) 

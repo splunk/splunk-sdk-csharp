@@ -17,8 +17,7 @@
 namespace Splunk
 {
     /// <summary>
-    /// The <see cref="UdpConnections"/> class represents the UDP connections, 
-    /// related to Inputs.
+    /// The <see cref="UdpConnections"/> class represents a UDP data input.
     /// </summary>
     public class UdpConnections : Entity
     {

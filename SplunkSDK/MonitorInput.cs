@@ -17,8 +17,9 @@
 namespace Splunk
 {
     /// <summary>
-    /// The <see cref="MonitorInput"/> class represents the
-    /// <see cref="Input"/> subclass Monitor Input.
+    /// The <see cref="MonitorInput"/> class represents a monitor input, 
+    /// which is a file, directory, script, or network port that is monitored 
+    /// for new data.
     /// </summary>
     public class MonitorInput : Input
     {
@@ -33,8 +34,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a regular expression for a file path that when matched 
-        /// is not indexed.
+        /// Gets or sets a regular expression for a file path that, when 
+        /// matched, is not indexed.
         /// </summary>
         public string Blacklist
         {
@@ -50,9 +51,12 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether input monitoring is
-        /// disabled. This was introduced in Splunk 5.0. 
+        /// Gets or sets a value indicating whether input monitoring is
+        /// disabled. 
         /// </summary>
+        /// <remarks>
+        /// This property is available in Splunk 5.0 and later.
+        /// </remarks>
         public bool Disabled
         {
             get
@@ -84,7 +88,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether the index value is checked to
+        /// Sets a value indicating whether the index value is checked to
         /// ensure that it is the name of a valid index.
         /// </summary>
         public bool CheckIndex
@@ -96,7 +100,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether the name value is checked to
+        /// Sets a value indicating whether the name value is checked to
         /// ensure that it exists.
         /// </summary>
         public bool CheckPath
@@ -119,7 +123,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether files that are seen for
+        /// Gets or sets a value indicating whether files that are seen for
         /// the first time will be read from the end.
         /// </summary>
         public bool FollowTail
@@ -214,7 +218,7 @@ namespace Splunk
         }
         
         /// <summary>
-        /// Gets or sets a value that indicates whether sub-directories are 
+        /// Gets or sets a value indicating whether sub-directories are 
         /// monitored within this monitor input.
         /// </summary>
         public bool IsRecursive
@@ -231,7 +235,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the Input type of this object, Monitor.
+        /// Gets the type of this monitor input.
         /// </summary>
         public InputKind Kind
         {
@@ -281,7 +285,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the time period for keeping a file open.
+        /// Gets or sets the time period for keeping a file open, in seconds.
         /// </summary>
         public int TimeBeforeClose
         {
@@ -314,8 +318,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the specified slash-separate segment of the file path as the 
-        /// field value
+        /// Sets the specified slash-separated segment of the file path as the 
+        /// <b>host</b> field value.
         /// </summary>
         public string HostSegment
         {
@@ -326,7 +330,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the  name to populate in the <b>source</b> field for events
+        /// Sets the name to populate in the <b>source</b> field for events
         /// from this monitor input. The same source name should not be used for 
         /// multiple data inputs.
         /// </summary>

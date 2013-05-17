@@ -18,8 +18,9 @@ namespace Splunk
 {
     /// <summary>
     /// The <see cref="EntityMetadata"/> class provides access to the metadata
-    /// properties of a corresponding entity. Use Entity.getMetadata to obtain
-    /// an instance of this class.
+    /// properties of a corresponding entity. Use the 
+    /// <see cref="Entity.GetMetadata"/> method to obtain an instance of this 
+    /// class.
     /// </summary>
     public class EntityMetadata
     {
@@ -39,7 +40,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value that indicates whether this entity's permission can be 
+        /// Gets a value indicating whether this entity's permission can be 
         /// changed.
         /// </summary>
         public bool CanChangePermissions
@@ -51,7 +52,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value that indicates whether this resource can be shared via 
+        /// Gets a value indicating whether this resource can be shared via 
         /// an app.
         /// </summary>
         public bool CanShareApp
@@ -63,7 +64,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value that indicates whether the resource can be shared
+        /// Gets a value indicating whether the resource can be shared
         /// globally.
         /// </summary>
         public bool CanShareGlobal
@@ -75,7 +76,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value that indicates whether the resource can be shared to a 
+        /// Gets a value indicating whether the resource can be shared to a 
         /// specific user.
         /// </summary>
         public bool CanShareUser
@@ -87,7 +88,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value that indicates whether his entity can be modified.
+        /// Gets a value indicating whether his entity can be modified.
         /// </summary>
         public bool CanWrite
         {
@@ -143,7 +144,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value that indicates whether this entity can be modified.
+        /// Gets a value indicating whether this entity can be modified.
         /// </summary>
         public bool IsModifiable
         {
@@ -157,7 +158,7 @@ namespace Splunk
         /// Returns a record containing all of the metadata information 
         /// for this resource.
         /// </summary>
-        /// <returns>The metadata record</returns>
+        /// <returns>The metadata record.</returns>
         public Record GetEaiAcl()
         {
             return (Record)this.entity.Validate().Get("eai:acl");

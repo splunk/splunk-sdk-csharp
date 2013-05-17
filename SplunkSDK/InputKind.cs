@@ -53,62 +53,62 @@ namespace Splunk
             new InputKind("Unknown", typeof(Input));
 
         /// <summary>
-        /// The Monitor Input.
+        /// The monitor input.
         /// </summary>
         public static readonly InputKind Monitor = 
             new InputKind("monitor", typeof(MonitorInput));
 
         /// <summary>
-        /// The Script Input.
+        /// The script input.
         /// </summary>
         public static readonly InputKind Script = 
             new InputKind("script", typeof(ScriptInput));
 
         /// <summary>
-        /// The Raw TCP Input.
+        /// The raw TCP input.
         /// </summary>
         public static readonly InputKind Tcp = 
             new InputKind("tcp/raw", typeof(TcpInput));
 
         /// <summary>
-        /// The Cooked TCP Input.
+        /// The cooked TCP input.
         /// </summary>
         public static readonly InputKind TcpSplunk = 
             new InputKind("tcp/cooked", typeof(TcpSplunkInput));
 
         /// <summary>
-        /// The UDP Input.
+        /// The UDP nput.
         /// </summary>
         public static readonly InputKind Udp = 
             new InputKind("udp", typeof(UdpInput));
 
         /// <summary>
-        /// The Windows Active Directory Input.
+        /// The Windows Active Directory input.
         /// </summary>
         public static readonly InputKind WindowsActiveDirectory = 
             new InputKind("ad", typeof(WindowsActiveDirectoryInput));
 
         /// <summary>
-        /// The Windows Event Log Input.
+        /// The Windows event log input.
         /// </summary>
         public static readonly InputKind WindowsEventLog = 
             new InputKind(
                 "win-event-log-collections", typeof(WindowsEventLogInput));
 
         /// <summary>
-        /// The Windows Performance Monitor Input.
+        /// The Windows performance monitor input.
         /// </summary>
         public static readonly InputKind WindowsPerfmon = 
             new InputKind("win-perfmon", typeof(WindowsPerfmonInput));
 
         /// <summary>
-        /// The Windows Registry Input.
+        /// The Windows Registry input.
         /// </summary>
         public static readonly InputKind WindowsRegistry =
             new InputKind("registry", typeof(WindowsRegistryInput));
 
         /// <summary>
-        /// The Windows WMI Input.
+        /// The Windows Management Instrumentation (WMI) input.
         /// </summary>
         public static readonly InputKind WindowsWmi = 
             new InputKind("win-wmi-collections", typeof(WindowsWmiInput));
@@ -143,7 +143,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the IEnumerable list of Inputs.
+        /// Gets the IEnumerable list of inputs.
         /// </summary>
         public static IEnumerable<InputKind> Values
         {

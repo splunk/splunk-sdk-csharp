@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright 2013 Splunk, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"): you may
@@ -18,15 +18,17 @@ namespace Splunk
 {
     /// <summary>
     /// The <see cref="UserArgs"/> class extends <see cref="Args"/> for 
-    /// user creation setters.
+    /// <see cref="User"/> creation setters.
     /// </summary>
     public class UserArgs : Args
     {
         /// <summary>
-        /// Sets the name of a role to create for the user. After creating the 
-        /// role, you can edit that role to specify what access that user 
-        /// has to Splunk.
+        /// Sets the name of a role to create for the user. 
         /// </summary>
+    	/// <remarks>
+		/// After creating the role, you can edit that role to specify what
+		/// access that user has to Splunk.
+		/// </remarks>
         public string CreateRole
         {
             set
@@ -36,9 +38,12 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a default app for this user. The default app specified here 
-        /// overrides the default app inherited from the user's roles.
+        /// Sets a default app for this user. 
         /// </summary>
+		/// <remarks>
+		/// The default app specified here overrides the default app inherited 
+		/// from the user's roles.
+		/// </remarks>
         public string DefaultApp
         {
             set
@@ -59,7 +64,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the password for the user. This parameter is required.
+        /// Required. Sets the password for the user. 
         /// </summary>
         public string Password
         {
@@ -81,10 +86,13 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether to restart background search 
-        /// jobs when Splunk restarts. If true, a background search job for 
-        /// this user that has not completed is restarted when Splunk restarts.
+        /// Sets a value indicating whether to restart background search 
+        /// jobs when Splunk restarts. 
         /// </summary>
+		/// <remarks>
+		/// If set to true, a background search job for this user that has not
+		/// completed is restarted when Splunk restarts.
+		/// </remarks>
         public bool RestartBackgroundJobs
         {
             set
@@ -94,10 +102,13 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the roles to assign this user. At least one role is required.
+        /// Sets the roles to assign this user. 
+        /// </summary>
+		/// <remarks>
+		/// At least one role is required.
         /// If this parameter is not set, you must create a role with the 
         /// <see cref="CreateRole"/> parameter.
-        /// </summary>
+		/// </remarks>
         public string[] Roles
         {
             set
@@ -107,9 +118,11 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the time zone display modifier for this user. This parameter is
-        /// only available in Splunk 4.3 and later.
+        /// Sets the time zone display modifier for this user. 
         /// </summary>
+		/// <remarks>
+		/// This parameter is available starting in Splunk 4.3.
+		/// </remarks>
         public string Timezone
         {
             set

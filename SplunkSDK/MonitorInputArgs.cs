@@ -18,12 +18,13 @@ namespace Splunk
 {
     /// <summary>
     /// The <see cref="MonitorInputArgs"/> class extends <see cref="Args"/> for
-    /// MonitorInput creation setters.
+    /// <see cref="MonitorInput"/> creation properties.
     /// </summary>
     public class MonitorInputArgs : Args
     {
         /// <summary>
-        /// Sets a regular expression for a filepath of files not to be indexed.
+        /// Sets a regular expression for a filepath of files not to be 
+        /// indexed.
         /// </summary>
         public string Blacklist
         {
@@ -34,7 +35,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether to check if the index is valid.
+        /// Sets a value indicating whether to check if the index is valid.
         /// </summary>
         public bool CheckIndex
         {
@@ -45,7 +46,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether or not then name, be it a file
+        /// Sets a value indicating whether or not then name, be it a file
         /// or a directory, is valid.
         /// </summary>
         public bool CheckPath
@@ -59,7 +60,7 @@ namespace Splunk
         /// <summary>
         /// Sets a string that modifies the file tracking identity for files in 
         /// this input. The magic value "&lt;SOURCE&gt;" invokes special 
-        /// behavior (see admin documentation).
+        /// behavior (for more information, see Splunk admin documentation).
         /// </summary>
         public string CrcSalt
         {
@@ -70,9 +71,12 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether input monitoring is
-        /// disabled. This was introduced in Splunk 5.0. 
+        /// Sets a value indicating whether input monitoring is
+        /// disabled. 
         /// </summary>
+        /// <remarks>
+        /// This property is available in Splunk 5.0 and later. 
+        /// </remarks>
         public bool Disabled
         {
             set
@@ -82,7 +86,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether a file, seen for the first time,
+        /// Sets a value indicating whether a file, seen for the first time,
         /// is read from the end.
         /// </summary>
         public bool FollowTail
@@ -111,7 +115,8 @@ namespace Splunk
         /// <remarks>
         /// If the path for a file matches this regular expression, the 
         /// captured value is used to populate the host field for events from
-        /// this data input. The regular expression must have one capture group.
+        /// this data input. The regular expression must have one capture 
+        /// group.
         /// </remarks>
         public string HostRegex
         {
@@ -147,9 +152,11 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the index for the events genererated by this data input. The 
-        /// default value is "default".
+        /// Sets the index for the events genererated by this data input. 
         /// </summary>
+        /// <remarks>
+        /// This property's default value is "default".
+        /// </remarks>
         public string Index
         {
             set
@@ -159,7 +166,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether subdirectories are indexed.
+        /// Sets a value indicating whether subdirectories are indexed.
         /// </summary>
         public bool Recursive
         {

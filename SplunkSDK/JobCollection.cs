@@ -50,25 +50,29 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Creates a search with a UTF8 pre-encoded search request.
-        /// A 'oneshot' request is invalid. To create a oneshot search,
-        /// use the Service.oneshot method instead.
+        /// Creates a search with a UTF-8 pre-encoded search request.
         /// </summary>
         /// <param name="query">The search query.</param>
-        /// <returns>The Job.</returns>
+        /// <returns>The job.</returns>
+        /// <remarks>
+        /// A "oneshot" request is invalid. To create a oneshot search,
+        /// use the <see cref="Service.Oneshot"/> method instead. 
+        /// </remarks>
         public new Job Create(string query) 
         {
             return this.Create(query, (Args)null);
         }
 
         /// <summary>
-        /// Creates a search with a UTF8 pre-encoded search request.
-        /// A 'oneshot' request is invalid. To create a oneshot search,
-        /// use the Service.oneshot method instead. 
+        /// Creates a search with a UTF-8 pre-encoded search request.
         /// </summary>
+        /// <remarks>
+        /// A "oneshot" request is invalid. To create a oneshot search,
+        /// use the <see cref="Service.Oneshot"/> method instead. 
+        /// </remarks>
         /// <param name="query">The search query.</param>
         /// <param name="args">Additional arguments for this job.</param>
-        /// <returns>The Job.</returns>
+        /// <returns>The job.</returns>
         public new Job Create(string query, Args args) 
         {
             if (args != null && args.ContainsKey("exec_mode")) 
@@ -79,7 +83,7 @@ namespace Splunk
                       "Oneshot not allowed, use service oneshot search method");
                 }
             }
-            args = Args.Create(args).AlternateAdd("search", query);
+            args = Args.Create(args).Set("search", query);
             ResponseMessage response = Service.Post(Path, args);
             /* assert(response.getStatus() == 201); */
             StreamReader streamReader = new StreamReader(response.Content);
@@ -99,9 +103,24 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Returns the List of Jobs, as a responseMessage object.
+        /// Creates a search with a UTF-8 pre-encoded search request.
         /// </summary>
-        /// <returns>The responseMessage list of jobs.</returns>
+        /// <remarks>
+        /// A "oneshot" request is invalid. To create a oneshot search,
+        /// use the <see cref="Service.Oneshot"/> method instead. 
+        /// </remarks>
+        /// <param name="query">The search query.</param>
+        /// <param name="args">Additional arguments for this job.</param>
+        /// <returns>The job.</returns>
+        public Job Create(string query, JobArgs args)
+        {
+            return this.Create(query, (Args) args);
+        }
+
+        /// <summary>
+        /// Returns the list of jobs, as a <see cref="ResponseMessage"/> object.
+        /// </summary>
+        /// <returns>The list of jobs.</returns>
         public override ResponseMessage List() 
         {
             return Service.Get(this.Path + "?count=0");
@@ -111,7 +130,7 @@ namespace Splunk
         /// Returns the job's unique search identifier (SID), which is used as 
         /// this item's key.
         /// </summary>
-        /// <param name="entry">The Atom Entry.</param>
+        /// <param name="entry">The Atom entry.</param>
         /// <returns>The SID.</returns>
         protected override string ItemKey(AtomEntry entry) 
         {

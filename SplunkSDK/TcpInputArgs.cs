@@ -18,12 +18,12 @@ namespace Splunk
 {
     /// <summary>
     /// The <see cref="TcpInputArgs"/> class extends <see cref="Args"/> for 
-    /// raw TcpInput creation setters.
+    /// raw <see cref="TcpInput"/> creation properties.
     /// </summary>
     public class TcpInputArgs : Args
     {
         /// <summary>
-        /// Sets a value that indicates whether SSL is used.
+        /// Sets a value indicating whether SSL is used.
         /// </summary>
         public bool Ssl
         {
@@ -34,15 +34,23 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the host of the remote server that sends data. Valid 
-        /// values are "ip", "dns", or "none". The default value is "ip".
+        /// Sets the host of the remote server that sends data. 
         /// </summary>
         /// <remarks>
-        /// A value of "ip" sets the host to the IP address of the remote 
-        /// server sending data. <br/>A value of "dns" sets the host to the 
-        /// reverse DNS entry for the IP address of the remote server sending 
-        /// data. <br/>A value of "none" leaves the host as specified
-        /// in inputs.conf, which is typically the Splunk system hostname.
+        /// <para>
+        /// This property's possible values are:
+        /// <list type="bullet">
+        /// <item><b>"ip"</b> sets the host to the IP address of the remote 
+        /// server sending data.</item>
+        /// <item><b>"dns"</b> sets the host to the reverse DNS entry for the
+        /// IP address of the remote server sending data.</item>
+        /// <item><b>"none"</b> leaves the host as specified in inputs.conf,
+        /// which is typically the Splunk system hostname.</item>
+        /// </list>
+        /// </para>
+        /// <para>
+        /// This property's default value is "ip".
+        /// </para>
         /// </remarks>
         public string ConnectionHost
         {
@@ -53,7 +61,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether this input is disabled.
+        /// Sets a value indicating whether this input is disabled.
         /// </summary>
         public bool Disabled
         {
@@ -76,8 +84,10 @@ namespace Splunk
 
         /// <summary>
         /// Sets the index in which to store all event receieved by this input.
-        /// The default is "default".
         /// </summary>
+        /// <remarks>
+        /// This property's default value is "default".
+        /// </remarks>
         public string Index
         {
             set
@@ -88,16 +98,22 @@ namespace Splunk
 
         /// <summary>
         /// Sets where the input processor should deposit the events it reads. 
-        /// Valid values are "parsingQueue" or "indexQueue". The default value 
-        /// is "parsingQueue".
         /// </summary>
         /// <remarks>
-        /// Set <see cref="Queue"/> to "parsingQueue" to apply props.conf and 
-        /// other parsing rules to your data. For more information about 
+        /// <para>
+        /// This property's valid values are:
+        /// <list type="bullet">
+        /// <item><b>"parsingQueue"</b> applies props.conf and other parsing 
+        /// rules to your data. For more information about 
         /// props.conf and rules for timestamping and linebreaking, refer to 
-        /// the Edit inputs.conf topic in the Getting Data In manual. Set 
-        /// <see cref="Queue"/> to "indexQueue" to send your data directly 
-        /// into the index.
+        /// the <see href="http://docs.splunk.com/Documentation/Splunk/latest/Data/Editinputs.conf>Edit inputs.conf</see>
+        /// topic in the Getting Data In manual.</item>
+        /// <item><b>"indexQueue"</b> sends your data directly into the
+        /// index.</item>
+        /// </para>
+        /// <para>
+        /// This property's default value is "parsingQueue".
+        /// </para>
         /// </remarks>
         public string Queue
         {
@@ -108,12 +124,19 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the timeout value for adding a Done-key, in seconds. The 
-        /// default is 10. If a connection over the port specified by name 
+        /// Sets the timeout value for adding a Done-key, in seconds. 
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// If a connection over the port specified by name 
         /// remains idle after receiving data for specified number of seconds, 
         /// it adds a Done-key. This implies the last event has been completely 
         /// received.
-        /// </summary>
+        /// </para>
+        /// <para>
+        /// This property's default value is "10".
+        /// </para>
+        /// </remarks>
         public int RawTcpDoneTimeout
         {
             set
@@ -140,12 +163,16 @@ namespace Splunk
         /// convenience, the chosen string is prepended with 'source::'. 
         /// </summary>
         /// <remarks>
-        /// Note: Overriding the source key is generally not recommended. 
+        /// <para>
+        /// Overriding the source key is generally not recommended. 
         /// Typically, the input layer provides a more accurate string to aid 
         /// in problem analysis and investigation, accurately recording the 
         /// file from which the data was retrieved. Consider use of source 
         /// types, tagging, and search wildcards before overriding this value. 
-        /// The default is the input file path.
+        /// </para>
+        /// <para>
+        /// This property's default value is the input file path.
+        /// </para>
         /// </remarks>
         public string Source
         {
@@ -156,10 +183,15 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the source type for events from this input. The default is
-        /// "audittrail", if signedaudit=true, or "fschange" if 
-        /// signedaudit=false.
+        /// Sets the source type for events from this input. 
         /// </summary>
+        /// <remarks>
+        /// This property's default value is:
+        /// <list type="bullet">
+        /// <item>"audittrail" if signedaudit=true</item>
+        /// <item>"fschange" if signedaudit=false</item>
+        /// </list>
+        /// </remarks>
         public string SourceType
         {
             set

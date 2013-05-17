@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="ba27f775-f7da-43fa-9fc8-904c0dc948c6" solutionId="ba27f775-f7da-43fa-9fc8-904c0dc948c6" resetWebServer="false" name="sharepoint_web_part" xmlns="http://schemas.microsoft.com/VisualStudio/2008/SharePointTools/PackageModel">
+  <assemblies>
+    <projectOutputAssembly location="SplunkSDK.dll" deploymentTarget="GlobalAssemblyCache" projectPath="..\..\SplunkSDK\SplunkSDK.csproj" />
+    <projectOutputAssembly location="SplunkSDKHelper.dll" deploymentTarget="GlobalAssemblyCache" projectPath="..\..\SplunkSDKHelper\SplunkSDKHelper.csproj" />
+    <customAssembly location="dotnetcli-0.1.1.dll" deploymentTarget="GlobalAssemblyCache" sourcePath="..\..\SplunkSDKHelper\lib\dotnetcli-0.1.1.dll" />
+  </assemblies>
+  <features>
+    <featureReference itemId="53411338-e356-4c7c-9af2-b81515e0c0c0" />
+  </features>
+</package>

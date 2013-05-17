@@ -44,7 +44,7 @@ namespace Splunk
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="defaultValue">The default value.</param>
-        /// <returns>The value</returns>
+        /// <returns>The value.</returns>
         public bool GetBoolean(string key, bool defaultValue)
         {
             if (!this.ContainsKey(key))
@@ -70,7 +70,7 @@ namespace Splunk
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="defaultValue">The default value.</param>
-        /// <returns>The value</returns>
+        /// <returns>The value.</returns>
         public long GetByteCount(string key, long defaultValue)
         {
             if (!this.ContainsKey(key))
@@ -81,7 +81,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Returns the DateTime value associated with the given key.
+        /// Returns the <see cref="DateTime"/> value associated with the given 
+        /// key.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns>The DateTime structure.</returns>
@@ -91,12 +92,13 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Returns the DateTime value associated with the given key. adding
-        /// a default value if the key is not present in the dictionary.
+        /// Returns the <see cref="DateTime"/> value associated with the given 
+        /// key, adding a default value if the key is not present in the 
+        /// dictionary.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="defaultValue">The default value.</param>
-        /// <returns>The value</returns>
+        /// <returns>The value.</returns>
         public DateTime GetDate(string key, DateTime defaultValue)
         {
             if (!this.ContainsKey(key))
@@ -134,7 +136,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Returns the int value associated with the given key.
+        /// Returns the integer value associated with the given key.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns>The value.</returns>
@@ -144,7 +146,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Returns the int value associated with the given key, adding
+        /// Returns the integer value associated with the given key, adding
         /// a default value if the key is not present in the dictionary.
         /// </summary>
         /// <param name="key">The key.</param>
@@ -216,10 +218,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Returns the string[] value associated with the given key.
+        /// Returns the array of string values associated with the given key.
         /// </summary>
         /// <param name="key">The key.</param>
-        /// <returns>The value.</returns>
+        /// <returns>The array.</returns>
         public string[] GetStringArray(string key)
         {
             if (!this.ContainsKey(key))
@@ -233,12 +235,13 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Returns the string[] value associated with the given key, adding
-        /// a default value if the key is not present in the dictionary.
+        /// Returns the the array of string values associated with the given 
+        /// key, adding a default value if the key is not present in the 
+        /// dictionary.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="defaultValue">The default value.</param>
-        /// <returns>The value.</returns>
+        /// <returns>The array.</returns>
         public string[] GetStringArray(string key, string[] defaultValue)
         {
             if (!this.ContainsKey(key))
@@ -259,8 +262,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Returns the value associated with the given key, or the defaultValue
-        /// if the key does not exist.
+        /// Returns the value associated with the given key, or the default 
+        /// value if the key does not exist.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="defaultValue">The default value.</param>

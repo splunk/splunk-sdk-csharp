@@ -31,17 +31,18 @@ namespace Splunk.Examples.Submit
         /// <param name="argv">The command line arguments</param>
         public static void Main(string[] argv)
         {
-            Command cli = Command.Splunk("submit");
+            // Load connection info for Splunk server in .splunkrc file.
+            var cli = Command.Splunk("submit");
             cli.Parse(argv);
             var service = Service.Connect(cli.Opts);
 
-            var args = new Args 
+            var args = new ReceiverSubmitArgs 
             {
-                { "source", "splunk-sdk-tests" },
-                { "sourcetype", "splunk-sdk-test-event" }
+                Source = "splunk-sdk-tests",
+                SourceType = "splunk-sdk-test-event",
             };
 
-            Receiver receiver = new Receiver(service);
+            var receiver = new Receiver(service);
 
             // Submit to default index
             receiver.Submit(args, "Hello World.");

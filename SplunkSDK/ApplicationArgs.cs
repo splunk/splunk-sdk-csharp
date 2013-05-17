@@ -18,7 +18,7 @@ namespace Splunk
 {
     /// <summary>
     /// The <see cref="ApplicationArgs"/> class extends <see cref="Args"/> for 
-    /// <see cref="Application"/> creation setters.
+    /// <see cref="Application"/> creation properties.
     /// </summary>
     public class ApplicationArgs : Args
     {
@@ -39,7 +39,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether the application has had its 
+        /// Sets a value indicating whether the application has had its 
         /// custom configuration performed.
         /// </summary>
         public bool Configured
@@ -51,11 +51,13 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the description of the application. The application description
-        /// is a short explanatory string displayed underneath the app's title 
-        /// in Launcher. Typically, descriptions of 200 characters or fewer are 
-        /// most effective.
+        /// Sets the description of the application. 
         /// </summary>
+        /// <remarks>
+        /// The application description is a short explanatory string 
+        /// displayed underneath the app's title in Launcher. Typically, 
+        /// descriptions of 200 characters or fewer are most effective.
+        /// </remarks>
         public string Description
         {
             set
@@ -66,9 +68,12 @@ namespace Splunk
 
         /// <summary>
         /// Sets the label of the application that is displayed in the Splunk 
-        /// GUI and Launcher. The recommended length of the application label is
-        /// between 5 and 80 characters, and it must not include "Splunk For".
+        /// GUI and Launcher. 
         /// </summary>
+        /// <remarks>
+        /// The recommended length of the application label is
+        /// between 5 and 80 characters, and it must not include "Splunk For".
+        /// </remarks>
         public string Label
         {
             set
@@ -78,9 +83,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether the application can be managed 
-        /// by the Splunk Manager. Note: This method is deprecated in Splunk 
-        /// 5.0.
+        /// Deprecated in Splunk 5.0. Sets a value indicating whether the 
+        /// application can be managed by the Splunk Manager. 
         /// </summary>
         public bool Manageable
         {
@@ -92,14 +96,16 @@ namespace Splunk
 
         /// <summary>
         /// Sets the template type used when creating the application. 
-        /// The valid values are "barebones" or "sample_app" or a previously
-        /// installed custom template.
         /// </summary>
         /// <remarks>
-        /// A value of "barebones" indicates the template contains the basic 
-        /// framework for an app.<br/>
-        /// A value of "sample_app" indicates the template contains example 
-        /// views and searches.
+        /// This property's valid values are:
+        /// <list type="bullet">
+        /// <item><b>"barebones"</b> indicates the template contains the basic 
+        /// framework for an app.</item>
+        /// <item><b>"sample_app"</b> indicates the template contains example 
+        /// views and searches.</item>
+        /// <item>or the name of a previously installed template</item>
+        /// </list>
         /// </remarks>
         public string Template
         {

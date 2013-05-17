@@ -22,9 +22,11 @@ namespace Splunk
     using System.Web;
 
     /// <summary>
-    /// The <see cref="Args"/> class represents a UTF-8 safe, web argument 
-    /// encoding extension for the standard Dictionary type.
-    /// </summary>
+    /// The <see cref="Args"/> class is a helper class for working with Splunk
+    /// REST API arguments. This extension is used mainly for encoding
+    /// arguments for UTF-8 transmission to a Splunk instance in a key/value
+    /// pairing for a string, or key=value1&key=value2 (and so on) for an 
+    /// array of strings.
     public class Args : Dictionary<string, object>, ISerializable
     {
         /// <summary>
@@ -59,33 +61,34 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Adds a key/value pair to an <see cref="Args"/>.
+        /// Adds a key/value pair to an <see cref="Args"/> object,
+        /// or overwrites the value if the key exists.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
-        /// <returns>The <see cref="Args"/>.</returns>
-        public Args AlternateAdd(string key, object value) 
+        /// <returns>The <see cref="Args"/> object.</returns>
+        public Args Set(string key, object value) 
         {
             base[key] = value;
             return this;
         }
 
         /// <summary>
-        /// Creates a new, empty <see cref="Args"/>.
+        /// Creates a new, empty <see cref="Args"/> object.
         /// </summary>
-        /// <returns>The new, empty <see cref="Args"/>.</returns>
+        /// <returns>The new, empty <see cref="Args"/> object.</returns>
         public static Args Create() 
         {
             return new Args();
         }
 
         /// <summary>
-        /// Creates a new <see cref="Args"/> instance and initializes it with a 
-        /// single key/value pair.
+        /// Creates a new <see cref="Args"/> instance and initializes it with 
+        /// a single key/value pair.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
-        /// <returns>The new initialized <see cref="Args"/>.</returns>
+        /// <returns>The new initialized <see cref="Args"/> object.</returns>
         public static Args Create(string key, object value) 
         {
             return new Args(key, value);
@@ -96,7 +99,7 @@ namespace Splunk
         /// pre-existing dictionary.
         /// </summary>
         /// <param name="values">The existing dictionary.</param>
-        /// <returns>The new initialized <see cref="Args"/>.</returns>
+        /// <returns>The new initialized <see cref="Args"/> object.</returns>
         public static Args Create(Dictionary<string, object> values) 
         {
             return values == null ? new Args() : new Args(values);
@@ -117,11 +120,11 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Encodes a hash map of string or string[] into a single UTF8-encoded 
-        /// string.
+        /// Encodes a dictionary of strings or string arrays into a single 
+        /// UTF-8-encoded string.
         /// </summary>
         /// <param name="args">The string or string array.</param>
-        /// <returns>The UTF-8 encoded string.</returns>
+        /// <returns>The UTF-8-encoded string.</returns>
         public static string Encode(Dictionary<string, object> args) 
         {
             return Args.Create(args).Encode();

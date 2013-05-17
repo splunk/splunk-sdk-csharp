@@ -21,22 +21,25 @@ namespace Splunk
 
     /// <summary>
     /// The <see cref="SplunkException"/> class represents a Splunk exception.
+    /// Exceptions are thrown for Splunk responses that return an error status 
+    /// code.
     /// </summary>
     public class SplunkException : Exception, ISerializable
     {
         /// <summary>
-        /// Represents when a job has been submitted to splunk, but has not
-        /// yet been scheduled to run, so there is no job information available.
+        /// Indicates a job has been submitted to Splunk, but has not
+        /// yet been scheduled to run, so there is no job information 
+        /// available.
         /// </summary>
         public static int JOBNOTREADY = 1;
 
         /// <summary>
-        /// Represents when a timed operation has reached its timeout value.
+        /// Indicates a timed operation has reached its timeout value.
         /// </summary>
         public static int TIMEOUT = 2;
 
         /// <summary>
-        /// Represents when an operation is requested on object that is 
+        /// Indicates an operation was requested on an object that is 
         /// ambiguously defined due to namespace rules. 
         /// </summary>
         public static int AMBIGUOUS = 3;
@@ -45,8 +48,8 @@ namespace Splunk
         /// Initializes a new instance of the <see cref="SplunkException"/> 
         /// class.
         /// </summary>
-        /// <param name="code">The code</param>
-        /// <param name="text">The text</param>
+        /// <param name="code">The code.</param>
+        /// <param name="text">The text.</param>
         public SplunkException(int code, string text) 
         {
             this.Code = code;

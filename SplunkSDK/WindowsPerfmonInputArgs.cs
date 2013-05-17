@@ -18,13 +18,14 @@ namespace Splunk
 {
     /// <summary>
     /// The <see cref="WindowsPerfmonInputArgs"/> class extends 
-    /// <see cref="Args"/> for WindowsPerfmonInput creation setters.
+    /// <see cref="Args"/> for <see cref="WindowsPerfmonInput"/> creation 
+    /// setters.
     /// </summary>
     public class WindowsPerfmonInputArgs : Args
     {
         /// <summary>
         /// Sets the list of counters within the specified monitored object. 
-        /// Note that "*" is equivalent to all counters.
+        /// Be aware that "*" is equivalent to all counters.
         /// </summary>
         public string[] Counters
         {
@@ -35,7 +36,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether a specific stanza is monitored. 
+        /// Sets a value indicating whether a specific stanza is monitored. 
         /// </summary>
         public bool Disabled
         {
@@ -69,8 +70,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the frequency, in seconds, to poll the performance counters.
-        /// This parameter is required.
+        /// Required. Sets the frequency, in seconds, to poll the performance 
+        /// counters.
         /// </summary>
         public int Interval
         {
@@ -81,8 +82,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the performance monitor object. For example "Process", or 
-        /// "Server", or "PhysicalDisk", etc. This parameter is required.
+        /// Required. Sets the performance monitor object--for example, 
+        /// "Process", "Server", "PhysicalDisk", etc. 
         /// </summary>
         public string Object
         {

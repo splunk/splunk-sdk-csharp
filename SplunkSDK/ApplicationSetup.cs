@@ -28,8 +28,8 @@ namespace Splunk
         /// Initializes a new instance of the <see cref="ApplicationSetup"/> 
         /// class.
         /// </summary>
-        /// <param name="service">The connected service</param>
-        /// <param name="path">The path</param>
+        /// <param name="service">The connected service.</param>
+        /// <param name="path">The path.</param>
         public ApplicationSetup(Service service, string path)
             : base(service, path + "/setup")
         {

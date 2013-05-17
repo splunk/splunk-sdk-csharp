@@ -26,7 +26,7 @@ namespace Splunk
     public class RequestMessage
     {
         /// <summary>
-        /// The method, defaults to get.
+        /// The method, defaults to "GET".
         /// </summary>
         private string method = "GET";  // "GET" | "PUT" | "POST" | "DELETE"
 
@@ -50,8 +50,7 @@ namespace Splunk
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RequestMessage"/> 
-        /// class,
-        /// with specific method.
+        /// class, with the specified method.
         /// </summary>
         /// <param name="method">The method</param>
         public RequestMessage(string method) 
@@ -115,10 +114,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Checks if the method is supported.
+        /// Checks whether the method is supported.
         /// </summary>
         /// <param name="value">The method name.</param>
-        /// <returns>Whether or not the method is supported.</returns>
+        /// <returns>Whether the method is supported.</returns>
         private bool CheckMethod(string value) 
         {
             return

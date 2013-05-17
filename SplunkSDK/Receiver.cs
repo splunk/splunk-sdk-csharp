@@ -40,7 +40,7 @@ namespace Splunk
         /// <summary>
         /// Initializes a new instance of the <see cref="Receiver"/> class.
         /// </summary>
-        /// <param name="service">The service</param>
+        /// <param name="service">The <see cref="Service"/>.</param>
         public Receiver(Service service) 
         {
             this.service = service;
@@ -50,18 +50,18 @@ namespace Splunk
         /// Creates a socket to the Splunk server using the default index, and 
         /// default port.
         /// </summary>
-        /// <returns>The Stream</returns>
+        /// <returns>The <see cref="Stream"/>.</returns>
         public Stream Attach() 
         {
             return this.Attach(null, null);
         }
 
         /// <summary>
-        /// Creates a socket to the Splunk server using the named index, and 
+        /// Creates a socket to the Splunk server using the named index and 
         /// default port.
         /// </summary>
-        /// <param name="indexName">The index to write to</param>
-        /// <returns>The Stream</returns>
+        /// <param name="indexName">The index to write to.</param>
+        /// <returns>The <see cref="Stream"/>.</returns>
         public Stream Attach(string indexName) 
         {
             return this.Attach(indexName, null);
@@ -71,8 +71,8 @@ namespace Splunk
         /// Creates a socket to the Splunk server using the default index and 
         /// variable arguments.
         /// </summary>
-        /// <param name="args">The variable arguments</param>
-        /// <returns>The Socket</returns>
+        /// <param name="args">The variable arguments.</param>
+        /// <returns>The socket.</returns>
         public Stream Attach(Args args)
         {
             return this.Attach(null, args);
@@ -84,7 +84,7 @@ namespace Splunk
         /// </summary>
         /// <param name="indexName">The index name.</param>
         /// <param name="args">The variable arguments.</param>
-        /// <returns>The Socket.</returns>
+        /// <returns>The socket.</returns>
         public Stream Attach(string indexName, Args args) 
         {
             Stream stream;
@@ -92,7 +92,7 @@ namespace Splunk
             {
                 TcpClient tcp = new TcpClient();
                 tcp.Connect(this.service.Host, this.service.Port);
-                var sslStream = new SSLStreamWrapper(tcp);
+                var sslStream = new SslStreamWrapper(tcp);
                 sslStream.AuthenticateAsClient(this.service.Host);
                 stream = sslStream;
             }
@@ -135,7 +135,7 @@ namespace Splunk
         /// <summary>
         /// Submits the data using HTTP post, to the default index.
         /// </summary>
-        /// <param name="data">The data</param>
+        /// <param name="data">The data.</param>
         public void Submit(string data) 
         {
             this.Submit(null, null, data);
@@ -160,6 +160,17 @@ namespace Splunk
         public void Submit(Args args, string data) 
         {
             this.Submit(null, args, data);
+        }
+
+        /// <summary>
+        /// Submits the data using HTTP post, using variable arguments to the 
+        /// default index.
+        /// </summary>
+        /// <param name="args">The variable arguments.</param>
+        /// <param name="data">The data.</param>
+        public void Submit(ReceiverSubmitArgs args, string data)
+        {
+            this.Submit((Args) args, data);
         }
 
         /// <summary>
@@ -188,7 +199,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Alias for submit().
+        /// Alias for the <see cref="Submit(string)"/> method.
         /// </summary>
         /// <param name="data">The data.</param>
         public void Log(string data) 
@@ -197,54 +208,57 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Alias for submit()
+        /// Alias for the <see cref="Submit(string, string)"/> method.
         /// </summary>
-        /// <param name="indexName">The index name</param>
-        /// <param name="data">The data</param>
+        /// <param name="indexName">The index name.</param>
+        /// <param name="data">The data.</param>
         public void Log(string indexName, string data) 
         {
             this.Submit(indexName, data);
         }
 
         /// <summary>
-        /// Alias for submit().
+        /// Alias for the <see cref="Submit(Args, string)"/> method.
         /// </summary>
-        /// <param name="args">The arguments</param>
-        /// <param name="data">The data</param>
+        /// <param name="args">The arguments.</param>
+        /// <param name="data">The data.</param>
         public void Log(Args args, string data) 
         {
             this.Submit(args, data);
         }
 
         /// <summary>
-        /// Alias for submit().
+        /// Alias for the <see cref="Submit(string, Args, string)"/> method.
         /// </summary>
-        /// <param name="indexName">The index name</param>
-        /// <param name="args">The arguments</param>
-        /// <param name="data">The data</param>
+        /// <param name="indexName">The index name.</param>
+        /// <param name="args">The arguments.</param>
+        /// <param name="data">The data.</param>
         public void Log(string indexName, Args args, string data) 
         {
             this.Submit(indexName, args, data);
         }
 
         /// <summary>
-        /// Wrapper class of SslStream for closing TCP connection 
-        /// when closing the stream.
+        /// The <see cref="SslStreamWrapper"/> class is a wrapper class for
+        /// the <see cref="SslStream"/> object, and is used for closing the
+        /// TCP connection when closing the stream.
         /// </summary>
-        private class SSLStreamWrapper : SslStream
+        private class SslStreamWrapper : SslStream
         {
             /// <summary>
-            /// The TcpClient object the SSLStream object is based on.
+            /// The <see cref="TcpClient"/> object the <see cref="SslStream"/>
+            /// object is based on.
             /// </summary>
             private TcpClient tcpClient;
             
             /// <summary>
-            /// Initializes a new instance of the <see cref="SSLStreamWrapper"/> class.
+            /// Initializes a new instance of the <see cref="SslStreamWrapper"/> class.
             /// </summary>
             /// <param name="tcpClient">
-            /// A TcpClient object the SSLStream object is based on.
+            /// A <see cref="TcpClient"/> object the <see cref="SslStream"/> object is
+            /// based on.
             /// </param>
-            public SSLStreamWrapper(
+            public SslStreamWrapper(
                 TcpClient tcpClient)
                 : base(
                     tcpClient.GetStream(),
@@ -255,13 +269,13 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Release resources including the tcpClient.
+            /// Releases resources, including the <see cref="TcpClient"/>.
             /// </summary>
-            /// <param name="disposing">True to release both managed and unmanaged resources; 
-            ///     false to release only unmanaged resources. </param>
+            /// <param name="disposing">Set to true to release both managed and
+            /// unmanaged resources; false to release only unmanaged resources.</param>
             protected override void Dispose(bool disposing)
             {
-                // Dispose(bool disposing) executes in two distinct scenarios.
+                // Dispose(bool disposing) runs in two distinct scenarios.
                 // If disposing equals true, the method has been called directly
                 // or indirectly by a user's code. Managed and unmanaged resources
                 // can be disposed.

@@ -34,8 +34,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether the event type is disabled.
-        /// Note that changing the setting does not take effect until splunk is
+        /// Sets a value indicating whether the event type is disabled.
+        /// Note that changing the setting does not take effect until Splunk is
         /// restarted.
         /// </summary>
         public bool Disabled
@@ -47,8 +47,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the priority of this event type. The range is 1 to 10, with 1
-        /// being the highest priority.
+        /// Sets the priority of this event type. The priority range is 1 to 
+        /// 10, with 1 being the highest priority.
         /// </summary>
         public int Priority
         {

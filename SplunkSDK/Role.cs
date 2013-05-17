@@ -31,8 +31,8 @@ namespace Splunk
         /// <summary>
         /// Initializes a new instance of the <see cref="Role"/> class.
         /// </summary>
-        /// <param name="service">The service</param>
-        /// <param name="path">The endpoint path</param>
+        /// <param name="service">The service.</param>
+        /// <param name="path">The endpoint path.</param>
         public Role(Service service, string path) 
             : base(service, path) 
         {
@@ -113,10 +113,13 @@ namespace Splunk
 
         /// <summary>
         /// Gets a search string that restricts the scope of searches run by 
-        /// this role. Only those events that also match this search string are
+        /// this role. 
+        /// </summary>
+        /// <remarks>
+        /// Only those events that also match this search string are
         /// shown to the user. If a user has multiple roles with different 
         /// search filters, they are combined with an "OR".
-        /// </summary>
+        /// </remarks>
         public string ImportedSearchFilter
         {
             get
@@ -197,10 +200,13 @@ namespace Splunk
 
         /// <summary>
         /// Gets or sets a search string that restricts the scope of searches 
-        /// run by this role. Only those events that also match this search 
+        /// run by this role. 
+        /// </summary>
+        /// <remarks>
+        /// Only those events that also match this search 
         /// string are shown to the user. If a user has multiple roles with 
         /// different search filters, they are combined with an "OR".
-        /// </summary>
+        /// </remarks>
         public string SearchFilter
         {
             get

@@ -19,8 +19,7 @@ namespace Splunk
     using System;
 
     /// <summary>
-    /// The <see cref="ScriptInput"/> class represents the <see cref="Input"/> 
-    /// subclass Script Input.
+    /// The <see cref="ScriptInput"/> class represents a scripted data input.
     /// </summary>
     public class ScriptInput : Input
     {
@@ -35,7 +34,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the time when the scripted input stopped running.
+        /// Gets the time at which the scripted input stopped running.
         /// </summary>
         public DateTime EndTime
         {
@@ -175,7 +174,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether the scripted input is enabled or 
+        /// Sets a value indicating whether the scripted input is enabled or 
         /// disabled.
         /// </summary>
         public bool Disabled

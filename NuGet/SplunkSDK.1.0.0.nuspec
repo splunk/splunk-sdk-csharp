@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+    <metadata>
+        <id>SplunkSDK</id>
+        <version>1.0.0</version>
+        <title>Splunk SDK for .NET</title>
+        <authors>Splunk,Inc.</authors>
+        <owners>Splunk,Inc.</owners>
+        <licenseUrl>https://raw.github.com/splunk/splunk-sdk-csharp/master/LICENSE</licenseUrl>
+        <projectUrl>http://dev.splunk.com/view/SP-CAAAEPK</projectUrl>
+        <iconUrl>http://docs.splunk.com/skins/splunk/images/icon-default.png</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>This package contains the SplunkSDK assembly that enables you to develop with Splunk.</description>
+        <releaseNotes />
+        <copyright>Splunk @2013</copyright>
+        <language>en-US</language>
+        <tags>Splunk</tags>
+        <dependencies>
+            <group targetFramework=".NETFramework3.5">
+                <dependency id="Newtonsoft.Json" version="5.0.5" />
+            </group>
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="..\SplunkSDK\bin\Debug\SplunkSDK.dll" target="lib\net35\SplunkSDK.dll" />
+    </files>
+</package>

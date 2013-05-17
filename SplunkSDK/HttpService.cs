@@ -397,18 +397,13 @@ namespace Splunk
                 // Get the bytes for proper encoded length when going over the 
                 // wire.
                 byte[] bytes = Encoding.UTF8.GetBytes((string)content);
-                try
+                webRequest.ContentLength = bytes.GetLength(0);
+                using (var stream = webRequest.GetRequestStream())
+                // Default encoding of StreamWriter is UTF-8.
+                using (var streamWriter = new StreamWriter(stream))
                 {
-                    webRequest.ContentLength = bytes.GetLength(0);
-                    Stream stream = webRequest.GetRequestStream();
-                    StreamWriter streamWriter = new StreamWriter(stream);
                     streamWriter.Write(content);
                     streamWriter.Flush();
-                    stream.Close();
-                }
-                catch (Exception e)
-                {
-                    System.Console.WriteLine("Excetion: " + e.Message);
                 }
             }
 

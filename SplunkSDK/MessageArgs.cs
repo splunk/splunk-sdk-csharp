@@ -18,7 +18,7 @@ namespace Splunk
 {
     /// <summary>
     /// The <see cref="MessageArgs"/> class extends <see cref="Args"/> for
-    /// Message creation setters.
+    /// <see cref="Message"/> creation properties.
     /// </summary>
     public class MessageArgs : Args
     {

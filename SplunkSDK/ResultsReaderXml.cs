@@ -24,10 +24,11 @@ namespace Splunk
     using System.Xml;
 
     /// <summary>
-    /// The <see cref="ResultsReaderXml" /> class represents a streaming XML 
-    /// reader for Splunk search results. When passed a stream from an export 
-    /// endpoint, it skips any preview events in the stream. The preview events 
-    /// can be accessed using <see cref="MultiResultsReaderXml"/>.
+    /// The <see cref="ResultsReaderXml"/> class represents a streaming XML 
+    /// reader for Splunk search results. When a stream from an export search
+    /// is passed to this reader, it skips any preview events in the stream. 
+    /// If you want to access the preview events, use the  
+    /// <see cref="MultiResultsReaderXml"/> class.
     /// </summary>
     public class ResultsReaderXml : ResultsReader
     {
@@ -48,7 +49,7 @@ namespace Splunk
         /// </summary>
         /// <param name="stream">The XML stream to parse.</param>
         /// <param name="isInMultiReader">
-        /// Whether or not the reader is the underlying reader of a multi
+        /// Whether the reader is the underlying reader of a multi
         /// reader.
         /// </param>
         internal ResultsReaderXml(Stream stream, bool isInMultiReader) :
@@ -65,7 +66,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets and sets the underlying reader of the XML stream.
+        /// Gets the underlying reader of the XML stream.
         /// </summary>
         internal XmlReader XmlReader
         {
@@ -93,7 +94,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Reads to next 'results' element, parses out 
+        /// Reads to next <b>results</b> element, parses out 
         /// <see cref="IsPreview"/> and <see cref="Fields"/>,
         /// and updates <see cref="HasResults"/> flag.
         /// </summary>
@@ -144,7 +145,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Reads the 'meta' element to populate the <see cref="Fields"/>
+        /// Reads the <b>meta</b> element to populate the <see cref="Fields"/>
         /// property, and moves to its end tag.
         /// </summary>
         private void ReadMetaElement()
@@ -168,14 +169,14 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Reads each descendant found, and positions the reader on the end
+        /// Reads each descendant found and positions the reader on the end
         /// tag of the current node.
         /// </summary>
         /// <param name="name">Name of the descendant.</param>
         /// <param name="readAction">
         /// The action that reads each descendant found, and 
         /// positions the reader at the decendant's element depth
-        /// (i.e. end tag or start tag).
+        /// (for instance, the end tag or the start tag).
         /// </param>
         private void ReadEachDescendant(string name, Action readAction)
         {
@@ -192,7 +193,7 @@ namespace Splunk
 
         /// <summary>
         /// Returns an enumerator over a set of the events 
-        /// in the event stream, and get ready for the next set.
+        /// in the event stream, and gets ready for the next set.
         /// </summary>
         /// <remarks>
         /// <para>
@@ -274,7 +275,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Extract and concatenate text excluding any markup.
+        /// Extracts and concatenate text, excluding any markup.
         /// </summary>
         /// <param name="xml">The XML fragment with markup.</param>
         /// <returns>Extracted and concatenated text.</returns>

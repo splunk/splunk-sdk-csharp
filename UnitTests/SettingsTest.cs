@@ -69,6 +69,7 @@ namespace UnitTests
 
             // test update
             settings.EnableSplunkWebSSL = !originalSSL;
+            bool updatedSSL = settings.EnableSplunkWebSSL;
             settings.Host = "sdk-host";
             settings.HttpPort = 8001;
             settings.MinFreeSpace = originalMinSpace - 100;
@@ -83,7 +84,7 @@ namespace UnitTests
             service = this.Connect();
             settings = service.GetSettings();
 
-            Assert.AreNotEqual(originalSSL, settings.EnableSplunkWebSSL, this.assertRoot + "#1");
+            Assert.AreNotEqual(originalSSL, updatedSSL, this.assertRoot + "#1");
             Assert.AreEqual("sdk-host", settings.Host, this.assertRoot + "#2");
             Assert.AreEqual(8001, settings.HttpPort, this.assertRoot + "#3");
             Assert.AreEqual(originalMinSpace - 100, settings.MinFreeSpace, this.assertRoot + "#4");

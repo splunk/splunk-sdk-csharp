@@ -26,8 +26,8 @@ namespace Splunk
         /// <summary>
         /// Initializes a new instance of the <see cref="FiredAlert"/> class.
         /// </summary>
-        /// <param name="service">The service</param>
-        /// <param name="path">The path</param>
+        /// <param name="service">The service.</param>
+        /// <param name="path">The path.</param>
         public FiredAlert(Service service, string path)
             : base(service, path)
         {
@@ -58,9 +58,11 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the rendered expiration time for this alert. This was 
-        /// introduced in Splunk 4.3.
+        /// Gets the rendered expiration time for this alert. 
         /// </summary>
+        /// <remarks>
+        /// This property is available in Splunk 4.3 and later.
+        /// </remarks>
         public string ExpirationTimeRendered
         {
             get 
@@ -70,10 +72,12 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value that indicates whether the result is a set of events 
-        /// (digest) or a single event (per result). This was introduced in 
-        /// Splunk 4.3.
+        /// Gets a value indicating whether the result is a set of events 
+        /// (digest) or a single event (per result). 
         /// </summary>
+        /// <remarks>
+        /// This property is available in Splunk 4.3 and later.
+        /// </remarks>
         public bool IsDigestMode
         {
             get
@@ -117,9 +121,11 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the count of triggered alerts. This was introduced in Splunk
-        /// 4.3.
+        /// Gets the count of triggered alerts. 
         /// </summary>
+        /// <remarks>
+        /// This property is available in Splunk 4.3 and later.
+        /// </remarks>
         public int TriggeredAlertCount
         {
             get

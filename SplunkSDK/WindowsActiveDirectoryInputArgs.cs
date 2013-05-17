@@ -18,12 +18,13 @@ namespace Splunk
 {
     /// <summary>
     /// The <see cref="WindowsActiveDirectoryInputArgs"/> class extends 
-    /// <see cref="Args"/> for WindowsActiveDirectoryInput creation setters.
+    /// <see cref="Args"/> for 
+    /// <see cref="WindowsActiveDirectoryInput"/> creation properties.
     /// </summary>
     public class WindowsActiveDirectoryInputArgs : Args
     {
         /// <summary>
-        /// Sets a value that indicates whether monitoring is disabled.
+        /// Sets a value indicating whether monitoring is disabled.
         /// </summary>
         public bool Disabled
         {
@@ -45,9 +46,12 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets a value that indicates whether to monitor the subtree(s) of a 
-        /// given directory tree path. The default value is "true".
+        /// Sets a value indicating whether to monitor the subtree(s) of a 
+        /// given directory tree path. 
         /// </summary>
+        /// <remarks>
+        /// This property's default value is true.
+        /// </remarks>
         public bool MonitorSubtree
         {
             set
@@ -57,10 +61,12 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Sets the Active Directory directory tree to start monitoring. If not
-        /// specified, Splunk attempts to start at the root of the directory
-        /// tree.
+        /// Sets the Active Directory directory tree to start monitoring. 
         /// </summary>
+        /// <remarks>
+        /// If not specified, Splunk attempts to start at the root of the 
+        /// directory tree.
+        /// </remarks>
         public string StartingNode
         {
             set
@@ -71,8 +77,12 @@ namespace Splunk
 
         /// <summary>
         /// Sets the fully qualified domain name of a valid, network-accessible
-        /// DC. If not specified, Splunk will obtain the local computer's DC.
+        /// domain controller. 
         /// </summary>
+        /// <remarks>
+        /// If not specified, Splunk will obtain the local computer's domain 
+        /// controller.
+        /// </remarks>
         public string TargetDc
         {
             set

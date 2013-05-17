@@ -108,7 +108,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a GUID identifying the license master for this Splunk instance.
+        /// Gets a GUID identifying the license master for this Splunk 
+        /// instance.
         /// </summary>
         public string MasterGuid 
         {
@@ -185,8 +186,8 @@ namespace Splunk
         }
 
         /// <summary>
-        ///  Gets a value that indicates whether this Splunk instance is running 
-        ///  under a free license.
+        /// Gets a value indicating whether this Splunk instance is running 
+        /// under a free license.
         /// </summary>
         public bool IsFree 
         {
@@ -197,7 +198,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value that indicates whether real-time search is enabled 
+        /// Gets a value indicating whether real-time search is enabled 
         /// for the service.
         /// </summary>
         public bool IsRtSearchEnabled 
@@ -209,8 +210,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value that indicates whether this Splunk instance is running 
-        /// under a trial license.
+        /// Gets a value indicating whether this Splunk instance is 
+        /// running under a trial license.
         /// </summary>
         public bool IsTrial 
         {

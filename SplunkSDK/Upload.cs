@@ -22,16 +22,16 @@ namespace Splunk
     using System.Text;
 
     /// <summary>
-    /// The <see cref="Upload"/> class represents an active file uploading to 
-    /// Splunk.
+    /// The <see cref="Upload"/> class represents an in-progress oneshot 
+    /// upload. Use this class to query the state of the upload.
     /// </summary>
     public class Upload : Entity
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Upload"/> class.
         /// </summary>
-        /// <param name="service">The connected service</param>
-        /// <param name="path">The path8</param>
+        /// <param name="service">The connected service.</param>
+        /// <param name="path">The path.</param>
         public Upload(Service service, string path)
             : base(service, path)
         {

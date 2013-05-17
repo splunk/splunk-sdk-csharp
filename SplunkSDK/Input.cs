@@ -17,16 +17,16 @@
 namespace Splunk
 {
     /// <summary>
-    /// The <see cref="Input"/> class is the base class upon which all specific
-    /// inputs are derived from.
+    /// The <see cref="Input"/> class is the base class from which all specific
+    /// inputs are derived.
     /// </summary>
     public class Input : Entity
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Input"/> class.
         /// </summary>
-        /// <param name="service">The connected service</param>
-        /// <param name="path">The path</param>
+        /// <param name="service">The connected service.</param>
+        /// <param name="path">The path.</param>
         public Input(Service service, string path)
             : base(service, path)
         {
@@ -35,7 +35,7 @@ namespace Splunk
         /// <summary>
         /// Gets the unknown input kind. Must be overridden in sub-classes.
         /// </summary>
-        /// <returns>The input kind</returns>
+        /// <returns>The input kind.</returns>
         public virtual InputKind GetKind()
         {
             string[] pathComponents = 

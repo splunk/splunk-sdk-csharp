@@ -32,6 +32,7 @@ namespace Splunk.Examples.Search
         /// <param name="argv">The command line arguments</param>
         public static void Main(string[] argv) 
         {
+            // Load connection info for Splunk server in .splunkrc file.
             var cli = Command.Splunk("search");
             cli.AddRule("search", typeof(string), "search string");
             cli.Parse(argv);
@@ -49,12 +50,12 @@ namespace Splunk.Examples.Search
                 Thread.Sleep(1000);
             }
 
-            var outArgs = new Args
+            var outArgs = new JobResultsArgs
             {
-                { "output_mode", "xml" },
+                OutputMode = JobResultsArgs.OutputModeEnum.Xml,
 
                 // Return all entries.
-                { "count", "0" }
+                Count = 0
             };
 
             using (var stream = job.Results(outArgs))

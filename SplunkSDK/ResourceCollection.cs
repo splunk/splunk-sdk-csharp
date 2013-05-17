@@ -32,7 +32,8 @@ namespace Splunk
     public class ResourceCollection<T> : Resource, IEnumerable<T> where T : Resource
     {
         /// <summary>
-        /// The object Type of the class, a derived class of Resource.
+        /// The object type of the class, a derived class of 
+        /// <see cref="Resource"/>.
         /// </summary>
         private Type itemClass;
 
@@ -77,7 +78,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value that indicates whether the IDictionary has a fixed size.
+        /// Gets a value indicating whether the IDictionary has a fixed size.
         /// </summary>
         public bool IsFixedSize 
         { 
@@ -88,7 +89,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value that indicates whether the IDictionary is read-only. 
+        /// Gets a value indicating whether the IDictionary is read-only. 
         /// </summary>
         public bool IsReadOnly 
         { 
@@ -99,10 +100,12 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the items in the collection. Because of namespace 
-        /// rules, a key-name may result in multiple Entities, thus the key 
-        /// resolves to a list of one or more Entities.
+        /// Gets the items in the collection. 
         /// </summary>
+        /// <remarks>
+        /// Because of namespace rules, a key-name may result in multiple 
+        /// entities; thus the key resolves to a list of one or more entities.
+        /// </remarks>
         protected IDictionary<string, List<T>> Items 
         {
             get;
@@ -111,9 +114,12 @@ namespace Splunk
 
         /// <summary>
         /// Gets an <see cref="IEnumerable"/> of keys in the collection of
-        /// resources. Note that if the local resource collection is dirty, this
-        /// will refresh an up-to-date copy from the server.
+        /// resources. 
         /// </summary>
+        /// <remarks>
+        /// Be aware that if the local resource collection is "dirty," this
+        /// property will refresh an up-to-date copy from the server.
+        /// </remarks>
         public ICollection<string> Keys 
         {
             get 
@@ -125,7 +131,6 @@ namespace Splunk
         /// <summary>
         /// Gets the number of elements in the collection.
         /// </summary>
-        /// <returns>The number of elements in the collection.</returns>
         public int Size 
         {
             get
@@ -136,9 +141,12 @@ namespace Splunk
 
         /// <summary>
         /// Gets an <see cref="IEnumerable"/> of values in the collection of
-        /// resources. Note that if the local resource collection is dirty, this
-        /// will refresh an up-to-date copy from the server.
+        /// resources. 
         /// </summary>
+        /// <remarks>
+        /// Be aware that if the local resource collection is "dirty," 
+        /// this will refresh an up-to-date copy from the server.
+        /// </remarks>
         public ICollection<T> Values 
         {
             get 
@@ -158,8 +166,8 @@ namespace Splunk
         /// <summary>
         /// Not supported. Adds a value to the dictionary.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <param name="value">The value</param>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
         public void Add(object key, T value) 
         {
             throw new NotSupportedException("Add unsupported");
@@ -168,7 +176,7 @@ namespace Splunk
         /// <summary>
         /// Returns the typed enumerator for this collection.
         /// </summary>
-        /// <returns>The enumerator</returns>
+        /// <returns>The enumerator.</returns>
         public IEnumerator<T> GetEnumerator() 
         {
             return this.Values.GetEnumerator();
@@ -184,7 +192,7 @@ namespace Splunk
         } 
 
         /// <summary>
-        /// Unsupported. Clear the collection.
+        /// Unsupported. Clears the collection.
         /// </summary>
         public void Clear() 
         {
@@ -192,23 +200,23 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Returns a value that indicates whether or not the collection of 
-        /// Resources contains the desired key.
+        /// Returns a value indicating whether the collection of 
+        /// resources contains the desired key.
         /// </summary>
-        /// <param name="key">The key</param>
-        /// <returns>True or false</returns>
+        /// <param name="key">The key.</param>
+        /// <returns>Whether the key is present.</returns>
         public virtual bool ContainsKey(object key) 
         {
             return this.Validate().Items.ContainsKey((string)key);
         }
 
         /// <summary>
-        /// Returns a value that indicates whether or not the collection of 
-        /// Resources contains the desired key, qualified by namespace.
+        /// Returns a value that indicating whether the collection of 
+        /// resources contains the desired key, qualified by namespace.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="splunkNamespace">The namespace.</param>
-        /// <returns>True or false.</returns>
+        /// <returns>Whether the key is present.</returns>
         public virtual bool ContainsKey(object key, Args splunkNamespace) 
         {
             this.Validate();
@@ -230,11 +238,11 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Returns a value that indicates whether or not the value exists in
+        /// Returns a value indicating whether the value exists in
         /// the collection. 
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <returns>True or false.</returns>
+        /// <returns>Whether the value is present.</returns>
         public bool ContainsValue(T value) 
         {
             foreach (object key in this.Keys) 
@@ -253,7 +261,7 @@ namespace Splunk
         /// <param name="itemClass">The object type being created.</param>
         /// <param name="path">The path to the resource.</param>
         /// <param name="splunkNamespace">The namespace.</param>
-        /// <returns>The new object, of type T.</returns>
+        /// <returns>The new object, of type <see cref="T"/>.</returns>
         public T CreateItem(Type itemClass, string path, Args splunkNamespace) 
         {
             ConstructorInfo ctor = itemClass.GetConstructor(itemSig);
@@ -274,8 +282,8 @@ namespace Splunk
         /// created. Subclasses may override this method to provide alternative
         /// means of instantiating collection items.
         /// </remarks>
-        /// <param name="entry">The AtomEntry</param>
-        /// <returns>The new object, of type T</returns>
+        /// <param name="entry">The <see cref="AtomEntry"/>.</param>
+        /// <returns>The new object, of type <see cref="T"/>.</returns>
         protected virtual T CreateItem(AtomEntry entry) 
         {
             return this.CreateItem(
@@ -283,21 +291,23 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Returns a value that indicates whether the collections are equal.
+        /// Returns a value indicating whether the collections are equal.
         /// </summary>
         /// <param name="o">The object to compare against.</param>
-        /// <returns>True or false.</returns>
+        /// <returns>Whether the collections are equal.</returns>
         public override bool Equals(object o) 
         {
             return this.Validate().Items.Equals(o);
         }
 
         /// <summary>
-        /// Gets the object in the collection, given the key. If there
-        /// are more than one Resource identified by the key, an AMBIGUOUS
-        /// exception is thrown. In order to disambiguate Resources, a
-        /// namespace must be supplied.
+        /// Gets the object in the collection, given the key. 
         /// </summary>
+        /// <remarks>
+        /// If there is more than one resource identified by the key, a
+        /// <see cref="SplunkException.AMBIGUOUS"/> exception is thrown. In
+        /// order to disambiguate resources, a namespace must be supplied.
+        /// </remarks>
         /// <param name="key">The key</param>
         /// <returns>The object, or default(object) if not found.</returns>
         public virtual T Get(object key) 
@@ -353,7 +363,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Returns an up-to-date Hashcode.
+        /// Returns an up-to-date hash code.
         /// </summary>
         /// <returns>The hash code.</returns>
         public override int GetHashCode() 
@@ -362,10 +372,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value that indicates whether the up-to-date Resource count
+        /// Gets a value indicating whether the up-to-date resource count
         /// is 0.
         /// </summary>
-        /// <returns>True or false</returns>
+        /// <returns>Whether the count is 0.</returns>
         public bool IsEmpty 
         {
             get
@@ -376,11 +386,13 @@ namespace Splunk
     
         /// <summary>
         /// Returns the value to use as the item key from a given Atom entry.
+        /// </summary>
+        /// <remarks>
         /// Subclasses may override this value for collections that use 
         /// something other than title as the key.
-        /// </summary>
-        /// <param name="entry">The AtomEntry</param>
-        /// <returns>The title</returns>
+        /// </remarks>
+        /// <param name="entry">The <see cref="AtomEntry"/>.</param>
+        /// <returns>The title.</returns>
         protected virtual string ItemKey(AtomEntry entry) 
         {
             return entry.Title;
@@ -388,10 +400,12 @@ namespace Splunk
 
         /// <summary>
         /// Returns the value to use as the item path from a given Atom entry.
-        /// Subclasses may override this value to support alternative methods of
-        /// determining a member's path.
         /// </summary>
-        /// <param name="entry">The AtomEntry.</param>
+        /// <remarks>
+        /// Subclasses may override this value to support alternative methods 
+        /// of determining a member's path.
+        /// </remarks>
+        /// <param name="entry">The <see cref="AtomEntry"/>.</param>
         /// <returns>The alternate path.</returns>
         protected virtual string ItemPath(AtomEntry entry) 
         {
@@ -399,9 +413,10 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Returns the namesapce of an AtomEntry based on the eai::acl field.
+        /// Returns the namespace of an <see cref="AtomEntry"/> based on the
+        /// eai::acl field.
         /// </summary>
-        /// <param name="entry">The AtomEntry.</param>
+        /// <param name="entry">The <see cref="AtomEntry"/>.</param>
         /// <returns>The namespace.</returns>
         private Args SplunkNamespace(AtomEntry entry) 
         {
@@ -417,17 +432,17 @@ namespace Splunk
                 (Dictionary<string, object>)entry.Content["eai:acl"];
             if (entityMetadata.ContainsKey("owner")) 
             {
-                splunkNamespace.AlternateAdd(
+                splunkNamespace.Set(
                     "owner", entityMetadata["owner"]);
             }
             if (entityMetadata.ContainsKey("app")) 
             {
-                splunkNamespace.AlternateAdd(
+                splunkNamespace.Set(
                     "app", entityMetadata["app"]);
             }
             if (entityMetadata.ContainsKey("sharing")) 
             {
-                splunkNamespace.AlternateAdd(
+                splunkNamespace.Set(
                     "sharing", entityMetadata["sharing"]);
             }
             return splunkNamespace;
@@ -448,8 +463,8 @@ namespace Splunk
         /// <summary>
         /// Loads the collection resource from a given Atom feed.
         /// </summary>
-        /// <param name="value">The AtomFeed.</param>
-        /// <returns>The resource collection.</returns>
+        /// <param name="value">The <see cref="AtomFeed"/>.</param>
+        /// <returns>The <see cref="ResourceCollection{T}"/>.</returns>
         protected ResourceCollection<T> Load(AtomFeed value) 
         {
             base.Load(value);
@@ -475,7 +490,7 @@ namespace Splunk
         /// <summary>
         /// Refreshes the resource collection.
         /// </summary>
-        /// <returns>The resource.</returns>
+        /// <returns>The <see cref="Resource"/>.</returns>
         public override Resource Refresh() 
         {
             this.Items.Clear();
@@ -496,7 +511,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Validates the collection. If dirty, will refresh.
+        /// Validates the collection. If "dirty," will refresh.
         /// </summary>
         /// <returns>The collection.</returns>
         public new ResourceCollection<T> Validate() 
@@ -524,9 +539,12 @@ namespace Splunk
 
         /// <summary>
         /// Wrapper to preserve order with an unordered base dictionary.
-        /// We can't use System.Collections.Specialized.OrderedDictionary
-        /// directly since we want a typed interface from IDictionary generics.
         /// </summary>
+        /// <remarks>
+        /// You can't use System.Collections.Specialized.OrderedDictionary
+        /// directly since you want a typed interface from IDictionary 
+        /// generics.
+        /// </remarks>
         internal class OrderedResourceDictionary : Dictionary<string, List<T>>,
             IDictionary<string, List<T>>,
             IEnumerable<KeyValuePair<string, List<T>>>,
@@ -548,7 +566,7 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Gets ordered Keys collection.
+            /// Gets an ordered Keys collection.
             /// </summary>
             ICollection<string> IDictionary<string, List<T>>.Keys
             {
@@ -559,7 +577,7 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Gets ordered Values collection.
+            /// Gets an ordered Values collection.
             /// </summary>
             ICollection<List<T>> IDictionary<string, List<T>>.Values
             {
@@ -589,7 +607,9 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Not supported. Use 'IDictionary.Add' instead.
+            /// Not supported. Use 
+            /// <see cref="IDictionary{string.List{T}}.Add(string,List{T})"/> 
+            /// instead.
             /// </summary>
             /// <param name="item">The element to add.</param>
             void ICollection<KeyValuePair<string, List<T>>>.Add(
@@ -610,7 +630,7 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Not supported. Removes and element using an item. 
+            /// Not supported. Removes an element using an item. 
             /// </summary>
             /// <param name="item">The element to remove.</param>
             /// <returns>Not supported.</returns>

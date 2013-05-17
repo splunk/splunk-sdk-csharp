@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright 2013 Splunk, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"): you may
@@ -36,7 +36,7 @@ namespace Splunk
         private ExportHelper exportHelper;
 
         /// <summary>
-        /// Whether the 'preview' flag is read.
+        /// Whether the "preview" flag is read.
         /// </summary>
         private bool previewFlagRead;
   
@@ -44,7 +44,7 @@ namespace Splunk
         /// Initializes a new instance of the <see cref="ResultsReaderJson"/>
         /// class.
         /// </summary>
-        /// <param name="stream">JSON stream to be parsed.</param>
+        /// <param name="stream">The JSON stream to parse.</param>
         public ResultsReaderJson(Stream stream) :
              this(stream, false)
         {
@@ -56,8 +56,7 @@ namespace Splunk
         /// </summary>
         /// <param name="stream">The JSON stream to parse.</param>
         /// <param name="isInMultiReader">
-        /// Whether or not the reader is the underlying reader of a multi
-        /// reader.
+        /// Whether the reader is the underlying reader of a multi reader.
         /// </param>
         internal ResultsReaderJson(Stream stream, bool isInMultiReader) :
             base(stream, isInMultiReader)
@@ -71,7 +70,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets and sets the stream reader on the JSON stream to parse.
+        /// Gets the stream reader on the JSON stream to parse.
         /// </summary>
         internal StreamReader StreamReader { get; private set; }
      
@@ -85,7 +84,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value that indicates whether or not the results are
+        /// Gets a value indicating whether the results are
         /// a preview from an unfinished search.
         /// </summary>
         public override bool IsPreview
@@ -110,7 +109,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// This method is not supported.
+        /// Not supported.
         /// </summary>
         public override ICollection<string> Fields
         {
@@ -124,7 +123,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets a value indicating whether or not the reader has been
+        /// Gets a value indicating whether the reader has been
         /// disposed.
         /// </summary>
         private bool IsDisposed
@@ -133,18 +132,18 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Advances to the next set, skipping remaining event(s), 
-        /// if any in the current set.
+        /// Advances to the next set, skipping remaining event(s) 
+        /// if there are any in the current set.
         /// </summary>
-        /// <returns>Return "false" if the end is reached.</returns>
+        /// <returns>Returns false if the end is reached.</returns>
         internal override bool AdvanceStreamToNextSet()
         {
             return this.AdvanceIntoNextSetBeforeEvent();
         }
 
         /// <summary>
-        /// Advances to the next set, skipping remaining event(s), 
-        /// if any, in the current set, and reads meta data before the 
+        /// Advances to the next set, skipping remaining event(s) 
+        /// if there are any in the current set, and reads metadata before the 
         /// first event in the next result set.
         /// </summary>
         /// <returns>Return false if the end is reached.</returns>       
@@ -264,7 +263,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Release. unmanaged resources.
+        /// Releases unmanaged resources.
         /// </summary>
         public override void Dispose()
         {
@@ -293,9 +292,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets the enumerator for data returned from Splunk.
+        /// Retrieves the enumerator for data returned from Splunk.
         /// </summary>
-        /// <returns>A enumerator</returns>
+        /// <returns>A enumerator.</returns>
         internal override IEnumerable<Event> GetEventsFromCurrentSet()
         {
             while (true)
@@ -339,7 +338,7 @@ namespace Splunk
         /// Reads an event from the JSON reader.
         /// </summary>
         /// <returns>
-        /// The event. Null indicating end of stream, 
+        /// The event. A value of null indicates the end of stream, 
         /// which is used by none --export cases.
         /// </returns>
         private Event ReadEvent()
@@ -425,7 +424,7 @@ namespace Splunk
         private class ExportHelper : IDisposable
         {
             /// <summary>
-            /// The JSON reader
+            /// The JSON reader.
             /// </summary>
             private readonly ResultsReaderJson resultsReader;
 
@@ -447,7 +446,7 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Gets or sets the JSON reader which is also used by
+            /// Gets or sets the JSON reader, which is also used by
             /// the result reader itself.
             /// </summary>
             private JsonTextReader JsonReader
@@ -457,20 +456,22 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Gets a value that indicates whether or not the row 
+            /// Gets a value indicating whether the row 
             /// is the last in the current set.
             /// </summary>
             internal bool LastRow { get; private set; }
 
             /// <summary>
-            /// Gets a value that indicates whether or not the reader is in the middle or a row.
+            /// Gets a value indicating whether the reader is in the middle 
+    		/// or a row.
             /// </summary>
             public bool InRow { get; private set; }
 
             /// <summary>
-            /// Read meta data in the current row before event data.
+            /// Reads metadata in the current row before event data.
             /// </summary>
-            /// <returns>Return false if end of stream is encountered.</returns>
+            /// <returns>Returns false if the end of the stream is 
+			/// encountered.</returns>
             public bool ReadIntoRow()
             {
                 if (this.InRow)
@@ -542,7 +543,7 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Skip the rest of the current row.
+            /// Skips the rest of the current row.
             /// </summary>
             public void SkipRestOfRow()
             {
@@ -556,7 +557,7 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Release resources including unmanaged ones.
+            /// Releases resources, including unmanaged ones.
             ///  </summary>
             public void Dispose()
             {

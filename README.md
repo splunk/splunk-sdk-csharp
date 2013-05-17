@@ -1,5 +1,5 @@
 # The Splunk Software Development Kit for C# 
-### Version 0.8 (Beta)
+### Version 1.0
 
 The Splunk Software Development Kit (SDK) for C# contains library code and 
 examples designed to enable developers to build applications using Splunk.
@@ -50,7 +50,7 @@ resources to your computer.
 #### Visual Studio
 
 The Splunk SDK for C# supports development in Microsoft Visual Studio 2012. The 
-minimum supported version of the .NET Framework is version 4.0. Visual Studio 
+minimum supported version of the .NET Framework is version 3.5. Visual Studio 
 downloads are available on the 
 [Visual Studio Downloads webpage](http://www.microsoft.com/visualstudio/downloads).
 
@@ -130,6 +130,7 @@ Example         | Description
 --------------- | -----------
 authenticate    | Authenticates to the server and prints the received token.
 list_apps       | Lists the apps installed on the server.
+modular_input   | Creates a modular input executable that you can modify.
 search          | Runs a normal search using a specified search query.
 search_oneshot  | Runs a oneshot search using a specified search query.
 search_realtime | Runs a real-time search, gets a number of snapshots, prints them, and then exits.
@@ -195,11 +196,6 @@ on the Microsoft Developer Network (MSDN).
 <table>
 
 <tr>
-<td><b>\SplunkSDKHelper</b></td>
-<td>Utilities shared by examples and unit tests</td>
-</tr>
-
-<tr>
 <td><b>\examples</b></td>
 <td>Examples demonstrating various SDK features</td>
 </tr>
@@ -212,6 +208,11 @@ on the Microsoft Developer Network (MSDN).
 <tr>
 <td><b>\SplunkSDK</b></td>
 <td>Source for the SDK</td>
+</tr>
+
+<tr>
+<td><b>\SplunkSDKHelper</b></td>
+<td>Utilities shared by examples and unit tests</td>
 </tr>
 
 <tr>
@@ -232,21 +233,27 @@ The **master** branch always represents a stable and released version of the SDK
 You can read more about our branching model on our Wiki at 
 [https://github.com/splunk/splunk-sdk-csharp/wiki/Branching-Model](https://github.com/splunk/splunk-sdk-java/wiki/Branching-Model).
 
-## Resources
+## Documentation and resources
 
-You can find anything having to do with developing on Splunk at the Splunk
-developer portal:
+If you need to know more:
 
-* http://dev.splunk.com
+* For all things developer with Splunk, your main resource is the [Splunk
+  Developer Portal](http://dev.splunk.com).
 
-You can also find reference documentation for the REST API:
+* For conceptual and how-to documentation, see the [Overview of the Splunk SDK
+  for C#](http://dev.splunk.com/view/SP-CAAAEPK).
 
-* http://docs.splunk.com/Documentation/Splunk/latest/RESTAPI
+* For API reference documentation, see the [Splunk SDK for C# 
+  Reference](http://docs.splunk.com/Documentation/CshrpSDK)
 
-For an introduction to the Splunk product and some of its capabilities:
+* For more about the Splunk REST API, see the [REST API 
+  Reference](http://docs.splunk.com/Documentation/Splunk/latest/RESTAPI).
 
-* http://docs.splunk.com/Documentation/Splunk/latest/User/SplunkOverview
+* For more about about Splunk in general, see [Splunk>Docs](http://docs.splunk.com/Documentation/Splunk).
 
+* For more about this SDK's repository, see our 
+  [GitHub Wiki](https://github.com/splunk/splunk-sdk-csharp/wiki/).
+  
 ## Community
 
 Stay connected with other developers building on Splunk.
@@ -291,8 +298,9 @@ page for more information.
 ### Support
 
 1. You will be granted support if you or your company are already covered 
-   under an existing maintenance/support agreement. Send an email to 
-   _support@splunk.com_ and include "Splunk SDK for C#" in the subject line. 
+   under an existing maintenance/support agreement. Visit 
+   <http://www.splunk.com/support> and click **Submit a Case** under **Contact
+   a Support Engineer**.
 
 2. If you are not covered under an existing maintenance/support agreement, you 
    can find help through the broader community at:
@@ -301,7 +309,7 @@ page for more information.
    * [Splunkdev Google Group](http://groups.google.com/group/splunkdev)
 
 3. Splunk will NOT provide support for SDKs if the core library (the 
-   code in the **splunk** directory) has been modified. If you modify an SDK
+   code in the **SplunkSDK** directory) has been modified. If you modify an SDK
    and want support, you can find help through the broader community and Splunk 
    answers (see above). We would also like to know why you modified the core 
    library&mdash;please send feedback to _devinfo@splunk.com_.

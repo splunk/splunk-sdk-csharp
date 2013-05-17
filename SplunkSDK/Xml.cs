@@ -29,7 +29,7 @@ namespace Splunk
         /// Parses the given input stream and returns it as an XML document 
         /// object model (DOM).
         /// </summary>
-        /// <param name="input">The Stream</param>
+        /// <param name="input">The stream.</param>
         /// <returns>The XML document.</returns>
         public static XmlDocument Parse(Stream input) 
         {

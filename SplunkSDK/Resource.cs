@@ -66,23 +66,23 @@ namespace Splunk
             Args splunkNamespace = new Args();
             if (args.ContainsKey("app")) 
             {
-                splunkNamespace.AlternateAdd("app", args["app"].ToString());
+                splunkNamespace.Set("app", args["app"].ToString());
                 clonedArgs.Remove("app");
             }
             if (args.ContainsKey("owner")) 
             {
-                splunkNamespace.AlternateAdd("owner", args["owner"].ToString());
+                splunkNamespace.Set("owner", args["owner"].ToString());
                 clonedArgs.Remove("owner");
             }
             if (args.ContainsKey("sharing")) 
             {
-                splunkNamespace.AlternateAdd(
+                splunkNamespace.Set(
                     "sharing", args["sharing"].ToString());
                 clonedArgs.Remove("sharing");
             }
             if (!clonedArgs.ContainsKey("count")) 
             {
-                clonedArgs.AlternateAdd("count", "-1");
+                clonedArgs.Set("count", "-1");
             }
 
             this.RefreshArgs = clonedArgs;
@@ -119,7 +119,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the refresh args for this resources.
+        /// Gets or sets the refresh arguments for this resources.
         /// </summary>
         public Args RefreshArgs 
         {
@@ -128,8 +128,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether this resource is clean
-        /// or dirty. When dirty, we refresh the resource before returning 
+        /// Gets or sets a value indicating whether this resource is "clean"
+        /// or "dirty." When "dirty," we refresh the resource before returning 
         /// any data contained therein.
         /// </summary>
         public bool MaybeValid 
@@ -159,10 +159,12 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the  value of the title of this resource. Note that
-        /// getting the property may refresh the local resource if dirty from
-        /// the server.
+        /// Gets or sets the  value of the title of this resource. 
         /// </summary>
+        /// <remarks>
+        /// Be aware that getting the property may refresh the local resource 
+        /// if "dirty" from the server.
+        /// </remarks>
         public string Title 
         {
             get 
@@ -189,8 +191,8 @@ namespace Splunk
         /// <summary>
         /// Loads the state of this resource from a given Atom object.
         /// </summary>
-        /// <param name="value">The AtomObject to load.</param>
-        /// <returns>The <see cref="Resource"/>.</returns>
+        /// <param name="value">The Atom object to load.</param>
+        /// <returns>The resource.</returns>
         public Resource Load(AtomObject value) 
         {
             if (value == null) 
@@ -209,14 +211,14 @@ namespace Splunk
         /// <summary>
         /// Refreshes the local state of this resource.
         /// </summary>
-        /// <returns>The <see cref="Resource"/>.</returns>
+        /// <returns>The resource.</returns>
         public abstract Resource Refresh();
 
         /// <summary>
         /// Ensures that the local state of the resource is current,
         /// calling object-specific <see cref="Refresh"/> method if necessary.
         /// </summary>
-        /// <returns>The <see cref="Resource"/>.</returns>
+        /// <returns>The resource.</returns>
         public virtual Resource Validate() 
         {
             if (!this.MaybeValid) 
