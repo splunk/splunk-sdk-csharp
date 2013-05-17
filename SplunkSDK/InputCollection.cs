@@ -22,8 +22,8 @@ namespace Splunk
     using System.Net;
 
     /// <summary>
-    /// The InputCollection class represents a collection of inputs. The 
-    /// collection is heterogeneous and each member contains an 
+    /// The <see cref="InputCollection"/> class represents a collection of 
+    /// inputs. The collection is heterogeneous and each member contains an 
     /// <see cref="InputKind"/> value indicating the specific type of 
     /// input.
     /// </summary>

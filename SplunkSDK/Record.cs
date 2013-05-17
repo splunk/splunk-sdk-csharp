@@ -22,8 +22,8 @@ namespace Splunk
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// The <see class="Record"/> class represents the basic data
-    /// representation, extending the basic Dictionary with some basic get
+    /// The <see cref="Record"/> class represents the basic data
+    /// representation, extending the basic dictionary with some basic get
     /// methods.
     /// </summary>
     public class Record : Dictionary<string, object>, ISerializable

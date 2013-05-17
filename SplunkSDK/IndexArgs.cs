@@ -507,8 +507,7 @@ namespace Splunk
         /// </para>
         /// <para>
         /// If there are any acknowledged events sharing this raw slice, this
-        /// property does not apply. In this case,
-        /// <see cref="MaxTimeUnreplicatedWithAcks"/> applies. 
+        /// property does not apply. 
         /// </para>
         /// <para>
         /// This property's highest legal value is "2147483647".
