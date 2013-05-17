@@ -25,8 +25,9 @@ namespace Splunk
     /// The <see cref="Args"/> class is a helper class for working with Splunk
     /// REST API arguments. This extension is used mainly for encoding
     /// arguments for UTF-8 transmission to a Splunk instance in a key/value
-    /// pairing for a string, or key=value1&key=value2 (and so on) for an 
+    /// pairing for a string, or key=value1&amp;key=value2 (and so on) for an 
     /// array of strings.
+    /// </summary>
     public class Args : Dictionary<string, object>, ISerializable
     {
         /// <summary>

@@ -418,7 +418,7 @@ namespace Splunk
         /// This is the streaming part of the search that is sent to remote
         /// providers if reporting commands are used. The original search 
         /// should be the <see cref="EventSearch"/> + 
-        /// <see cref="reportSearch"/>.
+        /// <see cref="ReportSearch"/>.
         /// </para>
         /// </remarks>
         public string ReportSearch

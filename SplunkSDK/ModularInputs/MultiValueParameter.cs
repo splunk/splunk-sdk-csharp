@@ -159,7 +159,7 @@ namespace Splunk.ModularInputs
             /// </summary>
             /// <param name="value">Field value.</param>
             /// <returns>
-            /// The string value (<see cref="DefaultDelimiter" />).
+            /// The string value delimiter.
             /// </returns>
             /// <remarks>
             /// This method is the same as <see cref="ToString" />.
