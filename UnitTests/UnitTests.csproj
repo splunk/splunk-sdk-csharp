@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -63,7 +64,7 @@
     <Compile Include="StreamHelper.cs" />
     <Compile Include="TestHelper.cs" />
     <Compile Include="SettingsTest.cs" />
-    <Compile Include="NameSpaceTest.cs" />
+    <Compile Include="NamespaceTest.cs" />
     <Compile Include="UserTest.cs" />
   </ItemGroup>
   <ItemGroup>
