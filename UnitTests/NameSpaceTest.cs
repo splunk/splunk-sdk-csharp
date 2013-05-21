@@ -8,42 +8,37 @@ namespace UnitTests
     public class NamespaceTest : TestHelper
     {
         /// <summary>
-        /// Tests the syntax of the path returned by Service.FullPath with different namespaces
+        /// Tests the syntax of the path returned by Service.FullPath with different namespaces.
         /// </summary>
         [TestMethod]
-        public void TestStaticNameSpace()
+        public void TestStaticNamespace()
         {
             Service service = Connect();
 
-            Args splunkNameSpace = new Args();
-
-            splunkNameSpace.Add("app", "search");
-            Assert.AreEqual("/servicesNS/-/search/", service.Fullpath("", splunkNameSpace),
+            Args splunkNamespace = new Args("app", "search");
+            Assert.AreEqual("/servicesNS/-/search/", service.Fullpath("", splunkNamespace),
                             "Expected the path URL to be /servicesNS/-/search/");
 
-            splunkNameSpace.Clear();
-            splunkNameSpace.Add("owner", "Bob");
-            Assert.AreEqual("/servicesNS/Bob/-/", service.Fullpath("", splunkNameSpace),
+            splunkNamespace = new Args("owner", "Bob");
+            Assert.AreEqual("/servicesNS/Bob/-/", service.Fullpath("", splunkNamespace),
                             "Expected path URL to be /servicesNS/Bob/-/");
 
-            splunkNameSpace.Clear();
-            splunkNameSpace.Add("sharing", "app");
-            Assert.AreEqual("/servicesNS/nobody/-/", service.Fullpath("", splunkNameSpace),
+            splunkNamespace = new Args("sharing", "app");
+            Assert.AreEqual("/servicesNS/nobody/-/", service.Fullpath("", splunkNamespace),
                             "Expected path URL to be /servicesNS/nobody/-/");
 
-            splunkNameSpace.Clear();
-            splunkNameSpace.Add("sharing", "system");
-            Assert.AreEqual("/servicesNS/nobody/system/", service.Fullpath("", splunkNameSpace),
+            splunkNamespace = new Args("sharing", "system");
+            Assert.AreEqual("/servicesNS/nobody/system/", service.Fullpath("", splunkNamespace),
                             "Expected path URL to be /servicesNS/nobody/system/");
         }
 
         /// <summary>
-        /// Establishes and returns a namespace
+        /// Establishes and returns a namespace.
         /// </summary>
-        public Args CreatesNamespace(String username, String appname)
+        public Args CreateNamespace(String username, String appname)
         {
             Args splunkNamespace = new Args();
-            
+
             splunkNamespace.Add("owner", username);
             splunkNamespace.Add("app", appname);
 
@@ -52,9 +47,10 @@ namespace UnitTests
 
         /// <summary>
         /// Tests removing applications that already exist in the collection
+        /// and creating new applications.
         /// </summary>
         [TestMethod]
-        public void TestRemoveAppsInNamespace()
+        public void TestCreateAndRemoveAppsInNamespace()
         {
             Service service = Connect();
             EntityCollection<Application> apps = service.GetApplications();
@@ -62,6 +58,7 @@ namespace UnitTests
             String appname1 = "sdk-app1";
             String appname2 = "sdk-app2";
 
+            // Remove applications that already exist in the collection
             if (apps.ContainsKey(appname1))
             {
                 apps.Remove(appname1);
@@ -70,65 +67,11 @@ namespace UnitTests
             {
                 apps.Remove(appname2);
             }
-            Assert.IsFalse(apps.ContainsKey(appname1), "Expected the app " + appname1 + " to be removed");
-            Assert.IsFalse(apps.ContainsKey(appname2), "Expected the app " + appname2 + " to be removed");
-        }
 
-        /// <summary>
-        /// Tests removing users that already exists in the collection of splunk users
-        /// </summary>
-        [TestMethod]
-        public void TestRemoveUsersInNamespace()
-        {
-            Service service = Connect();
-            UserCollection users = service.GetUsers();
+            Assert.IsFalse(apps.ContainsKey(appname1), "Expected app " + appname1 + " to be removed");
+            Assert.IsFalse(apps.ContainsKey(appname2), "Expected app " + appname2 + " to be removed");
 
-            String username1 = "sdk-user1";
-            String username2 = "sdk-user2";
-
-            if (users.ContainsKey(username1))
-            {
-                users.Remove(username1);
-            }
-            if (users.ContainsKey(username2))
-            {
-                users.Remove(username2);
-            }
-            Assert.IsFalse(users.ContainsKey(username1), "Expected the username " + username1 + " to be removed");
-            Assert.IsFalse(users.ContainsKey(username2), "Expected the username " + username2 + " to be removed");
-        }
-
-        /// <summary>
-        /// Tests creating users
-        /// </summary>
-        [TestMethod]
-        public void TestCreateUsersInNamespace()
-        {
-            Service service = Connect();
-            UserCollection users = service.GetUsers();
-
-            String username1 = "sdk-user1";
-            String username2 = "sdk-user2";
-
-            users.Create(username1, "abc", "user");
-            users.Create(username2, "abc", "user");
-
-            Assert.IsTrue(users.ContainsKey(username1), "Expected users to contain " + username1);
-            Assert.IsTrue(users.ContainsKey(username2), "Expected users to contain " + username2);
-        }
-
-        /// <summary>
-        /// Tests creating apps
-        /// </summary>
-        [TestMethod]
-        public void TestCreateAppsInNamespace()
-        {
-            Service service = Connect();
-            EntityCollection<Application> apps = service.GetApplications();
-
-            String appname1 = "sdk-app1";
-            String appname2 = "sdk-app2";
-
+            // Create applications
             apps.Create(appname1);
             apps.Create(appname2);
 
@@ -137,7 +80,41 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// Tests creating namespace specific saved searches and removing those searches
+        /// Tests removing users that already exist in the collection
+        /// and creating new users.
+        /// </summary>
+        [TestMethod]
+        public void TestCreateAndRemoveUsersInNamespace()
+        {
+            Service service = Connect();
+            UserCollection users = service.GetUsers();
+
+            String username1 = "sdk-user1";
+            String username2 = "sdk-user2";
+
+            // Remove users that already exist in the collection
+            if (users.ContainsKey(username1))
+            {
+                users.Remove(username1);
+            }
+            if (users.ContainsKey(username2))
+            {
+                users.Remove(username2);
+            }
+
+            Assert.IsFalse(users.ContainsKey(username1), "Expected user " + username1 + " to be removed");
+            Assert.IsFalse(users.ContainsKey(username2), "Expected user " + username2 + " to be removed");
+
+            // Create users
+            users.Create(username1, "abc", "user");
+            users.Create(username2, "abc", "user");
+
+            Assert.IsTrue(users.ContainsKey(username1), "Expected user to contain " + username1);
+            Assert.IsTrue(users.ContainsKey(username2), "Expected user to contain " + username2);
+        }
+
+        /// <summary>
+        /// Tests creating namespace-specific saved searches and removing those searches.
         /// </summary>
         [TestMethod]
         public void TestCreateAndRemoveSavedSearchInNamespace()
@@ -150,16 +127,16 @@ namespace UnitTests
             String appname2 = "sdk-app2";
             
             // Namespaces
-            Args splunkNamespace11 = CreatesNamespace(username1, appname1);
-            Args splunkNamespace22 = CreatesNamespace(username2, appname2);
-            Args splunkNamespacex1 = CreatesNamespace("-", appname1);
+            Args splunkNamespace11 = CreateNamespace(username1, appname1);
+            Args splunkNamespace22 = CreateNamespace(username2, appname2);
+            Args splunkNamespacex1 = CreateNamespace("-", appname1);
 
             // Create namespace specific searches
             SavedSearchCollection savedSearches11 = service.GetSavedSearches(splunkNamespace11);
             SavedSearchCollection savedSearches22 = service.GetSavedSearches(splunkNamespace22);
             SavedSearchCollection savedSearchesx1 = service.GetSavedSearches(splunkNamespacex1);
 
-            // Removes test search "sdk-test-search" if it already exists
+            // Remove test search "sdk-test-search" if it already exists
             if (savedSearches11.ContainsKey("sdk-test-search"))
             {
                 savedSearches11.Remove("sdk-test-search");
@@ -191,45 +168,5 @@ namespace UnitTests
                            "Expected the saved search sdk-test-search to be removed");
 
         }
-
-        /// <summary>
-        /// Tests cleaning up/removing the created apps and users
-        /// </summary>
-        [TestMethod]
-        public void TestAppAndUserCleanUp()
-        {
-            Service service = Connect();
-            EntityCollection<Application> apps = service.GetApplications();
-            UserCollection users = service.GetUsers();
-
-            String appname1 = "sdk-app1";
-            String appname2 = "sdk-app2";
-            String username1 = "sdk-user1";
-            String username2 = "sdk-user2";
-
-            apps.Refresh();
-            if (apps.ContainsKey(appname1))
-            {
-                apps.Remove(appname1);
-            }
-            if (apps.ContainsKey(appname2))
-            {
-                apps.Remove(appname2);
-            }
-            Assert.IsFalse(apps.ContainsKey(appname1), "Expected app " + appname1 + " to be removed");
-            Assert.IsFalse(apps.ContainsKey(appname2), "Expected app " + appname2 + " to be removed");
-
-            if (users.ContainsKey(username1))
-            {
-                users.Remove(username1);
-            }
-            if (users.ContainsKey(username2))
-            {
-                users.Remove(username2);
-            }
-            Assert.IsFalse(users.ContainsKey(username1), "Expected user " + username1 + " to be removed");
-            Assert.IsFalse(users.ContainsKey(username2), "Expected user " + username2 + " to be removed");
-        }
-
     }
 }
