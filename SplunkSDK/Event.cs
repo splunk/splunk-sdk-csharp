@@ -55,7 +55,7 @@ namespace Splunk
         /// <summary>
         /// A field can be accessed as either an <see cref="Array"/>
         /// or as a delimited string (using an implicit string converter or 
-    	/// <see cref="GetArray"/>). Splunk recommends accessing values as an 
+    	/// <see cref="GetArray()"/>). Splunk recommends accessing values as an 
 		/// array when possible.
         /// </summary>
         /// <remarks>
@@ -117,7 +117,7 @@ namespace Splunk
             /// Gets the values for the field.
             /// </summary>
             /// <remarks>
-            /// <b>Caution:</b> This variant of <see cref="GetArray"/> method 
+            /// <b>Caution:</b> This variant of the <b>GetArray</b> method 
             /// is unsafe for <see cref="ResultsReader"/> implementations that 
             /// require a delimiter. Therefore, this method should only be 
             /// used for results that are returned by 
@@ -154,7 +154,8 @@ namespace Splunk
             /// </para>
             /// </remarks>
             /// <param name="delimiter">The delimiter, which is be passed to 
-            /// <see cref="System.String.Split"/> to perform the split.</param>
+            /// <see cref="System.String.Split(string[], StringSplitOptions)"/> 
+            /// to perform the split.</param>
             /// <returns>
             /// The original array of values if there is no delimiter,
             /// or the array of values split by the delimiter.
@@ -173,7 +174,7 @@ namespace Splunk
 			/// <remarks>
             /// <para>
             /// When getting a multi-valued field, use the
-            /// <see cref="GetArray"/> methods instead.
+            /// <see cref="GetArray()"/> methods instead.
             /// </para>
             /// </remarks>
             /// <returns>The single value or set of values delimited by 
@@ -193,7 +194,7 @@ namespace Splunk
             /// <remarks>
             /// <para>
             /// When getting a multi-valued field, use the
-            /// <see cref="GetArray"/> methods instead.
+            /// <see cref="GetArray()"/> methods instead.
             /// </para>
             /// </remarks>
             /// <param name="value">Field value</param>

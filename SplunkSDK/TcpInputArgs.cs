@@ -106,10 +106,11 @@ namespace Splunk
         /// <item><b>"parsingQueue"</b> applies props.conf and other parsing 
         /// rules to your data. For more information about 
         /// props.conf and rules for timestamping and linebreaking, refer to 
-        /// the <see href="http://docs.splunk.com/Documentation/Splunk/latest/Data/Editinputs.conf>Edit inputs.conf</see>
+        /// the <see href="http://docs.splunk.com/Documentation/Splunk/latest/Data/Editinputs.conf">Edit inputs.conf</see>
         /// topic in the Getting Data In manual.</item>
         /// <item><b>"indexQueue"</b> sends your data directly into the
         /// index.</item>
+        /// </list>
         /// </para>
         /// <para>
         /// This property's default value is "parsingQueue".

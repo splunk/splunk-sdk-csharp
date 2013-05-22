@@ -607,9 +607,7 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Not supported. Use 
-            /// <see cref="IDictionary{string.List{T}}.Add(string,List{T})"/> 
-            /// instead.
+            /// Not supported. Use a dictionary instead.
             /// </summary>
             /// <param name="item">The element to add.</param>
             void ICollection<KeyValuePair<string, List<T>>>.Add(

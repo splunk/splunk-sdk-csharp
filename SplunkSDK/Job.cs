@@ -349,8 +349,9 @@ namespace Splunk
         /// <summary>
         /// Gets all positive keywords used by this job. 
         /// </summary>
-        /// <remarks>/// A positive keyword is a keyword that is not in a NOT clause.
-        /// </remarks
+        /// <remarks>
+        /// A positive keyword is a keyword that is not in a NOT clause.
+        /// </remarks>
         public string Keywords
         {
             get
