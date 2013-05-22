@@ -146,7 +146,9 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the main host of this Windows event log input. 
+        /// Gets or sets the main host of this Windows Event log input. 
+        /// Secondary hosts are specified in the 
+        /// <see cref="WindowsEventLogInput.Hosts"/> attribute.
         /// </summary>
         public string LookupHost
         {

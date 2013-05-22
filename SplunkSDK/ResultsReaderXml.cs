@@ -95,8 +95,8 @@ namespace Splunk
 
         /// <summary>
         /// Reads to next <b>results</b> element, parses out 
-        /// <see cref="IsPreview"/> and <see cref="Fields"/>,
-        /// and updates <see cref="HasResults"/> flag.
+        /// <see cref="ResultsReader.IsPreview"/> and <see 
+        /// cref="ResultsReader.Fields"/>.
         /// </summary>
         /// <returns>Returns false if the end is reached.</returns>     
         private bool ReadIntoNextResultsElement()
@@ -145,7 +145,8 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Reads the <b>meta</b> element to populate the <see cref="Fields"/>
+        /// Reads the <b>meta</b> element to populate the 
+        /// <see cref="ResultsReader.Fields"/>
         /// property, and moves to its end tag.
         /// </summary>
         private void ReadMetaElement()
@@ -207,8 +208,9 @@ namespace Splunk
         /// </para>
         /// <para>
         /// After all events in the set is enumerated, the metadata of the 
-        /// next set (if available) is read, with <see cref="IsPreview"/> 
-        /// and <see cref="Fields"/> being set accordingly.
+        /// next set (if available) is read, with 
+        /// <see cref="ResultsReader.IsPreview"/> 
+        /// and <see cref="ResultsReader.Fields"/> being set accordingly.
         /// </para>
         /// </remarks>
         /// <returns>A enumerator.</returns>

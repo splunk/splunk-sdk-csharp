@@ -33,7 +33,7 @@ namespace Splunk
         /// <para>
         /// This property's default value is false.
         /// </para>
-        /// <remarks>
+        /// </remarks>
         public bool AssureUTF8
         {
             set
@@ -49,6 +49,7 @@ namespace Splunk
         /// <para>
         /// This value defines the number of events that make up a block for 
         /// block signatures. 
+        /// </para>
         /// <para>
         /// If this property is set to "0", block signing is disabled for this 
         /// index. 
