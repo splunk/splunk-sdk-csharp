@@ -137,6 +137,7 @@ namespace Splunk
         /// <remarks>
         /// This property's valid values are
         /// "parsingQueue" and "indexQueue".
+        /// </remarks>
         public string Queue
         {
             get

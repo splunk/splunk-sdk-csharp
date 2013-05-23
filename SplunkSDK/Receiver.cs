@@ -144,7 +144,7 @@ namespace Splunk
         /// <summary>
         /// Submits the data using HTTP post, to the named index.
         /// </summary>
-        /// <param name="indexName">The index name./param>
+        /// <param name="indexName">The index name.</param>
         /// <param name="data">The data.</param>
         public void Submit(string indexName, string data) 
         {

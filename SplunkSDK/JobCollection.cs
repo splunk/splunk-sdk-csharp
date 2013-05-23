@@ -56,7 +56,7 @@ namespace Splunk
         /// <returns>The job.</returns>
         /// <remarks>
         /// A "oneshot" request is invalid. To create a oneshot search,
-        /// use the <see cref="Service.Oneshot"/> method instead. 
+        /// use the <see cref="Service.Oneshot(string)"/> method instead. 
         /// </remarks>
         public new Job Create(string query) 
         {
@@ -68,7 +68,7 @@ namespace Splunk
         /// </summary>
         /// <remarks>
         /// A "oneshot" request is invalid. To create a oneshot search,
-        /// use the <see cref="Service.Oneshot"/> method instead. 
+        /// use the <see cref="Service.Oneshot(string)"/> method instead. 
         /// </remarks>
         /// <param name="query">The search query.</param>
         /// <param name="args">Additional arguments for this job.</param>
@@ -107,7 +107,7 @@ namespace Splunk
         /// </summary>
         /// <remarks>
         /// A "oneshot" request is invalid. To create a oneshot search,
-        /// use the <see cref="Service.Oneshot"/> method instead. 
+        /// use the <see cref="Service.Oneshot(string)"/> method instead. 
         /// </remarks>
         /// <param name="query">The search query.</param>
         /// <param name="args">Additional arguments for this job.</param>

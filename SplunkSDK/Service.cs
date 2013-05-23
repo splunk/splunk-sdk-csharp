@@ -216,7 +216,7 @@ namespace Splunk
         /// arguments. 
         /// </summary>
         /// <param name="args">The connection arguments.</param>
-        /// <returns>A new service instance.</returns>
+        /// <returns>A new <see cref="Service"/> instance.</returns>
         /// <remarks>
         /// This method creates a new <see cref="Service"/> instance and 
         /// authenticates the session using credentials passed in from the args
@@ -371,7 +371,9 @@ namespace Splunk
         /// <summary>
         /// Returns the collection of applications.
         /// </summary>
-        /// <returns>A collection of applications.</returns>
+        /// <returns>
+        /// A collection of applications.
+        /// </returns>
         public EntityCollection<Application> GetApplications() 
         {
             return new EntityCollection<Application>(
@@ -381,7 +383,7 @@ namespace Splunk
         /// <summary>
         /// Returns the collection of configurations.
         /// </summary>
-        /// <returns>A <see cref="ConfCollection"/>.</returns>
+        /// <returns>A collection of configurations.</returns>
         public ConfCollection GetConfs() 
         {
             return new ConfCollection(this);
@@ -391,7 +393,7 @@ namespace Splunk
         /// Returns the collection of configurations.
         /// </summary>
         /// <param name="args">The arguments.</param>
-        /// <returns>A collection of configuration files.</returns>
+        /// <returns>A collection of configurations.</returns>
         public ConfCollection GetConfs(Args args) 
         {
             return new ConfCollection(this, args);
@@ -417,24 +419,22 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Returns a collection of alerts that have been 
+        /// Returns a collection of alert groups that have been 
         /// fired by the service.
         /// </summary>
-        /// <returns>A collection of alert groups that have been
-        /// fired by the service.</returns>
+        /// <returns>A collection of fired alert groups.</returns>
         public FiredAlertsGroupCollection GetFiredAlertGroups()
         {
             return new FiredAlertsGroupCollection(this);
         }
 
         /// <summary>
-        /// Returns a collection of alerts that have been 
+        /// Returns a collection of alert groups that have been 
         /// fired by the service.
         /// </summary>
         /// <param name="args">Optional arguments, such as "count" and 
         /// "offset" for pagination.</param>
-        /// <returns>A collection of alerts that have been
-        /// fired by the service.</returns>
+        /// <returns>A collection of fired alert groups.</returns>
         public FiredAlertsGroupCollection GetFiredAlerts(Args args)
         {
             return new FiredAlertsGroupCollection(this, args);
@@ -474,7 +474,7 @@ namespace Splunk
         /// <summary>
         /// Returns a collection of configured inputs.
         /// </summary>
-        /// <returns>An input collection.</returns>
+        /// <returns>A collection of configured inputs.</returns>
         public InputCollection GetInputs() 
         {
             return new InputCollection(this);
@@ -484,7 +484,7 @@ namespace Splunk
         /// Returns a collection of configured inputs.
         /// </summary>
         /// <param name="args">Optional arguments.</param>
-        /// <returns>An input collection.</returns>
+        /// <returns>A collection of configured inputs.</returns>
         public InputCollection GetInputs(Args args) 
         {
             return new InputCollection(this, args);
@@ -493,7 +493,7 @@ namespace Splunk
         /// <summary>
         /// Returns a collection of current search jobs.
         /// </summary>
-        /// <returns>A job collection.</returns>
+        /// <returns>A collection of jobs.</returns>
         public JobCollection GetJobs() 
         {
             return new JobCollection(this);
@@ -503,7 +503,7 @@ namespace Splunk
         /// Returns a collection of current search jobs.
         /// </summary>
         /// <param name="args">The variable arguments.</param>
-        /// <returns>A job collection.</returns>
+        /// <returns>A collection of jobs.</returns>
         public JobCollection GetJobs(Args args) 
         {
             return new JobCollection(this, args);
@@ -535,7 +535,7 @@ namespace Splunk
         /// <summary>
         /// Returns the collection of messages.
         /// </summary>
-        /// <returns>A message collection.</returns>
+        /// <returns>A <see cref="MessageCollection"/>.</returns>
         public MessageCollection GetMessages() 
         {
             return new MessageCollection(this);
@@ -545,7 +545,7 @@ namespace Splunk
         /// Returns the collection of messages.
         /// </summary>
         /// <param name="args">The arguments.</param>
-        /// <returns>A message collection.</returns>
+        /// <returns>A collection of messages.</returns>
         public MessageCollection GetMessages(Args args) 
         {
             return new MessageCollection(this, args);
@@ -554,7 +554,7 @@ namespace Splunk
         /// <summary>
         /// Returns a collection of credentials. 
         /// </summary>
-        /// <returns>A credential collection.</returns>
+        /// <returns>A collection of credentials.</returns>
         /// <remarks>
         /// This collection is used for managing secure credentials.
         /// </remarks>
@@ -568,7 +568,7 @@ namespace Splunk
         /// </summary>
         /// <param name="args">Optional arguments, such as "count" and "offset"
         /// for pagination.</param>
-        /// <returns>A credential collection.</returns>
+        /// <returns>A collection of credentials.</returns>
         /// <remarks>
         /// This collection is used for managing secure credentials.
         /// </remarks>
@@ -580,7 +580,7 @@ namespace Splunk
         /// <summary>
         /// Returns the receiver object for this Splunk service.
         /// </summary>
-        /// <returns>A receiver.</returns>
+        /// <returns>A receiver object.</returns>
         public Receiver GetReceiver() 
         {
             return new Receiver(this);
@@ -589,7 +589,7 @@ namespace Splunk
         /// <summary>
         /// Returns a collection of Splunk user roles.
         /// </summary>
-        /// <returns>A collection of Splunk user roles.</returns>
+        /// <returns>A collection of Splunk roles.</returns>
         public EntityCollection<Role> GetRoles() 
         {
             return new EntityCollection<Role>(
@@ -600,7 +600,7 @@ namespace Splunk
         /// Returns a collection of Splunk user roles.
         /// </summary>
         /// <param name="args">Optional parameters.</param>
-        /// <returns>A collection of Splunk user roles.</returns>
+        /// <returns>A collection of Splunk roles.</returns>
         public EntityCollection<Role> GetRoles(Args args) 
         {
             return new EntityCollection<Role>(
@@ -630,7 +630,8 @@ namespace Splunk
         /// Returns service configuration information for an instance of 
         /// Splunk.
         /// </summary>
-        /// <returns>This Splunk instance's settings.</returns>
+        /// <returns>This Splunk instance's configuration information.
+        /// </returns>
         public Settings GetSettings()
         {
             return new Settings(this);
@@ -639,7 +640,7 @@ namespace Splunk
         /// <summary>
         /// Returns a collection of in-progress oneshot uploads.
         /// </summary>
-        /// <returns>A collection of in-progress oneshot uploads.</returns>
+        /// <returns>A collection of oneshot uploads.</returns>
         public EntityCollection<Upload> GetUploads()
         {
             return new EntityCollection<Upload>(
@@ -650,7 +651,7 @@ namespace Splunk
         /// Returns a collection of in-progress oneshot uploads.
         /// </summary>
         /// <param name="splunkNamespace">The specific namespace.</param>
-        /// <returns>A collection of in-progress oneshot uploads.</returns>
+        /// <returns>A collection of oneshot uploads.</returns>
         public EntityCollection<Upload> GetUploads(Args splunkNamespace) 
         {
             return new EntityCollection<Upload>(
@@ -822,7 +823,7 @@ namespace Splunk
         /// <summary>
         /// Issues a restart request to the service. 
         /// </summary>
-        /// <returns>A restart response message.</returns>
+        /// <returns>A response message.</returns>
         public ResponseMessage Restart() 
         {
             return this.Get("server/control/restart");
@@ -883,7 +884,7 @@ namespace Splunk
         /// </summary>
         /// <param name="path">The path.</param>
         /// <param name="request">The request message.</param>
-        /// <returns>An HTTP response.</returns>
+        /// <returns>A response message.</returns>
         /// <remarks>
         /// This method overrides the base 
         /// <see cref="HttpService"/>.<see cref="HttpService.Send"/> 
