@@ -58,18 +58,8 @@ namespace UnitTests
             String appname1 = "sdk-app1";
             String appname2 = "sdk-app2";
 
-            // Remove applications that already exist in the collection
-            if (apps.ContainsKey(appname1))
-            {
-                apps.Remove(appname1);
-            }
-            if (apps.ContainsKey(appname2))
-            {
-                apps.Remove(appname2);
-            }
-
-            Assert.IsFalse(apps.ContainsKey(appname1), "Expected app " + appname1 + " to be removed");
-            Assert.IsFalse(apps.ContainsKey(appname2), "Expected app " + appname2 + " to be removed");
+            Assert.IsFalse(apps.ContainsKey(appname1), "Expected app " + appname1 + " to not be in the collection");
+            Assert.IsFalse(apps.ContainsKey(appname2), "Expected app " + appname2 + " to not be in the collection");
 
             // Create applications
             apps.Create(appname1);
@@ -77,6 +67,13 @@ namespace UnitTests
 
             Assert.IsTrue(apps.ContainsKey(appname1), "Expected app to contain " + appname1);
             Assert.IsTrue(apps.ContainsKey(appname2), "Expected app to contain " + appname2);
+            
+            // Remove applications that already exist in the collection
+            apps.Remove(appname1);
+            apps.Remove(appname2);
+
+            Assert.IsFalse(apps.ContainsKey(appname1), "Expected app " + appname1 + " to be removed");
+            Assert.IsFalse(apps.ContainsKey(appname2), "Expected app " + appname2 + " to be removed");
         }
 
         /// <summary>
@@ -92,18 +89,8 @@ namespace UnitTests
             String username1 = "sdk-user1";
             String username2 = "sdk-user2";
 
-            // Remove users that already exist in the collection
-            if (users.ContainsKey(username1))
-            {
-                users.Remove(username1);
-            }
-            if (users.ContainsKey(username2))
-            {
-                users.Remove(username2);
-            }
-
-            Assert.IsFalse(users.ContainsKey(username1), "Expected user " + username1 + " to be removed");
-            Assert.IsFalse(users.ContainsKey(username2), "Expected user " + username2 + " to be removed");
+            Assert.IsFalse(users.ContainsKey(username1), "Expected user " + username1 + " to not be in the collection");
+            Assert.IsFalse(users.ContainsKey(username2), "Expected user " + username2 + " to not be in the collection");
 
             // Create users
             users.Create(username1, "abc", "user");
@@ -111,7 +98,15 @@ namespace UnitTests
 
             Assert.IsTrue(users.ContainsKey(username1), "Expected user to contain " + username1);
             Assert.IsTrue(users.ContainsKey(username2), "Expected user to contain " + username2);
+
+            // Remove users that already exist in the collection
+            users.Remove(username1);
+            users.Remove(username2);
+
+            Assert.IsFalse(users.ContainsKey(username1), "Expected user " + username1 + " to be removed");
+            Assert.IsFalse(users.ContainsKey(username2), "Expected user " + username2 + " to be removed");
         }
+
 
         /// <summary>
         /// Tests creating namespace-specific saved searches and removing those searches.
