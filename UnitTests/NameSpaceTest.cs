@@ -46,8 +46,63 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// Tests removing applications that already exist in the collection
-        /// and creating new applications.
+        /// Set up applications.
+        /// </summary>
+        /// <param name="apps">The application collection.</param>
+        /// <param name="appname1">Name of application.</param>
+        /// <param name="appname2">Name of application.</param>
+        /// <returns>The application collection</returns>
+        public void SetupApps(EntityCollection<Application> apps, String appname1, String appname2)
+        {
+            // Create applications
+            apps.Create(appname1);
+            apps.Create(appname2);
+        }
+
+        /// <summary>
+        /// Set up users.
+        /// </summary>
+        /// <param name="users">The users collection.</param>
+        /// <param name="username1">Name of user.</param>
+        /// <param name="username2">Name of user.</param>
+        /// <returns>The users collection</returns>
+        public void SetupUsers(UserCollection users, String username1, String username2)
+        {
+            // Create users
+            users.Create(username1, "abc", "user");
+            users.Create(username2, "abc", "user");
+        }
+
+        /// <summary>
+        /// Cleans up the apps to its original state.
+        /// </summary>
+        /// <param name="apps">The application collection.</param>
+        /// <param name="appname1">Name of application.</param>
+        /// <param name="appname2">Name of application.</param>
+        public void CleanupApps(EntityCollection<Application> apps, String appname1, String appname2)
+        {
+            // Remove applications
+            apps.Remove(appname1);
+            apps.Remove(appname2);
+        }
+
+        /// <summary>
+        /// Cleans up the users to its original state.
+        /// </summary>
+        /// <param name="users">The user collection.</param>
+        /// <param name="username1">Name of user.</param>
+        /// <param name="username2">Name of user.</param>
+     
+        public void CleanupUsers(UserCollection users, String username1, String username2)
+        {
+            // Remove users
+            users.Remove(username1);
+            users.Remove(username2);
+        }
+
+
+        /// <summary>
+        /// Tests creating applications and removing applications that already exist in the collection.
         /// </summary>
         [TestMethod]
         public void TestCreateAndRemoveAppsInNamespace()
@@ -61,24 +116,21 @@ namespace UnitTests
             Assert.IsFalse(apps.ContainsKey(appname1), "Expected app " + appname1 + " to not be in the collection");
             Assert.IsFalse(apps.ContainsKey(appname2), "Expected app " + appname2 + " to not be in the collection");
 
-            // Create applications
-            apps.Create(appname1);
-            apps.Create(appname2);
+            // Create apps
+            SetupApps(apps, appname1, appname2);
 
             Assert.IsTrue(apps.ContainsKey(appname1), "Expected app to contain " + appname1);
             Assert.IsTrue(apps.ContainsKey(appname2), "Expected app to contain " + appname2);
-            
-            // Remove applications that already exist in the collection
-            apps.Remove(appname1);
-            apps.Remove(appname2);
+
+            // Remove apps
+            CleanupApps(apps, appname1, appname2);
 
             Assert.IsFalse(apps.ContainsKey(appname1), "Expected app " + appname1 + " to be removed");
-            Assert.IsFalse(apps.ContainsKey(appname2), "Expected app " + appname2 + " to be removed");
+            Assert.IsFalse(apps.ContainsKey(appname1), "Expected app " + appname2 + " to be removed");
         }
-
+        
         /// <summary>
-        /// Tests removing users that already exist in the collection
-        /// and creating new users.
+        /// Tests creating users and removing users that already exist in the collection.
         /// </summary>
         [TestMethod]
         public void TestCreateAndRemoveUsersInNamespace()
@@ -93,20 +145,17 @@ namespace UnitTests
             Assert.IsFalse(users.ContainsKey(username2), "Expected user " + username2 + " to not be in the collection");
 
             // Create users
-            users.Create(username1, "abc", "user");
-            users.Create(username2, "abc", "user");
+            SetupUsers(users, username1, username2);
 
             Assert.IsTrue(users.ContainsKey(username1), "Expected user to contain " + username1);
             Assert.IsTrue(users.ContainsKey(username2), "Expected user to contain " + username2);
 
-            // Remove users that already exist in the collection
-            users.Remove(username1);
-            users.Remove(username2);
+            // Remove users
+            CleanupUsers(users, username1, username2);
 
             Assert.IsFalse(users.ContainsKey(username1), "Expected user " + username1 + " to be removed");
             Assert.IsFalse(users.ContainsKey(username2), "Expected user " + username2 + " to be removed");
         }
-
 
         /// <summary>
         /// Tests creating namespace-specific saved searches and removing those searches.
@@ -115,11 +164,15 @@ namespace UnitTests
         public void TestCreateAndRemoveSavedSearchInNamespace()
         {
             Service service = Connect();
-
+            
             String username1 = "sdk-user1";
             String username2 = "sdk-user2";
             String appname1 = "sdk-app1";
             String appname2 = "sdk-app2";
+        
+            // Set up the application and users
+            SetupApps(service.GetApplications(), appname1, appname2);
+            SetupUsers(service.GetUsers(), username1,username2);
             
             // Namespaces
             Args splunkNamespace11 = CreateNamespace(username1, appname1);
@@ -153,7 +206,8 @@ namespace UnitTests
             Assert.IsTrue(savedSearches22.ContainsKey("sdk-test-search"),
                           "Expected savedSearches22 to contain the key sdk-test-search");
             Assert.IsTrue(savedSearchesx1.ContainsKey("sdk-test-search", splunkNamespace11),
-                          "Expected savedSearchesx1 to contain sdk-test-search in the namespace splunkNameSpace11");
+                          "Expected savedSearchesx1 to contain sdk-test-search in the namespace splunkNamespace11");
+          
             Assert.IsTrue(savedSearchesx1.Get("sdk-test-search", splunkNamespace11) != null,
                           "Expected savedSearchesx1 to have the test sdk-test-search for splunkNameSpace11");
 
@@ -162,6 +216,9 @@ namespace UnitTests
             Assert.IsFalse(savedSearchesx1.ContainsKey("sdk-test-search"),
                            "Expected the saved search sdk-test-search to be removed");
 
+            // Clean up applications and users
+            CleanupApps(service.GetApplications(), appname1, appname2);
+            CleanupUsers(service.GetUsers(), username1, username2);
         }
     }
 }
