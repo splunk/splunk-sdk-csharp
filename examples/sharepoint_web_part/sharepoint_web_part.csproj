@@ -95,7 +95,9 @@
     <Content Include="Features\SplunkIndexSummary\SplunkIndexSummary.Template.xml">
       <DependentUpon>SplunkIndexSummary.feature</DependentUpon>
     </Content>
-    <Content Include="IndexSummaryWebPart\Elements.xml" />
+    <Content Include="IndexSummaryWebPart\Elements.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="IndexSummaryWebPart\IndexSummaryWebPart.ascx">
       <Generator>SharePointWebPartCodeGenerator</Generator>
       <LastGenOutput>IndexSummaryWebPart.ascx.g.cs</LastGenOutput>

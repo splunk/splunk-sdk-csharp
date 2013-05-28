@@ -7,8 +7,8 @@
     </metaData>
     <data>
       <properties>
-        <property name="Title" type="string">sharepoint_web_part - IndexSummaryWebPart</property>
-        <property name="Description" type="string">My Visual Web Part</property>
+        <property name="Title" type="string">10 Most Recent Sales</property>
+        <property name="Description" type="string">10 Most Recent Sales</property>
       </properties>
     </data>
   </webPart>
