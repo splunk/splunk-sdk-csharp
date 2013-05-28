@@ -1,3 +1,5 @@
+This example uses GridView control that is part of the .NET framework to display a table based on results of a search. It is built using Visual Studio as a Visual Web Part for SharePoint.
+
 To run this example, install SharePoint 2010 Foundation or Server.
 Deploy the project using BUILD menu or hit F5 to debug.
 Edit a page and insert the web part, which is under 'Custom' category.
