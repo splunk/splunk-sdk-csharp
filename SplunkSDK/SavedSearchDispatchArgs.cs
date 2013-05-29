@@ -1039,7 +1039,7 @@ namespace Splunk
         /// <remarks>
         /// <para>
         /// This property is required if script action is enabled 
-        /// <see cref="IsActionScript"/> is set to true).
+        /// <see cref="SavedSearch.IsActionScript"/> is set to true).
         /// </para>
         /// </remarks>
         public string ActionScriptFilename

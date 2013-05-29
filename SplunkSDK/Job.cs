@@ -349,8 +349,9 @@ namespace Splunk
         /// <summary>
         /// Gets all positive keywords used by this job. 
         /// </summary>
-        /// <remarks>/// A positive keyword is a keyword that is not in a NOT clause.
-        /// </remarks
+        /// <remarks>
+        /// A positive keyword is a keyword that is not in a NOT clause.
+        /// </remarks>
         public string Keywords
         {
             get
@@ -418,7 +419,7 @@ namespace Splunk
         /// This is the streaming part of the search that is sent to remote
         /// providers if reporting commands are used. The original search 
         /// should be the <see cref="EventSearch"/> + 
-        /// <see cref="reportSearch"/>.
+        /// <see cref="ReportSearch"/>.
         /// </para>
         /// </remarks>
         public string ReportSearch

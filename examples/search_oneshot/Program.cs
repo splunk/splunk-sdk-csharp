@@ -44,15 +44,12 @@ namespace Splunk.Examples.Search
 
             var service = Service.Connect(cli.Opts);
        
-            var outArgs = new JobResultsArgs
+            var outArgs = new JobExportArgs
             {
-                OutputMode = JobResultsArgs.OutputModeEnum.Xml,
-                
-                // Return all entries.
-                Count = 0,
+                OutputMode = JobExportArgs.OutputModeEnum.Xml
             };
 
-            using (var stream = service.Oneshot(
+            using (var stream = service.Export(
                 (string)cli.Opts["search"], outArgs))
             {
                 using (var rr = new ResultsReaderXml(stream))

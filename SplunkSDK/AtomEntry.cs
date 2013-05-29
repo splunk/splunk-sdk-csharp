@@ -23,13 +23,13 @@ namespace Splunk
     using System.Xml;
 
     /// <summary>
-    /// The <see cref="AtomEntry"/> class represents the Atom <b>entry</b> 
+    /// The <see cref="AtomEntry"/> class represents the Atom &lt;entry&gt; 
     /// element data.
     /// </summary>
     public class AtomEntry : AtomObject
     {
         /// <summary>
-        /// Gets or sets the value of the Atom entry's <b>published</b> 
+        /// Gets or sets the value of the Atom entry's &lt;published&gt; 
         /// element.
         /// </summary>
         public string Published 
@@ -39,7 +39,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Gets or sets the value of the Atom entry's <b>content</b>
+        /// Gets or sets the value of the Atom entry's &lt;content&gt;
         /// element.
         /// </summary>
         public Record Content 
@@ -163,7 +163,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Parses a dictinary <b>content</b> element and returns a record
+        /// Parses a dictinary &lt;content&gt; element and returns a record
         /// object containing the parsed values.
         /// </summary>
         /// <param name="element">An XML element.</param>
@@ -199,7 +199,7 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Parses a <b>list</b> element and return a list object
+        /// Parses a &lt;list&gt; element and return a list object
         /// containing the parsed values.
         /// </summary>
         /// <param name="element">An XML element.</param>

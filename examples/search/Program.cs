@@ -42,7 +42,16 @@ namespace Splunk.Examples.Search
                 Environment.Exit(1);
             }
 
-            var service = Service.Connect(cli.Opts);
+
+            var args = new ServiceArgs
+            {
+                Host = "localhost",
+                Scheme = HttpService.SchemeHttps,
+                Port = 8089,
+            };
+
+            var service = new Service(args);
+            service.Login("admin", "changdded");
             var jobs = service.GetJobs();
             var job = jobs.Create((string)cli.Opts["search"]);
             while (!job.IsDone) 

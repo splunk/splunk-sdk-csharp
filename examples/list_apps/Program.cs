@@ -32,8 +32,18 @@ namespace Splunk.Examples.ListApps
         public static void Main()
         {
             // Load connection info for Splunk server in .splunkrc file.
-            var cli = Command.Splunk("list_apps");
-            var service = Service.Connect(cli.Opts);
+            //var cli = Command.Splunk("list_apps");
+            //var service = Service.Connect(cli.Opts);
+
+            var args = new ServiceArgs
+                {
+                    Host = "andy-pc",
+                    Port = 8089,
+                };
+
+            var service = new Service(args);
+            service.Login("admin", "changed");
+            service.GetIndexes().Count();
 
             Console.WriteLine("List of Apps:");
             Console.WriteLine();
