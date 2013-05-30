@@ -46,12 +46,11 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// Set up applications.
+        /// Creates and sets up applications.
         /// </summary>
         /// <param name="apps">The application collection.</param>
-        /// <param name="appname1">Name of application.</param>
-        /// <param name="appname2">Name of application.</param>
-        /// <returns>The application collection</returns>
+        /// <param name="appname1">Name of first application.</param>
+        /// <param name="appname2">Name of second application.</param>
         public void SetupApps(EntityCollection<Application> apps, String appname1, String appname2)
         {
             // Create applications
@@ -60,12 +59,11 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// Set up users.
+        /// Creates and sets up users.
         /// </summary>
         /// <param name="users">The users collection.</param>
-        /// <param name="username1">Name of user.</param>
-        /// <param name="username2">Name of user.</param>
-        /// <returns>The users collection</returns>
+        /// <param name="username1">Name of first user.</param>
+        /// <param name="username2">Name of second user.</param>
         public void SetupUsers(UserCollection users, String username1, String username2)
         {
             // Create users
@@ -77,8 +75,8 @@ namespace UnitTests
         /// Cleans up the apps to its original state.
         /// </summary>
         /// <param name="apps">The application collection.</param>
-        /// <param name="appname1">Name of application.</param>
-        /// <param name="appname2">Name of application.</param>
+        /// <param name="appname1">Name of first application.</param>
+        /// <param name="appname2">Name of second application.</param>
         public void CleanupApps(EntityCollection<Application> apps, String appname1, String appname2)
         {
             // Remove applications
@@ -90,9 +88,8 @@ namespace UnitTests
         /// Cleans up the users to its original state.
         /// </summary>
         /// <param name="users">The user collection.</param>
-        /// <param name="username1">Name of user.</param>
-        /// <param name="username2">Name of user.</param>
-     
+        /// <param name="username1">Name of first user.</param>
+        /// <param name="username2">Name of second user.</param>
         public void CleanupUsers(UserCollection users, String username1, String username2)
         {
             // Remove users
