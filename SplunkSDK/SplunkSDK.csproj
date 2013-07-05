@@ -44,6 +44,7 @@
       <HintPath>..\lib\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -62,6 +63,7 @@
     <Compile Include="AtomEntry.cs" />
     <Compile Include="BaseService.cs" />
     <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="SplunkConfigurationSection.cs" />
     <Compile Include="SplunkEnumValue.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="EventTypeArgs.cs" />
