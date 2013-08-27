@@ -34,10 +34,15 @@ namespace Splunk.Examples.Authenticate
         /// </summary>
         public static void Main()
         {
-            // Load connection info for Splunk server in .splunkrc file.
-            var cli = Command.Splunk("authenticate");
+            var args = new ServiceArgs
+            {
+                Host = "andywu-2k8r2",
+                Scheme = HttpService.SchemeHttp,
+                Port = 8089,
+            };
 
-            var service = Service.Connect(cli.Opts);
+            var service = new Service(args);
+            service.Login("admin", "changed");
 
             System.Console.WriteLine("Token: ");
             System.Console.WriteLine("    " + service.Token);

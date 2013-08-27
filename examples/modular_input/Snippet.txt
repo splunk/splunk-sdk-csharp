@@ -1,0 +1,50 @@
+﻿    private const string VariableName = "variable_name";
+
+    public override Scheme Scheme
+    {
+        get
+        {
+            return new Scheme
+            {
+                Title = "C# SDK Example: System Environment Variable Monitor",
+                Description = "Monitor changes to a system environment variable. When a change is detected, log the new value.",
+                StreamingMode = StreamingMode.Xml,
+                Endpoint =
+                {
+                    Arguments = new List<Argument>
+                    {
+                        new Argument
+                        {
+                            Name = VariableName,
+                            Description = "Name of the environment variable to monitor",
+                        },
+                    }
+                }
+            };
+        }
+    }
+  
+    public static int Main(string[] args)
+    {
+        return Run<Program>(args);
+    }
+
+    public override void StreamEvents(InputDefinition inputDefinition)
+    {
+
+        var varName = inputDefinition.Stanza.SingleValueParameters[VariableName];
+
+        var eventElement = new EventElement
+            {
+                Source = varName,
+            };
+
+        using (var writer = new EventStreamWriter())
+        {
+            foreach (var varValue in GetEnvironmentVariableChanges(varName))
+            {
+                eventElement.Data = varValue;
+                writer.Write(eventElement);
+            }
+        }
+    }     

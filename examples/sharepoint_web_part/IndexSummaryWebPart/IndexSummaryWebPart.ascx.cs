@@ -52,15 +52,12 @@ namespace Splunk.Examples.SharePointWebPart.IndexSummaryWebPart
 
             var service = Service.Connect(cli.Opts);
 
-            const string Search = 
-                "search  * | stats count by sourcetype, source, host | sort -count";
+            const string Search =
+                "search index=\"oidemo\" sourcetype=\"business_event\" networkProviderName=* planType=\"*\" orderType=\"*\"  | bin _time span=1m  | stats count by _time, marketCity, orderType, networkProviderName, phoneName, phoneType, planDescription, planPrice, planType | sort  limit=10 -planPrice*count";
 
             var outArgs = new JobResultsArgs
                 {
                     OutputMode = JobResultsArgs.OutputModeEnum.Xml,
-
-                    // Return all entries.
-                    Count = 0,
                 };
 
             using (var stream = service.Oneshot(
@@ -78,10 +75,15 @@ namespace Splunk.Examples.SharePointWebPart.IndexSummaryWebPart
                                         r => (string) r.Value)
                                     select new
                                         {
-                                            source = s["source"],
-                                            sourcetype = s["sourcetype"],
-                                            host = s["host"],
-                                            EventCount = s["count"],
+                                            Time = s["_time"],
+                                            MarketCity = s["marketCity"],
+                                            OrderType = s["orderType"],
+                                            NetworkProviderName = s["networkProviderName"],
+                                            PhoneName = s["phoneName"],
+                                            PhoneType = s["phoneType"],
+                                            PlanDescription = s["planDescription"],
+                                            PlanPrice = s["planPrice"],
+                                            PlanType = s["planType"],
                                         };
                     this.IndexSummaryGridView.DataSource = summary;
                     this.IndexSummaryGridView.DataBind();
