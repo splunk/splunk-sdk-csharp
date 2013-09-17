@@ -81,25 +81,6 @@ namespace Splunk
         }
 
         /// <summary>
-        /// Finalizes an instance of the <see cref="ResponseMessage"/> 
-        /// class.
-        /// </summary>
-        ~ResponseMessage()
-        {
-            if (this.response != null)
-            {
-                try
-                {
-                    this.response.Close();
-                }
-                catch (Exception)
-                {
-                    // ignore
-                }
-            }
-        }
-
-        /// <summary>
         /// Gets the body content stream.
         /// </summary>
         /// <returns>The stream.</returns>
