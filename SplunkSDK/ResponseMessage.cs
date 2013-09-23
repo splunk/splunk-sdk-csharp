@@ -25,7 +25,7 @@ namespace Splunk
     /// The <see cref="ResponseMessage"/> class represents the basic HTTP
     /// response object.
     /// </summary>
-    public class ResponseMessage
+    public class ResponseMessage : IDisposable
     {   
         /// <summary>
         /// The status.
@@ -46,6 +46,11 @@ namespace Splunk
         /// The parent response. Needed for finalizing cleanup.
         /// </summary>
         private HttpWebResponse response;
+
+        /// <summary>
+        /// Whether Dispose has been called.
+        /// </summary>
+        private bool disposed;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ResponseMessage"/> 
@@ -78,6 +83,15 @@ namespace Splunk
             this.status = status;
             this.content = content;
             this.response = response;
+        }
+
+        /// <summary>
+        /// Finalizes an instance of the <see cref="ResponseMessage"/>
+        /// class.
+        /// </summary>
+        ~ResponseMessage()
+        {
+            this.Dispose(false);
         }
 
         /// <summary>
@@ -117,6 +131,36 @@ namespace Splunk
             get 
             {
                 return this.status;
+            }
+        }
+
+        /// <summary>
+        /// Releases all resources used by the <see cref="ResponseMessage"/>
+        /// object.
+        /// </summary>
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Releases the unmanaged resources used by
+        /// the <see cref="ResponseMessage"/> and
+        /// optionally releases the managed resources.
+        /// </summary>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    // Dispose managed resources.
+                    if (this.response != null)
+                        this.response.Close();
+                }
+                // Dispose unmanaged resources.
+                this.disposed = true;
             }
         }
     }
