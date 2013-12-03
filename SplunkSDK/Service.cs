@@ -826,7 +826,7 @@ namespace Splunk
         /// <returns>A response message.</returns>
         public ResponseMessage Restart() 
         {
-            return this.Get("server/control/restart");
+            return this.Post("server/control/restart");
         }
 
         /// <summary>
