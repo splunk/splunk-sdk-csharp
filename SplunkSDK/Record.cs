@@ -228,10 +228,19 @@ namespace Splunk
             {
                 return null;
             }
-            return ((List<object>)this[key]).Select(i => i
-                                                        .ToString())
-                                                        .ToList()
-                                                        .ToArray();
+
+            string[] ret;
+            try
+            {
+
+                ret = ((List<object>)this[key]).Select(i => i.ToString()).ToList().ToArray();
+            }
+            catch (InvalidCastException e)
+            {
+                return new List<object>() { this[key] }.Select(i => i.ToString()).ToList().ToArray();
+            }
+
+            return ret;
         }
 
         /// <summary>

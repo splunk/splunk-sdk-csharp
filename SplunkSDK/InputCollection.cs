@@ -252,6 +252,18 @@ namespace Splunk
             // Iterate over all input kinds and collect all instances.
             foreach (InputKind kind in this.inputKinds)
             {
+                if (this.Service.VersionCompare("6.0") >= 0)
+                {
+                    // In Splunk 6 and later, the registry endpoint has been deprecated in favor of the new
+                    // WinRegMon modular input, but both now point to the same place. To avoid duplicates, we have
+                    // to read only one of them.
+                    if (kind.Kind.Equals("registry"))
+                    {
+                        continue;
+                    }
+                }
+
+
                 string relpath = kind.RelPath;
                 string inputs = 
                     string.Format("{0}/{1}?count=-1", this.Path, relpath);
