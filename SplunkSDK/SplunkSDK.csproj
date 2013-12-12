@@ -61,6 +61,7 @@
     <Compile Include="AtomObject.cs" />
     <Compile Include="AtomEntry.cs" />
     <Compile Include="BaseService.cs" />
+    <Compile Include="ResponseStream.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="SplunkEnumValue.cs" />
     <Compile Include="Event.cs" />

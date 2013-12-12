@@ -267,7 +267,7 @@ namespace Splunk
             args = Args.Create(args).Set("search", search);
             SetSegmentationDefault(ref args);
             ResponseMessage response = Get("search/jobs/export", args);
-            return new ExportResultsStream(response.Content);
+            return new ExportResultsStream(new ResponseStream(response));            
         }
 
         /// <summary>
@@ -750,7 +750,7 @@ namespace Splunk
             inputArgs.Add("exec_mode", "oneshot");
             SetSegmentationDefault(ref inputArgs);
             ResponseMessage response = this.Post("search/jobs", inputArgs);
-            return response.Content;
+            return new ResponseStream(response);
         }
 
         /// <summary>
