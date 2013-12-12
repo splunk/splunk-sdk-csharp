@@ -134,7 +134,6 @@ modular_input   | Creates a modular input executable that you can modify.
 search          | Runs a normal search using a specified search query.
 search_oneshot  | Runs a oneshot search using a specified search query.
 search_realtime | Runs a real-time search, gets a number of snapshots, prints them, and then exits.
-sharepoint_web_part | Shows you how to create a Splunk Web part for Microsoft SharePoint.
 submit          | Submits events into Splunk.
 
 **To run an example from the command line:**
