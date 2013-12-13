@@ -25,8 +25,8 @@ namespace Splunk
     /// The <see cref="ResponseMessage"/> class represents the basic HTTP
     /// response object.
     /// </summary>
-    public class ResponseMessage
-    {   
+    public class ResponseMessage : IDisposable
+    {
         /// <summary>
         /// The status.
         /// </summary>
@@ -51,8 +51,8 @@ namespace Splunk
         /// Initializes a new instance of the <see cref="ResponseMessage"/> 
         /// class.
         /// </summary>
-        public ResponseMessage() 
-        { 
+        public ResponseMessage()
+        {
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace Splunk
         /// class with an initial status.
         /// </summary>
         /// <param name="status">The status</param>
-        public ResponseMessage(int status) 
+        public ResponseMessage(int status)
         {
             this.status = status;
         }
@@ -73,7 +73,7 @@ namespace Splunk
         /// <param name="content">The content stream.</param>
         /// <param name="response">The response.</param>
         public ResponseMessage(
-            int status, Stream content, HttpWebResponse response) 
+            int status, Stream content, HttpWebResponse response)
         {
             this.status = status;
             this.content = content;
@@ -85,6 +85,11 @@ namespace Splunk
         /// class.
         /// </summary>
         ~ResponseMessage()
+        {
+            this.Dispose();
+        }
+
+        public void Dispose()
         {
             if (this.response != null)
             {
@@ -103,9 +108,9 @@ namespace Splunk
         /// Gets the body content stream.
         /// </summary>
         /// <returns>The stream.</returns>
-        public Stream Content 
+        public Stream Content
         {
-            get 
+            get
             {
                 return this.content;
             }
@@ -117,9 +122,9 @@ namespace Splunk
         /// <returns>The response headers.</returns>
         public Dictionary<string, string> Header
         {
-            get 
+            get
             {
-                if (this.header == null) 
+                if (this.header == null)
                 {
                     this.header = new Dictionary<string, string>();
                 }
@@ -131,9 +136,9 @@ namespace Splunk
         /// Gets the response HTTP status code.
         /// </summary>
         /// <returns>The status.</returns>
-        public int Status 
+        public int Status
         {
-            get 
+            get
             {
                 return this.status;
             }

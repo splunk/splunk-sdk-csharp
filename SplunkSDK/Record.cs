@@ -230,17 +230,13 @@ namespace Splunk
             }
 
             string[] ret;
-            try
-            {
 
-                ret = ((List<object>)this[key]).Select(i => i.ToString()).ToList().ToArray();
-            }
-            catch (InvalidCastException e)
+            if (this[key].GetType() == typeof (string))
             {
-                return new List<object>() { this[key] }.Select(i => i.ToString()).ToList().ToArray();
+                return new List<string>() {(string) this[key]}.ToArray();
             }
 
-            return ret;
+            return ((List<object>) this[key]).Select(i => i.ToString()).ToList().ToArray();
         }
 
         /// <summary>

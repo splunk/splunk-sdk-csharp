@@ -16,6 +16,7 @@
 
 namespace Splunk
 {
+    using System;
     using System.Diagnostics.CodeAnalysis;
     using System.IO;
 
@@ -35,6 +36,12 @@ namespace Splunk
         internal ResponseStream(ResponseMessage message)
         {
             this.message = message;
+        }
+
+        public new void Dispose()
+        {
+            this.message.Dispose();
+            base.Dispose();
         }
 
         public override long Position
