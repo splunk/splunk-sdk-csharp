@@ -228,10 +228,15 @@ namespace Splunk
             {
                 return null;
             }
-            return ((List<object>)this[key]).Select(i => i
-                                                        .ToString())
-                                                        .ToList()
-                                                        .ToArray();
+
+            string[] ret;
+
+            if (this[key].GetType() == typeof (string))
+            {
+                return new List<string>() {(string) this[key]}.ToArray();
+            }
+
+            return ((List<object>) this[key]).Select(i => i.ToString()).ToList().ToArray();
         }
 
         /// <summary>

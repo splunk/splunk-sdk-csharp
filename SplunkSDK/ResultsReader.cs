@@ -63,7 +63,7 @@ namespace Splunk
         /// is false, which results in no result set skipping.
         /// </summary>
         private bool isPreview;
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ResultsReader" /> class.
         /// </summary>
@@ -73,10 +73,15 @@ namespace Splunk
         /// </param>
         protected ResultsReader(Stream stream, bool isInMultiReader)
         {
-            this.IsExportStream = stream is ExportResultsStream;
+            ResponseStream responseStream = stream as ResponseStream;
+            if (responseStream != null)
+            {
+                this.IsExportStream = responseStream.IsExportResult;
+            }
+
             this.isInMultiReader = isInMultiReader;
         }
-     
+
         /// <summary>
         /// Gets a value indicating whether the stream is 
         /// from the export endpoint.

@@ -847,7 +847,7 @@ namespace Splunk
         {
             Service.SetSegmentationDefault(ref args);
             ResponseMessage response = Service.Get(Path + "/events", args);
-            return response.Content;
+            return new ResponseStream(response);
         }
 
         /// <summary>
@@ -900,7 +900,7 @@ namespace Splunk
         {
             Service.SetSegmentationDefault(ref args);
             ResponseMessage response = Service.Get(Path + "/results", args);
-            return response.Content;
+            return new ResponseStream(response);
         }
 
         /// <summary>
@@ -936,7 +936,7 @@ namespace Splunk
             Service.SetSegmentationDefault(ref args);
             ResponseMessage response = 
                 Service.Get(Path + "/results_preview", args);
-            return response.Content;
+            return new ResponseStream(response);
         }
 
         /// <summary>
@@ -966,10 +966,10 @@ namespace Splunk
         /// </summary>
         /// <param name="args">The optional arguments.</param>
         /// <returns>The <see cref="Stream"/> handle.</returns>
-        public Stream SearchLog(Args args) 
+        public Stream SearchLog(Args args)
         {
             ResponseMessage response = Service.Get(Path + "/search.log", args);
-            return response.Content;
+            return new ResponseStream(response);
         }
 
         /// <summary>
@@ -1006,7 +1006,7 @@ namespace Splunk
         public Stream Summary(Args args) 
         {
             ResponseMessage response = Service.Get(Path + "/summary", args);
-            return response.Content;
+            return new ResponseStream(response);
         }
 
         /// <summary>
@@ -1027,7 +1027,7 @@ namespace Splunk
         public Stream Timeline(Args args) 
         {
             ResponseMessage response = Service.Get(Path + "/timeline", args);
-            return response.Content;
+            return new ResponseStream(response);
         }
 
         // Job "entities" don't return an AtomFeed, only an AtomEntry.

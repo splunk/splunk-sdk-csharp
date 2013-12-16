@@ -87,9 +87,7 @@ namespace UnitTests
         /// Splunk Version 5, with simple data common to all readers.
         /// </summary>
         [TestMethod]
-        [DeploymentItem(
-            Splunk5JsonInputFilePath,
-            TestDataFolder)]
+        [DeploymentItem(TestDataFolder)]
         public void TestReaderJsonOnSplunk5()
         {
             this.TestReadJson(Splunk5JsonInputFilePath);
@@ -100,9 +98,7 @@ namespace UnitTests
         /// Splunk Version 4, with simple data common to all readers.
         /// </summary>
         [TestMethod]
-        [DeploymentItem(
-            Splunk4JsonInputFilePath,
-            TestDataFolder)]
+        [DeploymentItem(TestDataFolder)]
         public void TestReaderJsonOnSplunk4()
         {
             this.TestReadJson(Splunk4JsonInputFilePath);
@@ -113,9 +109,7 @@ namespace UnitTests
         /// Splunk, with simple data common to all readers.
         /// </summary>
         [TestMethod]
-        [DeploymentItem(
-            SplunkXmlInputFilePath,
-            TestDataFolder)]
+        [DeploymentItem(TestDataFolder)]
         public void TestReadXml()
         {
             var input = this.OpenResourceFileFromDataFolder(
@@ -134,9 +128,7 @@ namespace UnitTests
         /// http://splunk-base.splunk.com/answers/34106/invalid-xml-returned-from-rest-api
         /// </summary>
         [TestMethod]
-        [DeploymentItem(
-            SplunkExportResultsXmlInputFilePath,
-            TestDataFolder)]
+        [DeploymentItem(TestDataFolder)]
         public void TestExportMultiReaderXml()
         {
             var input = this.OpenResourceFileFromDataFolder(
@@ -153,9 +145,7 @@ namespace UnitTests
         /// with multiple 'results' elements.
         /// </summary>
         [TestMethod]
-        [DeploymentItem(
-            SplunkExportResultsJsonInputFilePath,
-            TestDataFolder)]
+        [DeploymentItem(TestDataFolder)]
         public void TestExportMultiReaderJson()
         {
             var input = this.OpenResourceFileFromDataFolder(
@@ -246,9 +236,7 @@ namespace UnitTests
         /// http://splunk-base.splunk.com/answers/34106/invalid-xml-returned-from-rest-api
         /// </summary>
         [TestMethod]
-        [DeploymentItem(
-            SplunkExportResultsXmlInputFilePath,
-            TestDataFolder)]
+        [DeploymentItem(TestDataFolder)]
         public void TestExportSingleReaderXml()
         {
             var stream = this.GetExportResultsStream(
@@ -264,9 +252,7 @@ namespace UnitTests
         /// with multiple 'results' elements.
         /// </summary>
         [TestMethod]
-        [DeploymentItem(
-            SplunkExportResultsJsonInputFilePath,
-            TestDataFolder)]
+        [DeploymentItem(TestDataFolder)]
         public void TestExportSingleReaderJson()
         {
             var stream = this.GetExportResultsStream(
@@ -281,12 +267,13 @@ namespace UnitTests
         /// </summary>
         /// <param name="fileName">A file name</param>
         /// <returns>A export stream</returns>
-        private ExportResultsStream GetExportResultsStream(string fileName)
+        private ResponseStream GetExportResultsStream(string fileName)
         {
             var stream = this.OpenResourceFileFromDataFolder(
-                          fileName);
+                fileName);
 
-            return new ExportResultsStream(stream);
+            ResponseMessage message = new ResponseMessage(0, stream, null);
+            return new ResponseStream(message, true);
         }
 
         /// <summary>
@@ -326,9 +313,7 @@ namespace UnitTests
         /// Splunk, covering preview and field '_raw'.
         /// </summary>
         [TestMethod]
-        [DeploymentItem(
-            Splunk435PreviewXmlInputFilePath,
-            TestDataFolder)]
+        [DeploymentItem(TestDataFolder)]
         public void TestReadXmlPreviewAndFields()
         {
             var input = this.OpenResourceFileFromDataFolder(
@@ -375,9 +360,7 @@ namespace UnitTests
         /// Splunk, covering empty results.
         /// </summary>
         [TestMethod]
-        [DeploymentItem(
-            Splunk502XmlEmptyInputFilePath,
-            TestDataFolder)]
+        [DeploymentItem(TestDataFolder)]
         public void TestReadXmlEmpty()
         {
             var input = this.OpenResourceFileFromDataFolder(
@@ -402,9 +385,7 @@ namespace UnitTests
         /// and XML charactor escaping.
         /// </summary>
         [TestMethod]
-        [DeploymentItem(
-            Splunk502XmlInputFilePath,
-            TestDataFolder)]
+        [DeploymentItem(TestDataFolder)]
         public void TestReadXmlSplunk5MVAndFieldRaw()
         {
             var input = this.OpenResourceFileFromDataFolder(
@@ -582,7 +563,7 @@ namespace UnitTests
         /// <returns>Stream of resource content</returns>
         private Stream OpenResourceFileFromDataFolder(string relativePath)
         {
-            return File.OpenRead(TestDataFolder + @"\" + relativePath);
+            return File.OpenRead(Directory.GetCurrentDirectory() + @"\" + relativePath);
         }
 
         /// <summary>

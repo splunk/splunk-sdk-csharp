@@ -388,6 +388,81 @@ namespace UnitTests
         }
 
         /// <summary>
+        /// Unittest for DVPL-2678, make sure the result stream can be read through.
+        /// </summary>
+        [TestMethod]
+        public void JobResultStream()
+        {
+            var cli = SplunkSDKHelper.Command.Splunk("search");
+            cli.AddRule("search", typeof(string), "search string");
+            cli.Opts["search"] = "search index=_internal * | head 10 ";
+
+            var service = Service.Connect(cli.Opts);
+            var jobs = service.GetJobs();
+            var job = jobs.Create((string)cli.Opts["search"]);
+
+            while (!job.IsDone)
+            {
+                System.Threading.Thread.Sleep(1000);
+            }
+
+            var outArgs = new JobResultsArgs
+            {
+                OutputMode = JobResultsArgs.OutputModeEnum.Xml,
+                Count = 0
+            };
+
+            try
+            {
+                using (var stream = job.Results(outArgs))
+                {
+                    using (var rr = new ResultsReaderXml(stream))
+                    {
+                        foreach (var @event in rr)
+                        {
+                            System.Console.WriteLine("EVENT:");
+                            GC.Collect();
+
+                            foreach (string key in @event.Keys)
+                            {
+                                System.Console.WriteLine("   " + key + " -> " + @event[key]);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Assert.Fail(string.Format("Reading Job result throw exception : {0} ", e));
+            }
+
+
+            try
+            {
+                using (var stream = service.Export((string)cli.Opts["search"]))
+                {
+                    using (var rr = new ResultsReaderXml(stream))
+                    {
+                        foreach (var @event in rr)
+                        {
+                            System.Console.WriteLine("EVENT:");
+                            GC.Collect();
+
+                            foreach (string key in @event.Keys)
+                            {
+                                System.Console.WriteLine("   " + key + " -> " + @event[key]);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Assert.Fail(string.Format("Export result throw exception : {0} ", e));
+            }
+        }
+
+        /// <summary>
         /// Tests all output modes for Job.ResultsPreview
         /// </summary>
         [TestMethod]
