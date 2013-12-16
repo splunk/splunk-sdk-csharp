@@ -89,6 +89,9 @@ namespace Splunk
             this.Dispose();
         }
 
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
         public void Dispose()
         {
             if (this.response != null)
@@ -110,10 +113,7 @@ namespace Splunk
         /// <returns>The stream.</returns>
         public Stream Content
         {
-            get
-            {
-                return this.content;
-            }
+            get { return this.content; }
         }
 
         /// <summary>
@@ -138,10 +138,7 @@ namespace Splunk
         /// <returns>The status.</returns>
         public int Status
         {
-            get
-            {
-                return this.status;
-            }
+            get { return this.status; }
         }
     }
 }

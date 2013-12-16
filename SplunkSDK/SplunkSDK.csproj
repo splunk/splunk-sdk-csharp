@@ -70,7 +70,6 @@
     <Compile Include="EntityMetadata.cs" />
     <Compile Include="EventType.cs" />
     <Compile Include="EventTypeCollection.cs" />
-    <Compile Include="ExportResultsStream.cs" />
     <Compile Include="FiredAlert.cs" />
     <Compile Include="FiredAlertGroup.cs" />
     <Compile Include="FiredAlertsGroupCollection.cs" />

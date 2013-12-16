@@ -262,12 +262,12 @@ namespace Splunk
         /// <param name="search">The search query string.</param>
         /// <param name="args">The search arguments.</param>
         /// <returns>A results stream.</returns>
-        public Stream Export(string search, Args args) 
+        public Stream Export(string search, Args args)
         {
             args = Args.Create(args).Set("search", search);
             SetSegmentationDefault(ref args);
             ResponseMessage response = Get("search/jobs/export", args);
-            return new ExportResultsStream(new ResponseStream(response));            
+            return new ResponseStream(response, true);
         }
 
         /// <summary>

@@ -26,16 +26,24 @@ namespace Splunk
     /// redirected to the original stream.
     /// </summary>
     [SuppressMessage(
-        "Microsoft.StyleCop.CSharp.DocumentationRules", 
+        "Microsoft.StyleCop.CSharp.DocumentationRules",
         "SA1600:ElementsMustBeDocumented",
-        Justification = 
+        Justification =
             "Internal class. Pure passthrough")]
     internal class ResponseStream : Stream
     {
         private ResponseMessage message;
+        private readonly bool isExportResult;
+
         internal ResponseStream(ResponseMessage message)
         {
             this.message = message;
+        }
+
+        internal ResponseStream(ResponseMessage message, bool isExportResult)
+        {
+            this.message = message;
+            this.isExportResult = isExportResult;
         }
 
         public new void Dispose()
@@ -44,24 +52,27 @@ namespace Splunk
             base.Dispose();
         }
 
+        /// <summary>
+        /// Gets the body content stream.
+        /// </summary>
+        /// <returns>The stream.</returns>
+        public bool IsExportResult
+        {
+            get { return this.isExportResult; }
+        }
+
         public override long Position
         {
-            get
-            {
-                return this.message.Content.Position;
-            }
+            get { return this.message.Content.Position; }
 
-            set
-            {
-                this.message.Content.Position = value;
-            }
+            set { this.message.Content.Position = value; }
         }
 
         public override long Length
         {
             get { return this.message.Content.Length; }
         }
-        
+
         public override bool CanRead
         {
             get { return this.message.Content.CanRead; }
@@ -71,7 +82,7 @@ namespace Splunk
         {
             get { return this.message.Content.CanSeek; }
         }
-        
+
         public override bool CanWrite
         {
             get { return this.message.Content.CanWrite; }
