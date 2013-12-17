@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\SplunkSDK.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -60,6 +61,7 @@
     <Compile Include="AtomObject.cs" />
     <Compile Include="AtomEntry.cs" />
     <Compile Include="BaseService.cs" />
+    <Compile Include="ResponseStream.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="SplunkEnumValue.cs" />
     <Compile Include="Event.cs" />
@@ -68,7 +70,6 @@
     <Compile Include="EntityMetadata.cs" />
     <Compile Include="EventType.cs" />
     <Compile Include="EventTypeCollection.cs" />
-    <Compile Include="ExportResultsStream.cs" />
     <Compile Include="FiredAlert.cs" />
     <Compile Include="FiredAlertGroup.cs" />
     <Compile Include="FiredAlertsGroupCollection.cs" />

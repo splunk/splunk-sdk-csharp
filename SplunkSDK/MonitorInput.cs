@@ -55,7 +55,7 @@ namespace Splunk
         /// disabled. 
         /// </summary>
         /// <remarks>
-        /// This property is available in Splunk 5.0 and later.
+        /// This property is available starting in Splunk 5.0.
         /// </remarks>
         public bool Disabled
         {

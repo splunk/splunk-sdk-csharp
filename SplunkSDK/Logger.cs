@@ -46,6 +46,7 @@ namespace Splunk
         /// <item>"INFO"</item>
         /// <item>"DEBUG"</item>
         /// </list>
+        /// </remarks>
         public string Level
         {
             get

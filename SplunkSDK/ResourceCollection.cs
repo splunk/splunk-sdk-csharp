@@ -261,7 +261,7 @@ namespace Splunk
         /// <param name="itemClass">The object type being created.</param>
         /// <param name="path">The path to the resource.</param>
         /// <param name="splunkNamespace">The namespace.</param>
-        /// <returns>The new object, of type <see cref="T"/>.</returns>
+        /// <returns>The new object.</returns>
         public T CreateItem(Type itemClass, string path, Args splunkNamespace) 
         {
             ConstructorInfo ctor = itemClass.GetConstructor(itemSig);
@@ -283,7 +283,7 @@ namespace Splunk
         /// means of instantiating collection items.
         /// </remarks>
         /// <param name="entry">The <see cref="AtomEntry"/>.</param>
-        /// <returns>The new object, of type <see cref="T"/>.</returns>
+        /// <returns>The new object.</returns>
         protected virtual T CreateItem(AtomEntry entry) 
         {
             return this.CreateItem(
@@ -607,9 +607,7 @@ namespace Splunk
             }
 
             /// <summary>
-            /// Not supported. Use 
-            /// <see cref="IDictionary{string.List{T}}.Add(string,List{T})"/> 
-            /// instead.
+            /// Not supported. Use a dictionary instead.
             /// </summary>
             /// <param name="item">The element to add.</param>
             void ICollection<KeyValuePair<string, List<T>>>.Add(

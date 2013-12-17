@@ -255,7 +255,7 @@ namespace UnitTests
                     "Event after done key");
 
                 var timedEvent = eventTemplate;
-                timedEvent.Time = new DateTime(2013, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+                timedEvent.Time = new DateTime(2013, 1, 1, 0, 0, 0, 1, DateTimeKind.Utc);
                 timedEvent.Data = "Event with fixed time";
                 writer.Write(timedEvent);
 

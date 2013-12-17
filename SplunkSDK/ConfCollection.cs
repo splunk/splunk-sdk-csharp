@@ -18,7 +18,7 @@ namespace Splunk
 {
     /// <summary>
     /// The <see cref="ConfCollection"/> class represents the collection of 
-    /// configuration collections.
+    /// configuration files.
     /// </summary>
     public class ConfCollection : ResourceCollection<EntityCollection<Entity>>
     {

@@ -22,8 +22,8 @@ namespace Splunk
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// The <see class="Record"/> class represents the basic data
-    /// representation, extending the basic Dictionary with some basic get
+    /// The <see cref="Record"/> class represents the basic data
+    /// representation, extending the basic dictionary with some basic get
     /// methods.
     /// </summary>
     public class Record : Dictionary<string, object>, ISerializable
@@ -228,10 +228,13 @@ namespace Splunk
             {
                 return null;
             }
-            return ((List<object>)this[key]).Select(i => i
-                                                        .ToString())
-                                                        .ToList()
-                                                        .ToArray();
+
+            if (this[key].GetType() == typeof (string))
+            {
+                return new List<string>() {(string) this[key]}.ToArray();
+            }
+
+            return ((List<object>) this[key]).Select(i => i.ToString()).ToList().ToArray();
         }
 
         /// <summary>

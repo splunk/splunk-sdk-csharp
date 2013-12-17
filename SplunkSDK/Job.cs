@@ -349,8 +349,9 @@ namespace Splunk
         /// <summary>
         /// Gets all positive keywords used by this job. 
         /// </summary>
-        /// <remarks>/// A positive keyword is a keyword that is not in a NOT clause.
-        /// </remarks
+        /// <remarks>
+        /// A positive keyword is a keyword that is not in a NOT clause.
+        /// </remarks>
         public string Keywords
         {
             get
@@ -418,7 +419,7 @@ namespace Splunk
         /// This is the streaming part of the search that is sent to remote
         /// providers if reporting commands are used. The original search 
         /// should be the <see cref="EventSearch"/> + 
-        /// <see cref="reportSearch"/>.
+        /// <see cref="ReportSearch"/>.
         /// </para>
         /// </remarks>
         public string ReportSearch
@@ -846,7 +847,7 @@ namespace Splunk
         {
             Service.SetSegmentationDefault(ref args);
             ResponseMessage response = Service.Get(Path + "/events", args);
-            return response.Content;
+            return new ResponseStream(response);
         }
 
         /// <summary>
@@ -899,7 +900,7 @@ namespace Splunk
         {
             Service.SetSegmentationDefault(ref args);
             ResponseMessage response = Service.Get(Path + "/results", args);
-            return response.Content;
+            return new ResponseStream(response);
         }
 
         /// <summary>
@@ -935,7 +936,7 @@ namespace Splunk
             Service.SetSegmentationDefault(ref args);
             ResponseMessage response = 
                 Service.Get(Path + "/results_preview", args);
-            return response.Content;
+            return new ResponseStream(response);
         }
 
         /// <summary>
@@ -965,10 +966,10 @@ namespace Splunk
         /// </summary>
         /// <param name="args">The optional arguments.</param>
         /// <returns>The <see cref="Stream"/> handle.</returns>
-        public Stream SearchLog(Args args) 
+        public Stream SearchLog(Args args)
         {
             ResponseMessage response = Service.Get(Path + "/search.log", args);
-            return response.Content;
+            return new ResponseStream(response);
         }
 
         /// <summary>
@@ -1005,7 +1006,7 @@ namespace Splunk
         public Stream Summary(Args args) 
         {
             ResponseMessage response = Service.Get(Path + "/summary", args);
-            return response.Content;
+            return new ResponseStream(response);
         }
 
         /// <summary>
@@ -1026,7 +1027,7 @@ namespace Splunk
         public Stream Timeline(Args args) 
         {
             ResponseMessage response = Service.Get(Path + "/timeline", args);
-            return response.Content;
+            return new ResponseStream(response);
         }
 
         // Job "entities" don't return an AtomFeed, only an AtomEntry.

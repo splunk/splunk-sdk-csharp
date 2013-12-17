@@ -262,12 +262,12 @@ namespace Splunk
         /// <param name="search">The search query string.</param>
         /// <param name="args">The search arguments.</param>
         /// <returns>A results stream.</returns>
-        public Stream Export(string search, Args args) 
+        public Stream Export(string search, Args args)
         {
             args = Args.Create(args).Set("search", search);
             SetSegmentationDefault(ref args);
             ResponseMessage response = Get("search/jobs/export", args);
-            return new ExportResultsStream(response.Content);
+            return new ResponseStream(response, true);
         }
 
         /// <summary>
@@ -371,8 +371,9 @@ namespace Splunk
         /// <summary>
         /// Returns the collection of applications.
         /// </summary>
-        /// <returns>An <see cref="EntityCollection"/> of 
-        /// <see cref="Application">Applications</see>.</returns>
+        /// <returns>
+        /// A collection of applications.
+        /// </returns>
         public EntityCollection<Application> GetApplications() 
         {
             return new EntityCollection<Application>(
@@ -382,17 +383,17 @@ namespace Splunk
         /// <summary>
         /// Returns the collection of configurations.
         /// </summary>
-        /// <returns>A <see cref="ConfCollection"/>.</returns>
+        /// <returns>A collection of configurations.</returns>
         public ConfCollection GetConfs() 
         {
             return new ConfCollection(this);
         }
 
         /// <summary>
-        /// Returns the collection of applications.
+        /// Returns the collection of configurations.
         /// </summary>
         /// <param name="args">The arguments.</param>
-        /// <returns>A <see cref="ConfCollection"/>.</returns>
+        /// <returns>A collection of configurations.</returns>
         public ConfCollection GetConfs(Args args) 
         {
             return new ConfCollection(this, args);
@@ -401,7 +402,7 @@ namespace Splunk
         /// <summary>
         /// Returns a collection of saved event types.
         /// </summary>
-        /// <returns>An <see cref="EventTypeCollection"/>.</returns>
+        /// <returns>A collection of saved event types.</returns>
         public EventTypeCollection GetEventTypes()
         {
             return new EventTypeCollection(this);
@@ -411,7 +412,7 @@ namespace Splunk
         /// Returns a collection of saved event types.
         /// </summary>
         /// <param name="args">The arguments.</param>
-        /// <returns>An <see cref="EventTypeCollection"/>.</returns>
+        /// <returns>A collection of saved event types.</returns>
         public EventTypeCollection GetEventTypes(Args args)
         {
             return new EventTypeCollection(this, args);
@@ -421,7 +422,7 @@ namespace Splunk
         /// Returns a collection of alert groups that have been 
         /// fired by the service.
         /// </summary>
-        /// <returns>A <see cref="FiredAlertsGroupCollection"/>.</returns>
+        /// <returns>A collection of fired alert groups.</returns>
         public FiredAlertsGroupCollection GetFiredAlertGroups()
         {
             return new FiredAlertsGroupCollection(this);
@@ -433,7 +434,7 @@ namespace Splunk
         /// </summary>
         /// <param name="args">Optional arguments, such as "count" and 
         /// "offset" for pagination.</param>
-        /// <returns>A <see cref="FiredAlertsGroupCollection"/>.</returns>
+        /// <returns>A collection of fired alert groups.</returns>
         public FiredAlertsGroupCollection GetFiredAlerts(Args args)
         {
             return new FiredAlertsGroupCollection(this, args);
@@ -442,8 +443,7 @@ namespace Splunk
         /// <summary>
         /// Returns a collection of Splunk indexes.
         /// </summary>
-        /// <returns>An <see cref="EntityCollection"/> of 
-        /// <see cref="Index">Indexes</see>.</returns>
+        /// <returns>A collection of indexes.</returns>
         public EntityCollection<Index> GetIndexes() 
         {
             return new 
@@ -454,8 +454,7 @@ namespace Splunk
         /// Returns a collection of Splunk indexes.
         /// </summary>
         /// <param name="args">The optional arguments.</param>
-        /// <returns>An <see cref="EntityCollection"/> of 
-        /// <see cref="Index">Indexes</see>.</returns>
+        /// <returns>A collection of indexes.</returns>
         public EntityCollection<Index> GetIndexes(Args args) 
         {
             return new EntityCollection<Index>(
@@ -465,7 +464,7 @@ namespace Splunk
         /// <summary>
         /// Returns information about the Splunk service.
         /// </summary>
-        /// <returns><see cref="ServiceInfo"/> about the Splunk
+        /// <returns>Information about the Splunk
         /// service.</returns>
         public ServiceInfo GetInfo() 
         {
@@ -475,7 +474,7 @@ namespace Splunk
         /// <summary>
         /// Returns a collection of configured inputs.
         /// </summary>
-        /// <returns>An <see cref="InputCollection"/>.</returns>
+        /// <returns>A collection of configured inputs.</returns>
         public InputCollection GetInputs() 
         {
             return new InputCollection(this);
@@ -485,7 +484,7 @@ namespace Splunk
         /// Returns a collection of configured inputs.
         /// </summary>
         /// <param name="args">Optional arguments.</param>
-        /// <returns>An <see cref="InputCollection"/>.</returns>
+        /// <returns>A collection of configured inputs.</returns>
         public InputCollection GetInputs(Args args) 
         {
             return new InputCollection(this, args);
@@ -494,7 +493,7 @@ namespace Splunk
         /// <summary>
         /// Returns a collection of current search jobs.
         /// </summary>
-        /// <returns>A <see cref="JobCollection"/>.</returns>
+        /// <returns>A collection of jobs.</returns>
         public JobCollection GetJobs() 
         {
             return new JobCollection(this);
@@ -504,7 +503,7 @@ namespace Splunk
         /// Returns a collection of current search jobs.
         /// </summary>
         /// <param name="args">The variable arguments.</param>
-        /// <returns>A <see cref="JobCollection"/>.</returns>
+        /// <returns>A collection of jobs.</returns>
         public JobCollection GetJobs(Args args) 
         {
             return new JobCollection(this, args);
@@ -514,8 +513,7 @@ namespace Splunk
         /// Returns a collection of service logging categories and their 
         /// status.
         /// </summary>
-        /// <returns>An <see cref="EntityCollection"/> of 
-        /// <see cref="Logger">Loggers</see>.</returns>
+        /// <returns>A collection of loggers.</returns>
         public EntityCollection<Logger> GetLoggers()
         {
             return new EntityCollection<Logger>(
@@ -527,8 +525,7 @@ namespace Splunk
         /// </summary>
         /// <param name="args">Optional arguments, such as "count" and "offset"
         /// for pagination.</param>
-        /// <returns>An <see cref="EntityCollection"/> of 
-        /// <see cref="Logger">Loggers</see>.</returns>
+        /// <returns>A collection of loggers.</returns>
         public EntityCollection<Logger> GetLoggers(Args args) 
         {
             return new EntityCollection<Logger>(
@@ -548,7 +545,7 @@ namespace Splunk
         /// Returns the collection of messages.
         /// </summary>
         /// <param name="args">The arguments.</param>
-        /// <returns>A <see cref="MessageCollection"/>.</returns>
+        /// <returns>A collection of messages.</returns>
         public MessageCollection GetMessages(Args args) 
         {
             return new MessageCollection(this, args);
@@ -557,7 +554,7 @@ namespace Splunk
         /// <summary>
         /// Returns a collection of credentials. 
         /// </summary>
-        /// <returns>A <see cref="CredentialCollection"/>.</returns>
+        /// <returns>A collection of credentials.</returns>
         /// <remarks>
         /// This collection is used for managing secure credentials.
         /// </remarks>
@@ -571,7 +568,7 @@ namespace Splunk
         /// </summary>
         /// <param name="args">Optional arguments, such as "count" and "offset"
         /// for pagination.</param>
-        /// <returns>A <see cref="CredentialCollection"/>.</returns>
+        /// <returns>A collection of credentials.</returns>
         /// <remarks>
         /// This collection is used for managing secure credentials.
         /// </remarks>
@@ -583,7 +580,7 @@ namespace Splunk
         /// <summary>
         /// Returns the receiver object for this Splunk service.
         /// </summary>
-        /// <returns>A <see cref="Receiver"/>.</returns>
+        /// <returns>A receiver object.</returns>
         public Receiver GetReceiver() 
         {
             return new Receiver(this);
@@ -592,8 +589,7 @@ namespace Splunk
         /// <summary>
         /// Returns a collection of Splunk user roles.
         /// </summary>
-        /// <returns>An <see cref="EntityCollection"/> of Splunk
-        /// <see cref="Role">Roles</see>.</returns>
+        /// <returns>A collection of Splunk roles.</returns>
         public EntityCollection<Role> GetRoles() 
         {
             return new EntityCollection<Role>(
@@ -604,8 +600,7 @@ namespace Splunk
         /// Returns a collection of Splunk user roles.
         /// </summary>
         /// <param name="args">Optional parameters.</param>
-        /// <returns>An <see cref="EntityCollection"/> of Splunk
-        /// <see cref="Role">Roles</see>.</returns>
+        /// <returns>A collection of Splunk roles.</returns>
         public EntityCollection<Role> GetRoles(Args args) 
         {
             return new EntityCollection<Role>(
@@ -615,7 +610,7 @@ namespace Splunk
         /// <summary>
         /// Returns a collection of saved searches.
         /// </summary>
-        /// <returns>A <see cref="SavedSearchCollection"/>.</returns>
+        /// <returns>A collection of saved searches.</returns>
         public SavedSearchCollection GetSavedSearches() 
         {
             return new SavedSearchCollection(this);
@@ -625,7 +620,7 @@ namespace Splunk
         /// Returns a collection of saved searches.
         /// </summary>
         /// <param name="args">The arguments.</param>
-        /// <returns>A <see cref="SavedSearchCollection"/>.</returns>
+        /// <returns>A collection of saved searches.</returns>
         public SavedSearchCollection GetSavedSearches(Args args) 
         {
             return new SavedSearchCollection(this, args);
@@ -635,7 +630,8 @@ namespace Splunk
         /// Returns service configuration information for an instance of 
         /// Splunk.
         /// </summary>
-        /// <returns>This Splunk instance's <see cref="Settings"/>.</returns>
+        /// <returns>This Splunk instance's configuration information.
+        /// </returns>
         public Settings GetSettings()
         {
             return new Settings(this);
@@ -644,8 +640,7 @@ namespace Splunk
         /// <summary>
         /// Returns a collection of in-progress oneshot uploads.
         /// </summary>
-        /// <returns>An <see cref="EntityCollection"/> of oneshot
-        /// <see cref="Upload">Uploads</see>.</returns>
+        /// <returns>A collection of oneshot uploads.</returns>
         public EntityCollection<Upload> GetUploads()
         {
             return new EntityCollection<Upload>(
@@ -656,8 +651,7 @@ namespace Splunk
         /// Returns a collection of in-progress oneshot uploads.
         /// </summary>
         /// <param name="splunkNamespace">The specific namespace.</param>
-        /// <returns>An <see cref="EntityCollection"/> of oneshot
-        /// <see cref="Upload">Uploads</see>.</returns>
+        /// <returns>A collection of oneshot uploads.</returns>
         public EntityCollection<Upload> GetUploads(Args splunkNamespace) 
         {
             return new EntityCollection<Upload>(
@@ -667,7 +661,7 @@ namespace Splunk
         /// <summary>
         /// Returns a collection of Splunk users.
         /// </summary>
-        /// <returns>A <see cref="UserCollection"/>.</returns>
+        /// <returns>A collection of Splunk users.</returns>
         public UserCollection GetUsers() 
         {
            return new UserCollection(this);
@@ -677,7 +671,7 @@ namespace Splunk
         /// Returns a collection of Splunk users.
         /// </summary>
         /// <param name="args">The arguments.</param>
-        /// <returns>A <see cref="UserCollection"/>.</returns>
+        /// <returns>A collection of Splunk users.</returns>
         public UserCollection GetUsers(Args args) 
         {
             return new UserCollection(this, args);
@@ -689,7 +683,7 @@ namespace Splunk
         /// </summary>
         /// <param name="username">The username.</param>
         /// <param name="password">The password.</param>
-        /// <returns>The <see cref="Service"/>.</returns>
+        /// <returns>The service instance.</returns>
         public Service Login(string username, string password) 
         {
             this.Username = username;
@@ -725,7 +719,7 @@ namespace Splunk
         /// <summary>
         /// Logs out of the service. 
         /// </summary>
-        /// <returns>The <see cref="Service"/>.</returns>
+        /// <returns>The service instance.</returns>
         public Service Logout() 
         {
             this.Token = null;
@@ -756,7 +750,7 @@ namespace Splunk
             inputArgs.Add("exec_mode", "oneshot");
             SetSegmentationDefault(ref inputArgs);
             ResponseMessage response = this.Post("search/jobs", inputArgs);
-            return response.Content;
+            return new ResponseStream(response);
         }
 
         /// <summary>
@@ -792,7 +786,7 @@ namespace Splunk
         /// </summary>
         /// <param name="port">The port on the server to which to 
         /// connect.</param>
-        /// <returns>A connected <see cref="Socket"/>.</returns>
+        /// <returns>A connected socket.</returns>
         public Socket Open(int port) 
         {
             Socket socket = new Socket(
@@ -806,7 +800,7 @@ namespace Splunk
         /// JSON format.
         /// </summary>
         /// <param name="query">The search query.</param>
-        /// <returns>A parse <see cref="ResponseMessage"/>.</returns>
+        /// <returns>A parse response message.</returns>
         public ResponseMessage Parse(string query) 
         {
             return this.Parse(query, null);
@@ -818,7 +812,7 @@ namespace Splunk
         /// </summary>
         /// <param name="query">The search query.</param>
         /// <param name="args">The arguments.</param>
-        /// <returns>A parse <see cref="ResponseMessage"/>.</returns>
+        /// <returns>A parse response message.</returns>
         public ResponseMessage Parse(string query, Args args) 
         {
             args = Args.Create(args);
@@ -829,10 +823,10 @@ namespace Splunk
         /// <summary>
         /// Issues a restart request to the service. 
         /// </summary>
-        /// <returns>A <see cref="ResponseMessage"/>.</returns>
+        /// <returns>A response message.</returns>
         public ResponseMessage Restart() 
         {
-            return this.Get("server/control/restart");
+            return this.Post("server/control/restart");
         }
 
         /// <summary>
@@ -890,7 +884,7 @@ namespace Splunk
         /// </summary>
         /// <param name="path">The path.</param>
         /// <param name="request">The request message.</param>
-        /// <returns>A <see cref="ResponseMessage"/>.</returns>
+        /// <returns>A response message.</returns>
         /// <remarks>
         /// This method overrides the base 
         /// <see cref="HttpService"/>.<see cref="HttpService.Send"/> 

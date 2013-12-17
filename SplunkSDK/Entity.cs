@@ -576,7 +576,7 @@ namespace Splunk
 
         /// <summary>
         /// Sets the local cache update value. Writing to the server is deferred
-        /// until the <see cref="Update"/> method is called.
+        /// until the <see cref="Update()"/> method is called.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>

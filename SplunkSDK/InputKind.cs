@@ -107,7 +107,9 @@ namespace Splunk
         public static readonly InputKind WindowsRegistry =
             new InputKind("registry", typeof(WindowsRegistryInput));
 
-        /// <summary>
+        public static readonly InputKind NewWindowsRegistry =
+            new InputKind("WinRegMon", typeof(WindowsRegistryInput));
+        
         /// The Windows Management Instrumentation (WMI) input.
         /// </summary>
         public static readonly InputKind WindowsWmi = 
