@@ -229,8 +229,6 @@ namespace Splunk
                 return null;
             }
 
-            string[] ret;
-
             if (this[key].GetType() == typeof (string))
             {
                 return new List<string>() {(string) this[key]}.ToArray();
