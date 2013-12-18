@@ -73,14 +73,14 @@ namespace Splunk
         /// <param name="query">The search query.</param>
         /// <param name="args">Additional arguments for this job.</param>
         /// <returns>The job.</returns>
-        public new Job Create(string query, Args args) 
+        public new Job Create(string query, Args args)
         {
-            if (args != null && args.ContainsKey("exec_mode")) 
+            if (args != null && args.ContainsKey("exec_mode"))
             {
-                if (args["exec_mode"].Equals("oneshot")) 
+                if (args["exec_mode"].Equals("oneshot"))
                 {
                     throw new Exception(
-                      "Oneshot not allowed, use service oneshot search method");
+                        "Oneshot not allowed, use service oneshot search method");
                 }
             }
             args = Args.Create(args).Set("search", query);
@@ -90,14 +90,9 @@ namespace Splunk
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(streamReader.ReadToEnd());
             string sid = doc.SelectSingleNode("/response/sid").InnerText;
-            this.Invalidate();
-            Job job = (Job)Get(sid);
 
-            // if job not yet scheduled, create an empty job object
-            if (job == null) 
-            {
-                job = new Job(Service, "search/jobs/" + sid);
-            }
+            Job job = new Job(Service, "search/jobs/" + sid);
+            job.Refresh();
 
             return job;
         }
