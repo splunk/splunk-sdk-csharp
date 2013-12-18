@@ -46,10 +46,14 @@ namespace Splunk
             this.isExportResult = isExportResult;
         }
 
-        public new void Dispose()
+        protected override void Dispose(bool disposing)
         {
-            this.message.Dispose();
-            base.Dispose();
+            if (disposing)
+            {
+                this.message.Dispose();
+            }
+
+            base.Dispose(disposing);
         }
 
         /// <summary>
