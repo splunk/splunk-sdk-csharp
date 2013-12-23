@@ -62,9 +62,7 @@ namespace UnitTests
         ///     Test returning scheme through stdout
         /// </summary>
         [TestMethod]
-        [DeploymentItem(
-            SchemeFilePath,
-            TestDataFolder)]
+        [DeploymentItem(TestDataFolder)]
         public void OutputScheme()
         {
             using (var consoleOut = new StringWriter())
@@ -79,38 +77,30 @@ namespace UnitTests
         ///     Test getting validation info from stdin and return validation error through stdout.
         /// </summary>
         [TestMethod]
-        [DeploymentItem(
-            ValidationItemsFilePath,
-            TestDataFolder)]
-        [DeploymentItem(
-            ValidationErrorMessageFilePath,
-            TestDataFolder)]
+        [DeploymentItem(TestDataFolder)]
         public void ExternalValidation()
         {
+
             using (var consoleIn = ReadFileFromDataFolderAsReader(ValidationItemsFilePath))
             using (var consoleOut = new StringWriter())
             {
                 SetConsoleIn(consoleIn);
                 Console.SetOut(consoleOut);
 
-                var exitCode = Script.Run<TestScript>(new[] {"--validate-arguments"});
+                var exitCode = Script.Run<TestScript>(new[] { "--validate-arguments" });
 
                 AssertEqualWithExpectedFile(ValidationErrorMessageFilePath, consoleOut.ToString());
 
                 Assert.AreNotEqual(0, exitCode);
             }
         }
+        
 
         /// <summary>
         ///     Test getting validation info from stdin
         /// </summary>
         [TestMethod]
-        [DeploymentItem(
-            InputDefinitionFilePath,
-            TestDataFolder)]
-        [DeploymentItem(
-            EventsFilePath,
-            TestDataFolder)]
+        [DeploymentItem(TestDataFolder)]
         public void StreamEvents()
         {
             using (var consoleIn = ReadFileFromDataFolderAsReader(InputDefinitionFilePath))
@@ -202,7 +192,7 @@ namespace UnitTests
         /// <returns>A full path</returns>
         private static string GetDataFilePath(string relativePath)
         {
-            return TestDataFolder + @"\" + relativePath;
+            return Directory.GetCurrentDirectory() + @"\" + relativePath;
         }
 
         /// <summary>

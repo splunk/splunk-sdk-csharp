@@ -69,7 +69,8 @@ namespace UnitTests
             Service service = Connect();
             DateTimeOffset offset = new DateTimeOffset(DateTime.Now);
             string now = DateTime.UtcNow.ToString("yyyy-MM-dd'T'HH:mm:ss") +
-                string.Format("{0}{1} ", offset.Offset.Hours.ToString("D2"), offset.Offset.Minutes.ToString("D2"));
+                         string.Format("{0}{1} ", offset.Offset.Hours.ToString("D2"),
+                             offset.Offset.Minutes.ToString("D2"));
 
             ServiceInfo info = service.GetInfo();
 
@@ -197,10 +198,10 @@ namespace UnitTests
             service = this.Connect();
             index = service.GetIndexes().Get(indexName);
             user = service.GetUsers().Get("admin");
-       
+
             index.Enable();
             Assert.IsFalse(index.IsDisabled);
-            
+
             // Restore original roles
             user.Roles = roles;
             user.Update();
@@ -249,11 +250,19 @@ namespace UnitTests
             string indexName = "sdk-tests2";
             DateTimeOffset offset = new DateTimeOffset(DateTime.Now);
             string now = DateTime.UtcNow.ToString("yyyy-MM-dd'T'HH:mm:ss") +
-                string.Format("{0}{1} ", offset.Offset.Hours.ToString("D2"), offset.Offset.Minutes.ToString("D2"));
+                         string.Format("{0}{1} ", offset.Offset.Hours.ToString("D2"),
+                             offset.Offset.Minutes.ToString("D2"));
 
             Service service = this.Connect();
             ServiceInfo info = service.GetInfo();
             Index index = service.GetIndexes().Get(indexName);
+
+            if (index.TotalEventCount > 0)
+            {
+                index.Clean(20);
+            }
+
+            Assert.AreEqual(0, index.TotalEventCount, assertRoot + "#1");
 
             ClearIndex(service, indexName, index);
 
@@ -315,7 +324,8 @@ namespace UnitTests
             string indexName = "main";
             DateTimeOffset offset = new DateTimeOffset(DateTime.Now);
             string now = DateTime.UtcNow.ToString("yyyy-MM-dd'T'HH:mm:ss") +
-                string.Format("{0}{1} ", offset.Offset.Hours.ToString("D2"), offset.Offset.Minutes.ToString("D2"));
+                         string.Format("{0}{1} ", offset.Offset.Hours.ToString("D2"),
+                             offset.Offset.Minutes.ToString("D2"));
 
             Service service = this.Connect();
             Receiver receiver = service.GetReceiver();
@@ -342,7 +352,16 @@ namespace UnitTests
         /// <param name="index">The index object</param>
         private void ClearIndex(Service service, string indexName, Index index)
         {
-            service.Oneshot(string.Format("search index={0} * | delete", indexName));
+            Stream stream = service.Oneshot(string.Format("search index={0} * | delete", indexName));
+
+            StreamReader reader = new StreamReader(stream);
+            string message = reader.ReadToEnd();
+
+            if (message.Contains("msg type=\"FATAL\""))
+            {
+                throw new ApplicationException(string.Format("web reqest return error: {0}", message));
+            }
+
             WaitUntilEventCount(index, 0, 45);
         }
 
@@ -356,7 +375,8 @@ namespace UnitTests
             string indexName = "sdk-tests2";
             DateTimeOffset offset = new DateTimeOffset(DateTime.Now);
             string now = DateTime.UtcNow.ToString("yyyy-MM-dd'T'HH:mm:ss") +
-                string.Format("{0}{1} ", offset.Offset.Hours.ToString("D2"), offset.Offset.Minutes.ToString("D2"));
+                         string.Format("{0}{1} ", offset.Offset.Hours.ToString("D2"),
+                             offset.Offset.Minutes.ToString("D2"));
 
             Service service = this.Connect();
             Index index = service.GetIndexes().Get(indexName);
@@ -372,7 +392,7 @@ namespace UnitTests
             index.Submit(indexProperties, now + " Hello World. \u0150");
             index.Submit(indexProperties, now + " Goodbye World. \u0150");
             WaitUntilEventCount(index, 2, 45);
-      
+
             ClearIndex(service, indexName, index);
 
             // stream event to index with variable arguments
@@ -392,7 +412,7 @@ namespace UnitTests
                 Host = Host,
                 Source = Source,
                 SourceType = SourceType,
-            }; 
+            };
             var receiver = service.GetReceiver();
             receiver.Submit(args, "Hello World.");
             receiver.Submit(args, "Goodbye world.");
@@ -400,12 +420,12 @@ namespace UnitTests
             // verify the fields of events in the index matching the args.
             using (var stream =
                 service.Oneshot(
-                string.Format(
-                    "search index={0} host={1} source={2} sourcetype={3}",
-                    indexName,
-                    Host,
-                    Source,
-                    SourceType)))
+                    string.Format(
+                        "search index={0} host={1} source={2} sourcetype={3}",
+                        indexName,
+                        Host,
+                        Source,
+                        SourceType)))
             using (var reader = new ResultsReaderXml(stream))
             {
                 Assert.AreEqual(2, reader.Count());
@@ -426,7 +446,8 @@ namespace UnitTests
             string indexName = "main";
             DateTimeOffset offset = new DateTimeOffset(DateTime.Now);
             string now = DateTime.UtcNow.ToString("yyyy-MM-dd'T'HH:mm:ss") +
-                string.Format("{0}{1} ", offset.Offset.Hours.ToString("D2"), offset.Offset.Minutes.ToString("D2"));
+                         string.Format("{0}{1} ", offset.Offset.Hours.ToString("D2"),
+                             offset.Offset.Minutes.ToString("D2"));
 
             Service service = this.Connect();
             Receiver receiver = service.GetReceiver();
@@ -436,11 +457,11 @@ namespace UnitTests
             Assert.IsFalse(index.IsDisabled);
 
             Args indexProperties = GetIndexProperties(index);
-            
+
             // submit event to default index using variable arguments
             receiver.Log(indexProperties, "Hello World. \u0150");
             receiver.Log(indexProperties, "Goodbye World. \u0150");
-       
+
             // stream event to default index with variable arguments
             Stream streamArgs = receiver.Attach(indexProperties);
             streamArgs.Write(Encoding.UTF8.GetBytes(" Hello World again. \u0150\r\n"));

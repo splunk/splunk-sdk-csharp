@@ -37,7 +37,7 @@ namespace UnitTests
         /// Touches the job after it is queryable.
         /// </summary>
         /// <param name="job">The job</param>
-        private void CheckJob(Job job)
+        private void CheckJob(Job job, Service service)
         {
             string dummyString;
             string[] dummyList;
@@ -66,7 +66,12 @@ namespace UnitTests
             dummyString = job.IndexLatest;
             dummyString = job.Keywords;
             dummyString = job.Label;
-            dummyDateTime = job.LatestTime;
+
+            if (service.VersionCompare("6.0") < 0)
+            {
+                dummyDateTime = job.LatestTime;
+            }
+
             dummyInt = job.NumPreviews;
             dummyInt = job.Priority;
             dummyString = job.RemoteSearch;
@@ -123,7 +128,7 @@ namespace UnitTests
             Service service = this.Connect();
             String query = "Search * | head 10";
             Job job = service.GetJobs().Create(query);
-            this.CheckJob(job);
+            this.CheckJob(job,service);
             // summary of job
             job.Summary().Close();
         }
