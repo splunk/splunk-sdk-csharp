@@ -1036,19 +1036,28 @@ namespace Splunk
         /// Refreshes this job.
         /// </summary>
         /// <returns>The extended resource, the <see cref="Job"/>.</returns>
-        public override Resource Refresh() 
+        public override Resource Refresh()
         {
             this.Update();
             ResponseMessage response = Service.Get(Path);
-            if (response.Status == 204) 
+            if (response.Status == 204)
             {
                 this.isReady = false;
                 return null;
             }
-
-            this.isReady = true;
+            
             AtomEntry entry = AtomEntry.Parse(response.Content);
             this.Load(entry);
+
+            if (this.GetString("dispatchState").Equals("QUEUED") || this.GetString("dispatchState").Equals("PARSING"))
+            {
+                isReady = false;
+            }
+            else
+            {
+                isReady = true;
+            }
+
             return this;
         }
 
