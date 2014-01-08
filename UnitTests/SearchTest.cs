@@ -14,6 +14,8 @@
  * under the License.
  */
 
+using System.Diagnostics;
+
 namespace UnitTests
 {
     using System;
@@ -625,6 +627,30 @@ namespace UnitTests
                                 type,
                                 mode)
                 });
+        }
+
+        [TestMethod]
+        public void JobRefreshTest()
+        {
+            var cli = SplunkSDKHelper.Command.Splunk("search");
+            cli.AddRule("search", typeof (string), "search string");
+            cli.Opts["search"] = "search index=_internal * | head 10 ";
+
+            var service = Service.Connect(cli.Opts);
+            var jobs = service.GetJobs();
+            var job = jobs.Create((string) cli.Opts["search"]);
+
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            TimeSpan max = new TimeSpan(0, 0, 0, 20);
+            while (!job.IsReady)
+            {
+                System.Threading.Thread.Sleep(10);
+                if (stopwatch.Elapsed > max)
+                {
+                    Assert.Fail("the job is not ready within expected time {0} seconds", max.TotalSeconds);
+                }
+            }
         }
 
         /// <summary>

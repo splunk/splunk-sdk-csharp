@@ -235,7 +235,7 @@ namespace UnitTests
 
             inputCollection.Create(filename, InputKind.Monitor);
             Assert.IsTrue(inputCollection.ContainsKey(filename));
-            MonitorInput monitorInput = (MonitorInput)inputCollection.Get(filename);
+            MonitorInput monitorInput = (MonitorInput) inputCollection.Get(filename);
 
             monitorInput.Blacklist = "phonyregex*1";
             monitorInput.CheckIndex = true;
@@ -281,7 +281,16 @@ namespace UnitTests
             monitorInput.Remove();
             inputCollection.Refresh();
             inputCollection.Refresh();
-            Assert.IsFalse(inputCollection.ContainsKey(filename), assertRoot + "#10");
+
+            for (int i = 0; i < 5; i++)
+            {
+                if (inputCollection.ContainsKey(filename))
+                {
+                    System.Threading.Thread.Sleep(100);
+                }
+            }
+
+            Assert.IsFalse(inputCollection.ContainsKey(filename), assertRoot + "#11");
         }
 
         /// <summary>
@@ -296,15 +305,9 @@ namespace UnitTests
 
             // CRUD Script input
             string filename;
-            if (info.OsName.Equals("Windows"))
-            {
-                filename = "echo.bat";
-            }
-            else
-            {
-                filename = "echo.sh";
-            }
 
+            filename = "readme.txt";
+           
             Args args = new Args();
             args.Clear();
             args.Add("interval", "60");
@@ -338,13 +341,10 @@ namespace UnitTests
                 Assert.AreEqual("admin", scriptInput.PassAuth, assertRoot + "#15");
             }
 
-            if (service.VersionCompare("5.0") >= 0)
+            if (string.Compare(scriptInput.Source, "source", true) != 0 &&
+                string.Compare(scriptInput.Source, "renamedSource", true) != 0)
             {
-                Assert.AreEqual("source", scriptInput.Source, assertRoot + "#16");
-            }
-            else
-            {
-                Assert.AreEqual("renamedSource", scriptInput.Source, assertRoot + "#16");
+                Assert.Fail(assertRoot + "#16");
             }
 
             Assert.AreEqual("script", scriptInput.SourceType, assertRoot + "#17");
@@ -605,7 +605,7 @@ namespace UnitTests
                 Assert.IsFalse(inputCollection.ContainsKey(name), assertRoot + "#70");
             }
         }
-
+        
         /// <summary>
         /// Tests the Windows Registry Create, Read, Update and Delete
         /// </summary>
@@ -625,7 +625,7 @@ namespace UnitTests
                 {
                     return;
                 }
-
+   
                 if (inputCollection.ContainsKey(name))
                 {
                     inputCollection.Remove(name);
@@ -644,26 +644,36 @@ namespace UnitTests
                 WindowsRegistryInput windowsRegistryInput =
                         (WindowsRegistryInput)inputCollection.Get(name);
 
-                windowsRegistryInput.Index = "main";
-                windowsRegistryInput.MonitorSubnodes = true;
-                windowsRegistryInput.Update();
+                try
+                {
+                    windowsRegistryInput.Index = "main";
+                    if (service.VersionCompare("6.0") < 0)
+                    {
+                        windowsRegistryInput.MonitorSubnodes = true;
+                    }
 
-                Assert.IsFalse(windowsRegistryInput.Baseline, assertRoot + "#73");
-                Assert.AreEqual("main", windowsRegistryInput.Index, assertRoot + "#74");
+                    windowsRegistryInput.Update();
 
-                // adjust a few of the arguments
-                windowsRegistryInput.Type = new string[] { "create", "delete" };
-                // touch the new Type (testing get after set)
-                string[] foo = windowsRegistryInput.Type;
-                windowsRegistryInput.Baseline = false;
-                windowsRegistryInput.Update();
+                    Assert.IsFalse(windowsRegistryInput.Baseline, assertRoot + "#73");
+                    Assert.AreEqual("main", windowsRegistryInput.Index, assertRoot + "#74");
 
-                Assert.AreEqual("*", windowsRegistryInput.Proc, assertRoot + "#75");
-                Assert.IsTrue(windowsRegistryInput.Type.Contains("create"), assertRoot + "#76");
-                Assert.IsTrue(windowsRegistryInput.Type.Contains("delete"), assertRoot + "#77");
-                Assert.IsFalse(windowsRegistryInput.Baseline, assertRoot + "#78");
+                    // adjust a few of the arguments
+                    windowsRegistryInput.Type = new string[] { "create", "delete" };
+                    // touch the new Type (testing get after set)
+                    string[] foo = windowsRegistryInput.Type;
+                    windowsRegistryInput.Baseline = false;
+                    windowsRegistryInput.Update();
 
-                windowsRegistryInput.Remove();
+                    Assert.AreEqual("*", windowsRegistryInput.Proc, assertRoot + "#75");
+                    Assert.IsTrue(windowsRegistryInput.Type.Contains("create"), assertRoot + "#76");
+                    Assert.IsTrue(windowsRegistryInput.Type.Contains("delete"), assertRoot + "#77");
+                    Assert.IsFalse(windowsRegistryInput.Baseline, assertRoot + "#78");
+                }
+                finally
+                {
+                    windowsRegistryInput.Remove();
+                }
+
                 inputCollection.Refresh();
                 Assert.IsFalse(inputCollection.ContainsKey(name), assertRoot + "#79");
             }
