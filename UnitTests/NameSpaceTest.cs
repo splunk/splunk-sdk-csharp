@@ -30,6 +30,10 @@ namespace UnitTests
             splunkNamespace = new Args("sharing", "system");
             Assert.AreEqual("/servicesNS/nobody/system/", service.Fullpath("", splunkNamespace),
                             "Expected path URL to be /servicesNS/nobody/system/");
+
+            splunkNamespace = new Args("owner", "foo@bar.com");
+            Assert.AreEqual("/servicesNS/foo%40bar.com/-/", service.Fullpath("", splunkNamespace),
+                            "Expected path URL to be /servicesNS/foo%40bar.com/-/");
         }
 
         /// <summary>

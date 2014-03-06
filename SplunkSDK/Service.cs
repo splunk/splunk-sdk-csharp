@@ -361,6 +361,15 @@ namespace Splunk
                 localOwner = "nobody";
             }
 
+            if (localOwner != null)
+            {
+                localOwner = Args.Encode(localOwner);
+            }
+            if (localApp != null)
+            {
+                localApp = Args.Encode(localApp);
+            }
+
             return string.Format(
                 "/servicesNS/{0}/{1}/{2}",
                 localOwner == null ? "-" : localOwner,
