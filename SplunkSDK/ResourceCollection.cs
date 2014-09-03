@@ -491,12 +491,13 @@ namespace Splunk
         /// Refreshes the resource collection.
         /// </summary>
         /// <returns>The <see cref="Resource"/>.</returns>
-        public override Resource Refresh() 
+        public override Resource Refresh()
         {
             this.Items.Clear();
             ResponseMessage response = this.List();
             AtomFeed feed = AtomFeed.Parse(response.Content);
             this.Load(feed);
+            response.Dispose();
             return this;
         }
 
