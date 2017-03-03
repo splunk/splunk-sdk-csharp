@@ -1,6 +1,33 @@
 ﻿# The Splunk Software Development Kit for C# 
 ### Version 1.0.1
 
+> The Splunk SDK for C# v1.x is deprecated.
+
+> What deprecation means:
+
+> * The resources relating to the Splunk SDK for C# v1.x have been removed from dev.splunk.com and are only be available in the GitHub repository.
+> * Apps that use the Splunk SDK for C# v1.x will continue to work as they do now.
+> * Apps that use the Splunk SDK for C# v1.x will continue to be eligible for Splunk App Certification.
+> * Splunk will no longer provide any feature enhancements to the Splunk SDK for C# v1.x.
+
+> Recommendation on new app development and app migration:
+
+> * Because Splunk is no longer investing in the Splunk SDK for C# v1.x, we recommend that any new app development be done using other approaches:
+
+> * Using the [Splunk SDK for C# v2.x](http://dev.staging.splunk.com/view/csharp-sdk-pcl/SP-CAAAEXS). Unlike the Splunk SDK for C# 1.x, the Splunk SDK for C# 2.0 abides by .NET guidelines, as well as FxCop and StyleCop rules. In addition, the API client in Splunk SDK for C# v2.x is a Portable Class Library (PCL), and supports cross-platform development.
+>  * Directly using our REST API in the language of their choice.
+>	* Using one of our supported SDKs:
+>		* Python ([GitHub](https://github.com/splunk/splunk-sdk-python) | [dev.splunk.com](http://dev.splunk.com/view/python-sdk/SP-CAAAEBB))
+>		* Java ([GitHub](https://github.com/splunk/splunk-sdk-java) | [dev.splunk.com](http://dev.splunk.com/view/java-sdk/SP-CAAAECN))
+>		* JavaScript ([GitHub](https://github.com/splunk/splunk-sdk-javascript) | [dev.splunk.com](http://dev.splunk.com/view/javascript-sdk/SP-CAAAECM))
+>		* C# v2.x ([GitHub](https://github.com/splunk/splunk-sdk-csharp-pcl) | [dev.splunk.com](http://dev.splunk.com/view/csharp-sdk/SP-CAAAEPK))
+
+> * For existing apps that use the Splunk SDK for C# v1.x, we request that developers begin the migration process to the Splunk SDK for C# v2.x. We encourage developers to provide feedback to Splunk at [devinfo@splunk.com](mailto:devinfo@splunk.com) if there are any issues with migration.
+
+> Notice of removal:
+
+> * The Splunk SDK for C# v1.x will continue to be available on GitHub, should other developers want to clone or fork the project.
+
 The Splunk Software Development Kit (SDK) for C# contains library code and 
 examples designed to enable developers to build applications using Splunk.
 
