@@ -495,8 +495,13 @@ namespace Splunk
         {
             this.Items.Clear();
             ResponseMessage response = this.List();
-            AtomFeed feed = AtomFeed.Parse(response.Content);
-            this.Load(feed);
+
+            using (System.IO.Stream stream = response.Content)
+            {
+                AtomFeed feed = AtomFeed.Parse(stream);
+                this.Load(feed);
+            }
+
             response.Dispose();
             return this;
         }
