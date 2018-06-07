@@ -323,7 +323,19 @@ If you want to make a code contribution, go to the
 [Open Source](http://dev.splunk.com/view/opensource/SP-CAAAEDM)
 page for more information.
 
-### Contact Us
+### Support
+
+Beginning September 2018, the Splunk SDKs for C#, Java, JavaScript, and Python will no longer be supported through Splunk Support.
+
+You can still request assistance using the following options:
+
+* Post questions to [Splunk Answers](http://splunk-base.splunk.com/answers/). Be sure to use tags to identify the SDK or tool you are having an issue with.
+
+* File an issue on [GitHub](https://github.com/splunk/).
+
+* Send feedback to _devinfo@splunk.com_.
+ 
+ ### Contact Us
 
 You can reach the Dev Platform team at devinfo@splunk.com.
 
